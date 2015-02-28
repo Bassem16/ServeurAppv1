@@ -42,7 +42,7 @@ public class TableFactory {
 		try {
 			Class.forName("com.mysql.jdbc.Driver");
 			conn = DriverManager.getConnection(
-					"jdbc:mysql://localhost/banque_test", "root", "");
+					"jdbc:mysql://localhost/BANQUE_TEST", "root", "");
 			stmt = (com.mysql.jdbc.Statement) conn.createStatement();
 			stmt.executeUpdate(_CREATE_TABLE_COMPTES);
 			stmt.executeUpdate(_CREATE_TABLE_OPERATIONS);
