@@ -3,6 +3,7 @@ package fr.dauphine.mido.as;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
+
 import com.mysql.jdbc.Statement;
 
 
