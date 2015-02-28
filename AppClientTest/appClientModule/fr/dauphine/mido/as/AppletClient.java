@@ -11,7 +11,7 @@ import com.mysql.jdbc.Statement;
 
 public class AppletClient extends Applet {
 	static final long serialVersionUID = 2;
-	private final static String _SELECT1 = "SELECT * FROM table_test1";
+	private final static String _SELECT1 = "SELECT * FROM TABLE_TEST1";
 	
 	// resize the screen
 	public void init() {
