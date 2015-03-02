@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import javax.sql.DataSource;
 
 public class GestionCompte {
-	private final static String _SQL_SELECT_OPERATIONS = "select * fromBANQUE_TEST.OPERATIONS whereNOCOMPTE like?";
+	private final static String _SQL_SELECT_OPERATIONS = "select * from BANQUE_TEST.OPERATIONS where NOCOMPTE like ?";
 
 	public static ArrayList<Operation> rechercheOperations(
 			DataSource datasource, Compte unCompte) {

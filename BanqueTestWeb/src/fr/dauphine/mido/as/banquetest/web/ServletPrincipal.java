@@ -27,6 +27,7 @@ import java.sql.Connection;
 @WebServlet("/ServletPrincipal")
 public class ServletPrincipal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
+	private javax.sql.DataSource dataSource;
 
 	/*
 	 * public DataSource getDataSource(HttpServletRequest request,
@@ -46,6 +47,13 @@ public class ServletPrincipal extends HttpServlet {
 	public ServletPrincipal() {
 		super();
 		// TODO Auto-generatedconstructorstub
+		try {
+			InitialContext initialContext = new InitialContext();
+			this.dataSource = (DataSource) initialContext
+					.lookup("java:jboss/datasources/BANQUE_TEST");
+		} catch (Exception e2) {
+			System.out.println(e2.getMessage().toString() + "(Failure)");
+		}
 	}
 
 	/**
@@ -74,10 +82,10 @@ public class ServletPrincipal extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			PrintWriter printWriter = response.getWriter();
-			InitialContext initialContext = new InitialContext();
-			javax.sql.DataSource dataSource = (DataSource) initialContext
-					.lookup("java:jboss/datasources/BANQUE_TEST");
-			Connection connection = dataSource.getConnection(); // On se
+			//InitialContext initialContext = new InitialContext();
+			//javax.sql.DataSource dataSource = (DataSource) initialContext
+			//		.lookup("java:jboss/datasources/BANQUE_TEST");
+			Connection connection = this.dataSource.getConnection(); // On se
 																// connecte
 			connection.close();
 			printWriter.println("<h2>");
@@ -96,7 +104,7 @@ public class ServletPrincipal extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generatedmethodstub
-		doPostVersion1(request, response);
+		doPostVersion2(request, response);
 	}
 
 	protected void doPostVersion1(HttpServletRequest request,
@@ -124,7 +132,7 @@ public class ServletPrincipal extends HttpServlet {
 			unCompte.setNocompte(noDeCompte);
 			PrintWriter printWriter = response.getWriter();
 			ArrayList<Operation> listeOperations = GestionCompte
-					.rechercheOperations(getDataSource(), unCompte);
+					.rechercheOperations(this.dataSource, unCompte);
 			printWriter
 					.println("<h2>Liste des opérations sur ce compte : </h2>");
 			Operation op = null;
