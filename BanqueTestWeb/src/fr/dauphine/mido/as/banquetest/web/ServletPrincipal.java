@@ -29,24 +29,11 @@ public class ServletPrincipal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private javax.sql.DataSource dataSource;
 
-	/*
-	 * public DataSource getDataSource(HttpServletRequest request,
-	 * HttpServletResponse response) throws ServletException, IOException { try
-	 * { InitialContext initialContext = new InitialContext();
-	 * javax.sql.DataSource dataSource = (DataSource) initialContext
-	 * .lookup("java:jboss/datasources/BANQUE_TEST"); return dataSource; } catch
-	 * (Exception e2) { System.out.println(e2.getMessage().toString() +
-	 * "(Failure)"); }
-	 * 
-	 * return null; }
-	 */
-
 	/**
 	 * @seeHttpServlet#HttpServlet()
 	 */
 	public ServletPrincipal() {
 		super();
-		// TODO Auto-generatedconstructorstub
 		try {
 			InitialContext initialContext = new InitialContext();
 			this.dataSource = (DataSource) initialContext
@@ -62,7 +49,6 @@ public class ServletPrincipal extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generatedmethodstub
 		doGetVersion1(request, response);
 		doGetVersion2(request, response);
 	}
@@ -82,12 +68,8 @@ public class ServletPrincipal extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			PrintWriter printWriter = response.getWriter();
-			//InitialContext initialContext = new InitialContext();
-			//javax.sql.DataSource dataSource = (DataSource) initialContext
-			//		.lookup("java:jboss/datasources/BANQUE_TEST");
-			Connection connection = this.dataSource.getConnection(); // On se
-																// connecte
-			connection.close(); //on ferme la connexion
+			Connection connection = this.dataSource.getConnection();
+			connection.close();
 			printWriter.println("<h2>");
 			printWriter.println("Connexion à la DB ok à "
 					+ new Date().toLocaleString());
@@ -103,9 +85,9 @@ public class ServletPrincipal extends HttpServlet {
 	 */
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generatedmethodstub
-		doPostVersion1(request, response);
-		doPostVersion2(request, response);
+		// doPostVersion1(request, response);
+		// doPostVersion2(request, response);
+		doPostVersion3(request, response);
 	}
 
 	protected void doPostVersion1(HttpServletRequest request,
@@ -134,6 +116,7 @@ public class ServletPrincipal extends HttpServlet {
 			PrintWriter printWriter = response.getWriter();
 			ArrayList<Operation> listeOperations = GestionCompte
 					.rechercheOperations(this.dataSource, unCompte);
+			System.out.println(unCompte.getSolde());
 			printWriter
 					.println("<h2>Liste des opérations sur ce compte : </h2>");
 			Operation op = null;
@@ -145,6 +128,25 @@ public class ServletPrincipal extends HttpServlet {
 						+ op.getHeureOperation() + " d'un montant de "
 						+ op.getValeur() + " euros</h2>");
 			}
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
+		}
+	}
+
+	protected void doPostVersion3(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		try {
+			response.setContentType("text/html");
+			String noDeCompte = request.getParameter("noDeCompte");
+			Compte unCompte = new Compte();
+			unCompte.setNocompte(noDeCompte);
+			ArrayList<Operation> listeOperations = GestionCompte
+					.rechercheOperations(this.dataSource, unCompte);
+			HttpSession session = request.getSession();
+			session.setAttribute("_COMPTE_COURANT", unCompte);
+			session.setAttribute("_LISTE_OPERATIONS", listeOperations);
+			getServletContext().getRequestDispatcher("/listeOperations.jsp")
+					.forward(request, response);
 		} catch (IOException ioException) {
 			ioException.printStackTrace();
 		}
