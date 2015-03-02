@@ -87,7 +87,7 @@ public class ServletPrincipal extends HttpServlet {
 			//		.lookup("java:jboss/datasources/BANQUE_TEST");
 			Connection connection = this.dataSource.getConnection(); // On se
 																// connecte
-			connection.close();
+			connection.close(); //on ferme la connexion
 			printWriter.println("<h2>");
 			printWriter.println("Connexion à la DB ok à "
 					+ new Date().toLocaleString());
@@ -104,6 +104,7 @@ public class ServletPrincipal extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generatedmethodstub
+		doPostVersion1(request, response);
 		doPostVersion2(request, response);
 	}
 
