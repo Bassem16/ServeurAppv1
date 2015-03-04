@@ -13,25 +13,33 @@ transitional.dtd">
 	<h:form>
 		<h2>Insertion d'un compte</h2>
 		<p>
+			<h5>N°Compte</h5>
 			<h:inputText id="userNoCompte" title="Entrez un numéro de
 compte"
 				value="#{gestionCompte.nocompte}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
+			<br> </br>
+			<h5>Nom</h5>
 			<h:inputText id="userNom" title="Entrez un nom"
 				value="#{gestionCompte.nom}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
+			<br> </br>
+			<h5>Prénom</h5>
 			<h:inputText id="userPrenom" title="Entrez un prénom"
 				value="#{gestionCompte.prenom}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
+			<br> </br>
+			<h5>Solde initial</h5>
 			<h:inputText id="userSolde" title="Entrez un solde initial"
 				value="#{gestionCompte.solde}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
+			<br> </br>
 			<h:commandButton id="submit" value="Submit"
-				action="GestionCompteResultatCreation" />
+				action="Reponse" />
 		</p>
 		<h:message showSummary="true" showDetail="false"
 			style="color: #d20005;

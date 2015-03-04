@@ -15,7 +15,6 @@ public class Compte implements Serializable {
 	private static final long serialVersionUID = 1L;
 	public static final String _COMPTE_COURANT = "_COMPTE_COURANT";
 	public static final String _LISTE_OPERATIONS = "_LISTE_OPERATIONS";
-
 	@Id
 	@Column(name = "NOCOMPTE")
 	private String nocompte;

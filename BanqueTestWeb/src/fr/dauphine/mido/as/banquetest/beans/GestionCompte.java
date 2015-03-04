@@ -70,9 +70,10 @@ public class GestionCompte implements Serializable {
 		EntityTransaction et = em.getTransaction();
 		et.begin();
 		em.persist(getCompte());
+		String prenom=getCompte().getPrenom();
 		et.commit();
 		setCompte(em.find(Compte.class, getNocompte()));
-		retour = "insertion ok";
+		retour = "Creation du compte avec succes";
 		return retour;
 	}
 
@@ -98,7 +99,27 @@ public class GestionCompte implements Serializable {
 	public String getNom() {
 		return getCompte().getNom();
 	}
+	
+	public void setNom(String Nom) {
+		getCompte().setNom(Nom);
+	}
+	
+	public String getPrenom() {
+		return getCompte().getNom();
+	}
+	
+	public void setPrenom(String Prenom) {
+		getCompte().setNom(Prenom);
+	}
+	
+	public BigDecimal getSolde() {
+		return getCompte().getSolde();
+	}
 
+	public void setSolde(BigDecimal solde) {
+		getCompte().setSolde(solde);
+	}
+	
 	public GestionCompte() {
 	}
 }
