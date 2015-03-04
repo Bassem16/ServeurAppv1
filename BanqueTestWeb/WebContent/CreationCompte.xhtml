@@ -5,6 +5,7 @@ transitional.dtd">
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
+
 <h:head>
 	<h:outputStylesheet library="css" name="default.css" />
 	<title>Création d'un compte</title>
@@ -13,33 +14,32 @@ transitional.dtd">
 	<h:form>
 		<h2>Insertion d'un compte</h2>
 		<p>
-			<h5>N°Compte</h5>
+		<h4>N°Compte</h4>
+		
 			<h:inputText id="userNoCompte" title="Entrez un numéro de
 compte"
-				value="#{gestionCompte.nocompte}">
+			value="#{gestionCompte.nocompte}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
-			<br> </br>
-			<h5>Nom</h5>
+			<br></br>
+			<h4>Nom</h4>
 			<h:inputText id="userNom" title="Entrez un nom"
-				value="#{gestionCompte.nom}">
+			value="#{gestionCompte.nom}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
-			<br> </br>
-			<h5>Prénom</h5>
+			<br></br>
+			<h4>Prénom</h4>
 			<h:inputText id="userPrenom" title="Entrez un prénom"
-				value="#{gestionCompte.prenom}">
+			value="#{gestionCompte.prenom}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
-			<br> </br>
-			<h5>Solde initial</h5>
+			<br></br>
+			<h4>Solde initial</h4>
 			<h:inputText id="userSolde" title="Entrez un solde initial"
-				value="#{gestionCompte.solde}">
+			value="#{gestionCompte.solde}">
 				<f:validateRequired></f:validateRequired>
 			</h:inputText>
-			<br> </br>
-			<h:commandButton id="submit" value="Submit"
-				action="Reponse" />
+			<h:commandButton id="submit" value="Submit" action="Reponse" />
 		</p>
 		<h:message showSummary="true" showDetail="false"
 			style="color: #d20005;

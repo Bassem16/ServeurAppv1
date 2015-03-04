@@ -6,13 +6,16 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.naming.InitialContext;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
 @ManagedBean
@@ -63,14 +66,23 @@ public class GestionCompte implements Serializable {
 	}
 
 	public String getResponse() {
+		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String retour = null;
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("BanqueTestWeb");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		et.begin();
+//		getCompte().setPrenom("Bassem");
+//		getCompte().setNom("Gharbi");
+//		getCompte().setNocompte("123");
+//		getCompte().setSolde(new BigDecimal("10"));
+		Compte c=getCompte();
+		String prenom = getCompte().getPrenom();
+		String nom = getCompte().getNom();
+		String NUM = getCompte().getNocompte();
+		BigDecimal s = getCompte().getSolde();
 		em.persist(getCompte());
-		String prenom=getCompte().getPrenom();
 		et.commit();
 		setCompte(em.find(Compte.class, getNocompte()));
 		retour = "Creation du compte avec succes";
@@ -109,8 +121,9 @@ public class GestionCompte implements Serializable {
 	}
 	
 	public void setPrenom(String Prenom) {
-		getCompte().setNom(Prenom);
+		getCompte().setPrenom(Prenom);
 	}
+
 	
 	public BigDecimal getSolde() {
 		return getCompte().getSolde();
