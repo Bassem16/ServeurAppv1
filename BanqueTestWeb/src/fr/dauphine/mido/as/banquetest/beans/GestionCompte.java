@@ -66,7 +66,6 @@ public class GestionCompte implements Serializable {
 	}
 
 	public String getResponse() {
-		HttpServletRequest request = (HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest();
 		String retour = null;
 		EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("BanqueTestWeb");

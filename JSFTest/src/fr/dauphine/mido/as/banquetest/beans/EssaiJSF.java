@@ -1,6 +1,5 @@
 package fr.dauphine.mido.as.banquetest.beans;
 
-
 import javax.faces.bean.ManagedBean;
 
 @ManagedBean

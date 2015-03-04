@@ -12,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.ejb.EJB;
 import javax.naming.InitialContext;
 import javax.sql.DataSource;
 
@@ -21,13 +22,19 @@ import fr.dauphine.mido.as.banquetest.beans.Operation;
 
 import java.sql.Connection;
 
+import fr.dauphine.mido.as.banquetest.ejb.ServicesCompteBean;
+
 /**
  * Servlet implementationclass ServletPrincipal
  */
 @WebServlet("/ServletPrincipal")
 public class ServletPrincipal extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	private javax.sql.DataSource dataSource;
+	private javax.sql.DataSource dataSource = null;
+
+	// Usage direct via la no-interface-view
+	@EJB
+	ServicesCompteBean servicesCompteBean=new ServicesCompteBean();
 
 	/**
 	 * @seeHttpServlet#HttpServlet()
@@ -87,7 +94,9 @@ public class ServletPrincipal extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// doPostVersion1(request, response);
 		// doPostVersion2(request, response);
-		doPostVersion3(request, response);
+		//doPostVersion3(request, response);
+		 doPostVersion4(request, response);
+		// doPostVersion5(request, response);
 	}
 
 	protected void doPostVersion1(HttpServletRequest request,
@@ -151,4 +160,24 @@ public class ServletPrincipal extends HttpServlet {
 			ioException.printStackTrace();
 		}
 	}
+
+	protected void doPostVersion4(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		try {
+			response.setContentType("text/html");
+			String noDeCompte = request.getParameter("noDeCompte");
+			Compte unCompte = new Compte();
+			unCompte.setNocompte(noDeCompte);
+			ArrayList<Operation> listeOperations = servicesCompteBean.rechercheOperations(unCompte);
+			HttpSession session = request.getSession();
+			session.setAttribute(Compte._COMPTE_COURANT, unCompte);
+			session.setAttribute(Compte._LISTE_OPERATIONS, listeOperations);
+			System.out.println(listeOperations.size());
+			getServletContext().getRequestDispatcher("/listeOperations.jsp")
+					.forward(request, response);
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
+		}
+	}
+
 }

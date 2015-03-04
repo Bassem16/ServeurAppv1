@@ -31,7 +31,7 @@
 
 			<%
 				Operation uneOperation = null;
-				ArrayList<Operation> resultat = (ArrayList<Operation>) session.getAttribute("_LISTE_OPERATONS");
+				ArrayList<Operation> resultat = (ArrayList<Operation>) session.getAttribute(Compte._LISTE_OPERATIONS);
 				if (resultat == null) {
 					System.out.println("Liste operations est à null");
 				} else {
