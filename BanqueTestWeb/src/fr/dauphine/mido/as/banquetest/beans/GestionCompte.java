@@ -1,13 +1,27 @@
 package fr.dauphine.mido.as.banquetest.beans;
 
+import java.io.Serializable;
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.SessionScoped;
+import javax.naming.InitialContext;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
+import javax.persistence.Persistence;
 import javax.sql.DataSource;
 
-public class GestionCompte {
-	private final static String _SQL_SELECT_OPERATIONS = "select * from BANQUE_TEST.OPERATIONS where NOCOMPTE like ?";
+@ManagedBean
+@SessionScoped
+public class GestionCompte implements Serializable {
+	static final long serialVersionUID = 1L;
+	private final static String _SQL_SELECT_OPERATIONS = "select* from BANQUE_TEST.OPERATIONS where NOCOMPTE like ?";
+	private final static String _SQL_INSERT_COMPTE = "INSERT INTO BANQUE_TEST.COMPTES (NOCOMPTE,NOM,PRENOM,SOLDE) VALUES(?,?,?,?)";
+	private Compte compte = null;
 
 	public static ArrayList<Operation> rechercheOperations(
 			DataSource datasource, Compte unCompte) {
@@ -46,5 +60,45 @@ public class GestionCompte {
 			}
 		}
 		return resultat;
+	}
+
+	public String getResponse() {
+		String retour = null;
+		EntityManagerFactory emf = Persistence
+				.createEntityManagerFactory("BanqueTestWeb");
+		EntityManager em = emf.createEntityManager();
+		EntityTransaction et = em.getTransaction();
+		et.begin();
+		em.persist(getCompte());
+		et.commit();
+		setCompte(em.find(Compte.class, getNocompte()));
+		retour = "insertion ok";
+		return retour;
+	}
+
+	public Compte getCompte() {
+		return compte;
+	}
+
+	public void setCompte(Compte compte) {
+		this.compte = compte;
+	}
+
+	public String getNocompte() {
+		if (this.compte == null) {
+			this.compte = new Compte();
+		}
+		return getCompte().getNocompte();
+	}
+
+	public void setNocompte(String noDeCompte) {
+		getCompte().setNocompte(noDeCompte);
+	}
+
+	public String getNom() {
+		return getCompte().getNom();
+	}
+
+	public GestionCompte() {
 	}
 }

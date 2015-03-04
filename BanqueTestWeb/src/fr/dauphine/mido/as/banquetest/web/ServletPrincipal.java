@@ -143,8 +143,8 @@ public class ServletPrincipal extends HttpServlet {
 			ArrayList<Operation> listeOperations = GestionCompte
 					.rechercheOperations(this.dataSource, unCompte);
 			HttpSession session = request.getSession();
-			session.setAttribute("_COMPTE_COURANT", unCompte);
-			session.setAttribute("_LISTE_OPERATIONS", listeOperations);
+			session.setAttribute(Compte._COMPTE_COURANT, unCompte);
+			session.setAttribute(Compte._LISTE_OPERATIONS, listeOperations);
 			getServletContext().getRequestDispatcher("/listeOperations.jsp")
 					.forward(request, response);
 		} catch (IOException ioException) {
