@@ -1,0 +1,32 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<h:outputStylesheet library="css" name="default.css" />
+	<title>Guess Number Facelets Application, tiré du Tutorial Java
+		EE 6</title>
+</h:head>
+<body>
+	<h:form>
+		<h2>un nombre aléatoire entre #{userNumberBean.minimum} et
+			#{userNumberBean.maximum} vient d'être tiré. Pouvez-vous le deviner ?</h2>
+		<p>
+			<h:inputText id="userNo" title="Entrez votre valeur:"
+				value="#{userNumberBean.userNumber}">
+				<f:validateLongRange minimum="#{userNumberBean.minimum}"
+					maximum="#{userNumberBean.maximum}" />
+			</h:inputText>
+			<h:commandButton id="submit" value="Submit" action="Reponse" />
+		</p>
+		<h:message showSummary="true" showDetail="false"
+			style="color: #d20005;
+font-family: ’New Century Schoolbook’, serif;
+font-style: oblique;
+text-decoration: overline"
+			id="errors1" for="userNo" />
+	</h:form>
+</body>
+</html>
