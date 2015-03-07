@@ -7,6 +7,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 
+import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
@@ -18,6 +19,8 @@ import javax.persistence.Persistence;
 import javax.servlet.http.HttpServletRequest;
 import javax.sql.DataSource;
 
+import fr.dauphine.mido.as.banquetest.ejb.CreationComptePlanifie;
+
 @ManagedBean
 @SessionScoped
 public class GestionCompte implements Serializable {
@@ -25,6 +28,9 @@ public class GestionCompte implements Serializable {
 	private final static String _SQL_SELECT_OPERATIONS = "select* from BANQUE_TEST.OPERATIONS where NOCOMPTE like ?";
 	private final static String _SQL_INSERT_COMPTE = "INSERT INTO BANQUE_TEST.COMPTES (NOCOMPTE,NOM,PRENOM,SOLDE) VALUES(?,?,?,?)";
 	private Compte compte = null;
+	
+	@EJB
+	CreationComptePlanifie creationComptePlanifie;
 
 	public static ArrayList<Operation> rechercheOperations(
 			DataSource datasource, Compte unCompte) {
@@ -67,15 +73,11 @@ public class GestionCompte implements Serializable {
 
 	public String getResponse() {
 		String retour = null;
-		EntityManagerFactory emf = Persistence
+		/*EntityManagerFactory emf = Persistence
 				.createEntityManagerFactory("BanqueTestWeb");
 		EntityManager em = emf.createEntityManager();
 		EntityTransaction et = em.getTransaction();
 		et.begin();
-//		getCompte().setPrenom("Bassem");
-//		getCompte().setNom("Gharbi");
-//		getCompte().setNocompte("123");
-//		getCompte().setSolde(new BigDecimal("10"));
 		Compte c=getCompte();
 		String prenom = getCompte().getPrenom();
 		String nom = getCompte().getNom();
@@ -84,7 +86,9 @@ public class GestionCompte implements Serializable {
 		em.persist(getCompte());
 		et.commit();
 		setCompte(em.find(Compte.class, getNocompte()));
-		retour = "Creation du compte avec succes";
+		retour = "Creation du compte avec succes";*/
+		creationComptePlanifie.creationCompte(compte);
+		retour = "Insertion planifiée ok";
 		return retour;
 	}
 
