@@ -14,13 +14,11 @@ import fr.dauphine.mido.as.banquetest.beans.Compte;
 import fr.dauphine.mido.as.banquetest.beans.Operation;
 
 @Stateless
-public class ServicesCompteBean {
+public class ServicesCompteBean implements ServicesCompte{
 
 	private final static String _SQL_SELECT_OPERATIONS = "select* from BANQUE_TEST.OPERATIONS where NOCOMPTE like ?";
 	
-	public ServicesCompteBean(){
-		
-	}
+	
 	
 	public ArrayList<Operation> rechercheOperations(Compte unCompte) {
 		DataSource dataSource=null;

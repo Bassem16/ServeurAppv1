@@ -22,6 +22,7 @@ import fr.dauphine.mido.as.banquetest.beans.Operation;
 
 import java.sql.Connection;
 
+import fr.dauphine.mido.as.banquetest.ejb.ServicesCompte;
 import fr.dauphine.mido.as.banquetest.ejb.ServicesCompteBean;
 
 /**
@@ -33,8 +34,10 @@ public class ServletPrincipal extends HttpServlet {
 	private javax.sql.DataSource dataSource = null;
 
 	// Usage direct via la no-interface-view
-	@EJB
-	ServicesCompteBean servicesCompteBean=new ServicesCompteBean();
+	@EJB(lookup="java:global/BanqueTestWeb/ServicesCompteBean!fr.dauphine.mido.as.banquetest.ejb.ServicesCompte")
+	ServicesCompte servicesCompte;
+	ServicesCompteBean servicesCompteBean;
+	
 
 	/**
 	 * @seeHttpServlet#HttpServlet()
@@ -94,9 +97,10 @@ public class ServletPrincipal extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// doPostVersion1(request, response);
 		// doPostVersion2(request, response);
-		//doPostVersion3(request, response);
-		 doPostVersion4(request, response);
+		// doPostVersion3(request, response);
+		// doPostVersion4(request, response);
 		// doPostVersion5(request, response);
+		doPostVersion6(request, response);
 	}
 
 	protected void doPostVersion1(HttpServletRequest request,
@@ -168,7 +172,8 @@ public class ServletPrincipal extends HttpServlet {
 			String noDeCompte = request.getParameter("noDeCompte");
 			Compte unCompte = new Compte();
 			unCompte.setNocompte(noDeCompte);
-			ArrayList<Operation> listeOperations = servicesCompteBean.rechercheOperations(unCompte);
+			ArrayList<Operation> listeOperations = servicesCompteBean
+					.rechercheOperations(unCompte);
 			HttpSession session = request.getSession();
 			session.setAttribute(Compte._COMPTE_COURANT, unCompte);
 			session.setAttribute(Compte._LISTE_OPERATIONS, listeOperations);
@@ -180,4 +185,44 @@ public class ServletPrincipal extends HttpServlet {
 		}
 	}
 
+	/*protected void doPostVersion5(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		try {
+			response.setContentType("text/html");
+			String noDeCompte = request.getParameter("noDeCompte");
+			Compte unCompte = new Compte();
+			unCompte.setNocompte(noDeCompte);
+			ArrayList<Operation> listeOperations = servicesCompte
+					.rechercheOperations(unCompte);
+			HttpSession session = request.getSession();
+			session.setAttribute(Compte._COMPTE_COURANT, unCompte);
+			session.setAttribute(Compte._LISTE_OPERATIONS, listeOperations);
+			getServletContext().getRequestDispatcher("/listeOperations.jsp")
+					.forward(request, response);
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
+		}
+	}
+*/
+	protected void doPostVersion6(HttpServletRequest request,
+			HttpServletResponse response) throws ServletException, IOException {
+		try {
+			response.setContentType("text/html");
+			String noDeCompte = request.getParameter("noDeCompte");
+			Compte unCompte = new Compte();
+			unCompte.setNocompte(noDeCompte);
+			InitialContext initialContext = new InitialContext();
+			ServicesCompte servicesCompte = (ServicesCompte) initialContext
+					.lookup("java:global/BanqueTestWeb/ServicesCompteBean!fr.dauphine.mido.as.banquetest.ejb.ServicesCompte");
+			ArrayList<Operation> listeOperations = servicesCompte
+					.rechercheOperations(unCompte);
+			HttpSession session = request.getSession();
+			session.setAttribute(Compte._COMPTE_COURANT, unCompte);
+			session.setAttribute(Compte._LISTE_OPERATIONS, listeOperations);
+			getServletContext().getRequestDispatcher("/listeOperations.jsp")
+					.forward(request, response);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 }
