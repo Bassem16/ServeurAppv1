@@ -1,4 +1,4 @@
-package model;
+package dauphineBank.beans;
 
 import java.io.Serializable;
 import javax.persistence.*;
