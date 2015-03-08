@@ -1,7 +1,12 @@
 package dauphineBank.beans;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
+
 import java.util.List;
 
 
@@ -16,19 +21,21 @@ public class Personne implements Serializable {
 
 	@Id
 	private int idPersonne;
-
+	@Pattern( regexp = "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)", message = "Merci de saisir une adresse mail valide" )
+	@NotNull( message = "Veuillez saisir un email" )
 	private String email;
-
+	@NotNull( message = "Veuillez saisir un login" )
+	@Size( min = 6, message = "Le login doit contenir au moins 6 caractères" )
 	private String login;
-
+	@NotNull( message = "Veuillez saisir un mot de passe" )
 	private String motDePasse;
-
+	@NotNull( message = "Veuillez saisir un nom" )
 	private String nomPersonne;
-
+	@NotNull( message = "Veuillez saisir un prenom" )
 	private String prenomPersonne;
 
 	//bi-directional many-to-many association to Entreprise
-	@ManyToMany
+	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(
 		name="Appartenir"
 		, joinColumns={
@@ -41,19 +48,19 @@ public class Personne implements Serializable {
 	private List<Entreprise> entreprises;
 
 	//bi-directional many-to-one association to Demande
-	@OneToMany(mappedBy="personne")
+	@OneToMany(mappedBy="personne",cascade = {CascadeType.ALL})
 	private List<Demande> demandes;
 
 	//bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy="personnes")
+	@ManyToMany(mappedBy="personnes", cascade = {CascadeType.ALL})
 	private List<Titre> titres;
 
 	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="personne")
+	@OneToMany(mappedBy="personne", cascade = {CascadeType.ALL})
 	private List<Offre> offres;
 
 	//bi-directional many-to-one association to TypePersonne
-	@ManyToOne
+	@ManyToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="idTypePersonne")
 	private TypePersonne typePersonne;
 
