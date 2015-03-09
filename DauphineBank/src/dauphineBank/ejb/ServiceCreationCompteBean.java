@@ -10,11 +10,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
-import dauphineBank.beans.Demande;
-import dauphineBank.beans.Entreprise;
-import dauphineBank.beans.Offre;
 import dauphineBank.beans.Personne;
-import dauphineBank.beans.Titre;
 import dauphineBank.beans.TypePersonne;
 
 @Stateless
@@ -24,6 +20,7 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 	private EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<Personne> trouverCompteEmail(String email) {
 		ArrayList<Personne> Comptes = null;
 		try {
@@ -37,7 +34,7 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
 			q.setParameter("email", email);
 			Comptes = (ArrayList<Personne>) q.getResultList();
-
+			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
@@ -45,6 +42,7 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 		return Comptes;
 	}
 
+	@SuppressWarnings("unchecked")
 	public ArrayList<Personne> trouverCompteLogin(String login) {
 		ArrayList<Personne> Comptes = null;
 		try {
@@ -57,7 +55,7 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest");
 			q.setParameter("loginTest", login);
 			Comptes = (ArrayList<Personne>) q.getResultList();
-
+			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
@@ -80,7 +78,7 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 			et.commit();
 			System.out.println("Ecriture en base du compte "
 					+ personne.getEmail());
-
+			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {

@@ -34,7 +34,8 @@ public class Personne implements Serializable {
 	private String nomPersonne;
 	@NotNull( message = "Veuillez saisir un prenom" )
 	private String prenomPersonne;
-
+	
+	private boolean valide;
 	//bi-directional many-to-many association to Entreprise
 	@ManyToMany(cascade = {CascadeType.ALL})
 	@JoinTable(
@@ -182,6 +183,14 @@ public class Personne implements Serializable {
 
 	public void setTypePersonne(TypePersonne typePersonne) {
 		this.typePersonne = typePersonne;
+	}
+	
+	public boolean getValide() {
+		return this.valide;
+	}
+
+	public void setValide(boolean valide) {
+		this.valide = valide;
 	}
 
 }

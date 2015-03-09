@@ -16,7 +16,6 @@ public class InscriptionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private final static String _SQL_INSERT_PERSONNE = "INSERT INTO BDD_BANQUE.PERSONNE (idPersonne, NOM, PRENOM,EMAIL) VALUES(?,?,?,?)";
 	private Personne personne = null;
 	private Demande demande = null;
 
@@ -30,7 +29,7 @@ public class InscriptionBean implements Serializable {
 		this.demande.setDescriptifDemande("Demande d'inscription");
 		this.demande.setPersonne(personne);
 
-		
+		this.personne.setValide(false);
 		this.personne.setDemandes(new ArrayList<Demande>());
 		this.personne.getDemandes().add(this.demande);
 		this.personne.setEntreprises(new ArrayList<Entreprise>());
