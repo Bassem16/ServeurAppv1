@@ -3,6 +3,7 @@ package dauphineBank.web;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
+import java.util.ArrayList;
 import java.util.Date;
 
 import javax.naming.InitialContext;
@@ -11,6 +12,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 /**
@@ -59,15 +61,12 @@ public class ServletInscriptionUtilisateur extends HttpServlet {
 	protected void doGetVersion2(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
-			PrintWriter printWriter = response.getWriter();
-			Connection connection = this.dataSource.getConnection();
-			connection.close();
-			printWriter.println("<h2>");
-			printWriter.println("Connexion a la Base de donnée ok à "
-					+ new Date().toLocaleString());
-			printWriter.println("</h2>");
-		} catch (Exception e2) {
-			System.out.println(e2.getMessage().toString() + "(Failure)");
+			response.setContentType("text/html");
+			HttpSession session = request.getSession();
+			getServletContext().getRequestDispatcher("/CreationCompte.xhtml")
+					.forward(request, response);
+		} catch (IOException ioException) {
+			ioException.printStackTrace();
 		}
 	}
 

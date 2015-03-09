@@ -10,4 +10,5 @@ import dauphineBank.beans.Personne;
 public interface ServiceCreationCompte {
 	public void CreationComptes(Personne personne);
 	public ArrayList<Personne> trouverCompteEmail(String email);
+	public ArrayList<Personne> trouverCompteLogin(String login);
 }

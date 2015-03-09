@@ -20,6 +20,7 @@ public class Personne implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idPersonne;
 	@Pattern( regexp = "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)", message = "Merci de saisir une adresse mail valide" )
 	@NotNull( message = "Veuillez saisir un email" )
@@ -48,7 +49,7 @@ public class Personne implements Serializable {
 	private List<Entreprise> entreprises;
 
 	//bi-directional many-to-one association to Demande
-	@OneToMany(mappedBy="personne",cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy="personne",cascade={CascadeType.ALL})
 	private List<Demande> demandes;
 
 	//bi-directional many-to-many association to Titre

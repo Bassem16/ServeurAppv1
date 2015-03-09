@@ -18,20 +18,29 @@ public class InscriptionBean implements Serializable {
 
 	private final static String _SQL_INSERT_PERSONNE = "INSERT INTO BDD_BANQUE.PERSONNE (idPersonne, NOM, PRENOM,EMAIL) VALUES(?,?,?,?)";
 	private Personne personne = null;
+	private Demande demande = null;
 
 	@EJB
 	ServiceCreationCompte serviceCreationCompte;
 
 	public InscriptionBean() {
 		this.personne = new Personne();
+		this.demande = new Demande();
+
+		this.demande.setDescriptifDemande("Demande d'inscription");
+		this.demande.setPersonne(personne);
+
+		
+		this.personne.setDemandes(new ArrayList<Demande>());
+		this.personne.getDemandes().add(this.demande);
+		this.personne.setEntreprises(new ArrayList<Entreprise>());
+		this.personne.setTitres(new ArrayList<Titre>());
+		this.personne.setOffres(new ArrayList<Offre>());
+
 	}
 
 	public String getResponse() {
 		String retour = null;
-		personne.setDemandes(new ArrayList<Demande>());
-		personne.setEntreprises(new ArrayList<Entreprise>());
-		personne.setTitres(new ArrayList<Titre>());
-		personne.setOffres(new ArrayList<Offre>());
 		serviceCreationCompte.CreationComptes(this.personne);
 		retour = "Une demande d'inscription a été envoyé";
 		return retour;

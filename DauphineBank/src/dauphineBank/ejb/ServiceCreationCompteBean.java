@@ -21,21 +21,23 @@ import dauphineBank.beans.TypePersonne;
 public class ServiceCreationCompteBean implements ServiceCreationCompte {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence.createEntityManagerFactory("DauphineBank");
-	
-	public ArrayList<Personne> trouverCompteEmail(String email){
-		ArrayList<Personne> Comptes =null;
+	private EntityManagerFactory emf = Persistence
+			.createEntityManagerFactory("DauphineBank");
+
+	public ArrayList<Personne> trouverCompteEmail(String email) {
+		ArrayList<Personne> Comptes = null;
 		try {
-			
+
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			//em.find(Personne.class, 5);
-			Query q = em.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
+			// em.find(Personne.class, 5);
+			Query q = em
+					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
 			q.setParameter("email", email);
 			Comptes = (ArrayList<Personne>) q.getResultList();
-			
+
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
@@ -43,6 +45,25 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 		return Comptes;
 	}
 
+	public ArrayList<Personne> trouverCompteLogin(String login) {
+		ArrayList<Personne> Comptes = null;
+		try {
+
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			Query q = em
+					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest");
+			q.setParameter("loginTest", login);
+			Comptes = (ArrayList<Personne>) q.getResultList();
+
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return Comptes;
+	}
 
 	public void CreationComptes(Personne personne) {
 		try {
@@ -53,8 +74,7 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			personne.setTypePersonne(em.find(TypePersonne.class, 5));
-			
+			personne.setTypePersonne(em.find(TypePersonne.class, 0));
 			personne.getTypePersonne().getPersonnes().add(personne);
 			em.persist(personne);
 			et.commit();

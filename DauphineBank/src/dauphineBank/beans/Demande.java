@@ -16,7 +16,7 @@ public class Demande implements Serializable {
 	@Id
 	private int idDemande;
 
-	private int descriptifDemande;
+	private String descriptifDemande;
 
 	private int statutDemande;
 
@@ -36,11 +36,11 @@ public class Demande implements Serializable {
 		this.idDemande = idDemande;
 	}
 
-	public int getDescriptifDemande() {
+	public String getDescriptifDemande() {
 		return this.descriptifDemande;
 	}
 
-	public void setDescriptifDemande(int descriptifDemande) {
+	public void setDescriptifDemande(String descriptifDemande) {
 		this.descriptifDemande = descriptifDemande;
 	}
 

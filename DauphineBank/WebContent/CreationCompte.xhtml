@@ -19,8 +19,9 @@
 				required="true" size="20" maxlength="60">
 				<f:ajax event="blur" render="emailMessage" />
 				<f:validator binding="#{existenceEmailValidator}" />
+				
 			</h:inputText>
-			<h:message id="emailMessage" for="email" errorClass="erreur" />
+			<h:message id="emailMessage" for="email" />
 			<br />
 
 			<h:outputLabel for="motdepasse">Mot de passe <span
@@ -35,6 +36,8 @@
 			<h:message id="motDePasseMessage" for="motdepasse"
 				errorClass="erreur" />
 			<br />
+
+
 
 			<h:outputLabel for="confirmation">Confirmation du mot de passe <span
 					class="requis">*</span>
@@ -52,24 +55,18 @@
 				errorClass="erreur" />
 			<br />
 
-			<h:outputLabel for="login">Nom d'utilisateur <span
-					class="requis">*</span>
+			<h:outputLabel for="login">Login <span class="requis">*</span>
 			</h:outputLabel>
 			<h:inputText id="login" value="#{inscriptionBean.login}"
 				required="true" size="20" maxlength="20">
+				<h:message for="login" />
 				<f:ajax event="blur" render="loginMessage" />
+				<f:validator binding="#{existenceLoginValidator}" />
 			</h:inputText>
 			<h:message id="loginMessage" for="login" errorClass="erreur" />
 			<br />
 
-			<h:outputLabel for="nom">Nom<span class="requis">*</span>
-			</h:outputLabel>
-			<h:inputText id="nom" value="#{inscriptionBean.nomPersonne}"
-				required="true" size="20" maxlength="20">
-				<f:ajax event="blur" render="nomMessage" />
-			</h:inputText>
-			<h:message id="nomMessage" for="nom" errorClass="erreur" />
-			<br />
+
 
 			<h:outputLabel for="prenom">Prenom<span
 					class="requis">*</span>
@@ -79,6 +76,15 @@
 				<f:ajax event="blur" render="prenomMessage" />
 			</h:inputText>
 			<h:message id="prenomMessage" for="prenom" errorClass="erreur" />
+			<br />
+
+			<h:outputLabel for="nom">Nom<span class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="nom" value="#{inscriptionBean.nomPersonne}"
+				required="true" size="20" maxlength="20">
+				<f:ajax event="blur" render="nomMessage" />
+			</h:inputText>
+			<h:message id="nomMessage" for="nom" errorClass="erreur" />
 			<br />
 
 			<h:messages globalOnly="true" infoClass="info" />
