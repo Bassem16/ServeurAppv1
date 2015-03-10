@@ -7,7 +7,7 @@
 	<title>Espace membre</title>
 </h:head>
 
-<h:body>Vous etes connecté
+<h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
 <h:form>
 		<h:commandButton value="Deconnexion" action="#{connexionBean.doLogout}"></h:commandButton>
 	</h:form>

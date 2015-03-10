@@ -5,6 +5,7 @@ import java.util.List;
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
@@ -36,9 +37,10 @@ public class ConnexionBean {
 		Personne p=serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
 		if(p!=null){
 			HttpSession hs= Utile.getSession();
+					personne=p;
 					hs.setAttribute("personne", personne.getPrenomPersonne());
 					hs.setAttribute("nom", personne.getNomPersonne());
-					return "home.xhtml";
+					return "home.xhtml?faces-redirect=true";
 		} else{
 			FacesMessage fm= new FacesMessage("Erreur d'identification", "!!!! ERROR MSG !!!!");
 			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
@@ -51,7 +53,7 @@ public class ConnexionBean {
 	public String doLogout(){
 		HttpSession hs= Utile.getSession();
 		hs.invalidate();
-		return "login.xhtml";
+		return "login.xhtml?faces-redirect=true";
 		
 	}
 	
