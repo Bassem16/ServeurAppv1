@@ -30,10 +30,10 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 			et = em.getTransaction();
 			et.begin();
 			// em.find(Personne.class, 5);
-			Query q = em
+			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
-			q.setParameter("email", email);
-			Comptes = (ArrayList<Personne>) q.getResultList();
+			query.setParameter("email", email);
+			Comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
@@ -51,10 +51,10 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			Query q = em
+			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest");
-			q.setParameter("loginTest", login);
-			Comptes = (ArrayList<Personne>) q.getResultList();
+			query.setParameter("loginTest", login);
+			Comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");

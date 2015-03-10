@@ -1,14 +1,15 @@
 package fr.dauphine.bank.beans;
 
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
 
+import fr.dauphine.bank.ejb.ServiceConnexion;
 import fr.dauphine.bank.ejb.ServiceCreationCompte;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
@@ -16,42 +17,44 @@ import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
+import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
-@RequestScoped //SessionScoped
-public class InscriptionBean implements Serializable {
+@SessionScoped
+public class ConnexionBean {
 
-	private static final long serialVersionUID = 1L;
-
-	private Personne personne = null;
-	private Demande demande = null;
-
+	private Personne personne;
+	
 	@EJB
-	ServiceCreationCompte serviceCreationCompte;
-
-	public InscriptionBean() {
-		this.personne = new Personne();
-		this.demande = new Demande();
-
-		this.demande.setDescriptifDemande("Demande d'inscription");
-		this.demande.setPersonne(personne);
-
-		this.personne.setValide(false);
-		this.personne.setDemandes(new ArrayList<Demande>());
-		this.personne.getDemandes().add(this.demande);
-		this.personne.setEntreprises(new ArrayList<Entreprise>());
-		this.personne.setTitres(new ArrayList<Titre>());
-		this.personne.setOffres(new ArrayList<Offre>());
-
+	ServiceConnexion serviceConnexion;
+	
+	public ConnexionBean() {
+		personne=new Personne();	
+	}
+	
+	public String doLogin(){
+		Personne p=serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
+		if(p!=null){
+			HttpSession hs= Utile.getSession();
+					hs.setAttribute("personne", personne.getPrenomPersonne());
+					hs.setAttribute("nom", personne.getNomPersonne());
+					return "home.xhtml";
+		} else{
+			FacesMessage fm= new FacesMessage("Erreur d'indification", "!!!! ERROR MSG !!!!");
+			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
+			FacesContext.getCurrentInstance().addMessage(null, fm);
+			return "login.xhtml";
+		}
 	}
 
-	public String getResponse() {
-		String retour = null;
-		serviceCreationCompte.CreationComptes(this.personne);
-		retour = "Une demande d'inscription a été envoyé";
-		return retour;
+	
+	public String doLogout(){
+		HttpSession hs= Utile.getSession();
+		hs.invalidate();
+		return "login.xhtml";
+		
 	}
-
+	
 	public Personne getPersonne() {
 		return this.personne;
 	}

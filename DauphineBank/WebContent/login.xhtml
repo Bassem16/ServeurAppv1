@@ -8,17 +8,24 @@
 	<h:form>
 		<table>
 			<tr>
-				<td><h:outputText value="Login"></h:outputText></td>
-				<td><h:outputText value=":"></h:outputText></td>
-				<td><h:inputText id="login"></h:inputText></td>
+				<td><h:outputText for="login" value="Login"></h:outputText></td>
+				<td><h:outputText for=":" value=":"></h:outputText></td>
+				<td><h:inputText id="login" value="#{connexionBean.login}"></h:inputText></td>
 			</tr>
 			<tr>
-				<td><h:outputText value="Mot de passe"></h:outputText></td>
-				<td><h:outputText value=":"></h:outputText></td>
-				<td><h:inputSecret id="motDePasse"></h:inputSecret></td>
+				<td><h:outputText for="motDePasse" value="Mot de passe"></h:outputText></td>
+				<td><h:outputText for=":" value=":"></h:outputText></td>
+				<td><h:inputSecret id="motDePasse"
+						value="#{connexionBean.motDePasse}"></h:inputSecret></td>
 			</tr>
-			<tr><td><h:commandButton action="submit" value="Connexion" /></td></tr>
+			<tr>
+				<td><h:commandButton id="toto"
+						action="#{connexionBean.doLogin}" value="Connexion" />
+					<h:message for="toto"></h:message></td>
+			</tr>
 		</table>
+
+		
 	</h:form>
 </h:body>
 </html>
