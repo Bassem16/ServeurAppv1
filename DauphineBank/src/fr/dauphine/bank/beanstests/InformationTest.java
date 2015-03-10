@@ -1,53 +1,53 @@
-package DauphineBank.beans.tests;
+package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-public class TypePersonneTest {
+public class InformationTest {
 
 	@Test
-	public void testTypePersonne() {
+	public void testInformation() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetIdTypePersonne() {
+	public void testGetIdInformation() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetIdTypePersonne() {
+	public void testSetIdInformation() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetTypePersonne() {
+	public void testGetDateInformation() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetTypePersonne() {
+	public void testSetDateInformation() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testGetPersonnes() {
+	public void testGetTypeInformation() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testSetPersonnes() {
+	public void testSetTypeInformation() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testAddPersonne() {
+	public void testGetEntreprise() {
 		fail("Not yet implemented");
 	}
 
 	@Test
-	public void testRemovePersonne() {
+	public void testSetEntreprise() {
 		fail("Not yet implemented");
 	}
 

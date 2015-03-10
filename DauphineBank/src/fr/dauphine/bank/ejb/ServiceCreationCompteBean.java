@@ -1,4 +1,4 @@
-package dauphineBank.ejb;
+package fr.dauphine.bank.ejb;
 
 import java.util.ArrayList;
 
@@ -10,8 +10,8 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
-import dauphineBank.beans.Personne;
-import dauphineBank.beans.TypePersonne;
+import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.entities.TypePersonne;
 
 @Stateless
 public class ServiceCreationCompteBean implements ServiceCreationCompte {

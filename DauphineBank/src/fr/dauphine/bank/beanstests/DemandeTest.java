@@ -1,10 +1,10 @@
-package DauphineBank.beans.tests;
+package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import dauphineBank.beans.Demande;
+import fr.dauphine.bank.entities.Demande;
 
 public class DemandeTest {
 

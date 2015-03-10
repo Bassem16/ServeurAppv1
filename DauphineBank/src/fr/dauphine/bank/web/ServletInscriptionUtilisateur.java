@@ -1,4 +1,4 @@
-package dauphineBank.web;
+package fr.dauphine.bank.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;

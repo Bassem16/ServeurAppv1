@@ -1,4 +1,4 @@
-package dauphineBank.beans;
+package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -8,7 +8,13 @@ import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
-import dauphineBank.ejb.ServiceCreationCompte;
+import fr.dauphine.bank.ejb.ServiceCreationCompte;
+import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.entities.Titre;
+import fr.dauphine.bank.entities.TypePersonne;
 
 @ManagedBean
 @SessionScoped
