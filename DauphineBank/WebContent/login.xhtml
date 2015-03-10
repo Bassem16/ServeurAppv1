@@ -10,13 +10,14 @@
 			<tr>
 				<td><h:outputText for="login" value="Login"></h:outputText></td>
 				<td><h:outputText for=":" value=":"></h:outputText></td>
-				<td><h:inputText id="login" value="#{connexionBean.login}"></h:inputText></td>
+				<td><h:inputText id="login" required="true" requiredMessage="Login requis" value="#{connexionBean.login}"></h:inputText></td>
 			</tr>
 			<tr>
 				<td><h:outputText for="motDePasse" value="Mot de passe"></h:outputText></td>
 				<td><h:outputText for=":" value=":"></h:outputText></td>
 				<td><h:inputSecret id="motDePasse"
-						value="#{connexionBean.motDePasse}"></h:inputSecret></td>
+						required="true" requiredMessage="Mot de passe requis" value="#{connexionBean.motDePasse}" style=" width : 280px;">
+						</h:inputSecret> </td><h:message for="motDePasse"></h:message>
 			</tr>
 			<tr>
 				<td><h:commandButton id="toto"

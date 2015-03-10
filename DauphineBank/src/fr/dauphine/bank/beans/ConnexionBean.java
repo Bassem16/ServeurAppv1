@@ -40,7 +40,7 @@ public class ConnexionBean {
 					hs.setAttribute("nom", personne.getNomPersonne());
 					return "home.xhtml";
 		} else{
-			FacesMessage fm= new FacesMessage("Erreur d'indification", "!!!! ERROR MSG !!!!");
+			FacesMessage fm= new FacesMessage("Erreur d'identification", "!!!! ERROR MSG !!!!");
 			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 			return "login.xhtml";
