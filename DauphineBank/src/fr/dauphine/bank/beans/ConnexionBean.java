@@ -36,21 +36,31 @@ public class ConnexionBean {
 		if(p!=null){
 			HttpSession hs= Utile.getSession();
 					personne=p;
-					hs.setAttribute("Investisseur", p);
+					hs.setAttribute("personne", p);
 					return "/Investisseur/home.xhtml?faces-redirect=true";
 		} else{
 			FacesMessage fm= new FacesMessage("Erreur d'identification", "!!!! ERROR MSG !!!!");
 			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
 			FacesContext.getCurrentInstance().addMessage(null, fm);
-			return "login.xhtml";
+			return "Visiteur/login.xhtml";
 		}
+	}
+	
+	public boolean isConnected(){
+		HttpSession hs= Utile.getSession();
+		if(hs.getAttribute("personne")==null){
+			return false;
+		}else{
+			return true;
+		}
+		
 	}
 
 	
 	public String doLogout(){
 		HttpSession hs= Utile.getSession();
 		hs.invalidate();
-		return "/login.xhtml?faces-redirect=true";
+		return "/index.xhtml";
 		
 	}
 	

@@ -9,10 +9,10 @@
 </h:head>
 <body>
 	<h:form>
-		<h2>
-			<h:outputText id="result" value="#{inscriptionBean.response}" />
-		</h2>
-		<!--h:commandButton id="back" value="Back" action="acceuilBanqueTest.xhtml" -->
+		<h4>
+			<h:outputText id="result" value="#{inscriptionBean.response} (vous pouvez vous connecter)" />
+		</h4>
+		<h:link value="Mon compte" outcome="/index.xhtml" />
 	</h:form>
 </body>
 </html>

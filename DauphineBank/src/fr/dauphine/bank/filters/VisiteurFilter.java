@@ -12,10 +12,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-public class InvestisseurFilter implements Filter {
+public class VisiteurFilter implements Filter {
 
 	public static final String ACCES_PUBLIC = "/index.xhtml";
 	public static final String ATT_SESSION_USER = "personne";
+
+	// public static final String ATT_SESSION_INVESTISSEUR = "Investisseur";
+	// public static final String ATT_SESSION_ADMINISTRATEUR = "Administrateur";
+	// public static final String ATT_SESSION_ENTREPRISE = "Entreprise";
 
 	@Override
 	public void destroy() {
@@ -25,7 +29,7 @@ public class InvestisseurFilter implements Filter {
 	@Override
 	public void doFilter(ServletRequest req, ServletResponse res,
 			FilterChain chain) throws IOException, ServletException {
-		
+
 		/* Cast des objets request et response */
 		HttpServletRequest request = (HttpServletRequest) req;
 		HttpServletResponse response = (HttpServletResponse) res;
@@ -34,10 +38,10 @@ public class InvestisseurFilter implements Filter {
 		HttpSession session = request.getSession();
 
 		/**
-		 * Si l'objet utilisateur n'existe pas dans la session en cours, alors
-		 * l'utilisateur n'est pas connecté. SI TU N'EST PAS INVESTISSEUR, TU N'AS PAS ACCES A "INVESTISSEUR"
+		 * Si l'objet utilisateur existe dans la session en cours, alors
+		 * l'utilisateur est connecté.
 		 */
-		if (session.getAttribute(ATT_SESSION_USER) == null) {
+		if (session.getAttribute(ATT_SESSION_USER) != null) {
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
 		} else {
