@@ -45,4 +45,25 @@ public class ServiceConnexionBean implements ServiceConnexion {
 		return personne;
 	}
 
+	@Override
+	public void sauvegardeCompte(Personne personne) {
+		try {
+			EntityManagerFactory emf = Persistence
+					.createEntityManagerFactory("DauphineBank");
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.merge(personne);
+			et.commit();
+			System.out.println("Sauvegarde en base du compte "
+					+ personne.getEmail());
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		
+	}
+
 }

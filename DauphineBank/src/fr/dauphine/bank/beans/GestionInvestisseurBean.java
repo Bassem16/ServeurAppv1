@@ -19,7 +19,7 @@ import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
 @RequestScoped
-// ATTENTION Cette classe ne peut etre appelé que lorsqu'un utilisateur Investisseur est connecté
+// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur Investisseur est connecté
 public class GestionInvestisseurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
