@@ -54,11 +54,11 @@ public class Personne implements Serializable {
 	private List<Demande> demandes;
 
 	//bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy="personnes", cascade = {CascadeType.ALL})
+	@ManyToMany(mappedBy="personnes" ,cascade = {CascadeType.ALL})
 	private List<Titre> titres;
 
 	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="personne", cascade = {CascadeType.ALL})
+	@OneToMany(mappedBy="personne", fetch = FetchType.EAGER, cascade = {CascadeType.ALL})
 	private List<Offre> offres;
 
 	//bi-directional many-to-one association to TypePersonne

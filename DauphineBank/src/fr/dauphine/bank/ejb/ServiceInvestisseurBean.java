@@ -3,11 +3,14 @@ package fr.dauphine.bank.ejb;
 import java.util.ArrayList;
 
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
+//import javax.persistence.Query;
 
-import fr.dauphine.bank.entities.Offre;
+//import fr.dauphine.bank.entities.Offre;
 
 @Stateless
 public class ServiceInvestisseurBean implements ServiceInvestisseur {
@@ -17,11 +20,25 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 	private EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 	
-	@Override
-	public ArrayList<Offre> historiqueOffre() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	
+	/*public ArrayList<Offre> historiqueOffre(String login) {
+		ArrayList<Offre> Offres = null;
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			Query query = em
+					.createQuery("SELECT offres FROM Personne p WHERE p.login LIKE:loginTest");
+			query.setParameter("loginTest", login);
+			Offres = (ArrayList<Offre>) query.getSingleResult();
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return Offres;
+	}*/
 	
 
 }
