@@ -2,8 +2,6 @@ package fr.dauphine.bank.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.util.ArrayList;
 import java.util.Date;
 
 import javax.naming.InitialContext;
@@ -12,7 +10,6 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 /**
@@ -30,8 +27,8 @@ public class ServletInscriptionUtilisateur extends HttpServlet {
 		super();
 		try {
 			InitialContext initialContext = new InitialContext();
-			this.dataSource = (DataSource) initialContext
-					.lookup("java:jboss/datasources/DauphineBank");
+			this.setDataSource((DataSource) initialContext
+					.lookup("java:jboss/datasources/DauphineBank"));
 		} catch (Exception e2) {
 			System.out.println(e2.getMessage().toString() + "(Failure)");
 		}
@@ -57,12 +54,11 @@ public class ServletInscriptionUtilisateur extends HttpServlet {
 		printWriter.println("</h2>");
 	}
 
-	@SuppressWarnings("deprecation")
 	protected void doGetVersion2(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		try {
 			response.setContentType("text/html");
-			HttpSession session = request.getSession();
+			request.getSession();
 			getServletContext().getRequestDispatcher("/CreationCompte.xhtml")
 					.forward(request, response);
 		} catch (IOException ioException) {
@@ -77,6 +73,14 @@ public class ServletInscriptionUtilisateur extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+	}
+
+	public DataSource getDataSource() {
+		return dataSource;
+	}
+
+	public void setDataSource(DataSource dataSource) {
+		this.dataSource = dataSource;
 	}
 
 }

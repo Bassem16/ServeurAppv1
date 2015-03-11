@@ -1,55 +1,40 @@
 package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
-import fr.dauphine.bank.ejb.ServiceCreationCompte;
+import javax.servlet.http.HttpSession;
+
+import fr.dauphine.bank.ejb.ServiceInvestisseur;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
+import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
 @RequestScoped
-// SessionScoped
-public class InscriptionBean implements Serializable {
+// ATTENTION Cette classe ne peut etre appelé que lorsqu'un utilisateur Investisseur est connecté
+public class GestionInvestisseurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
-	private Demande demande = null;
 
 	@EJB
-	ServiceCreationCompte serviceCreationCompte;
+	ServiceInvestisseur serviceInvestisseur;
 
-	public InscriptionBean() {
-		this.personne = new Personne();
-		this.demande = new Demande();
-
-		this.demande.setDescriptifDemande("Demande d'inscription");
-		this.demande.setPersonne(personne);
-
-		this.personne.setValide(false);
-		this.personne.setDemandes(new ArrayList<Demande>());
-		this.personne.getDemandes().add(this.demande);
-		this.personne.setEntreprises(new ArrayList<Entreprise>());
-		this.personne.setTitres(new ArrayList<Titre>());
-		this.personne.setOffres(new ArrayList<Offre>());
-
+	public GestionInvestisseurBean(){
+		HttpSession hs = Utile.getSession();
+		personne = (Personne) hs.getAttribute("personne");
 	}
 
-	public String getResponse() {
-		String retour = null;
-		serviceCreationCompte.CreationComptes(this.personne);
-		retour = "Une demande d'inscription a été envoyé";
-		return retour;
-	}
+	
 
 	public Personne getPersonne() {
 		return this.personne;
