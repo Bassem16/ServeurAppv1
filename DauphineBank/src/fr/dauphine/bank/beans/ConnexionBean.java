@@ -58,6 +58,7 @@ public class ConnexionBean {
 
 	
 	public String doLogout(){
+		serviceConnexion.sauvegardeCompte((Personne) Utile.getSession().getAttribute("personne"));
 		HttpSession hs= Utile.getSession();
 		hs.invalidate();
 		return "/index.xhtml";
