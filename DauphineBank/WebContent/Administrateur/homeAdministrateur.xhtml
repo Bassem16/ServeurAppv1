@@ -9,24 +9,19 @@
 	<title>Team Trader</title>
 </h:head>
 <body>
-	<CENTER>Bienvenue sur Team Trader<c:if test="#{connexionBean.connected}">
-    (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})</c:if></CENTER>
+	<CENTER>Bienvenue sur Team Trader 
+    (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})</CENTER>
 	<h:form>
 		<h5>
-
-			<c:choose>
-				<c:when test="#{connexionBean.connected}">
-					<h:link value="Mon compte" outcome="/Investisseur/home.xhtml" />
-				</c:when>
-				
-
-				<c:otherwise>
-					<h:link value="Connectez-vous" outcome="/Visiteur/login.xhtml" />
-					<br></br>
-					<h:link value="Inscrivez vous" outcome="/Visiteur/register.xhtml" />
-					<br></br>
-				</c:otherwise>
-			</c:choose>
+			<c:otherwise>
+				<h:link value="Ajouter/Supprimer Société" outcome="/Administrateur/modifierMembre.xhtml" />
+				<br></br>
+				<h:link value="Ajouter/Supprimer Membre" outcome="/Administrateur/login.xhtml" />
+				<br></br>
+				<h:link value="Rechercher Entreprise" outcome="/Administrateur/register.xhtml" />
+				<br></br>
+			</c:otherwise>
+			
 
 		</h5>
 		<!--h:commandButton id="back" value="Back" action="acceuilBanqueTest.xhtml" -->
