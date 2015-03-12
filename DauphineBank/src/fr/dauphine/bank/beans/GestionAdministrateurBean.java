@@ -1,17 +1,17 @@
 package fr.dauphine.bank.beans;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
-import javax.faces.context.FacesContext;
+import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpSession;
 
-import fr.dauphine.bank.ejb.ServiceConnexion;
-import fr.dauphine.bank.ejb.ServiceSauvegarde;
+import fr.dauphine.bank.ejb.ServiceAdministrateur;
+import fr.dauphine.bank.ejb.ServiceInvestisseur;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
@@ -21,67 +21,26 @@ import fr.dauphine.bank.entities.TypePersonne;
 import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
-@SessionScoped
-public class ConnexionBean {
+@RequestScoped
+// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur Investisseur est connecté
+public class GestionAdministrateurBean implements Serializable {
 
-	private Personne personne;
+	private static final long serialVersionUID = 1L;
+
+	private Personne personne = null;
 
 	@EJB
-	ServiceConnexion serviceConnexion;
-	
-	@EJB
-	ServiceSauvegarde serviceSauvegarde;
-	
+	ServiceAdministrateur serviceAdministrateur;
 
-	public String doLogin(){
-		Personne p=serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
-		if(p!=null){
-			HttpSession hs= Utile.getSession();
-					personne=p;
-					hs.setAttribute("personne", p);
-					if (personne.getTypePersonne().getIdTypePersonne() == 0){
-						return "/Investisseur/home.xhtml?faces-redirect=true";
-					}
-					else if (personne.getTypePersonne().getIdTypePersonne() == 2) {
-						return "/Administrateur/homeAdministrateur.xhtml?faces-redirect=true";
-					}
-					else{
-						return "Visiteur/login.xhtml";
-					}
-		} else{
-			FacesMessage fm= new FacesMessage("Erreur d'identification", "!!!! ERROR MSG !!!!");
-			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, fm);
-			return "Visiteur/login.xhtml";
-		}
-	}
-	
-	
-	public ConnexionBean() {
-		personne = new Personne();
-	}
-
-	
-
-	public boolean isConnected() {
+	public GestionAdministrateurBean(){
 		HttpSession hs = Utile.getSession();
-		if (hs.getAttribute("personne") == null) {
-			return false;
-		} else {
-			return true;
-		}
-
+		personne = (Personne) hs.getAttribute("personne");
 	}
 
-	public String doLogout() {
-//		serviceSauvegarde.sauvegardeCompte((Personne) Utile.getSession()
-//				.getAttribute("personne"));
-		HttpSession hs = Utile.getSession();
-		hs.invalidate();
-		return "/index.xhtml";
-
+	public List<Demande> getDemandes() {
+		return serviceAdministrateur.listeDemandes(personne.getLogin());
 	}
-
+	
 	public Personne getPersonne() {
 		return this.personne;
 	}
@@ -147,9 +106,6 @@ public class ConnexionBean {
 		;
 	}
 
-	public Set<Demande> getDemandes() {
-		return getPersonne().getDemandes();
-	}
 
 	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
@@ -219,5 +175,6 @@ public class ConnexionBean {
 	public ArrayList<Demande> getDemandesList() {
 		return new ArrayList<Demande>(getPersonne().getDemandes());
 	}
+	
 
 }
