@@ -2,6 +2,7 @@ package fr.dauphine.bank.entities;
 
 import java.io.Serializable;
 import javax.persistence.*;
+import java.util.List;
 
 
 /**
@@ -20,6 +21,8 @@ public class Offre implements Serializable {
 
 	private String quantiteOffre;
 
+	private String statut;
+
 	private String typeOffre;
 
 	//bi-directional many-to-one association to Entreprise
@@ -31,6 +34,10 @@ public class Offre implements Serializable {
 	@ManyToOne
 	@JoinColumn(name="idPersonne")
 	private Personne personne;
+
+	//bi-directional many-to-many association to Titre
+	@ManyToMany(mappedBy="offres",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private List<Titre> titres;
 
 	public Offre() {
 	}
@@ -59,6 +66,14 @@ public class Offre implements Serializable {
 		this.quantiteOffre = quantiteOffre;
 	}
 
+	public String getStatut() {
+		return this.statut;
+	}
+
+	public void setStatut(String statut) {
+		this.statut = statut;
+	}
+
 	public String getTypeOffre() {
 		return this.typeOffre;
 	}
@@ -81,6 +96,14 @@ public class Offre implements Serializable {
 
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
+	}
+
+	public List<Titre> getTitres() {
+		return this.titres;
+	}
+
+	public void setTitres(List<Titre> titres) {
+		this.titres = titres;
 	}
 
 }
