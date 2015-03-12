@@ -8,10 +8,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 //import javax.persistence.Query;
 
-import javax.persistence.Query;
-
 import fr.dauphine.bank.entities.Offre;
-import fr.dauphine.bank.entities.Titre;
 
 //import fr.dauphine.bank.entities.Offre;
 

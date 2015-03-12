@@ -11,7 +11,6 @@ import javax.faces.bean.RequestScoped;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
-import fr.dauphine.bank.ejb.ServiceInvestisseur;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;

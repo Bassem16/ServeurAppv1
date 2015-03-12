@@ -17,33 +17,32 @@
 				<f:facet name="header">Nom du demandeur</f:facet>
 				<h:outputText value="#{o.personne.nomPersonne}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Prénom du Titualire</f:facet>
 				<h:outputText value="#{o.personne.prenomPersonne}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">id demande</f:facet>
 				<h:outputText value="#{o.idDemande}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Descriptif demande</f:facet>
 				<h:outputText value="#{o.descriptifDemande}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Statut demande </f:facet>
 				<h:outputText value="#{o.statutDemande}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Valider connexion </f:facet>
-				<h:commandButton value="test"
-			action="#{connexionBean.doLogout}"></h:commandButton>
+				<h:commandButton value="test" action="#{connexionBean.doLogout}"></h:commandButton>
 			</h:column>
-			
+
 		</h:dataTable>
 		<h:commandButton value="Deconnexion"
 			action="#{connexionBean.doLogout}"></h:commandButton>
