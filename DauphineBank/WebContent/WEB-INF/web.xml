@@ -29,6 +29,10 @@
 	</filter>
 
 	<filter-mapping>
+		<filter-name>AdministrateurFilter</filter-name>
+		<url-pattern>/Administrateur/*</url-pattern>
+	</filter-mapping>
+	<filter-mapping>
 		<filter-name>InvestisseurFilter</filter-name>
 		<url-pattern>/Investisseur/*</url-pattern>
 	</filter-mapping>

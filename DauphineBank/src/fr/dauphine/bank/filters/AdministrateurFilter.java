@@ -37,15 +37,14 @@ public class AdministrateurFilter implements Filter {
 
 		/**
 		 * Si l'objet utilisateur n'existe pas dans la session en cours, alors
-		 * l'utilisateur n'est pas connecté. SI TU N'EST PAS INVESTISSEUR, TU
+		 * l'utilisateur n'est pas connecté. SI TU N'EST PAS ADMINISTRATEUR, TU
 		 * N'AS PAS ACCES A "INVESTISSEUR"
 		 */
 		Personne personne = (Personne) session.getAttribute(ATT_SESSION_USER);
 		if (personne == null) {
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
-		} else if (!personne.getTypePersonne().getTypePersonne()
-				.equals("Administrateur")) {
+		} else if (personne.getTypePersonne().getIdTypePersonne()!=2) {
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
 		} else {
