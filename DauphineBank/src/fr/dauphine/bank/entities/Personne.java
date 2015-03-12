@@ -4,7 +4,6 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import java.util.List;
 import java.util.Set;
 
 
@@ -38,7 +37,7 @@ public class Personne implements Serializable {
 	private Set<Demande> demandes;
 
 	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy="personne",orphanRemoval=true,fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Offre> offres;
 
 	//bi-directional many-to-one association to Entreprise

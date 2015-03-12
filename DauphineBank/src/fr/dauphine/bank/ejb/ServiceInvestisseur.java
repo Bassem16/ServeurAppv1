@@ -4,10 +4,12 @@ package fr.dauphine.bank.ejb;
 
 import javax.ejb.Remote;
 
+import fr.dauphine.bank.entities.Offre;
+
 //import fr.dauphine.bank.entities.Offre;
 
 @Remote
 public interface ServiceInvestisseur {
-	//public ArrayList<Offre> historiqueOffre(String login);
+	public void supprimerOffre(Offre offre);
 
 }
