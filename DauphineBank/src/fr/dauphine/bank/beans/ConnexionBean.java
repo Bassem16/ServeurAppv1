@@ -121,12 +121,12 @@ public class ConnexionBean {
 		;
 	}
 
-	public List<Entreprise> getEntreprises() {
-		return getPersonne().getEntreprises();
+	public Entreprise getEntreprises() {
+		return getPersonne().getEntreprise();
 	}
 
-	public void setEntreprises(List<Entreprise> entreprises) {
-		getPersonne().setEntreprises(entreprises);
+	public void setEntreprise(Entreprise entreprise) {
+		getPersonne().setEntreprise(entreprise);
 		;
 	}
 

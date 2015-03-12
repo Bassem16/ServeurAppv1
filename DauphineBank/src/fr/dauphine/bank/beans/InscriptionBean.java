@@ -38,9 +38,10 @@ public class InscriptionBean implements Serializable {
 		this.personne.setValide(false);
 		this.personne.setDemandes(new ArrayList<Demande>());
 		this.personne.getDemandes().add(this.demande);
-		this.personne.setEntreprises(new ArrayList<Entreprise>());
+		this.personne.setEntreprise(null);
 		this.personne.setTitres(new ArrayList<Titre>());
 		this.personne.setOffres(new ArrayList<Offre>());
+		
 
 	}
 
@@ -107,12 +108,12 @@ public class InscriptionBean implements Serializable {
 		;
 	}
 
-	public List<Entreprise> getEntreprises() {
-		return getPersonne().getEntreprises();
+	public Entreprise getEntreprise() {
+		return getPersonne().getEntreprise();
 	}
 
-	public void setEntreprises(List<Entreprise> entreprises) {
-		getPersonne().setEntreprises(entreprises);
+	public void setEntreprise(Entreprise entreprise) {
+		getPersonne().setEntreprise(entreprise);
 		;
 	}
 
