@@ -1,6 +1,7 @@
 package fr.dauphine.bank.beans;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.application.FacesMessage;
@@ -10,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceConnexion;
+import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
@@ -23,14 +25,14 @@ import fr.dauphine.bank.web.Utile;
 public class ConnexionBean {
 
 	private Personne personne;
-	
+
 	@EJB
 	ServiceConnexion serviceConnexion;
 	
-	public ConnexionBean() {
-		personne=new Personne();	
-	}
+	@EJB
+	ServiceSauvegarde serviceSauvegarde;
 	
+
 	public String doLogin(){
 		Personne p=serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
 		if(p!=null){
@@ -54,25 +56,32 @@ public class ConnexionBean {
 		}
 	}
 	
-	public boolean isConnected(){
-		HttpSession hs= Utile.getSession();
-		if(hs.getAttribute("personne")==null){
-			return false;
-		}else{
-			return true;
-		}
-		
+	
+	public ConnexionBean() {
+		personne = new Personne();
 	}
 
 	
-	public String doLogout(){
-		serviceConnexion.sauvegardeCompte((Personne) Utile.getSession().getAttribute("personne"));
-		HttpSession hs= Utile.getSession();
+
+	public boolean isConnected() {
+		HttpSession hs = Utile.getSession();
+		if (hs.getAttribute("personne") == null) {
+			return false;
+		} else {
+			return true;
+		}
+
+	}
+
+	public String doLogout() {
+		serviceSauvegarde.sauvegardeCompte((Personne) Utile.getSession()
+				.getAttribute("personne"));
+		HttpSession hs = Utile.getSession();
 		hs.invalidate();
 		return "/index.xhtml";
-		
+
 	}
-	
+
 	public Personne getPersonne() {
 		return this.personne;
 	}
@@ -129,20 +138,20 @@ public class ConnexionBean {
 		;
 	}
 
-	public List<Entreprise> getEntreprises() {
-		return getPersonne().getEntreprises();
+	public Entreprise getEntreprises() {
+		return getPersonne().getEntreprise();
 	}
 
-	public void setEntreprises(List<Entreprise> entreprises) {
-		getPersonne().setEntreprises(entreprises);
+	public void setEntreprise(Entreprise entreprise) {
+		getPersonne().setEntreprise(entreprise);
 		;
 	}
 
-	public List<Demande> getDemandes() {
+	public Set<Demande> getDemandes() {
 		return getPersonne().getDemandes();
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
 		;
 	}
@@ -159,20 +168,20 @@ public class ConnexionBean {
 		return demande;
 	}
 
-	public List<Titre> getTitres() {
+	public Set<Titre> getTitres() {
 		return getPersonne().getTitres();
 	}
 
-	public void setTitres(List<Titre> titres) {
+	public void setTitres(Set<Titre> titres) {
 		getPersonne().setTitres(titres);
 		;
 	}
 
-	public List<Offre> getOffres() {
+	public Set<Offre> getOffres() {
 		return getPersonne().getOffres();
 	}
 
-	public void setOffres(List<Offre> offres) {
+	public void setOffres(Set<Offre> offres) {
 		getPersonne().setOffres(offres);
 		;
 	}
@@ -197,6 +206,18 @@ public class ConnexionBean {
 
 	public void setTypePersonne(TypePersonne typePersonne) {
 		getPersonne().setTypePersonne(typePersonne);
+	}
+
+	public ArrayList<Offre> getOffresList() {
+		return new ArrayList<Offre>(getPersonne().getOffres());
+	}
+
+	public ArrayList<Titre> getTitresList() {
+		return new ArrayList<Titre>(getPersonne().getTitres());
+	}
+
+	public ArrayList<Demande> getDemandesList() {
+		return new ArrayList<Demande>(getPersonne().getDemandes());
 	}
 
 }

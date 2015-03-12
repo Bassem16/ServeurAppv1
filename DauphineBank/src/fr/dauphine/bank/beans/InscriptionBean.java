@@ -2,11 +2,12 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.List;
-
+import java.util.HashSet;
+import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+
 import fr.dauphine.bank.ejb.ServiceCreationCompte;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
@@ -36,11 +37,12 @@ public class InscriptionBean implements Serializable {
 		this.demande.setPersonne(personne);
 
 		this.personne.setValide(false);
-		this.personne.setDemandes(new ArrayList<Demande>());
+		this.personne.setDemandes(new HashSet<Demande>());
 		this.personne.getDemandes().add(this.demande);
-		this.personne.setEntreprises(new ArrayList<Entreprise>());
-		this.personne.setTitres(new ArrayList<Titre>());
-		this.personne.setOffres(new ArrayList<Offre>());
+		this.personne.setEntreprise(null);
+		this.personne.setTitres(new HashSet<Titre>());
+		this.personne.setOffres(new HashSet<Offre>());
+		
 
 	}
 
@@ -107,20 +109,20 @@ public class InscriptionBean implements Serializable {
 		;
 	}
 
-	public List<Entreprise> getEntreprises() {
-		return getPersonne().getEntreprises();
+	public Entreprise getEntreprise() {
+		return getPersonne().getEntreprise();
 	}
 
-	public void setEntreprises(List<Entreprise> entreprises) {
-		getPersonne().setEntreprises(entreprises);
+	public void setEntreprise(Entreprise entreprise) {
+		getPersonne().setEntreprise(entreprise);
 		;
 	}
 
-	public List<Demande> getDemandes() {
+	public Set<Demande> getDemandes() {
 		return getPersonne().getDemandes();
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
 		;
 	}
@@ -137,20 +139,32 @@ public class InscriptionBean implements Serializable {
 		return demande;
 	}
 
-	public List<Titre> getTitres() {
+	public Set<Titre> getTitres() {
 		return getPersonne().getTitres();
 	}
 
-	public void setTitres(List<Titre> titres) {
+	public void setTitres(Set<Titre> titres) {
 		getPersonne().setTitres(titres);
 		;
 	}
 
-	public List<Offre> getOffres() {
+	public Set<Offre> getOffres() {
 		return getPersonne().getOffres();
 	}
+	
+	public ArrayList<Offre> getOffresList(){
+		return new ArrayList<Offre>(getPersonne().getOffres());
+	}
+	
+	public ArrayList<Titre> getTitresList(){
+		return new ArrayList<Titre>(getPersonne().getTitres());
+	}
+	
+	public ArrayList<Demande> getDemandesList(){
+		return new ArrayList<Demande>(getPersonne().getDemandes());
+	}
 
-	public void setOffres(List<Offre> offres) {
+	public void setOffres(Set<Offre> offres) {
 		getPersonne().setOffres(offres);
 		;
 	}
