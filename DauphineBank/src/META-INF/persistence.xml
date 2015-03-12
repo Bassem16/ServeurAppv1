@@ -9,8 +9,6 @@
 		<class>fr.dauphine.bank.entities.Personne</class>
 		<class>fr.dauphine.bank.entities.Titre</class>
 		<class>fr.dauphine.bank.entities.TypePersonne</class>
-		<class>fr.dauphine.bank.entities.LierOffreTitre</class>
-		<class>fr.dauphine.bank.entities.LierOffreTitrePK</class>
 		<properties>
 			<property name="javax.persistence.jdbc.driver" value="com.mysql.jdbc.Driver"/>
 			<property name="javax.persistence.jdbc.url" value="jdbc:mysql://127.0.0.1/BDD_BANQUE"/>
