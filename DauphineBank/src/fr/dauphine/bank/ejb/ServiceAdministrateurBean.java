@@ -1,6 +1,10 @@
 package fr.dauphine.bank.ejb;
 
+import java.util.ArrayList;
+
 import javax.ejb.Stateless;
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
@@ -9,40 +13,31 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
-import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.entities.Demande;
 
 @Stateless
-public class ServiceConnexionBean implements ServiceConnexion {
+public class ServiceAdministrateurBean implements ServiceAdministrateur {
 
 	@PersistenceUnit
 	private EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
-	@Override
-	public Personne verificationPersonne(String login, String motDePasse) {
-		Personne personne = null;
+	public ArrayList<Demande> listeDemandes(String login) {
+		ArrayList<Demande> Demandes = null;
 		try {
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
 			Query query = em
-					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest  AND p.motDePasse LIKE:motDePasseTest");
-			query.setParameter("loginTest", login);
-			query.setParameter("motDePasseTest", motDePasse);
-			try {
-				personne = (Personne) query.getSingleResult();
-			} catch (NoResultException nre) {
-
-			}
-
+					.createQuery("SELECT d FROM Demande d");
+			Demandes = (ArrayList<Demande>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
-
-		return personne;
+		return Demandes;
 	}
 
 }

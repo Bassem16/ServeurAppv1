@@ -1,59 +1,62 @@
-package fr.dauphine.bank.entities;
+
 
 import java.io.Serializable;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 import java.util.List;
-import java.util.Set;
-
 
 /**
  * The persistent class for the Personne database table.
  * 
  */
 @Entity
-@NamedQuery(name="Personne.findAll", query="SELECT p FROM Personne p")
+@NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p")
 public class Personne implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPersonne;
-
+	@Pattern(regexp = "([^.@]+)(\\.[^.@]+)*@([^.@]+\\.)+([^.@]+)", message = "Merci de saisir une adresse mail valide")
+	@NotNull(message = "Veuillez saisir un email")
 	private String email;
-
+	@NotNull(message = "Veuillez saisir un login")
+	@Size(min = 6, message = "Le login doit contenir au moins 6 caractères")
 	private String login;
-
+	@NotNull(message = "Veuillez saisir un mot de passe")
 	private String motDePasse;
-
+	@NotNull(message = "Veuillez saisir un nom")
 	private String nomPersonne;
-
+	@NotNull(message = "Veuillez saisir un prenom")
 	private String prenomPersonne;
 
-	private boolean valide;
+	private int valide;
 
-	//bi-directional many-to-one association to Demande
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private Set<Demande> demandes;
+	// bi-directional many-to-one association to Demande
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private List<Demande> demandes;
 
-	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private Set<Offre> offres;
+	// bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private List<Offre> offres;
 
-	//bi-directional many-to-one association to Entreprise
+	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
-	@JoinColumn(name="idEntreprise")
+	@JoinColumn(name = "idEntreprise")
 	private Entreprise entreprise;
 
-	//bi-directional many-to-one association to TypePersonne
+	// bi-directional many-to-one association to TypePersonne
 	@ManyToOne
-	@JoinColumn(name="idTypePersonne")
+	@JoinColumn(name = "idTypePersonne")
 	private TypePersonne typePersonne;
 
-	//bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private Set<Titre> titres;
+	// bi-directional many-to-one association to Titre
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private List<Titre> titres;
 
 	public Personne() {
 	}
@@ -106,19 +109,19 @@ public class Personne implements Serializable {
 		this.prenomPersonne = prenomPersonne;
 	}
 
-	public boolean getValide() {
+	public int getValide() {
 		return this.valide;
 	}
 
-	public void setValide(boolean valide) {
+	public void setValide(int valide) {
 		this.valide = valide;
 	}
 
-	public Set<Demande> getDemandes() {
+	public List<Demande> getDemandes() {
 		return this.demandes;
 	}
 
-	public void setDemandes(Set<Demande> demandes) {
+	public void setDemandes(List<Demande> demandes) {
 		this.demandes = demandes;
 	}
 
@@ -136,11 +139,11 @@ public class Personne implements Serializable {
 		return demande;
 	}
 
-	public Set<Offre> getOffres() {
+	public List<Offre> getOffres() {
 		return this.offres;
 	}
 
-	public void setOffres(Set<Offre> offres) {
+	public void setOffres(List<Offre> offres) {
 		this.offres = offres;
 	}
 
@@ -174,11 +177,11 @@ public class Personne implements Serializable {
 		this.typePersonne = typePersonne;
 	}
 
-	public Set<Titre> getTitres() {
+	public List<Titre> getTitres() {
 		return this.titres;
 	}
 
-	public void setTitres(Set<Titre> titres) {
+	public void setTitres(List<Titre> titres) {
 		this.titres = titres;
 	}
 

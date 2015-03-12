@@ -1,7 +1,8 @@
 package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -19,7 +20,8 @@ import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
 @RequestScoped
-// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur Investisseur est connecté
+// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur
+// Investisseur est connecté
 public class GestionInvestisseurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -29,12 +31,10 @@ public class GestionInvestisseurBean implements Serializable {
 	@EJB
 	ServiceInvestisseur serviceInvestisseur;
 
-	public GestionInvestisseurBean(){
+	public GestionInvestisseurBean() {
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne");
 	}
-
-	
 
 	public Personne getPersonne() {
 		return this.personne;
@@ -92,20 +92,20 @@ public class GestionInvestisseurBean implements Serializable {
 		;
 	}
 
-	public List<Entreprise> getEntreprises() {
-		return getPersonne().getEntreprises();
+	public Entreprise getEntreprises() {
+		return getPersonne().getEntreprise();
 	}
 
-	public void setEntreprises(List<Entreprise> entreprises) {
-		getPersonne().setEntreprises(entreprises);
+	public void setEntreprise(Entreprise entreprise) {
+		getPersonne().setEntreprise(entreprise);
 		;
 	}
 
-	public List<Demande> getDemandes() {
+	public Set<Demande> getDemandes() {
 		return getPersonne().getDemandes();
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
 		;
 	}
@@ -122,20 +122,20 @@ public class GestionInvestisseurBean implements Serializable {
 		return demande;
 	}
 
-	public List<Titre> getTitres() {
+	public Set<Titre> getTitres() {
 		return getPersonne().getTitres();
 	}
 
-	public void setTitres(List<Titre> titres) {
+	public void setTitres(Set<Titre> titres) {
 		getPersonne().setTitres(titres);
 		;
 	}
 
-	public List<Offre> getOffres() {
+	public Set<Offre> getOffres() {
 		return getPersonne().getOffres();
 	}
 
-	public void setOffres(List<Offre> offres) {
+	public void setOffres(Set<Offre> offres) {
 		getPersonne().setOffres(offres);
 		;
 	}
@@ -162,4 +162,15 @@ public class GestionInvestisseurBean implements Serializable {
 		getPersonne().setTypePersonne(typePersonne);
 	}
 
+	public ArrayList<Offre> getOffresList() {
+		return new ArrayList<Offre>(getPersonne().getOffres());
+	}
+
+	public ArrayList<Titre> getTitresList() {
+		return new ArrayList<Titre>(getPersonne().getTitres());
+	}
+
+	public ArrayList<Demande> getDemandesList() {
+		return new ArrayList<Demande>(getPersonne().getDemandes());
+	}
 }
