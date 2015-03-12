@@ -12,5 +12,6 @@ import fr.dauphine.bank.entities.Demande;
 
 @Remote
 public interface ServiceAdministrateur {
-	public ArrayList<Demande> listeDemandes(String login);
+	public ArrayList<Demande> listeDemandes();
+	public void valideDemandePersonne(Demande demande);
 }

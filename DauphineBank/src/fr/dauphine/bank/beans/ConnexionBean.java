@@ -33,23 +33,21 @@ public class ConnexionBean {
 	ServiceSauvegarde serviceSauvegarde;
 	
 
-	public String doLogin(){
-		Personne p=serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
-		if(p!=null){
-			HttpSession hs= Utile.getSession();
-					personne=p;
-					hs.setAttribute("personne", p);
-					if (personne.getTypePersonne().getIdTypePersonne() == 0){
-						return "/Investisseur/home.xhtml?faces-redirect=true";
-					}
-					else if (personne.getTypePersonne().getIdTypePersonne() == 2) {
-						return "/Administrateur/homeAdministrateur.xhtml?faces-redirect=true";
-					}
-					else{
-						return "Visiteur/login.xhtml";
-					}
-		} else{
-			FacesMessage fm= new FacesMessage("Erreur d'identification", "!!!! ERROR MSG !!!!");
+	public String doLogin() {
+		Personne p = serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
+		if (p != null) {
+			HttpSession hs = Utile.getSession();
+			personne = p;
+			hs.setAttribute("personne", p);
+			if (personne.getTypePersonne().getIdTypePersonne() == 1) {
+				return "/Investisseur/home.xhtml?faces-redirect=true";
+			} else if (personne.getTypePersonne().getIdTypePersonne() == 3) {
+				return "/Administrateur/homeAdministrateur.xhtml?faces-redirect=true";
+			} else {
+				return "Visiteur/login.xhtml";
+			}
+		} else {
+			FacesMessage fm = new FacesMessage("Erreur d'identification  aaa!!!! ERROR MSG aaa!!!!");
 			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 			return "Visiteur/login.xhtml";

@@ -28,6 +28,7 @@ public class GestionAdministrateurBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
+	private List<Demande> listeDemandes = null;
 
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
@@ -35,10 +36,15 @@ public class GestionAdministrateurBean implements Serializable {
 	public GestionAdministrateurBean(){
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne");
+		listeDemandes = serviceAdministrateur.listeDemandes();
 	}
 
 	public List<Demande> getDemandes() {
-		return serviceAdministrateur.listeDemandes(personne.getLogin());
+		return listeDemandes;
+	}
+	
+	public void doSetDemandes(Demande demande) {
+		serviceAdministrateur.valideDemandePersonne(demande);
 	}
 	
 	public Personne getPersonne() {
