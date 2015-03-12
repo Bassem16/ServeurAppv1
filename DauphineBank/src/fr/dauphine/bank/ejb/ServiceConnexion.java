@@ -7,5 +7,4 @@ import fr.dauphine.bank.entities.Personne;
 @Remote
 public interface ServiceConnexion {
 	public Personne verificationPersonne(String login, String motDePasse);
-	public void sauvegardeCompte(Personne personne);
 }

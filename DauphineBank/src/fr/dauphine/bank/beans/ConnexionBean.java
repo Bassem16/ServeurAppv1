@@ -1,7 +1,6 @@
 package fr.dauphine.bank.beans;
 
 import java.util.ArrayList;
-import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
@@ -12,6 +11,7 @@ import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceConnexion;
+import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
@@ -28,7 +28,10 @@ public class ConnexionBean {
 
 	@EJB
 	ServiceConnexion serviceConnexion;
-
+	
+	@EJB
+	ServiceSauvegarde serviceSauvegarde;
+	
 	public ConnexionBean() {
 		personne = new Personne();
 	}
@@ -61,7 +64,7 @@ public class ConnexionBean {
 	}
 
 	public String doLogout() {
-		serviceConnexion.sauvegardeCompte((Personne) Utile.getSession()
+		serviceSauvegarde.sauvegardeCompte((Personne) Utile.getSession()
 				.getAttribute("personne"));
 		HttpSession hs = Utile.getSession();
 		hs.invalidate();
