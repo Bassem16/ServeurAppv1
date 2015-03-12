@@ -5,7 +5,9 @@ package fr.dauphine.bank.entities;
 import java.io.Serializable;
 
 import javax.persistence.*;
+
 import java.util.List;
+import java.util.Set;
 
 /**
  * The persistent class for the Personne database table.
@@ -35,12 +37,12 @@ public class Personne implements Serializable {
 	private boolean valide;
 
 	// bi-directional many-to-one association to Demande
-	@OneToMany(mappedBy = "personne", cascade = { CascadeType.ALL })
-	private List<Demande> demandes;
+	@OneToMany(mappedBy = "personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Set<Demande> demandes;
 
 	// bi-directional many-to-one association to Offre
 	@OneToMany(mappedBy = "personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private List<Offre> offres;
+	private Set<Offre> offres;
 
 	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
@@ -53,8 +55,8 @@ public class Personne implements Serializable {
 	private TypePersonne typePersonne;
 
 	// bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy = "personne", cascade = { CascadeType.ALL })
-	private List<Titre> titres;
+	@OneToMany(mappedBy = "personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Set<Titre> titres;
 
 	public Personne() {
 	}
@@ -115,11 +117,11 @@ public class Personne implements Serializable {
 		this.valide = valide;
 	}
 
-	public List<Demande> getDemandes() {
+	public Set<Demande> getDemandes() {
 		return this.demandes;
 	}
 
-	public void setDemandes(List<Demande> demandes) {
+	public void setDemandes(Set<Demande> demandes) {
 		this.demandes = demandes;
 	}
 
@@ -137,11 +139,11 @@ public class Personne implements Serializable {
 		return demande;
 	}
 
-	public List<Offre> getOffres() {
+	public Set<Offre> getOffres() {
 		return this.offres;
 	}
 
-	public void setOffres(List<Offre> offres) {
+	public void setOffres(Set<Offre> offres) {
 		this.offres = offres;
 	}
 
@@ -175,11 +177,11 @@ public class Personne implements Serializable {
 		this.typePersonne = typePersonne;
 	}
 
-	public List<Titre> getTitres() {
+	public Set<Titre> getTitres() {
 		return this.titres;
 	}
 
-	public void setTitres(List<Titre> titres) {
+	public void setTitres(Set<Titre> titres) {
 		this.titres = titres;
 	}
 

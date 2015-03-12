@@ -10,32 +10,77 @@
 <h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
 <h:form>
 		<h4>Vos Offres en cours</h4>
-		<h:dataTable value="#{gestionInvestisseurBean.offres}" var="o"
+		<h:dataTable value="#{gestionInvestisseurBean.offresList}" var="o"
 			styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
-			<h:column>
-				<f:facet name="header">Entreprise</f:facet>
-				<h:outputText value="#{o.entreprise.idEntreprise}" />
-			</h:column>
-			
 			<h:column>
 				<f:facet name="header">ID Offre</f:facet>
 				<h:outputText value="#{o.idOffre}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Type de l'offre</f:facet>
 				<h:outputText value="#{o.typeOffre}" />
 			</h:column>
-			
+
+			<h:column>
+				<f:facet name="header">ID Entreprise</f:facet>
+				<h:outputText value="#{o.entreprise.idEntreprise}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nom Entreprise</f:facet>
+				<h:outputText value="#{o.entreprise.nomEntreprise}" />
+			</h:column>
+
+
+
 			<h:column>
 				<f:facet name="header">Prix de l'offre</f:facet>
 				<h:outputText value="#{o.prixOffre}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Quantité</f:facet>
 				<h:outputText value="#{o.quantiteOffre}" />
+			</h:column>
+		</h:dataTable>
+
+		<h:dataTable value="#{gestionInvestisseurBean.titresList}" var="t"
+			styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-eve-row">
+			<h:column>
+				<f:facet name="header">ID Titre</f:facet>
+				<h:outputText value="#{t.idTitre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nom Titre</f:facet>
+				<h:outputText value="#{t.nomTitre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">ID Entreprise</f:facet>
+				<h:outputText value="#{t.entreprise.idEntreprise}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nom Entreprise</f:facet>
+				<h:outputText value="#{t.entreprise.nomEntreprise}" />
+			</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Type de Titre</f:facet>
+				<h:outputText value="#{t.typeTitre}" />
+			</h:column>
+
+
+
+			<h:column>
+				<f:facet name="header">Quantité titre</f:facet>
+				<h:outputText value="#{t.nombreTitre}" />
 			</h:column>
 		</h:dataTable>
 		<h:commandButton value="Deconnexion"
