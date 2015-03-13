@@ -33,11 +33,17 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public GestionAdministrateurBean(){
 		HttpSession hs = Utile.getSession();
-		personne = (Personne) hs.getAttribute("personne");
+		personne = (Personne) hs.getAttribute("personne"); 
 	}
 
 	public List<Demande> getDemandes() {
-		return serviceAdministrateur.listeDemandes(personne.getLogin());
+		return serviceAdministrateur.listeDemandes();
+	}
+	
+	public void validerDemandePersonne(Demande demande) {
+		demande.setStatutDemande("traité");
+		demande.getPersonne().setValide(1);
+		serviceAdministrateur.valideDemandePersonne(demande);
 	}
 	
 	public Personne getPersonne() {

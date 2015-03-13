@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Espace Administrateur</title>
 </h:head>
@@ -40,7 +41,16 @@
 
 			<h:column>
 				<f:facet name="header">Valider connexion </f:facet>
-				<h:commandButton value="test" action="#{connexionBean.doLogout}"></h:commandButton>
+				<c:choose>
+					<c:when test="#{o.personne.valide}">
+						<h:commandButton value="valider"
+						action="#{gestionAdministrateurBean.validerDemandePersonne(o)}">
+						</h:commandButton>
+					</c:when>
+					<c:otherwise>
+						<h:outputText value="Deja validé" />
+					</c:otherwise>
+				</c:choose>
 			</h:column>
 
 		</h:dataTable>

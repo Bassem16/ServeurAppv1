@@ -2,16 +2,20 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
 import fr.dauphine.bank.ejb.ServiceCreationCompte;
 import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
@@ -32,16 +36,21 @@ public class InscriptionBean implements Serializable {
 	public InscriptionBean() {
 		this.personne = new Personne();
 		this.demande = new Demande();
+		
 
 		this.demande.setDescriptifDemande("Demande d'inscription");
+		this.demande.setStatutDemande("A traiter");
 		this.demande.setPersonne(personne);
+		this.demande.setDateDemande(new Date(System.currentTimeMillis()));
 
-		this.personne.setValide(false);
+		this.personne.setValide(0);
 		this.personne.setDemandes(new HashSet<Demande>());
 		this.personne.getDemandes().add(this.demande);
 		this.personne.setEntreprise(null);
 		this.personne.setTitres(new HashSet<Titre>());
 		this.personne.setOffres(new HashSet<Offre>());
+		this.personne.setOffreHistoriques(new HashSet<OffreHistorique>());
+		this.personne.setDemandeHistoriques(new HashSet<DemandeHistorique>());
 		
 
 	}

@@ -33,6 +33,7 @@ public class ConnexionBean {
 	ServiceSauvegarde serviceSauvegarde;
 	
 
+
 	public String doLogin(){
 		Personne p=serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
 		if(p!=null){
@@ -50,6 +51,7 @@ public class ConnexionBean {
 					}
 		} else{
 			FacesMessage fm= new FacesMessage("Erreur d'identification", "!!!! ERROR MSG !!!!");
+
 			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
 			FacesContext.getCurrentInstance().addMessage(null, fm);
 			return "Visiteur/login.xhtml";
