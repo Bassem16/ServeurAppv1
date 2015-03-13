@@ -14,6 +14,7 @@ import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
@@ -54,7 +55,23 @@ public class GestionInvestisseurBean implements Serializable {
 
 	public void retirerDuMarcherTitre(Titre titre) {
 		titre.setEtatTitre(0);
+		//titre.setOffreHistoriques();
 		serviceInvestisseur.miseAJourTitre(titre);
+	}
+	
+	public void passerOffreAHistorique(Titre titre){
+		OffreHistorique offreH=new OffreHistorique();
+		for(int i=0;i< titre.getOffres().size();i++){
+			offreH.setDateOffreHistorique(titre.getOffres().get(i).getDateOffre());
+			offreH.setEntreprise(titre.getOffres().get(i).getEntreprise());
+			offreH.setPersonne(titre.getOffres().get(i).getPersonne());
+			offreH.setPrixOffreHistorique(titre.getOffres().get(i).getPrixOffre());
+			offreH.setQuantiteOffreHistorique(titre.getOffres().get(i).getQuantiteOffre());
+			offreH.setStatut("Refusé");
+			offreH.setTitres(titre.getOffres().get(i).getTitres());
+			
+		}
+		
 	}
 
 	public boolean estVente(Titre titre) {
