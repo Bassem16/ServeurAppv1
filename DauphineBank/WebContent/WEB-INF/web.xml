@@ -15,7 +15,10 @@
 	</context-param>
 
 
-
+	<filter>
+		<filter-name>AdministrateurFilter</filter-name>
+		<filter-class>fr.dauphine.bank.filters.AdministrateurFilter</filter-class>
+	</filter>
 	<filter>
 		<filter-name>InvestisseurFilter</filter-name>
 		<filter-class>fr.dauphine.bank.filters.InvestisseurFilter</filter-class>
@@ -24,7 +27,11 @@
 		<filter-name>VisiteurFilter</filter-name>
 		<filter-class>fr.dauphine.bank.filters.VisiteurFilter</filter-class>
 	</filter>
-	
+
+	<filter-mapping>
+		<filter-name>AdministrateurFilter</filter-name>
+		<url-pattern>/Administrateur/*</url-pattern>
+	</filter-mapping>
 	<filter-mapping>
 		<filter-name>InvestisseurFilter</filter-name>
 		<url-pattern>/Investisseur/*</url-pattern>

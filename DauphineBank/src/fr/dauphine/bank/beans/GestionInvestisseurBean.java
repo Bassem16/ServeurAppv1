@@ -6,10 +6,11 @@ import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceInvestisseur;
+import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
@@ -19,7 +20,7 @@ import fr.dauphine.bank.entities.TypePersonne;
 import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
-@RequestScoped
+@SessionScoped
 // ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur
 // Investisseur est connecté
 public class GestionInvestisseurBean implements Serializable {
@@ -30,11 +31,24 @@ public class GestionInvestisseurBean implements Serializable {
 
 	@EJB
 	ServiceInvestisseur serviceInvestisseur;
+	@EJB
+	ServiceSauvegarde serviceSauvegarde;
+	
 
 	public GestionInvestisseurBean() {
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne");
 	}
+
+	public void cloturerOffre(Offre offre) {
+		personne.removeOffre(offre);
+	
+		serviceInvestisseur.supprimerOffre(offre);
+		serviceSauvegarde.sauvegardeCompte(personne);
+
+	}
+	
+	
 
 	public Personne getPersonne() {
 		return this.personne;

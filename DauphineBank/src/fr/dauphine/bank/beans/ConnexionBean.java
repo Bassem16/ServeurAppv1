@@ -72,8 +72,8 @@ public class ConnexionBean {
 	}
 
 	public String doLogout() {
-		serviceSauvegarde.sauvegardeCompte((Personne) Utile.getSession()
-				.getAttribute("personne"));
+//		serviceSauvegarde.sauvegardeCompte((Personne) Utile.getSession()
+//				.getAttribute("personne"));
 		HttpSession hs = Utile.getSession();
 		hs.invalidate();
 		return "/index.xhtml";

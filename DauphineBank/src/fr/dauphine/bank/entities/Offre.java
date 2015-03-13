@@ -1,7 +1,9 @@
 package fr.dauphine.bank.entities;
 
 import java.io.Serializable;
+
 import javax.persistence.*;
+
 import java.util.List;
 
 
@@ -36,7 +38,16 @@ public class Offre implements Serializable {
 	private Personne personne;
 
 	//bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy="offres",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@ManyToMany(cascade = { CascadeType.ALL},fetch = FetchType.EAGER)
+	@JoinTable(
+		name="LierOffreTitre"
+		, joinColumns={
+		@JoinColumn(name="idOffre")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idTitre")
+			}
+		)
 	private List<Titre> titres;
 
 	public Offre() {

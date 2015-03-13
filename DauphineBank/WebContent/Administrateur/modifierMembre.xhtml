@@ -1,8 +1,9 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
-	xmlns:h="http://java.sun.com/jsf/html">
-
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
 	<title>Espace Administrateur</title>
 </h:head>
@@ -17,33 +18,41 @@
 				<f:facet name="header">Nom du demandeur</f:facet>
 				<h:outputText value="#{o.personne.nomPersonne}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Prénom du Titualire</f:facet>
 				<h:outputText value="#{o.personne.prenomPersonne}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">id demande</f:facet>
 				<h:outputText value="#{o.idDemande}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Descriptif demande</f:facet>
 				<h:outputText value="#{o.descriptifDemande}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Statut demande </f:facet>
 				<h:outputText value="#{o.statutDemande}" />
 			</h:column>
-			
+
 			<h:column>
 				<f:facet name="header">Valider connexion </f:facet>
-				<h:commandButton value="test"
-			action=""></h:commandButton>
+				<c:choose>
+					<c:when test="#{o.personne.valide}">
+						<h:commandButton value="valider"
+						action="#{gestionAdministrateurBean.validerDemandePersonne(o)}">
+						</h:commandButton>
+					</c:when>
+					<c:otherwise>
+						<h:outputText value="Deja validé" />
+					</c:otherwise>
+				</c:choose>
 			</h:column>
-			
+
 		</h:dataTable>
 		<h:commandButton value="Deconnexion"
 			action="#{connexionBean.doLogout}"></h:commandButton>
