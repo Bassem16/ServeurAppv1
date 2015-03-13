@@ -6,50 +6,58 @@ import javax.persistence.*;
 
 import java.util.List;
 
-
 /**
  * The persistent class for the Titre database table.
  * 
  */
 @Entity
-@NamedQuery(name="Titre.findAll", query="SELECT t FROM Titre t")
+@NamedQuery(name = "Titre.findAll", query = "SELECT t FROM Titre t")
 public class Titre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
 	private int idTitre;
 
-	private int nombreTitre;
+	private int etatTitre;
 
 	private String nomTitre;
 
 	private String typeTitre;
 
-	//bi-directional many-to-one association to Entreprise
+	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
-	@JoinColumn(name="idEntreprise")
+	@JoinColumn(name = "idEntreprise")
 	private Entreprise entreprise;
 
-	//bi-directional many-to-many association to Offre
-//	@ManyToMany
-//	@JoinTable(
-//		name="LierOffreTitre"
-//		, joinColumns={
-//			@JoinColumn(name="idTitre")
-//			}
-//		, inverseJoinColumns={
-//			@JoinColumn(name="idOffre")
-//			}
-//		)
-	@ManyToMany(mappedBy="titres", fetch = FetchType.EAGER)
+	// bi-directional many-to-many association to Offre
+	// @ManyToMany
+	// @JoinTable(
+	// name="LierOffreTitre"
+	// , joinColumns={
+	// @JoinColumn(name="idTitre")
+	// }
+	// , inverseJoinColumns={
+	// @JoinColumn(name="idOffre")
+	// }
+	// )
+	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
 	private List<Offre> offres;
 
-	//bi-directional many-to-one association to Personne
+	// bi-directional many-to-one association to Personne
 	@ManyToOne
-	@JoinColumn(name="idPersonne")
+	@JoinColumn(name = "idPersonne")
 	private Personne personne;
 
 	public Titre() {
+	}
+
+	public boolean estVente() {
+		if (getEtatTitre() == 1) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 	public int getIdTitre() {
@@ -60,12 +68,12 @@ public class Titre implements Serializable {
 		this.idTitre = idTitre;
 	}
 
-	public int getNombreTitre() {
-		return this.nombreTitre;
+	public int getEtatTitre() {
+		return this.etatTitre;
 	}
 
-	public void setNombreTitre(int nombreTitre) {
-		this.nombreTitre = nombreTitre;
+	public void setEtatTitre(int etatTitre) {
+		this.etatTitre = etatTitre;
 	}
 
 	public String getNomTitre() {

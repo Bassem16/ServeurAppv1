@@ -9,8 +9,11 @@
 	<title>Team Trader</title>
 </h:head>
 <body>
-	<CENTER>Bienvenue sur Team Trader<c:if test="#{connexionBean.connected}">
-    (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})</c:if></CENTER>
+	<CENTER>
+		Bienvenue sur Team Trader
+		<c:if test="#{connexionBean.connected}">
+    (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})</c:if>
+	</CENTER>
 	<h:form>
 		<h5>
 
@@ -18,7 +21,7 @@
 				<c:when test="#{connexionBean.connected}">
 					<h:link value="Mon compte" outcome="/Investisseur/home.xhtml" />
 				</c:when>
-				
+
 
 				<c:otherwise>
 					<h:link value="Connectez-vous" outcome="/Visiteur/login.xhtml" />

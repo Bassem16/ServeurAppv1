@@ -39,10 +39,10 @@ public class ConnexionBean {
 			HttpSession hs= Utile.getSession();
 					personne=p;
 					hs.setAttribute("personne", p);
-					if (personne.getTypePersonne().getIdTypePersonne() == 0){
+					if (personne.getTypePersonne().getIdTypePersonne() == 1){
 						return "/Investisseur/home.xhtml?faces-redirect=true";
 					}
-					else if (personne.getTypePersonne().getIdTypePersonne() == 2) {
+					else if (personne.getTypePersonne().getIdTypePersonne() == 3) {
 						return "/Administrateur/homeAdministrateur.xhtml?faces-redirect=true";
 					}
 					else{

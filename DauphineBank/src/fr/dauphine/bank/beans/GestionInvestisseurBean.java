@@ -33,7 +33,6 @@ public class GestionInvestisseurBean implements Serializable {
 	ServiceInvestisseur serviceInvestisseur;
 	@EJB
 	ServiceSauvegarde serviceSauvegarde;
-	
 
 	public GestionInvestisseurBean() {
 		HttpSession hs = Utile.getSession();
@@ -42,13 +41,30 @@ public class GestionInvestisseurBean implements Serializable {
 
 	public void cloturerOffre(Offre offre) {
 		personne.removeOffre(offre);
-	
+
 		serviceInvestisseur.supprimerOffre(offre);
 		serviceSauvegarde.sauvegardeCompte(personne);
 
 	}
-	
-	
+
+	public void mettreSurMarcherTitre(Titre titre) {
+		titre.setEtatTitre(1);
+		serviceInvestisseur.miseAJourTitre(titre);
+	}
+
+	public void retirerDuMarcherTitre(Titre titre) {
+		titre.setEtatTitre(0);
+		serviceInvestisseur.miseAJourTitre(titre);
+	}
+
+	public boolean estVente(Titre titre) {
+		return titre.estVente();
+
+	}
+
+	public void rechercherTitre(String nomTitre) {
+
+	}
 
 	public Personne getPersonne() {
 		return this.personne;

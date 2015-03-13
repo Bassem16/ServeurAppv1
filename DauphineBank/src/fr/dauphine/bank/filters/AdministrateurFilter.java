@@ -44,7 +44,7 @@ public class AdministrateurFilter implements Filter {
 		if (personne == null) {
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
-		} else if (personne.getTypePersonne().getIdTypePersonne()!=2) {
+		} else if (personne.getTypePersonne().getIdTypePersonne()!=3) {
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
 		} else {

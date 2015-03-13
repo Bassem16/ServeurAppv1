@@ -25,7 +25,7 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			personne.setTypePersonne(em.find(TypePersonne.class, 0));
+			personne.setTypePersonne(em.find(TypePersonne.class, 1));
 			personne.getTypePersonne().getPersonnes().add(personne);
 			em.persist(personne);
 			et.commit();

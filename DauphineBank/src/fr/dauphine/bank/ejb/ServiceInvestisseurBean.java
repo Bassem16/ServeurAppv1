@@ -8,7 +8,9 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 //import javax.persistence.Query;
 
+
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.Titre;
 
 //import fr.dauphine.bank.entities.Offre;
 
@@ -38,6 +40,27 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 		} finally {
 		}
 
+	}
+
+	@Override
+	public void miseAJourTitre(Titre titre) {
+		try {
+			
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			Titre t=em.getReference(Titre.class, titre.getIdTitre());
+			t.setEtatTitre(titre.getEtatTitre());
+			em.merge(t);
+			et.commit();
+			System.out.println("Mise à la vente du titre:" + t.getEtatTitre() +"  zz "+ titre.getEtatTitre());
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		
 	}
 
 }
