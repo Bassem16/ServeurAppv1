@@ -19,7 +19,7 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 	private EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
-	@SuppressWarnings("unchecked")
+	
 	public ArrayList<Demande> listeDemandes() {
 
 		ArrayList<Demande> Demandes = null;
@@ -41,11 +41,15 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 	public void valideDemandePersonne(Demande demande) {
 		try {
 			EntityManager em = emf.createEntityManager();
+			System.out.println("Modification en base du compte 1 ");
 			EntityTransaction et = null;
 			et = em.getTransaction();
+			System.out.println("Modification en base du compte 2 ");
 			et.begin();
+			System.out.println("Modification en base du compte 3 ");
 			em.merge(demande);
 			em.merge(demande.getPersonne());
+			System.out.println("Modification en base du compte 4 ");
 			et.commit();
 			System.out.println("Modification en base du compte "
 					+ demande.getIdDemande());

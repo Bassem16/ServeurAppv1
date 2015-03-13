@@ -11,46 +11,42 @@
 <h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
 <h:form>
 		<h4>Les Membres</h4>
-		<h:dataTable value="#{gestionAdministrateurBean.demandes}" var="o"
+		<h:dataTable value="#{gestionAdministrateurBean.demandes}" var="d"
 			styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
 			<h:column>
 				<f:facet name="header">Nom du demandeur</f:facet>
-				<h:outputText value="#{o.personne.nomPersonne}" />
+				<h:outputText value="#{d.personne.nomPersonne}" />
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">Prénom du Titualire</f:facet>
-				<h:outputText value="#{o.personne.prenomPersonne}" />
+				<h:outputText value="#{d.personne.prenomPersonne}" />
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">id demande</f:facet>
-				<h:outputText value="#{o.idDemande}" />
+				<h:outputText value="#{d.idDemande}" />
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">Descriptif demande</f:facet>
-				<h:outputText value="#{o.descriptifDemande}" />
+				<h:outputText value="#{d.descriptifDemande}" />
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">Statut demande </f:facet>
-				<h:outputText value="#{o.statutDemande}" />
+				<h:outputText value="#{d.statutDemande}" />
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">Valider connexion </f:facet>
-				<c:choose>
-					<c:when test="#{o.personne.valide}">
-						<h:commandButton value="valider"
-						action="#{gestionAdministrateurBean.validerDemandePersonne(o)}">
-						</h:commandButton>
-					</c:when>
-					<c:otherwise>
-						<h:outputText value="Deja validé" />
-					</c:otherwise>
-				</c:choose>
+				<h:commandButton value="Accepter"
+					action="#{gestionAdministrateurBean.validerDemandePersonne(d)}">
+				</h:commandButton>
+				<h:commandButton value="Refuser"
+					action="#{gestionAdministrateurBean.validerDemandePersonne(d)}">
+				</h:commandButton>
 			</h:column>
 
 		</h:dataTable>

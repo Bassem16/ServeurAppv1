@@ -8,6 +8,7 @@ import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
@@ -20,8 +21,9 @@ import fr.dauphine.bank.entities.TypePersonne;
 import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
-@RequestScoped
-// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur Investisseur est connecté
+@SessionScoped
+//ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur
+//Administrateur est connecté
 public class GestionAdministrateurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
