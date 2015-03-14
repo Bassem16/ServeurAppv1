@@ -4,20 +4,19 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import java.util.List;
 import java.util.Set;
-
 
 /**
  * The persistent class for the Entreprise database table.
  * 
  */
 @Entity
-@NamedQuery(name="Entreprise.findAll", query="SELECT e FROM Entreprise e")
+@NamedQuery(name = "Entreprise.findAll", query = "SELECT e FROM Entreprise e")
 public class Entreprise implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEntreprise;
 
 	private int nombreTitreTotal;
@@ -26,24 +25,24 @@ public class Entreprise implements Serializable {
 
 	private String secteurEntreprise;
 
-	//bi-directional many-to-one association to Information
-	@OneToMany(mappedBy="entreprise")
+	// bi-directional many-to-one association to Information
+	@OneToMany(mappedBy = "entreprise")
 	private Set<Information> informations;
 
-	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="entreprise")
+	// bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy = "entreprise")
 	private Set<Offre> offres;
 
-	//bi-directional many-to-one association to Personne
-	@OneToMany(mappedBy="entreprise")
+	// bi-directional many-to-one association to Personne
+	@OneToMany(mappedBy = "entreprise")
 	private Set<Personne> personnes;
 
-	//bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy="entreprise")
+	// bi-directional many-to-one association to Titre
+	@OneToMany(mappedBy = "entreprise")
 	private Set<Titre> titres;
 
-	//bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy="entreprise")
+	// bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy = "entreprise")
 	private Set<OffreHistorique> offreHistoriques;
 
 	public Entreprise() {

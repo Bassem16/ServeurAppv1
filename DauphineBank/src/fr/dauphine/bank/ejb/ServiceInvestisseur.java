@@ -13,5 +13,6 @@ import fr.dauphine.bank.entities.Titre;
 public interface ServiceInvestisseur {
 	public void miseAJourTitre(Titre titre);
 	public void supprimerOffre(Offre offre);
+	
 
 }

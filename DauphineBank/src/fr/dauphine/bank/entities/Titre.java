@@ -4,7 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.Set;
 
 /**
  * The persistent class for the Titre database table.
@@ -16,6 +17,7 @@ public class Titre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idTitre;
 
 	private int etatTitre;
@@ -31,7 +33,7 @@ public class Titre implements Serializable {
 
 	// bi-directional many-to-many association to Offre
 	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
-	private List<Offre> offres;
+	private Set<Offre> offres;
 
 	// bi-directional many-to-one association to Personne
 	@ManyToOne
@@ -39,9 +41,9 @@ public class Titre implements Serializable {
 	private Personne personne;
 
 	// bi-directional many-to-many association to OffreHistorique
-	@ManyToMany
+	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
 	@JoinTable(name = "LierOffreTitreHistorique", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = { @JoinColumn(name = "idOffreHistorique") })
-	private List<OffreHistorique> offreHistoriques;
+	private Set<OffreHistorique> offreHistoriques;
 
 	public Titre() {
 	}
@@ -95,11 +97,11 @@ public class Titre implements Serializable {
 		this.entreprise = entreprise;
 	}
 
-	public List<Offre> getOffres() {
+	public Set<Offre> getOffres() {
 		return this.offres;
 	}
 
-	public void setOffres(List<Offre> offres) {
+	public void setOffres(Set<Offre> offres) {
 		this.offres = offres;
 	}
 
@@ -111,12 +113,16 @@ public class Titre implements Serializable {
 		this.personne = personne;
 	}
 
-	public List<OffreHistorique> getOffreHistoriques() {
+	public Set<OffreHistorique> getOffreHistoriques() {
 		return this.offreHistoriques;
 	}
 
-	public void setOffreHistoriques(List<OffreHistorique> offreHistoriques) {
+	public void setOffreHistoriques(Set<OffreHistorique> offreHistoriques) {
 		this.offreHistoriques = offreHistoriques;
+	}
+
+	public ArrayList<Offre> getOffresList() {
+		return new ArrayList<Offre>(offres);
 	}
 
 }
