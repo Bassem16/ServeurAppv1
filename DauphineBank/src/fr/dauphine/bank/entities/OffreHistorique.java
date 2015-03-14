@@ -4,21 +4,21 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import java.util.Set;
-
 
 /**
  * The persistent class for the OffreHistorique database table.
  * 
  */
 @Entity
-@NamedQuery(name="OffreHistorique.findAll", query="SELECT o FROM OffreHistorique o")
+@NamedQuery(name = "OffreHistorique.findAll", query = "SELECT o FROM OffreHistorique o")
 public class OffreHistorique implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idOffreHistorique;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -32,18 +32,18 @@ public class OffreHistorique implements Serializable {
 
 	private String typeOffreHistorique;
 
-	//bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy="offreHistoriques")
+	// bi-directional many-to-many association to Titre
+	@ManyToMany(mappedBy = "offreHistoriques", fetch = FetchType.EAGER)
 	private Set<Titre> titres;
 
-	//bi-directional many-to-one association to Entreprise
+	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
-	@JoinColumn(name="idEntreprise")
+	@JoinColumn(name = "idEntreprise")
 	private Entreprise entreprise;
 
-	//bi-directional many-to-one association to Personne
+	// bi-directional many-to-one association to Personne
 	@ManyToOne
-	@JoinColumn(name="idPersonne")
+	@JoinColumn(name = "idPersonne")
 	private Personne personne;
 
 	public OffreHistorique() {
@@ -119,6 +119,10 @@ public class OffreHistorique implements Serializable {
 
 	public void setPersonne(Personne personne) {
 		this.personne = personne;
+	}
+
+	public ArrayList<Titre> getTitresList() {
+		return new ArrayList<Titre>(titres);
 	}
 
 }

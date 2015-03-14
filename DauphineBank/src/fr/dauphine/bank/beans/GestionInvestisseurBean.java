@@ -3,7 +3,6 @@ package fr.dauphine.bank.beans;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Set;
-
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
@@ -50,28 +49,72 @@ public class GestionInvestisseurBean implements Serializable {
 
 	public void mettreSurMarcherTitre(Titre titre) {
 		titre.setEtatTitre(1);
-		serviceInvestisseur.miseAJourTitre(titre);
+		serviceSauvegarde.sauvegardeTitre(titre);
 	}
 
 	public void retirerDuMarcherTitre(Titre titre) {
 		titre.setEtatTitre(0);
-		//titre.setOffreHistoriques();
-		serviceInvestisseur.miseAJourTitre(titre);
+		passerOffreAHistorique(titre);
+		// serviceInvestisseur.miseAJourTitre(titre);
+		// serviceSauvegarde.sauvegardeCompte(personne);
 	}
-	
-	public void passerOffreAHistorique(Titre titre){
-		OffreHistorique offreH=new OffreHistorique();
-		for(int i=0;i< titre.getOffres().size();i++){
-			offreH.setDateOffreHistorique(titre.getOffres().get(i).getDateOffre());
-			offreH.setEntreprise(titre.getOffres().get(i).getEntreprise());
-			offreH.setPersonne(titre.getOffres().get(i).getPersonne());
-			offreH.setPrixOffreHistorique(titre.getOffres().get(i).getPrixOffre());
-			offreH.setQuantiteOffreHistorique(titre.getOffres().get(i).getQuantiteOffre());
-			offreH.setStatut("Refusé");
-			offreH.setTitres(titre.getOffres().get(i).getTitres());
-			
+
+	public void passerOffreAHistorique(Titre titre) {
+		OffreHistorique offreH = new OffreHistorique();
+		ArrayList<Offre> AO = titre.getOffresList();
+		Set<Offre> T = titre.getOffres();
+		for (int i = 0; i < AO.size(); i++) {
+			Offre offre = AO.get(i);
+			offreH.setDateOffreHistorique(offre.getDateOffre());
+			offreH.setEntreprise(offre.getEntreprise());
+			offreH.setPersonne(offre.getPersonne());
+			offreH.setPrixOffreHistorique(offre.getPrixOffre());
+			offreH.setQuantiteOffreHistorique(offre.getQuantiteOffre());
+			offreH.setStatut("Refusée");
+			offreH.setTitres(offre.getTitres());
+			offreH.setTypeOffreHistorique(offre.getTypeOffre());
+
+			// serviceSauvegarde.sauvegardeOffreHistorique(offreH);
+			// serviceSauvegarde.sauvegardeTitre(titre); // On sauvegarde
+			System.out.println("TAILLE  : " + titre.getOffres().size());
+			// On supprime l'offre de tous les titres concernés
+			ArrayList<Titre> titres = offre.getTitresList();
+			for (int j = 0; j < titres.size(); j++) {
+				titres.get(j).getOffres().remove(offre);
+			}
+
+			T.remove(offre);// On retire l'offre du titre
+
+			titre.getOffreHistoriques().add(offreH);// On ajoute l'offre dans
+													// l'hsitorique du titre
+			Personne p = offre.getPersonne();
+			p.getOffres().remove(offre); // On retire l'offre de la personne
+			// p.getOffreHistoriques().add(offreH); // On ajoute l'offre dans
+			// l'Historique de la
+			// personne
+			//
+			serviceInvestisseur.supprimerOffre(offre); // On supprime l'offre de
+														// la BDD
+			//
+			// serviceSauvegarde.sauvegardeOffreHistorique(offreH);
+			serviceSauvegarde.sauvegardeCompte(p); // On sauvegarde la personne
+													// de l'offre
+			//
+			// }
+			// OffreHistorique offreH=new OffreHistorique();
+			// ArrayList<Offre> AO = titre.getOffresList();
+			// Set<Offre> T=titre.getOffres();
+			// for(int i=0;i< AO.size();i++){
+			// Offre offre=AO.get(i);
+
+			// Personne p=offre.getPersonne();
+			// serviceSauvegarde.sauvegardeCompte(p);
+			// System.out.println(p);
+
+			// }
 		}
-		
+		serviceSauvegarde.sauvegardeTitre(titre);
+
 	}
 
 	public boolean estVente(Titre titre) {
@@ -219,5 +262,10 @@ public class GestionInvestisseurBean implements Serializable {
 
 	public ArrayList<Demande> getDemandesList() {
 		return new ArrayList<Demande>(getPersonne().getDemandes());
+	}
+
+	public ArrayList<OffreHistorique> getOffreHistoriquesList() {
+		return new ArrayList<OffreHistorique>(getPersonne()
+				.getOffreHistoriques());
 	}
 }

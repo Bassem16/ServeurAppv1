@@ -34,6 +34,7 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			// query.executeUpdate();
 			Offre o=em.getReference(Offre.class, offre.getIdOffre());
 			em.remove(o);
+			//em.refresh(o);
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
@@ -41,26 +42,23 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 		}
 
 	}
-
-	@Override
+	
 	public void miseAJourTitre(Titre titre) {
+
 		try {
-			
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			Titre t=em.getReference(Titre.class, titre.getIdTitre());
-			t.setEtatTitre(titre.getEtatTitre());
-			em.merge(t);
-			et.commit();
-			System.out.println("Mise à la vente du titre:" + t.getEtatTitre() +"  zz "+ titre.getEtatTitre());
+			em.refresh(titre);
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
-		
+
 	}
+
+	
 
 }

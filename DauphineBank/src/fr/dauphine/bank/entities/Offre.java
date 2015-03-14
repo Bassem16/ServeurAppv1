@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
@@ -18,6 +19,7 @@ public class Offre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idOffre;
 
 	@Temporal(TemporalType.TIMESTAMP)
@@ -124,9 +126,15 @@ public class Offre implements Serializable {
 	public Set<Titre> getTitres() {
 		return this.titres;
 	}
-
+	
+	public ArrayList<Titre> getTitresList(){
+		return new ArrayList<Titre>(titres);
+	}
+	
 	public void setTitres(Set<Titre> titres) {
 		this.titres = titres;
 	}
+	
+	
 
 }

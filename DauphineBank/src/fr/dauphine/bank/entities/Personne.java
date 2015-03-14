@@ -6,13 +6,12 @@ import javax.persistence.*;
 
 import java.util.Set;
 
-
 /**
  * The persistent class for the Personne database table.
  * 
  */
 @Entity
-@NamedQuery(name="Personne.findAll", query="SELECT p FROM Personne p")
+@NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p")
 public class Personne implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -32,34 +31,34 @@ public class Personne implements Serializable {
 
 	private int valide;
 
-	//bi-directional many-to-one association to Demande
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	// bi-directional many-to-one association to Demande
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Demande> demandes;
 
-	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="personne",orphanRemoval=true,fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	// bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy = "personne", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Offre> offres;
 
-	//bi-directional many-to-one association to Entreprise
+	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
-	@JoinColumn(name="idEntreprise")
+	@JoinColumn(name = "idEntreprise")
 	private Entreprise entreprise;
 
-	//bi-directional many-to-one association to TypePersonne
+	// bi-directional many-to-one association to TypePersonne
 	@ManyToOne
-	@JoinColumn(name="idTypePersonne")
+	@JoinColumn(name = "idTypePersonne")
 	private TypePersonne typePersonne;
 
-	//bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	// bi-directional many-to-one association to Titre
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Titre> titres;
 
-	//bi-directional many-to-one association to DemandeHistorique
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	// bi-directional many-to-one association to DemandeHistorique
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<DemandeHistorique> demandeHistoriques;
 
-	//bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy="personne",fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	// bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<OffreHistorique> offreHistoriques;
 
 	public Personne() {
@@ -211,14 +210,16 @@ public class Personne implements Serializable {
 		this.demandeHistoriques = demandeHistoriques;
 	}
 
-	public DemandeHistorique addDemandeHistorique(DemandeHistorique demandeHistorique) {
+	public DemandeHistorique addDemandeHistorique(
+			DemandeHistorique demandeHistorique) {
 		getDemandeHistoriques().add(demandeHistorique);
 		demandeHistorique.setPersonne(this);
 
 		return demandeHistorique;
 	}
 
-	public DemandeHistorique removeDemandeHistorique(DemandeHistorique demandeHistorique) {
+	public DemandeHistorique removeDemandeHistorique(
+			DemandeHistorique demandeHistorique) {
 		getDemandeHistoriques().remove(demandeHistorique);
 		demandeHistorique.setPersonne(null);
 
