@@ -4,41 +4,56 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import fr.dauphine.bank.entities.Information;
+
 public class InformationTest {
 
 	@Test
 	public void testInformation() {
-		fail("Not yet implemented");
+		Information I = new Information();
+		assertNotNull(I);
 	}
 
 	@Test
 	public void testGetIdInformation() {
-		fail("Not yet implemented");
+		Information I = new Information();	
+		I.setIdInformation(0);
+		assertEquals(0,I.getIdInformation());
 	}
 
 	@Test
 	public void testSetIdInformation() {
-		fail("Not yet implemented");
+		Information I = new Information();	
+		I.setIdInformation(1);
+		assertEquals(1,I.getIdInformation());
 	}
 
 	@Test
 	public void testGetDateInformation() {
-		fail("Not yet implemented");
+		Information I = new Information();	
+		I.setDateInformation(0);
+		assertEquals(0,I.getDateInformation());
 	}
 
 	@Test
 	public void testSetDateInformation() {
-		fail("Not yet implemented");
+		Information I = new Information();	
+		I.setDateInformation(1);
+		assertEquals(1,I.getDateInformation());
 	}
 
 	@Test
 	public void testGetTypeInformation() {
-		fail("Not yet implemented");
+		Information I = new Information();	
+		I.setTypeInformation("TEST");
+		assertEquals("TEST",I.getTypeInformation());
 	}
 
 	@Test
 	public void testSetTypeInformation() {
-		fail("Not yet implemented");
+		Information I = new Information();	
+		I.setTypeInformation("TEST");
+		assertEquals("TEST",I.getTypeInformation());
 	}
 
 	@Test

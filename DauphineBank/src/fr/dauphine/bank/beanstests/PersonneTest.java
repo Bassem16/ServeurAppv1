@@ -4,71 +4,99 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.Personne;
+
 public class PersonneTest {
 
 	@Test
 	public void testPersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();
+		assertNotNull(P);
 	}
 
 	@Test
 	public void testGetIdPersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setIdPersonne(0);
+		assertEquals(0,P.getIdPersonne());
 	}
 
 	@Test
 	public void testSetIdPersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setIdPersonne(0);
+		assertEquals(0,P.getIdPersonne());
 	}
 
 	@Test
 	public void testGetEmail() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setEmail("test@test.com");
+		assertEquals("test@test.com",P.getEmail());
 	}
 
 	@Test
 	public void testSetEmail() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setEmail("test@test.com");
+		assertEquals("test@test.com",P.getEmail());
 	}
 
 	@Test
 	public void testGetLogin() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setLogin("test");
+		assertEquals("test",P.getLogin());
 	}
 
 	@Test
 	public void testSetLogin() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setLogin("test");
+		assertEquals("tes",P.getLogin());
 	}
 
 	@Test
 	public void testGetMotDePasse() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setMotDePasse("testtest");
+		assertEquals("testtest",P.getMotDePasse());
 	}
 
 	@Test
 	public void testSetMotDePasse() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setMotDePasse("testtest");
+		assertEquals("testtest",P.getMotDePasse());
 	}
 
 	@Test
 	public void testGetNomPersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setNomPersonne("testtest");
+		assertEquals("testtest",P.getNomPersonne());
 	}
 
 	@Test
 	public void testSetNomPersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setNomPersonne("testtest");
+		assertEquals("testtest",P.getNomPersonne());
 	}
 
 	@Test
 	public void testGetPrenomPersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setPrenomPersonne("testtest");
+		assertEquals("testtest",P.getPrenomPersonne());
 	}
 
 	@Test
 	public void testSetPrenomPersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		P.setPrenomPersonne("testtest");
+		assertEquals("testtest",P.getPrenomPersonne());
 	}
 
 	@Test

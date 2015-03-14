@@ -1,10 +1,20 @@
 package fr.dauphine.bank.beanstests;
 
+// Rajout pour Test optimale 
+import org.hamcrest.core.AllOf;
+import org.hamcrest.core.IsEqual;
+import org.hamcrest.core.IsInstanceOf;
+import org.hamcrest.core.IsNot;
+import org.junit.Assert;
+// Fin Rajout
+
+
 import static org.junit.Assert.*;
 
 import org.junit.Test;
 
 import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.Personne;
 
 public class DemandeTest {
 
@@ -30,32 +40,52 @@ public class DemandeTest {
 
 	@Test
 	public void testGetDescriptifDemande() {
-		fail("Not yet implemented");
+		Demande d=new Demande();
+		d.setDescriptifDemande("TEST");
+		assertEquals("TEST", d.getDescriptifDemande());
 	}
 
 	@Test
 	public void testSetDescriptifDemande() {
-		fail("Not yet implemented");
+		Demande d=new Demande();
+		d.setDescriptifDemande("TEST");
+		assertEquals("TEST", d.getDescriptifDemande());
 	}
 
 	@Test
 	public void testGetStatutDemande() {
-		fail("Not yet implemented");
+		Demande d=new Demande();
+		d.setStatutDemande(1);
+		assertEquals(1, d.getStatutDemande());
 	}
 
 	@Test
 	public void testSetStatutDemande() {
-		fail("Not yet implemented");
+		Demande d=new Demande();
+		d.setStatutDemande(2);
+	    Assert.assertThat(2, IsEqual.equalTo(d.getStatutDemande()));
 	}
 
 	@Test
 	public void testGetPersonne() {
-		fail("Not yet implemented");
+		Demande d=new Demande();
+		// Création Personnne
+		Personne P=new Personne();
+		// Ajout Personne
+		d.setPersonne(P);
+		
+		assertEquals(P, d.getPersonne());
 	}
 
 	@Test
 	public void testSetPersonne() {
-		fail("Not yet implemented");
+		Demande d=new Demande();
+		// Création Personnne
+		Personne P=new Personne();
+		// Ajout Personne
+		d.setPersonne(P);
+		
+		assertEquals(P, d.getPersonne());
 	}
 
 }
