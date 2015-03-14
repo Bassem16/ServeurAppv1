@@ -4,31 +4,43 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import fr.dauphine.bank.entities.Information;
+import fr.dauphine.bank.entities.Offre;
+
 public class OffreTest {
 
 	@Test
 	public void testOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();
+		assertNotNull(O);
 	}
 
 	@Test
 	public void testGetIdOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setIdOffre(0);
+		assertEquals(0,O.getIdOffre());
 	}
 
 	@Test
 	public void testSetIdOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setIdOffre(1);
+		assertEquals(1,O.getIdOffre());
 	}
 
 	@Test
 	public void testGetPrixOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setPrixOffre(0);
+		assertEquals(0,O.getPrixOffre());
 	}
 
 	@Test
 	public void testSetPrixOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setPrixOffre(1);
+		assertEquals(1,O.getPrixOffre());
 	}
 
 	@Test
@@ -43,12 +55,16 @@ public class OffreTest {
 
 	@Test
 	public void testGetTypeOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setTypeOffre("TEST");
+		assertEquals("TEST",O.getTypeOffre());
 	}
 
 	@Test
 	public void testSetTypeOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setTypeOffre("TEST");
+		assertEquals("TEST",O.getTypeOffre());
 	}
 
 	@Test
