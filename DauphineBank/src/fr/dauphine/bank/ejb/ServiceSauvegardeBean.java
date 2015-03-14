@@ -7,6 +7,8 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
+import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
@@ -75,6 +77,25 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 		} finally {
 		}
 
+	}
+	
+	
+	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique){
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.persist(demandeHistorique);
+			et.commit();
+			System.out.println("Sauvegarde en base de l'offre (historique) "
+					+ demandeHistorique.getIdDemandeHistorique());
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		
 	}
 
 }

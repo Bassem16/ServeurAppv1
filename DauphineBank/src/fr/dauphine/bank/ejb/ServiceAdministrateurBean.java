@@ -27,9 +27,6 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 		ArrayList<Demande> Demandes = null;
 		try {
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = null;
-			et = em.getTransaction();
-			et.begin();
 			Query query = em.createQuery("SELECT d FROM Demande d");
 			Demandes = (ArrayList<Demande>) query.getResultList();
 			em.close();
@@ -38,6 +35,21 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 		} finally {
 		}
 		return Demandes;
+	}
+	
+	public ArrayList<DemandeHistorique> listeDemandesHistorique() {
+
+		ArrayList<DemandeHistorique> DemandesH = null;
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em.createQuery("SELECT d FROM DemandeHistorique d");
+			DemandesH = (ArrayList<DemandeHistorique>) query.getResultList();
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return DemandesH;
 	}
 
 	public void valideDemandePersonne(Demande demande) {
@@ -65,7 +77,11 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			em.remove(demande);
+			 Query query = em
+						.createQuery("DELETE FROM Demande l WHERE l.idDemande LIKE:idd");
+			query.setParameter("idd", demande.getIdDemande());
+			query.executeUpdate();
+			et.commit();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
@@ -73,21 +89,7 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 		}
 	}
 	
-	public void transfererDemande(Demande demande) {
-
-		try {
-			//DemandeHistorique demandeHistorique = (Demande) demande;
-			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = null;
-			et = em.getTransaction();
-			et.begin();
-			em.remove(demande);
-			em.close();
-		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
-		}
-	}
+	
 
 	
 

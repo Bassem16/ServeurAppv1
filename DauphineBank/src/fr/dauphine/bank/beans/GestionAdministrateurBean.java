@@ -12,9 +12,12 @@ import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
+import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
@@ -32,6 +35,8 @@ public class GestionAdministrateurBean implements Serializable {
 
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
+	@EJB
+	ServiceSauvegarde serviceSauvegarde;
 
 	public GestionAdministrateurBean(){
 		HttpSession hs = Utile.getSession();
@@ -42,10 +47,31 @@ public class GestionAdministrateurBean implements Serializable {
 		return serviceAdministrateur.listeDemandes();
 	}
 	
+	public List<DemandeHistorique> getDemandesHistorique() {
+		return serviceAdministrateur.listeDemandesHistorique();
+	}
+	
+	public void passerOffreADemande(Demande demande) {
+		DemandeHistorique demandeH = new DemandeHistorique();
+		demandeH.setDateDemandeHistorique(demande.getDateDemande());
+		demandeH.setDescriptifDemandeHistorique(demande.getDescriptifDemande());
+		demandeH.setStatutDemandeHistorique(demande.getStatutDemande());
+		demandeH.setPersonne(demande.getPersonne());
+		serviceAdministrateur.supprimerDemande(demande);
+		serviceSauvegarde.sauvgarderDemandeHistorique(demandeH);
+
+
+	}
+	
 	public void validerDemandePersonne(Demande demande) {
-		demande.setStatutDemande("traité");
+		demande.setStatutDemande("Traitée");
 		demande.getPersonne().setValide(1);
-		serviceAdministrateur.valideDemandePersonne(demande);
+		passerOffreADemande(demande);
+	}
+	
+	public void supprimerDemandePersonne(Demande demande) {
+		demande.setStatutDemande("Refusée");
+		passerOffreADemande(demande);
 	}
 	
 	public Personne getPersonne() {
