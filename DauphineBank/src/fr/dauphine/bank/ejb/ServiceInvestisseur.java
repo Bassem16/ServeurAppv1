@@ -2,9 +2,12 @@ package fr.dauphine.bank.ejb;
 
 //import java.util.ArrayList;
 
+import java.util.ArrayList;
+
 import javax.ejb.Remote;
 
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 
 //import fr.dauphine.bank.entities.Offre;
@@ -13,6 +16,7 @@ import fr.dauphine.bank.entities.Titre;
 public interface ServiceInvestisseur {
 	public void miseAJourTitre(Titre titre);
 	public void supprimerOffre(Offre offre);
+	public ArrayList<Offre> recupererOffres(Personne personne);
 	
 
 }

@@ -25,10 +25,7 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		try {
 
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = null;
-			et = em.getTransaction();
-			et.begin();
-			// em.find(Personne.class, 5);
+
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
 			query.setParameter("email", email);
@@ -47,9 +44,6 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		try {
 
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = null;
-			et = em.getTransaction();
-			et.begin();
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest");
 			query.setParameter("loginTest", login);
@@ -62,5 +56,4 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		return Comptes;
 	}
 
-	
 }

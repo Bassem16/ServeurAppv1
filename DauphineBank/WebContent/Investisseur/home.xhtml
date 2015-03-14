@@ -117,11 +117,74 @@
 
 
 		</h:dataTable>
-		
-		
-		<h4>Historiques de vos Offres</h4>
-		<h:dataTable value="#{gestionInvestisseurBean.offreHistoriquesList}" var="oh"
+
+		<h4>Offres recues</h4>
+		<h:dataTable value="#{gestionInvestisseurBean.offresRecues}" var="oR"
 			styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-eve-row">
+			<h:column>
+				<f:facet name="header">ID Offre</f:facet>
+				<h:outputText value="#{oR.idOffre}" />
+
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Type de l'offre</f:facet>
+				<h:outputText value="#{oR.typeOffre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">ID Entreprise</f:facet>
+				<h:outputText value="#{oR.entreprise.idEntreprise}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nom Entreprise</f:facet>
+				<h:outputText value="#{oR.entreprise.nomEntreprise}" />
+			</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Prix de l'offre</f:facet>
+				<h:outputText value="#{oR.prixOffre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Quantité</f:facet>
+				<h:outputText value="#{oR.quantiteOffre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Titre lié</f:facet>
+				<c:choose>
+					<c:when test="#{oR.titresList.isEmpty()}">
+
+					</c:when>
+
+
+					<c:otherwise>
+						<h:outputText value="#{oR.titresList.get(0).nomTitre}" />
+					</c:otherwise>
+				</c:choose>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Statut</f:facet>
+				<h:outputText value="#{oR.statut}" />
+			</h:column>
+
+			<h:column>
+				<h:commandButton value="Accepter offre"
+					action="#{gestionInvestisseurBean.accepterOffre(oR)}"></h:commandButton>
+				<h:commandButton value="Refuser offre"
+					action="#{gestionInvestisseurBean.refuserOffre(oR)}"></h:commandButton>
+			</h:column>
+
+		</h:dataTable>
+
+		<h4>Historiques de vos Offres</h4>
+		<h:dataTable value="#{gestionInvestisseurBean.offreHistoriquesList}"
+			var="oh" styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
 			<h:column>
 				<f:facet name="header">Type d'offre</f:facet>
@@ -129,8 +192,8 @@
 
 			</h:column>
 
-			
-			
+
+
 
 			<h:column>
 				<f:facet name="header">Nom Entreprise</f:facet>
@@ -157,11 +220,15 @@
 				<f:facet name="header">Statut</f:facet>
 				<h:outputText value="#{oh.statut}" />
 			</h:column>
-		
+
 
 		</h:dataTable>
-		
-		
+
+
+
+
+
+
 		<h:commandButton value="Deconnexion"
 			action="#{connexionBean.doLogout}"></h:commandButton>
 	</h:form>
