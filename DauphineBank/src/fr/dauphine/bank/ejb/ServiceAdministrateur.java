@@ -14,4 +14,5 @@ import fr.dauphine.bank.entities.Demande;
 public interface ServiceAdministrateur {
 	public ArrayList<Demande> listeDemandes();
 	public void valideDemandePersonne(Demande demande);
+	public void supprimerDemande(Demande demande);
 }

@@ -11,6 +11,8 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
+import fr.dauphine.bank.entities.Offre;
 
 @Stateless
 public class ServiceAdministrateurBean implements ServiceAdministrateur {
@@ -41,15 +43,11 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 	public void valideDemandePersonne(Demande demande) {
 		try {
 			EntityManager em = emf.createEntityManager();
-			System.out.println("Modification en base du compte 1 ");
 			EntityTransaction et = null;
 			et = em.getTransaction();
-			System.out.println("Modification en base du compte 2 ");
 			et.begin();
-			System.out.println("Modification en base du compte 3 ");
 			em.merge(demande);
 			em.merge(demande.getPersonne());
-			System.out.println("Modification en base du compte 4 ");
 			et.commit();
 			System.out.println("Modification en base du compte "
 					+ demande.getIdDemande());
@@ -59,5 +57,38 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 		} finally {
 		}
 	}
+	
+	public void supprimerDemande(Demande demande) {
+
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.remove(demande);
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+	}
+	
+	public void transfererDemande(Demande demande) {
+
+		try {
+			//DemandeHistorique demandeHistorique = (Demande) demande;
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.remove(demande);
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+	}
+
+	
 
 }
