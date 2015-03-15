@@ -6,13 +6,13 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NoResultException;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 //import javax.persistence.Query;
 
 import javax.persistence.Query;
 
+import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
@@ -97,6 +97,90 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 		return null;
 
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<Titre> recupererTitre(boolean entrepriseChek,
+			boolean typeChek, String entrepriseNom, String nomType) {
+		ArrayList<Titre> selectedTitre = new ArrayList<Titre>();
+		if (entrepriseChek == true && typeChek == true) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em
+						.createQuery("SELECT t FROM Entreprise e, Titre t WHERE t.entreprise.nomEntreprise LIKE:test1 AND t.typeTitre LIKE:test2 AND t.etatTitre=1 GROUP BY t.idTitre");
+				query.setParameter("test1", entrepriseNom);
+				query.setParameter("test2", nomType);
+
+				selectedTitre = (ArrayList<Titre>) query.getResultList();
+				em.close();
+				return selectedTitre;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause()
+						+ "   + ");
+			} finally {
+			}
+		} else if (entrepriseChek == false && typeChek == true) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em
+						.createQuery("SELECT t FROM Titre t WHERE t.typeTitre LIKE:test AND t.etatTitre=1");
+
+				query.setParameter("test", nomType);
+
+				selectedTitre = (ArrayList<Titre>) query.getResultList();
+				em.close();
+				return selectedTitre;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause()
+						+ "   + ");
+			} finally {
+			}
+
+		} else if (entrepriseChek == true && typeChek == false) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em
+						.createQuery("SELECT t FROM Titre t, Entreprise e WHERE t.entreprise.nomEntreprise LIKE:test AND t.etatTitre=1 GROUP BY t.idTitre");
+				query.setParameter("test", entrepriseNom);
+
+				selectedTitre = (ArrayList<Titre>) query.getResultList();
+				em.close();
+				return selectedTitre;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause()
+						+ "   + ");
+			} finally {
+			}
+
+		} else {
+			return selectedTitre;
+		}
+		return selectedTitre;
+
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<Entreprise> recupererEntrepriseListAll(String entrepriseNom) {
+		ArrayList<Entreprise> selectedEntreprise = new ArrayList<Entreprise>();
+
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em.createQuery("SELECT e FROM Entreprise e");
+
+			selectedEntreprise = (ArrayList<Entreprise>) query.getResultList();
+			em.close();
+			return selectedEntreprise;
+
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return selectedEntreprise;
 	}
 
 }

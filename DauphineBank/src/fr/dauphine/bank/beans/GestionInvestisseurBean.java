@@ -2,10 +2,7 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Set;
-import java.util.TreeSet;
-
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -32,6 +29,10 @@ public class GestionInvestisseurBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
+	private boolean entrepriseChek = false;
+	private boolean typeCheck = false;
+	private String entrepriseNom = null;
+	private String typeNom = null;
 	// private ArrayList<Offre> offresRecues = null;
 	// private ArrayList<Offre> offresAcceptees= null;
 
@@ -47,8 +48,23 @@ public class GestionInvestisseurBean implements Serializable {
 	public void init() {
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne");
+		setEntrepriseNom("Accenture");
+		setTypeNom("Action");
 		// offresRecues = serviceInvestisseur.recupererOffres(personne);
 
+	}
+	
+	
+	public ArrayList<Titre> rechercherTitre(){
+		return serviceInvestisseur.recupererTitre(entrepriseChek, typeCheck, entrepriseNom, typeNom);
+		
+		
+	}
+	
+	public ArrayList<Entreprise> listEntreprise(){
+		return serviceInvestisseur.recupererEntrepriseListAll(entrepriseNom);
+		
+		
 	}
 
 	public OffreHistorique offreAHistorique(Offre offre, String statut) {
@@ -397,6 +413,38 @@ public class GestionInvestisseurBean implements Serializable {
 	public ArrayList<OffreHistorique> getOffreHistoriquesRecuesList() {
 		return new ArrayList<OffreHistorique>(getPersonne()
 				.getOffreHistoriquesRecues());
+	}
+
+	public boolean isEntrepriseChek() {
+		return entrepriseChek;
+	}
+
+	public void setEntrepriseChek(boolean entrepriseChek) {
+		this.entrepriseChek = entrepriseChek;
+	}
+
+	public boolean isTypeCheck() {
+		return typeCheck;
+	}
+
+	public void setTypeCheck(boolean typeChek) {
+		this.typeCheck = typeChek;
+	}
+
+	public String getEntrepriseNom() {
+		return entrepriseNom;
+	}
+
+	public void setEntrepriseNom(String entrepriseNom) {
+		this.entrepriseNom = entrepriseNom;
+	}
+
+	public String getTypeNom() {
+		return typeNom;
+	}
+
+	public void setTypeNom(String typeNom) {
+		this.typeNom = typeNom;
 	}
 
 }

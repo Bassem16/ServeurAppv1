@@ -13,7 +13,6 @@ import javax.servlet.http.HttpSession;
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
-import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;

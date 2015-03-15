@@ -11,6 +11,7 @@
 
 <h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
 <h:form>
+	<h:link value="Rechercher" outcome="/Investisseur/research.xhtml" />
 		<h2>Vos Offres en cours (Emises)</h2>
 		<h:dataTable value="#{gestionInvestisseurBean.offresEmisesList}"
 			var="o" styleClass="order-table" headerClass="order-table-header"
