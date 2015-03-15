@@ -8,13 +8,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.Set;
 
-
 /**
  * The persistent class for the Offre database table.
  * 
  */
 @Entity
-@NamedQuery(name="Offre.findAll", query="SELECT o FROM Offre o")
+@NamedQuery(name = "Offre.findAll", query = "SELECT o FROM Offre o")
 public class Offre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
@@ -33,27 +32,23 @@ public class Offre implements Serializable {
 
 	private String typeOffre;
 
-	//bi-directional many-to-one association to Entreprise
+	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
-	@JoinColumn(name="idEntreprise")
+	@JoinColumn(name = "idEntreprise")
 	private Entreprise entreprise;
 
-	//bi-directional many-to-one association to Personne
+	// bi-directional many-to-one association to Personne
 	@ManyToOne
-	@JoinColumn(name="idPersonne")
-	private Personne personne;
+	@JoinColumn(name = "idPersonneEmetteur")
+	private Personne personneEmeteur;
 
-	//bi-directional many-to-many association to Titre
-	@ManyToMany(cascade = { CascadeType.ALL},fetch = FetchType.EAGER)
-	@JoinTable(
-		name="LierOffreTitre"
-		, joinColumns={
-		@JoinColumn(name="idOffre")
-			}
-		, inverseJoinColumns={
-			@JoinColumn(name="idTitre")
-			}
-		)
+	// bi-directional many-to-one association to Personne
+	@ManyToOne
+	@JoinColumn(name = "idPersonneReceveur")
+	private Personne personneReceveur;
+
+	// bi-directional many-to-many association to Titre
+	@ManyToMany(mappedBy = "offres", cascade = { CascadeType.ALL },  fetch = FetchType.EAGER)
 	private Set<Titre> titres;
 
 	public Offre() {
@@ -115,26 +110,33 @@ public class Offre implements Serializable {
 		this.entreprise = entreprise;
 	}
 
-	public Personne getPersonne() {
-		return this.personne;
+	public Personne getPersonneEmetteur() {
+		return this.personneEmeteur;
 	}
 
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
+	public void setPersonneEmetteur(Personne personne1) {
+		this.personneEmeteur = personne1;
+	}
+
+	public Personne getPersonneReceveur() {
+		return this.personneReceveur;
+	}
+
+	public void setPersonneReceveur(Personne personne2) {
+		this.personneReceveur = personne2;
 	}
 
 	public Set<Titre> getTitres() {
 		return this.titres;
 	}
-	
-	public ArrayList<Titre> getTitresList(){
-		return new ArrayList<Titre>(titres);
-	}
-	
+
 	public void setTitres(Set<Titre> titres) {
 		this.titres = titres;
 	}
-	
-	
+
+	public ArrayList<Titre> getTitresList() {
+
+		return new ArrayList<Titre>(titres);
+	}
 
 }

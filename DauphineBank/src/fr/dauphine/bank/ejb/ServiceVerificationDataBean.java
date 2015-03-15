@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
@@ -25,10 +24,7 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		try {
 
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = null;
-			et = em.getTransaction();
-			et.begin();
-			// em.find(Personne.class, 5);
+
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
 			query.setParameter("email", email);
@@ -47,9 +43,6 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		try {
 
 			EntityManager em = emf.createEntityManager();
-			EntityTransaction et = null;
-			et = em.getTransaction();
-			et.begin();
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest");
 			query.setParameter("loginTest", login);
@@ -62,5 +55,4 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		return Comptes;
 	}
 
-	
 }

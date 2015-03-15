@@ -11,9 +11,10 @@
 
 <h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
 <h:form>
-		<h4>Vos Offres en cours</h4>
-		<h:dataTable value="#{gestionInvestisseurBean.offresList}" var="o"
-			styleClass="order-table" headerClass="order-table-header"
+	<h:link value="Rechercher" outcome="/Investisseur/research.xhtml" />
+		<h2>Vos Offres en cours (Emises)</h2>
+		<h:dataTable value="#{gestionInvestisseurBean.offresEmisesList}"
+			var="o" styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
 			<h:column>
 				<f:facet name="header">ID Offre</f:facet>
@@ -49,7 +50,17 @@
 
 			<h:column>
 				<f:facet name="header">Titre lié</f:facet>
-				<h:outputText value="#{o.titresList.get(0).nomTitre}" />
+				<c:choose>
+					<c:when test="#{o.titresList.isEmpty()}">
+						<h:outputText value="#{o.titresList.get(0).nomTitre}" />
+					</c:when>
+
+
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
+
 			</h:column>
 
 			<h:column>
@@ -64,7 +75,7 @@
 		</h:dataTable>
 
 
-		<h4>Vos Titres</h4>
+		<h2>Vos Titres</h2>
 		<h:dataTable value="#{gestionInvestisseurBean.titresList}" var="t"
 			styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
@@ -117,11 +128,75 @@
 
 
 		</h:dataTable>
-		
-		
-		<h4>Historiques de vos Offres</h4>
-		<h:dataTable value="#{gestionInvestisseurBean.offreHistoriquesList}" var="oh"
-			styleClass="order-table" headerClass="order-table-header"
+
+		<h2>Offres recues</h2>
+		<h:dataTable value="#{gestionInvestisseurBean.offresRecuesList}"
+			var="oR" styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-eve-row">
+			<h:column>
+				<f:facet name="header">ID Offre</f:facet>
+				<h:outputText value="#{oR.idOffre}" />
+
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Type de l'offre</f:facet>
+				<h:outputText value="#{oR.typeOffre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">ID Entreprise</f:facet>
+				<h:outputText value="#{oR.entreprise.idEntreprise}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Nom Entreprise</f:facet>
+				<h:outputText value="#{oR.entreprise.nomEntreprise}" />
+			</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Prix de l'offre</f:facet>
+				<h:outputText value="#{oR.prixOffre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Quantité</f:facet>
+				<h:outputText value="#{oR.quantiteOffre}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Titre lié</f:facet>
+				<c:choose>
+					<c:when test="#{oR.titresList.isEmpty()}">
+						<h:outputText value="#{oR.titresList.get(0).nomTitre}" />
+					</c:when>
+
+
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Statut</f:facet>
+				<h:outputText value="#{oR.statut}" />
+			</h:column>
+
+			<h:column>
+				<h:commandButton value="Accepter offre"
+					action="#{gestionInvestisseurBean.accepterOffre(oR)}"></h:commandButton>
+				<h:commandButton value="Refuser offre"
+					action="#{gestionInvestisseurBean.refuserOffre(oR)}"></h:commandButton>
+			</h:column>
+
+		</h:dataTable>
+
+		<h2>Historiques de vos Offres (Emises)</h2>
+		<h:dataTable
+			value="#{gestionInvestisseurBean.offreHistoriquesEmisesList}"
+			var="oh" styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
 			<h:column>
 				<f:facet name="header">Type d'offre</f:facet>
@@ -129,8 +204,8 @@
 
 			</h:column>
 
-			
-			
+
+
 
 			<h:column>
 				<f:facet name="header">Nom Entreprise</f:facet>
@@ -150,18 +225,86 @@
 
 			<h:column>
 				<f:facet name="header">Titre lié</f:facet>
-				<h:outputText value="#{oh.titresList.get(0).nomTitre}" />
+				<c:choose>
+					<c:when test="#{oh.titresList.isEmpty()}">
+						<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
+					</c:when>
+
+
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
+
 			</h:column>
 
 			<h:column>
 				<f:facet name="header">Statut</f:facet>
 				<h:outputText value="#{oh.statut}" />
 			</h:column>
-		
+
 
 		</h:dataTable>
 		
 		
+		<h2>Historiques de vos Offres (Recues)</h2>
+		<h:dataTable
+			value="#{gestionInvestisseurBean.offreHistoriquesRecuesList}"
+			var="oh" styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-eve-row">
+			<h:column>
+				<f:facet name="header">Type d'offre</f:facet>
+				<h:outputText value="#{oh.typeOffreHistorique}" />
+
+			</h:column>
+
+
+
+
+			<h:column>
+				<f:facet name="header">Nom Entreprise</f:facet>
+				<h:outputText value="#{oh.entreprise.nomEntreprise}" />
+			</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Prix de l'offre</f:facet>
+				<h:outputText value="#{oh.prixOffreHistorique}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Quantité</f:facet>
+				<h:outputText value="#{oh.quantiteOffreHistorique}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Titre lié</f:facet>
+				<c:choose>
+					<c:when test="#{oh.titresList.isEmpty()}">
+						<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
+					</c:when>
+
+
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
+
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Statut</f:facet>
+				<h:outputText value="#{oh.statut}" />
+			</h:column>
+
+
+		</h:dataTable>
+
+
+
+
+
+
 		<h:commandButton value="Deconnexion"
 			action="#{connexionBean.doLogout}"></h:commandButton>
 	</h:form>

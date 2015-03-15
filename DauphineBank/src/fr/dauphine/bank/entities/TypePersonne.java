@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
-import java.util.List;
+import java.util.Set;
 
 
 /**
@@ -17,14 +17,14 @@ public class TypePersonne implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idTypePersonne;
 
 	private String typePersonne;
 
 	//bi-directional many-to-one association to Personne
-	@OneToMany(mappedBy="typePersonne")
-	private List<Personne> personnes;
+	@OneToMany(mappedBy="typePersonne", fetch=FetchType.EAGER)
+	private Set<Personne> personnes;
 
 	public TypePersonne() {
 	}
@@ -45,11 +45,11 @@ public class TypePersonne implements Serializable {
 		this.typePersonne = typePersonne;
 	}
 
-	public List<Personne> getPersonnes() {
+	public Set<Personne> getPersonnes() {
 		return this.personnes;
 	}
 
-	public void setPersonnes(List<Personne> personnes) {
+	public void setPersonnes(Set<Personne> personnes) {
 		this.personnes = personnes;
 	}
 

@@ -6,17 +6,18 @@ import javax.persistence.*;
 
 import java.util.Set;
 
+
 /**
  * The persistent class for the Entreprise database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Entreprise.findAll", query = "SELECT e FROM Entreprise e")
+@NamedQuery(name="Entreprise.findAll", query="SELECT e FROM Entreprise e")
 public class Entreprise implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idEntreprise;
 
 	private int nombreTitreTotal;
@@ -25,25 +26,25 @@ public class Entreprise implements Serializable {
 
 	private String secteurEntreprise;
 
-	// bi-directional many-to-one association to Information
-	@OneToMany(mappedBy = "entreprise")
+	//bi-directional many-to-one association to Information
+	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
 	private Set<Information> informations;
 
-	// bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy = "entreprise")
+	//bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
 	private Set<Offre> offres;
 
-	// bi-directional many-to-one association to Personne
-	@OneToMany(mappedBy = "entreprise")
+	//bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
+	private Set<OffreHistorique> offreHistoriques;
+
+	//bi-directional many-to-one association to Personne
+	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
 	private Set<Personne> personnes;
 
-	// bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy = "entreprise")
+	//bi-directional many-to-one association to Titre
+	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
 	private Set<Titre> titres;
-
-	// bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy = "entreprise")
-	private Set<OffreHistorique> offreHistoriques;
 
 	public Entreprise() {
 	}
@@ -124,6 +125,28 @@ public class Entreprise implements Serializable {
 		return offre;
 	}
 
+	public Set<OffreHistorique> getOffreHistoriques() {
+		return this.offreHistoriques;
+	}
+
+	public void setOffreHistoriques(Set<OffreHistorique> offreHistoriques) {
+		this.offreHistoriques = offreHistoriques;
+	}
+
+	public OffreHistorique addOffreHistorique(OffreHistorique offreHistorique) {
+		getOffreHistoriques().add(offreHistorique);
+		offreHistorique.setEntreprise(this);
+
+		return offreHistorique;
+	}
+
+	public OffreHistorique removeOffreHistorique(OffreHistorique offreHistorique) {
+		getOffreHistoriques().remove(offreHistorique);
+		offreHistorique.setEntreprise(null);
+
+		return offreHistorique;
+	}
+
 	public Set<Personne> getPersonnes() {
 		return this.personnes;
 	}
@@ -166,28 +189,6 @@ public class Entreprise implements Serializable {
 		titre.setEntreprise(null);
 
 		return titre;
-	}
-
-	public Set<OffreHistorique> getOffreHistoriques() {
-		return this.offreHistoriques;
-	}
-
-	public void setOffreHistoriques(Set<OffreHistorique> offreHistoriques) {
-		this.offreHistoriques = offreHistoriques;
-	}
-
-	public OffreHistorique addOffreHistorique(OffreHistorique offreHistorique) {
-		getOffreHistoriques().add(offreHistorique);
-		offreHistorique.setEntreprise(this);
-
-		return offreHistorique;
-	}
-
-	public OffreHistorique removeOffreHistorique(OffreHistorique offreHistorique) {
-		getOffreHistoriques().remove(offreHistorique);
-		offreHistorique.setEntreprise(null);
-
-		return offreHistorique;
 	}
 
 }

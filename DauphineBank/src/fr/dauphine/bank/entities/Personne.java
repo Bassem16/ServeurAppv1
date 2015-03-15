@@ -35,9 +35,25 @@ public class Personne implements Serializable {
 	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Demande> demandes;
 
+	// bi-directional many-to-one association to DemandeHistorique
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Set<DemandeHistorique> demandeHistoriques;
+
 	// bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy = "personne", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private Set<Offre> offres;
+	@OneToMany(mappedBy = "personneEmeteur", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Set<Offre> offresEmises;
+
+	// bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy = "personneReceveur", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Set<Offre> offresRecues;
+
+	// bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy = "personneEmetteur", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Set<OffreHistorique> offreHistoriquesEmises;
+
+	// bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy = "personneReceveur", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	private Set<OffreHistorique> offreHistoriquesRecues;
 
 	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
@@ -50,16 +66,8 @@ public class Personne implements Serializable {
 	private TypePersonne typePersonne;
 
 	// bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER)
 	private Set<Titre> titres;
-
-	// bi-directional many-to-one association to DemandeHistorique
-	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private Set<DemandeHistorique> demandeHistoriques;
-
-	// bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
-	private Set<OffreHistorique> offreHistoriques;
 
 	public Personne() {
 	}
@@ -142,26 +150,122 @@ public class Personne implements Serializable {
 		return demande;
 	}
 
-	public Set<Offre> getOffres() {
-		return this.offres;
+	public Set<DemandeHistorique> getDemandeHistoriques() {
+		return this.demandeHistoriques;
 	}
 
-	public void setOffres(Set<Offre> offres) {
-		this.offres = offres;
+	public void setDemandeHistoriques(Set<DemandeHistorique> demandeHistoriques) {
+		this.demandeHistoriques = demandeHistoriques;
 	}
 
-	public Offre addOffre(Offre offre) {
-		getOffres().add(offre);
-		offre.setPersonne(this);
+	public DemandeHistorique addDemandeHistorique(
+			DemandeHistorique demandeHistorique) {
+		getDemandeHistoriques().add(demandeHistorique);
+		demandeHistorique.setPersonne(this);
 
-		return offre;
+		return demandeHistorique;
 	}
 
-	public Offre removeOffre(Offre offre) {
-		getOffres().remove(offre);
-		offre.setPersonne(null);
+	public DemandeHistorique removeDemandeHistorique(
+			DemandeHistorique demandeHistorique) {
+		getDemandeHistoriques().remove(demandeHistorique);
+		demandeHistorique.setPersonne(null);
 
-		return offre;
+		return demandeHistorique;
+	}
+
+	public Set<Offre> getOffresEmises() {
+		return this.offresEmises;
+	}
+
+	public void setOffresEmises(Set<Offre> OffresEmises) {
+		this.offresEmises = OffresEmises;
+	}
+
+	public Offre addOffresEmises(Offre OffresEmises) {
+		getOffresEmises().add(OffresEmises);
+		OffresEmises.setPersonneEmetteur(this);
+
+		return OffresEmises;
+	}
+
+	public Offre removeOffresEmises(Offre OffresEmises) {
+		getOffresEmises().remove(OffresEmises);
+		OffresEmises.setPersonneEmetteur(null);
+
+		return OffresEmises;
+	}
+
+	public Set<Offre> getOffresRecues() {
+		return this.offresRecues;
+	}
+
+	public void setOffresRecues(Set<Offre> OffresRecues) {
+		this.offresRecues = OffresRecues;
+	}
+
+	public Offre addOffresRecues(Offre OffresRecues) {
+		getOffresRecues().add(OffresRecues);
+		OffresRecues.setPersonneReceveur(this);
+
+		return OffresRecues;
+	}
+
+	public Offre removeOffresRecues(Offre OffresRecues) {
+		getOffresRecues().remove(OffresRecues);
+		OffresRecues.setPersonneReceveur(null);
+
+		return OffresRecues;
+	}
+
+	public Set<OffreHistorique> getOffreHistoriquesEmises() {
+		return this.offreHistoriquesEmises;
+	}
+
+	public void setOffreHistoriquesEmises(
+			Set<OffreHistorique> offreHistoriquesEmises) {
+		this.offreHistoriquesEmises = offreHistoriquesEmises;
+	}
+
+	public OffreHistorique addOffreHistoriquesEmises(
+			OffreHistorique offreHistoriquesEmises) {
+		getOffreHistoriquesEmises().add(offreHistoriquesEmises);
+		offreHistoriquesEmises.setPersonneEmetteur(this);
+
+		return offreHistoriquesEmises;
+	}
+
+	public OffreHistorique removeOffreHistoriquesEmises(
+			OffreHistorique offreHistoriquesEmises) {
+		getOffreHistoriquesEmises().remove(offreHistoriquesEmises);
+		offreHistoriquesEmises.setPersonneEmetteur(null);
+
+		return offreHistoriquesEmises;
+	}
+
+	public Set<OffreHistorique> getOffreHistoriquesRecues() {
+		return this.offreHistoriquesRecues;
+	}
+
+	public void setOffreHistoriquesRecues(
+			Set<OffreHistorique> offreHistoriquesRecues) {
+		this.offreHistoriquesRecues = offreHistoriquesRecues;
+	}
+
+	public OffreHistorique addOffreHistoriquesRecues(
+			OffreHistorique offreHistoriquesRecues) {
+		getOffreHistoriquesRecues().add(offreHistoriquesRecues);
+		offreHistoriquesRecues.setPersonneReceveur(this);
+
+		return offreHistoriquesRecues;
+	}
+
+	public OffreHistorique removeOffreHistoriquesRecues(
+			OffreHistorique offreHistoriquesRecues) {
+		getOffreHistoriquesRecues().remove(offreHistoriquesRecues);
+		offreHistoriquesRecues.setPersonneReceveur(null);
+
+		return offreHistoriquesRecues;
 	}
 
 	public Entreprise getEntreprise() {
@@ -200,52 +304,6 @@ public class Personne implements Serializable {
 		titre.setPersonne(null);
 
 		return titre;
-	}
-
-	public Set<DemandeHistorique> getDemandeHistoriques() {
-		return this.demandeHistoriques;
-	}
-
-	public void setDemandeHistoriques(Set<DemandeHistorique> demandeHistoriques) {
-		this.demandeHistoriques = demandeHistoriques;
-	}
-
-	public DemandeHistorique addDemandeHistorique(
-			DemandeHistorique demandeHistorique) {
-		getDemandeHistoriques().add(demandeHistorique);
-		demandeHistorique.setPersonne(this);
-
-		return demandeHistorique;
-	}
-
-	public DemandeHistorique removeDemandeHistorique(
-			DemandeHistorique demandeHistorique) {
-		getDemandeHistoriques().remove(demandeHistorique);
-		demandeHistorique.setPersonne(null);
-
-		return demandeHistorique;
-	}
-
-	public Set<OffreHistorique> getOffreHistoriques() {
-		return this.offreHistoriques;
-	}
-
-	public void setOffreHistoriques(Set<OffreHistorique> offreHistoriques) {
-		this.offreHistoriques = offreHistoriques;
-	}
-
-	public OffreHistorique addOffreHistorique(OffreHistorique offreHistorique) {
-		getOffreHistoriques().add(offreHistorique);
-		offreHistorique.setPersonne(this);
-
-		return offreHistorique;
-	}
-
-	public OffreHistorique removeOffreHistorique(OffreHistorique offreHistorique) {
-		getOffreHistoriques().remove(offreHistorique);
-		offreHistorique.setPersonne(null);
-
-		return offreHistorique;
 	}
 
 }

@@ -42,6 +42,10 @@ public class GestionAdministrateurBean implements Serializable {
 	public GestionAdministrateurBean(){
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne"); 
+		if (entreprise == null)
+			entreprise = new Entreprise();
+		else
+			entreprise = (Entreprise) hs.getAttribute("entreprise");
 	}
 
 	public List<Demande> getDemandes() {
@@ -162,17 +166,30 @@ public class GestionAdministrateurBean implements Serializable {
 		return demande;
 	}
 
+
 	
 	public Entreprise getEntreprise() {
 		return this.entreprise;
+	}
+	
+	public String getNomEntreprise() {
+		return getEntreprise().getNomEntreprise();
 	}
 	
 	public void setNomEntreprise(String nomEntreprise) {
 		getEntreprise().setNomEntreprise(nomEntreprise);
 	}
 	
+	public String getSecteurEntreprise() {
+		return getEntreprise().getSecteurEntreprise();
+	}
+	
 	public void setSecteurEntreprise(String secteurEntreprise) {
 		getEntreprise().setSecteurEntreprise(secteurEntreprise);
+	}
+	
+	public int getNombreTitreTotal() {
+		return getEntreprise().getNombreTitreTotal();
 	}
 	
 	public void setNombreTitreTotal(int nombreTitreTotal) {
