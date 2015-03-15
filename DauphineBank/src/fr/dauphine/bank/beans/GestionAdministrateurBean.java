@@ -138,28 +138,7 @@ public class GestionAdministrateurBean implements Serializable {
 		;
 	}
 
-	public Set<Offre> getOffres() {
-		return getPersonne().getOffres();
-	}
-
-	public void setOffres(Set<Offre> offres) {
-		getPersonne().setOffres(offres);
-		;
-	}
-
-	public Offre addOffre(Offre offre) {
-		getOffres().add(offre);
-		offre.setPersonne(getPersonne());
-
-		return offre;
-	}
-
-	public Offre removeOffre(Offre offre) {
-		getOffres().remove(offre);
-		offre.setPersonne(null);
-
-		return offre;
-	}
+	
 
 	public TypePersonne getTypePersonne() {
 		return getPersonne().getTypePersonne();
@@ -169,9 +148,7 @@ public class GestionAdministrateurBean implements Serializable {
 		getPersonne().setTypePersonne(typePersonne);
 	}
 
-	public ArrayList<Offre> getOffresList() {
-		return new ArrayList<Offre>(getPersonne().getOffres());
-	}
+	
 
 	public ArrayList<Titre> getTitresList() {
 		return new ArrayList<Titre>(getPersonne().getTitres());

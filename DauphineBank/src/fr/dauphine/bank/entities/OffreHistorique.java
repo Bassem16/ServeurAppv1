@@ -6,6 +6,7 @@ import javax.persistence.*;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -32,10 +33,6 @@ public class OffreHistorique implements Serializable {
 
 	private String typeOffreHistorique;
 
-	// bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy = "offreHistoriques", fetch = FetchType.EAGER)
-	private Set<Titre> titres;
-
 	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
 	@JoinColumn(name = "idEntreprise")
@@ -43,8 +40,17 @@ public class OffreHistorique implements Serializable {
 
 	// bi-directional many-to-one association to Personne
 	@ManyToOne
-	@JoinColumn(name = "idPersonne")
-	private Personne personne;
+	@JoinColumn(name = "idPersonneEmetteur")
+	private Personne personneEmetteur;
+
+	// bi-directional many-to-one association to Personne
+	@ManyToOne
+	@JoinColumn(name = "idPersonneReceveur")
+	private Personne personneReceveur;
+
+	// bi-directional many-to-many association to Titre
+	@ManyToMany(mappedBy = "offreHistoriques", fetch = FetchType.EAGER)
+	private Set<Titre> titres;
 
 	public OffreHistorique() {
 	}
@@ -69,16 +75,16 @@ public class OffreHistorique implements Serializable {
 		return this.prixOffreHistorique;
 	}
 
-	public void setPrixOffreHistorique(double d) {
-		this.prixOffreHistorique = d;
+	public void setPrixOffreHistorique(double prixOffreHistorique) {
+		this.prixOffreHistorique = prixOffreHistorique;
 	}
 
 	public int getQuantiteOffreHistorique() {
 		return this.quantiteOffreHistorique;
 	}
 
-	public void setQuantiteOffreHistorique(int i) {
-		this.quantiteOffreHistorique = i;
+	public void setQuantiteOffreHistorique(int quantiteOffreHistorique) {
+		this.quantiteOffreHistorique = quantiteOffreHistorique;
 	}
 
 	public String getStatut() {
@@ -97,14 +103,6 @@ public class OffreHistorique implements Serializable {
 		this.typeOffreHistorique = typeOffreHistorique;
 	}
 
-	public Set<Titre> getTitres() {
-		return this.titres;
-	}
-
-	public void setTitres(Set<Titre> titres) {
-		this.titres = titres;
-	}
-
 	public Entreprise getEntreprise() {
 		return this.entreprise;
 	}
@@ -113,15 +111,32 @@ public class OffreHistorique implements Serializable {
 		this.entreprise = entreprise;
 	}
 
-	public Personne getPersonne() {
-		return this.personne;
+	public Personne getPersonneEmetteur() {
+		return this.personneEmetteur;
 	}
 
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
+	public void setPersonneEmetteur(Personne PersonneEmetteur) {
+		this.personneEmetteur = PersonneEmetteur;
+	}
+
+	public Personne getPersonneReceveur() {
+		return this.personneReceveur;
+	}
+
+	public void setPersonneReceveur(Personne PersonneReceveur) {
+		this.personneReceveur = PersonneReceveur;
+	}
+
+	public Set<Titre> getTitres() {
+		return this.titres;
+	}
+
+	public void setTitres(Set<Titre> titres) {
+		this.titres = titres;
 	}
 
 	public ArrayList<Titre> getTitresList() {
+
 		return new ArrayList<Titre>(titres);
 	}
 

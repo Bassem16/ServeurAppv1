@@ -48,8 +48,10 @@ public class InscriptionBean implements Serializable {
 		this.personne.getDemandes().add(this.demande);
 		this.personne.setEntreprise(null);
 		this.personne.setTitres(new HashSet<Titre>());
-		this.personne.setOffres(new HashSet<Offre>());
-		this.personne.setOffreHistoriques(new HashSet<OffreHistorique>());
+		this.personne.setOffresEmises(new HashSet<Offre>());
+		this.personne.setOffresRecues(new HashSet<Offre>());
+		this.personne.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
+		this.personne.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
 		this.personne.setDemandeHistoriques(new HashSet<DemandeHistorique>());
 		
 
@@ -157,12 +159,20 @@ public class InscriptionBean implements Serializable {
 		;
 	}
 
-	public Set<Offre> getOffres() {
-		return getPersonne().getOffres();
+	public Set<Offre> getOffresEmises() {
+		return getPersonne().getOffresEmises();
 	}
 	
-	public ArrayList<Offre> getOffresList(){
-		return new ArrayList<Offre>(getPersonne().getOffres());
+	public Set<Offre> getOffresRecues() {
+		return getPersonne().getOffresRecues();
+	}
+	
+	public ArrayList<Offre> getOffresEmisesList(){
+		return new ArrayList<Offre>(getPersonne().getOffresEmises());
+	}
+	
+	public ArrayList<Offre> getOffresRecuesList(){
+		return new ArrayList<Offre>(getPersonne().getOffresRecues());
 	}
 	
 	public ArrayList<Titre> getTitresList(){
@@ -173,21 +183,40 @@ public class InscriptionBean implements Serializable {
 		return new ArrayList<Demande>(getPersonne().getDemandes());
 	}
 
-	public void setOffres(Set<Offre> offres) {
-		getPersonne().setOffres(offres);
+	public void setOffresEmises(Set<Offre> offres) {
+		getPersonne().setOffresEmises(offres);
+		;
+	}
+	
+	public void setOffresRecues(Set<Offre> offres) {
+		getPersonne().setOffresRecues(offres);
 		;
 	}
 
-	public Offre addOffre(Offre offre) {
-		getOffres().add(offre);
-		offre.setPersonne(getPersonne());
+	public Offre addOffreEmises(Offre offre) {
+		getPersonne().getOffresEmises().add(offre);
+		offre.setPersonneEmetteur(getPersonne());
+
+		return offre;
+	}
+	
+	public Offre addOffreRecues(Offre offre) {
+		getPersonne().getOffresRecues().add(offre);
+		offre.setPersonneReceveur(getPersonne());
 
 		return offre;
 	}
 
-	public Offre removeOffre(Offre offre) {
-		getOffres().remove(offre);
-		offre.setPersonne(null);
+	public Offre removeOffreEmise(Offre offre) {
+		getPersonne().getOffresEmises().remove(offre);
+		offre.setPersonneEmetteur(null);
+
+		return offre;
+	}
+	
+	public Offre removeOffreRecue(Offre offre) {
+		getPersonne().getOffresRecues().remove(offre);
+		offre.setPersonneReceveur(null);
 
 		return offre;
 	}

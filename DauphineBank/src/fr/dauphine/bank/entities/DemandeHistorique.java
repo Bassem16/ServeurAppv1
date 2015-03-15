@@ -1,9 +1,7 @@
 package fr.dauphine.bank.entities;
 
 import java.io.Serializable;
-
 import javax.persistence.*;
-
 import java.util.Date;
 
 
@@ -17,7 +15,7 @@ public class DemandeHistorique implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idDemandeHistorique;
 
 	@Temporal(TemporalType.TIMESTAMP)

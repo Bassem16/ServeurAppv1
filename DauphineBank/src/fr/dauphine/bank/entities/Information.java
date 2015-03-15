@@ -1,9 +1,8 @@
 package fr.dauphine.bank.entities;
 
 import java.io.Serializable;
-import java.util.Date;
-
 import javax.persistence.*;
+import java.util.Date;
 
 
 /**
@@ -16,9 +15,10 @@ public class Information implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idInformation;
 
+	@Temporal(TemporalType.TIMESTAMP)
 	private Date dateInformation;
 
 	private String texteInformation;

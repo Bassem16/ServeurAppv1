@@ -5,19 +5,21 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
+
 
 /**
  * The persistent class for the Titre database table.
  * 
  */
 @Entity
-@NamedQuery(name = "Titre.findAll", query = "SELECT t FROM Titre t")
+@NamedQuery(name="Titre.findAll", query="SELECT t FROM Titre t")
 public class Titre implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private int idTitre;
 
 	private int etatTitre;
@@ -26,35 +28,35 @@ public class Titre implements Serializable {
 
 	private String typeTitre;
 
-	// bi-directional many-to-one association to Entreprise
+	//bi-directional many-to-one association to Entreprise
 	@ManyToOne
-	@JoinColumn(name = "idEntreprise")
+	@JoinColumn(name="idEntreprise")
 	private Entreprise entreprise;
 
-	// bi-directional many-to-many association to Offre
-	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
+	//bi-directional many-to-many association to Offre
+	@ManyToMany(mappedBy = "titres", fetch=FetchType.EAGER)
+	
 	private Set<Offre> offres;
 
-	// bi-directional many-to-one association to Personne
-	@ManyToOne
-	@JoinColumn(name = "idPersonne")
-	private Personne personne;
-
-	// bi-directional many-to-many association to OffreHistorique
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
-	@JoinTable(name = "LierOffreTitreHistorique", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = { @JoinColumn(name = "idOffreHistorique") })
+	//bi-directional many-to-many association to OffreHistorique
+	@ManyToMany(fetch=FetchType.EAGER)
+	@JoinTable(
+		name="LierOffreTitreHistorique"
+		, joinColumns={
+			@JoinColumn(name="idTitre")
+			}
+		, inverseJoinColumns={
+			@JoinColumn(name="idOffreHistorique")
+			}
+		)
 	private Set<OffreHistorique> offreHistoriques;
 
+	//bi-directional many-to-one association to Personne
+	@ManyToOne
+	@JoinColumn(name="idPersonne")
+	private Personne personne;
+
 	public Titre() {
-	}
-
-	public boolean estVente() {
-		if (getEtatTitre() == 1) {
-			return true;
-		} else {
-			return false;
-		}
-
 	}
 
 	public int getIdTitre() {
@@ -105,14 +107,6 @@ public class Titre implements Serializable {
 		this.offres = offres;
 	}
 
-	public Personne getPersonne() {
-		return this.personne;
-	}
-
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
-	}
-
 	public Set<OffreHistorique> getOffreHistoriques() {
 		return this.offreHistoriques;
 	}
@@ -121,8 +115,27 @@ public class Titre implements Serializable {
 		this.offreHistoriques = offreHistoriques;
 	}
 
+	public Personne getPersonne() {
+		return this.personne;
+	}
+
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
+	}
+
 	public ArrayList<Offre> getOffresList() {
+		
 		return new ArrayList<Offre>(offres);
 	}
+
+	public boolean estVente() {
+		if(etatTitre==1){
+			return true;
+		}else{
+			return false;
+		}
+			
+	}
+	
 
 }
