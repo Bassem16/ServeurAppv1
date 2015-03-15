@@ -8,42 +8,83 @@ import java.util.Set;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
+import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
 import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
-@RequestScoped
-// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur Investisseur est connecté
+@SessionScoped
+//ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur
+//Administrateur est connecté
 public class GestionAdministrateurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
+	private Entreprise entreprise = null;
 
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
+	@EJB
+	ServiceSauvegarde serviceSauvegarde;
 
 	public GestionAdministrateurBean(){
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne"); 
+		if (entreprise == null)
+			entreprise = new Entreprise();
+		else
+			entreprise = (Entreprise) hs.getAttribute("entreprise");
 	}
 
 	public List<Demande> getDemandes() {
 		return serviceAdministrateur.listeDemandes();
 	}
 	
+	public List<Entreprise> getEntreprises() {
+		return serviceAdministrateur.listeEntreprise();
+	}
+	
+	public List<DemandeHistorique> getDemandesHistorique() {
+		return serviceAdministrateur.listeDemandesHistorique();
+	}
+	
+	public void passerOffreADemande(Demande demande) {
+		DemandeHistorique demandeH = new DemandeHistorique();
+		demandeH.setDateDemandeHistorique(demande.getDateDemande());
+		demandeH.setDescriptifDemandeHistorique(demande.getDescriptifDemande());
+		demandeH.setStatutDemandeHistorique(demande.getStatutDemande());
+		demandeH.setPersonne(demande.getPersonne());
+		serviceAdministrateur.supprimerDemande(demande);
+		serviceSauvegarde.sauvgarderDemandeHistorique(demandeH);
+
+
+	}
+	
 	public void validerDemandePersonne(Demande demande) {
-		demande.setStatutDemande("traité");
+		demande.setStatutDemande("Traitée");
 		demande.getPersonne().setValide(1);
-		serviceAdministrateur.valideDemandePersonne(demande);
+		passerOffreADemande(demande);
+	}
+	
+	public void supprimerDemandePersonne(Demande demande) {
+		demande.setStatutDemande("Refusée");
+		passerOffreADemande(demande);
+	}
+	
+	public void ajouterEntreprise() {
+		serviceSauvegarde.sauvgarderEntreprise(entreprise);
 	}
 	
 	public Personne getPersonne() {
@@ -101,11 +142,7 @@ public class GestionAdministrateurBean implements Serializable {
 		getPersonne().setPrenomPersonne(prenomPersonne);
 		;
 	}
-
-	public Entreprise getEntreprises() {
-		return getPersonne().getEntreprise();
-	}
-
+	
 	public void setEntreprise(Entreprise entreprise) {
 		getPersonne().setEntreprise(entreprise);
 		;
@@ -129,57 +166,33 @@ public class GestionAdministrateurBean implements Serializable {
 		return demande;
 	}
 
-	public Set<Titre> getTitres() {
-		return getPersonne().getTitres();
-	}
 
-	public void setTitres(Set<Titre> titres) {
-		getPersonne().setTitres(titres);
-		;
-	}
-
-	public Set<Offre> getOffres() {
-		return getPersonne().getOffres();
-	}
-
-	public void setOffres(Set<Offre> offres) {
-		getPersonne().setOffres(offres);
-		;
-	}
-
-	public Offre addOffre(Offre offre) {
-		getOffres().add(offre);
-		offre.setPersonne(getPersonne());
-
-		return offre;
-	}
-
-	public Offre removeOffre(Offre offre) {
-		getOffres().remove(offre);
-		offre.setPersonne(null);
-
-		return offre;
-	}
-
-	public TypePersonne getTypePersonne() {
-		return getPersonne().getTypePersonne();
-	}
-
-	public void setTypePersonne(TypePersonne typePersonne) {
-		getPersonne().setTypePersonne(typePersonne);
-	}
-
-	public ArrayList<Offre> getOffresList() {
-		return new ArrayList<Offre>(getPersonne().getOffres());
-	}
-
-	public ArrayList<Titre> getTitresList() {
-		return new ArrayList<Titre>(getPersonne().getTitres());
-	}
-
-	public ArrayList<Demande> getDemandesList() {
-		return new ArrayList<Demande>(getPersonne().getDemandes());
+	
+	public Entreprise getEntreprise() {
+		return this.entreprise;
 	}
 	
-
+	public String getNomEntreprise() {
+		return getEntreprise().getNomEntreprise();
+	}
+	
+	public void setNomEntreprise(String nomEntreprise) {
+		getEntreprise().setNomEntreprise(nomEntreprise);
+	}
+	
+	public String getSecteurEntreprise() {
+		return getEntreprise().getSecteurEntreprise();
+	}
+	
+	public void setSecteurEntreprise(String secteurEntreprise) {
+		getEntreprise().setSecteurEntreprise(secteurEntreprise);
+	}
+	
+	public int getNombreTitreTotal() {
+		return getEntreprise().getNombreTitreTotal();
+	}
+	
+	public void setNombreTitreTotal(int nombreTitreTotal) {
+		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
+	}
 }

@@ -32,29 +32,20 @@ public class Titre implements Serializable {
 	private Entreprise entreprise;
 
 	// bi-directional many-to-many association to Offre
-	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
+	@ManyToMany(fetch = FetchType.EAGER)
+	@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = {@JoinColumn(name = "idOffre")  })
 	private Set<Offre> offres;
+
+	// bi-directional many-to-many association to OffreHistorique
+	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
+	private Set<OffreHistorique> offreHistoriques;
 
 	// bi-directional many-to-one association to Personne
 	@ManyToOne
 	@JoinColumn(name = "idPersonne")
 	private Personne personne;
 
-	// bi-directional many-to-many association to OffreHistorique
-	@ManyToMany(fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
-	@JoinTable(name = "LierOffreTitreHistorique", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = { @JoinColumn(name = "idOffreHistorique") })
-	private Set<OffreHistorique> offreHistoriques;
-
 	public Titre() {
-	}
-
-	public boolean estVente() {
-		if (getEtatTitre() == 1) {
-			return true;
-		} else {
-			return false;
-		}
-
 	}
 
 	public int getIdTitre() {
@@ -105,14 +96,6 @@ public class Titre implements Serializable {
 		this.offres = offres;
 	}
 
-	public Personne getPersonne() {
-		return this.personne;
-	}
-
-	public void setPersonne(Personne personne) {
-		this.personne = personne;
-	}
-
 	public Set<OffreHistorique> getOffreHistoriques() {
 		return this.offreHistoriques;
 	}
@@ -121,8 +104,26 @@ public class Titre implements Serializable {
 		this.offreHistoriques = offreHistoriques;
 	}
 
+	public Personne getPersonne() {
+		return this.personne;
+	}
+
+	public void setPersonne(Personne personne) {
+		this.personne = personne;
+	}
+
 	public ArrayList<Offre> getOffresList() {
+
 		return new ArrayList<Offre>(offres);
+	}
+
+	public boolean estVente() {
+		if (etatTitre == 1) {
+			return true;
+		} else {
+			return false;
+		}
+
 	}
 
 }
