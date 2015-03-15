@@ -12,6 +12,7 @@ import javax.persistence.Query;
 
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
+import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
 
 @Stateless
@@ -50,6 +51,22 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 		} finally {
 		}
 		return DemandesH;
+	}
+	
+	
+	public ArrayList<Entreprise> listeEntreprise() {
+
+		ArrayList<Entreprise> entreprises = null;
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em.createQuery("SELECT en FROM Entreprise en");
+			entreprises = (ArrayList<Entreprise>) query.getResultList();
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return entreprises;
 	}
 
 	public void valideDemandePersonne(Demande demande) {
