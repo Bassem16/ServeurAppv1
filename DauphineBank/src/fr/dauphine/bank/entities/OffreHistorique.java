@@ -49,7 +49,8 @@ public class OffreHistorique implements Serializable {
 	private Personne personneReceveur;
 
 	// bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy = "offreHistoriques", fetch = FetchType.EAGER)
+	@ManyToMany(cascade= {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@JoinTable(name = "LierOffreTitreHistorique", joinColumns = { @JoinColumn(name = "idOffreHistorique") }, inverseJoinColumns = { @JoinColumn(name = "idTitre") })
 	private Set<Titre> titres;
 
 	public OffreHistorique() {

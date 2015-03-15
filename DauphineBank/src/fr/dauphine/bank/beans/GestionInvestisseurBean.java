@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -50,11 +51,47 @@ public class GestionInvestisseurBean implements Serializable {
 
 	}
 
-	public void cloturerOffre(Offre offre) {
-		personne.removeOffresEmises(offre);
+	public OffreHistorique offreAHistorique(Offre offre, String statut) {
+		OffreHistorique offreH = new OffreHistorique();
+		offreH.setDateOffreHistorique(offre.getDateOffre());
+		offreH.setEntreprise(offre.getEntreprise());
+		offreH.setPersonneEmetteur(offre.getPersonneEmetteur());
+		offreH.setPersonneReceveur(offre.getPersonneReceveur());
+		offreH.setPrixOffreHistorique(offre.getPrixOffre());
+		offreH.setQuantiteOffreHistorique(offre.getQuantiteOffre());
+		offreH.setStatut(statut);
 
+		offreH.setTitres(offre.getTitres());
+		offreH.setTypeOffreHistorique(offre.getTypeOffre());
+		ArrayList<Titre> titres = offre.getTitresList();
+
+		boolean a = true;
+		for (Titre t : titres) {
+			t.getOffres().remove(offre);
+			t.getOffreHistoriques().add(offreH);
+
+			if (a == true) {// pour eviter la redondonce des données
+				serviceInvestisseur.miseAJourTitre(t);
+				a = false;
+			}
+		}
+		// serviceSauvegarde.sauvegardeOffreHistorique(offreH);
+
+		return offreH;
+	}
+
+	public void cloturerOffre(Offre offre) {
+		OffreHistorique offreH = offreAHistorique(offre, "Retirée");
+
+		Personne p = offre.getPersonneReceveur();
+		p.getOffresRecues().remove(offre);
+		personne.getOffresEmises().remove(offre);
+		personne.getOffreHistoriquesEmises().add(offreH);
+		p.getOffreHistoriquesRecues().add(offreH);
+
+		// serviceSauvegarde.sauvegardeCompte(p);
+		// serviceSauvegarde.sauvegardeCompte(personne);
 		serviceInvestisseur.supprimerOffre(offre);
-		serviceSauvegarde.sauvegardeCompte(personne);
 
 	}
 
@@ -74,15 +111,7 @@ public class GestionInvestisseurBean implements Serializable {
 		Set<Offre> T = titre.getOffres();
 		for (int i = 0; i < AO.size(); i++) {
 			Offre offre = AO.get(i);
-			offreH.setDateOffreHistorique(offre.getDateOffre());
-			offreH.setEntreprise(offre.getEntreprise());
-			offreH.setPersonneEmetteur(offre.getPersonneEmetteur());
-			offreH.setPersonneReceveur(offre.getPersonneReceveur());
-			offreH.setPrixOffreHistorique(offre.getPrixOffre());
-			offreH.setQuantiteOffreHistorique(offre.getQuantiteOffre());
-			offreH.setStatut("Refusée");
-			offreH.setTitres(offre.getTitres());
-			offreH.setTypeOffreHistorique(offre.getTypeOffre());
+			offreH = offreAHistorique(offre, "Refusée");
 
 			System.out.println("TAILLE  : " + titre.getOffres().size());
 
@@ -103,7 +132,7 @@ public class GestionInvestisseurBean implements Serializable {
 			serviceSauvegarde.sauvegardeCompte(p);
 
 		}
-		serviceSauvegarde.sauvegardeTitre(titre);
+		//serviceSauvegarde.sauvegardeTitre(titre);
 
 	}
 
@@ -113,6 +142,7 @@ public class GestionInvestisseurBean implements Serializable {
 		offreH.setDateOffreHistorique(offre.getDateOffre());
 		offreH.setEntreprise(offre.getEntreprise());
 		offreH.setPersonneEmetteur(offre.getPersonneEmetteur());
+		offreH.setPersonneReceveur(offre.getPersonneReceveur());
 		offreH.setPrixOffreHistorique(offre.getPrixOffre());
 		offreH.setQuantiteOffreHistorique(offre.getQuantiteOffre());
 		offreH.setStatut(statut);
@@ -127,16 +157,14 @@ public class GestionInvestisseurBean implements Serializable {
 			titres.get(j).getOffreHistoriques().add(offreH);
 
 		}
-		serviceSauvegarde.sauvegardeOffreHistorique(offreH);
+		// serviceSauvegarde.sauvegardeOffreHistorique(offreH);
 		Personne p = offre.getPersonneEmetteur();
 		p.getOffresRecues().remove(offre);
 		personne.getOffresRecues().remove(offre);
-		serviceInvestisseur.supprimerOffre(offre);
+
 		serviceSauvegarde.sauvegardeCompte(p);
 		serviceSauvegarde.sauvegardeCompte(personne);
-
-		
-
+		serviceInvestisseur.supprimerOffre(offre);
 	}
 
 	public void accepterOffre(Offre offre) {

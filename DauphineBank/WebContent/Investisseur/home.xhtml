@@ -49,7 +49,17 @@
 
 			<h:column>
 				<f:facet name="header">Titre lié</f:facet>
-				<h:outputText value="#{o.titresList.get(0).nomTitre}" />
+				<c:choose>
+					<c:when test="#{o.titresList.isEmpty()}">
+						<h:outputText value="#{o.titresList.get(0).nomTitre}" />
+					</c:when>
+
+
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
+
 			</h:column>
 
 			<h:column>
@@ -158,12 +168,12 @@
 				<f:facet name="header">Titre lié</f:facet>
 				<c:choose>
 					<c:when test="#{oR.titresList.isEmpty()}">
-
+						<h:outputText value="#{oR.titresList.get(0).nomTitre}" />
 					</c:when>
 
 
 					<c:otherwise>
-						<h:outputText value="#{oR.titresList.get(0).nomTitre}" />
+
 					</c:otherwise>
 				</c:choose>
 			</h:column>
@@ -182,7 +192,7 @@
 
 		</h:dataTable>
 
-		<h2>Historiques de vos Offres</h2>
+		<h2>Historiques de vos Offres (Emises)</h2>
 		<h:dataTable
 			value="#{gestionInvestisseurBean.offreHistoriquesEmisesList}"
 			var="oh" styleClass="order-table" headerClass="order-table-header"
@@ -216,12 +226,12 @@
 				<f:facet name="header">Titre lié</f:facet>
 				<c:choose>
 					<c:when test="#{oh.titresList.isEmpty()}">
-						<h:outputText value = "#{oh.titresList.isEmpty()}"></h:outputText>
+						<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
 					</c:when>
 
 
 					<c:otherwise>
-						
+
 					</c:otherwise>
 				</c:choose>
 

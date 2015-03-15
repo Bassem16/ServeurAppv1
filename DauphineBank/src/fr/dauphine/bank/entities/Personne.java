@@ -7,18 +7,17 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Set;
 
-
 /**
  * The persistent class for the Personne database table.
  * 
  */
 @Entity
-@NamedQuery(name="Personne.findAll", query="SELECT p FROM Personne p")
+@NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p")
 public class Personne implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idPersonne;
 
 	private String email;
@@ -33,42 +32,42 @@ public class Personne implements Serializable {
 
 	private int valide;
 
-	//bi-directional many-to-one association to Demande
-	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Demande
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Demande> demandes;
 
-	//bi-directional many-to-one association to DemandeHistorique
-	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to DemandeHistorique
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<DemandeHistorique> demandeHistoriques;
 
-	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="personneEmeteur", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy = "personneEmeteur", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Offre> offresEmises;
 
-	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="personneReceveur", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy = "personneReceveur", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<Offre> offresRecues;
 
-	//bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy="personneEmetteur", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy = "personneEmetteur", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<OffreHistorique> offreHistoriquesEmises;
 
-	//bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy="personneReceveur", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy = "personneReceveur", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
 	private Set<OffreHistorique> offreHistoriquesRecues;
 
-	//bi-directional many-to-one association to Entreprise
+	// bi-directional many-to-one association to Entreprise
 	@ManyToOne
-	@JoinColumn(name="idEntreprise")
+	@JoinColumn(name = "idEntreprise")
 	private Entreprise entreprise;
 
-	//bi-directional many-to-one association to TypePersonne
+	// bi-directional many-to-one association to TypePersonne
 	@ManyToOne
-	@JoinColumn(name="idTypePersonne")
+	@JoinColumn(name = "idTypePersonne")
 	private TypePersonne typePersonne;
 
-	//bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy="personne", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Titre
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER)
 	private Set<Titre> titres;
 
 	public Personne() {
@@ -160,14 +159,16 @@ public class Personne implements Serializable {
 		this.demandeHistoriques = demandeHistoriques;
 	}
 
-	public DemandeHistorique addDemandeHistorique(DemandeHistorique demandeHistorique) {
+	public DemandeHistorique addDemandeHistorique(
+			DemandeHistorique demandeHistorique) {
 		getDemandeHistoriques().add(demandeHistorique);
 		demandeHistorique.setPersonne(this);
 
 		return demandeHistorique;
 	}
 
-	public DemandeHistorique removeDemandeHistorique(DemandeHistorique demandeHistorique) {
+	public DemandeHistorique removeDemandeHistorique(
+			DemandeHistorique demandeHistorique) {
 		getDemandeHistoriques().remove(demandeHistorique);
 		demandeHistorique.setPersonne(null);
 
@@ -222,18 +223,21 @@ public class Personne implements Serializable {
 		return this.offreHistoriquesEmises;
 	}
 
-	public void setOffreHistoriquesEmises(Set<OffreHistorique> offreHistoriquesEmises) {
+	public void setOffreHistoriquesEmises(
+			Set<OffreHistorique> offreHistoriquesEmises) {
 		this.offreHistoriquesEmises = offreHistoriquesEmises;
 	}
 
-	public OffreHistorique addOffreHistoriquesEmises(OffreHistorique offreHistoriquesEmises) {
+	public OffreHistorique addOffreHistoriquesEmises(
+			OffreHistorique offreHistoriquesEmises) {
 		getOffreHistoriquesEmises().add(offreHistoriquesEmises);
 		offreHistoriquesEmises.setPersonneEmetteur(this);
 
 		return offreHistoriquesEmises;
 	}
 
-	public OffreHistorique removeOffreHistoriquesEmises(OffreHistorique offreHistoriquesEmises) {
+	public OffreHistorique removeOffreHistoriquesEmises(
+			OffreHistorique offreHistoriquesEmises) {
 		getOffreHistoriquesEmises().remove(offreHistoriquesEmises);
 		offreHistoriquesEmises.setPersonneEmetteur(null);
 
@@ -244,18 +248,21 @@ public class Personne implements Serializable {
 		return this.offreHistoriquesRecues;
 	}
 
-	public void setOffreHistoriquesRecues(Set<OffreHistorique> offreHistoriquesRecues) {
+	public void setOffreHistoriquesRecues(
+			Set<OffreHistorique> offreHistoriquesRecues) {
 		this.offreHistoriquesRecues = offreHistoriquesRecues;
 	}
 
-	public OffreHistorique addOffreHistoriquesRecues(OffreHistorique offreHistoriquesRecues) {
+	public OffreHistorique addOffreHistoriquesRecues(
+			OffreHistorique offreHistoriquesRecues) {
 		getOffreHistoriquesRecues().add(offreHistoriquesRecues);
 		offreHistoriquesRecues.setPersonneReceveur(this);
 
 		return offreHistoriquesRecues;
 	}
 
-	public OffreHistorique removeOffreHistoriquesRecues(OffreHistorique offreHistoriquesRecues) {
+	public OffreHistorique removeOffreHistoriquesRecues(
+			OffreHistorique offreHistoriquesRecues) {
 		getOffreHistoriquesRecues().remove(offreHistoriquesRecues);
 		offreHistoriquesRecues.setPersonneReceveur(null);
 

@@ -44,6 +44,8 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
+			//em.merge(offreHistorique);
+	
 			em.persist(offreHistorique);
 			et.commit();
 			System.out.println("Sauvegarde en base de l'offre (historique) "
