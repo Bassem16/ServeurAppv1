@@ -244,6 +244,60 @@
 
 
 		</h:dataTable>
+		
+		
+		<h2>Historiques de vos Offres (Recues)</h2>
+		<h:dataTable
+			value="#{gestionInvestisseurBean.offreHistoriquesRecuesList}"
+			var="oh" styleClass="order-table" headerClass="order-table-header"
+			rowClasses="order-table-odd-row,order-table-eve-row">
+			<h:column>
+				<f:facet name="header">Type d'offre</f:facet>
+				<h:outputText value="#{oh.typeOffreHistorique}" />
+
+			</h:column>
+
+
+
+
+			<h:column>
+				<f:facet name="header">Nom Entreprise</f:facet>
+				<h:outputText value="#{oh.entreprise.nomEntreprise}" />
+			</h:column>
+
+
+			<h:column>
+				<f:facet name="header">Prix de l'offre</f:facet>
+				<h:outputText value="#{oh.prixOffreHistorique}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Quantité</f:facet>
+				<h:outputText value="#{oh.quantiteOffreHistorique}" />
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Titre lié</f:facet>
+				<c:choose>
+					<c:when test="#{oh.titresList.isEmpty()}">
+						<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
+					</c:when>
+
+
+					<c:otherwise>
+
+					</c:otherwise>
+				</c:choose>
+
+			</h:column>
+
+			<h:column>
+				<f:facet name="header">Statut</f:facet>
+				<h:outputText value="#{oh.statut}" />
+			</h:column>
+
+
+		</h:dataTable>
 
 
 

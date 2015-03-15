@@ -71,7 +71,7 @@ public class GestionInvestisseurBean implements Serializable {
 			t.getOffreHistoriques().add(offreH);
 
 			if (a == true) {// pour eviter la redondonce des données
-				serviceInvestisseur.miseAJourTitre(t);
+				serviceSauvegarde.sauvegardeTitre(t);
 				a = false;
 			}
 		}
@@ -80,14 +80,12 @@ public class GestionInvestisseurBean implements Serializable {
 		return offreH;
 	}
 
+	
+	//Ne plus toucher
 	public void cloturerOffre(Offre offre) {
-		OffreHistorique offreH = offreAHistorique(offre, "Retirée");
-
-		Personne p = offre.getPersonneReceveur();
-		p.getOffresRecues().remove(offre);
-		personne.getOffresEmises().remove(offre);
-		personne.getOffreHistoriquesEmises().add(offreH);
-		p.getOffreHistoriquesRecues().add(offreH);
+		//OffreHistorique offreH = offreAHistorique(offre, "Retirée");
+		passerOffreAHistorique_Offre(offre, "Retirée");
+		
 
 		// serviceSauvegarde.sauvegardeCompte(p);
 		// serviceSauvegarde.sauvegardeCompte(personne);
@@ -105,6 +103,8 @@ public class GestionInvestisseurBean implements Serializable {
 		passerOffreAHistorique_Titre(titre);
 	}
 
+	
+	//Ne plus toucher
 	public void passerOffreAHistorique_Titre(Titre titre) {
 		OffreHistorique offreH = new OffreHistorique();
 		ArrayList<Offre> AO = titre.getOffresList();
@@ -124,18 +124,26 @@ public class GestionInvestisseurBean implements Serializable {
 
 			titre.getOffreHistoriques().add(offreH);
 
-			Personne p = offre.getPersonneEmetteur();
-			p.getOffresEmises().remove(offre);
-			personne.getOffresRecues().remove(offre);
-			personne.getOffreHistoriquesRecues().add(offreH);
+			Personne personneReceveur = offre.getPersonneReceveur();
+			Personne personneEmetteur = offre.getPersonneEmetteur();
+			
+			personneReceveur.getOffresRecues().remove(offre);
+			personneEmetteur.getOffresEmises().remove(offre);
+			
+			personneEmetteur.getOffreHistoriquesEmises().add(offreH);
+			personneReceveur.getOffreHistoriquesRecues().add(offreH);
+			
+			serviceSauvegarde.sauvegardeCompte(personneReceveur);
+			//serviceSauvegarde.sauvegardeCompte(personneEmetteur);
 			serviceInvestisseur.supprimerOffre(offre);
-			serviceSauvegarde.sauvegardeCompte(p);
-
 		}
-		//serviceSauvegarde.sauvegardeTitre(titre);
+
+		// serviceSauvegarde.sauvegardeTitre(titre);
 
 	}
 
+	
+	//Ne plus toucher
 	public void passerOffreAHistorique_Offre(Offre offre, String statut) {
 		OffreHistorique offreH = new OffreHistorique();
 
@@ -158,17 +166,45 @@ public class GestionInvestisseurBean implements Serializable {
 
 		}
 		// serviceSauvegarde.sauvegardeOffreHistorique(offreH);
-		Personne p = offre.getPersonneEmetteur();
-		p.getOffresRecues().remove(offre);
-		personne.getOffresRecues().remove(offre);
-
-		serviceSauvegarde.sauvegardeCompte(p);
-		serviceSauvegarde.sauvegardeCompte(personne);
+		Personne personneReceveur = offre.getPersonneReceveur();
+		Personne personneEmetteur = offre.getPersonneEmetteur();
+		
+		personneReceveur.getOffresRecues().remove(offre);
+		personneEmetteur.getOffresEmises().remove(offre);
+		
+		personneEmetteur.getOffreHistoriquesEmises().add(offreH);
+		personneReceveur.getOffreHistoriquesRecues().add(offreH);
+		
+		serviceSauvegarde.sauvegardeCompte(personneReceveur);
+		//serviceSauvegarde.sauvegardeCompte(personneEmetteur);
 		serviceInvestisseur.supprimerOffre(offre);
 	}
 
+	
 	public void accepterOffre(Offre offre) {
 		passerOffreAHistorique_Offre(offre, "Acceptée");
+		ArrayList<Titre> titres = offre.getTitresList(); // On recupere les
+															// Titres echangés
+
+		Personne p = offre.getPersonneEmetteur(); // On recupere la personne
+													// recevant les titres
+
+		p.getTitres().addAll(titres); // On lui donne les titres
+		personne.getTitres().removeAll(titres); //On les supprimes de chez le
+		// donneur
+
+		// serviceSauvegarde.sauvegardeCompte(p);
+		// serviceSauvegarde.sauvegardeCompte(personne);
+
+		for (Titre t : titres) {
+			serviceInvestisseur.miseAJourTitre(t);
+			t.setPersonne(p);
+			t.setEtatTitre(0);
+			serviceSauvegarde.sauvegardeTitre(t);
+		}
+		
+		
+
 	}
 
 	public void refuserOffre(Offre offre) {

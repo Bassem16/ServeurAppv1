@@ -38,7 +38,7 @@ public class Titre implements Serializable {
 	private Set<Offre> offres;
 
 	// bi-directional many-to-many association to OffreHistorique
-	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER, cascade = { CascadeType.MERGE })
+	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
 	private Set<OffreHistorique> offreHistoriques;
 
 	// bi-directional many-to-one association to Personne

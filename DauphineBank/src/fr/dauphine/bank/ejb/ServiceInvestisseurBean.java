@@ -60,7 +60,7 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			em.merge(titre);
+			em.refresh(em.contains(titre) ? titre : em.merge(titre));
 			et.commit();
 			em.close();
 		} catch (Exception e) {
