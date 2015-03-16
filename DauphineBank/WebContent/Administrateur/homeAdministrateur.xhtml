@@ -5,29 +5,69 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<h:outputStylesheet library="css" name="default.css" />
 	<title>Team Trader</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<h:outputScript library="default" name="javascript/jquery.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.dropotron.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.scrollgress.min.js" />
+	<h:outputScript library="default" name="javascript/skel.min.js" />
+	<h:outputScript library="default" name="javascript/skel-layers.min.js" />
+	<h:outputScript library="default" name="javascript/init.js" />
+	<noscript>
+		<h:outputStylesheet library="default" name="css/skel.css" />
+		<h:outputStylesheet library="default" name="css/style.css" />
+		<h:outputStylesheet library="default" name="css/style-wide.css" />
+	</noscript>
 </h:head>
 <body>
-	<CENTER>Bienvenue sur Team Trader
-		(#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})</CENTER>
-	<h:form>
-		<h5>
-			<c:otherwise>
-				<h:link value="Ajouter/Supprimer Société"
-					outcome="/Administrateur/modifierMembre.xhtml" />
-				<br></br>
-				<h:link value="Ajouter/Supprimer Membre"
-					outcome="/Administrateur/login.xhtml" />
-				<br></br>
-				<h:link value="Rechercher Entreprise"
-					outcome="/Administrateur/register.xhtml" />
-				<br></br>
-			</c:otherwise>
+<!-- Header -->
+	<header id="header" class="skel-layers-fixed">
+	<h1>
+		<a href="../index.xhtml">Team Trade</a> par The Team
+	</h1>
+	<nav id="nav">
+	<ul>
+		<li><a href="../index.xhtml">Accueil</a></li>
+		<li><a href="" class="icon fa-angle-down">Administrateur</a>
+			<ul>
 
+				<li><h:link value="Ajouter/Supprimer Membre"
+					outcome="/Administrateur/modifierMembre.xhtml" /></li>
+				<li><h:link value="Ajouter/Supprimer Société"
+					outcome="/Administrateur/modifierEntreprise.xhtml" /></li>
+				<li><h:link value="Ajouter/Supprimer un membre d'une Société"
+					outcome="/Administrateur/modifierMembreSociete.xhtml" /></li>
+				<li><h:link value="Partie Investisseur"
+					outcome="/Investisseur/home.xhtml" /></li>
+			</ul></li>
+		<li><h:link value="Inscrivez-vous"
+							outcome="/Visiteur/register.xhtml" class="button" /></li>
+	</ul>
+	</nav> 
+	</header>
+	
+	<!-- Banner -->
+	<section id="banner">
+	<h2>Bienvenue sur Team Trader</h2>
+	<p>Bienvenue (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}).</p>
+	</section>
 
-		</h5>
-		<!--h:commandButton id="back" value="Back" action="acceuilBanqueTest.xhtml" -->
-	</h:form>
+<c:otherwise>
+<h:link value="Ajouter/Supprimer Membre"
+outcome="/Administrateur/modifierMembre.xhtml" />
+<br></br>
+<h:link value="Ajouter/Supprimer Société"
+outcome="/Administrateur/modifierEntreprise.xhtml" />
+<br></br>
+<h:link value="Ajouter/Supprimer un membre d'une Société"
+outcome="/Administrateur/modifierMembreSociete.xhtml" />
+<br></br>
+<h:link value="Partie Investisseur"
+outcome="/Investisseur/home.xhtml" />
+<br></br>
+</c:otherwise>
+
 </body>
 </html>
