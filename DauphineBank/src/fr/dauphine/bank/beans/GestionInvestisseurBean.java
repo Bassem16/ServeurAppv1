@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -211,8 +212,26 @@ public class GestionInvestisseurBean implements Serializable {
 	public void accepterOffre(Offre offre) {
 		passerOffreAHistorique_Offre(offre, "Acceptée");
 		ArrayList<Titre> titres = offre.getTitresList(); // On recupere les
-															// Titres echangés
-
+		
+		
+		List<Offre> listOffresSupprimeesTemp = new ArrayList<Offre>();
+		
+		for (Titre t : titres) {
+			for (Offre o : t.getOffresList()){
+				
+				t.getOffres().remove(o);
+				o.getPersonneEmetteur().getOffreHistoriquesEmises().remove(o);
+				o.getPersonneReceveur().getOffreHistoriquesRecues().remove(o);
+				
+				if(! listOffresSupprimeesTemp.contains(o))	{
+					passerOffreAHistorique_Offre(o, "Refusé");
+					listOffresSupprimeesTemp.add(o);
+				}
+				
+			}
+		}
+												// Titres echangés
+		//On annule les offres des titres concerné
 		Personne p = offre.getPersonneEmetteur(); // On recupere la personne
 													// recevant les titres
 
@@ -225,11 +244,21 @@ public class GestionInvestisseurBean implements Serializable {
 
 		for (Titre t : titres) {
 			serviceInvestisseur.miseAJourTitre(t);
+			
 			t.setPersonne(p);
 			t.setEtatTitre(0);
 			serviceSauvegarde.sauvegardeTitre(t);
 		}
+		
+		//Mettre à jour les soldes des comptes émetteurs et receveurs
+		Personne personneEmetteur = offre.getPersonneEmetteur();
+		Personne personneReceveur = offre.getPersonneReceveur();
+		
+		personneEmetteur.setSoldePersonne(personneEmetteur.getSoldePersonne() - offre.getPrixOffre() );
+		personneReceveur.setSoldePersonne(personneReceveur.getSoldePersonne() + offre.getPrixOffre() );
 
+		serviceSauvegarde.sauvegardeCompte(personneEmetteur);
+		serviceSauvegarde.sauvegardeCompte(personneReceveur);
 	}
 
 	public String visiterPersonne(Personne p) {
@@ -246,6 +275,14 @@ public class GestionInvestisseurBean implements Serializable {
 	public boolean estVente(Titre titre) {
 		return titre.estVente();
 
+	}
+	
+	public boolean soldeSuffisant(Offre offre){
+		
+		if(offre.getPersonneEmetteur().getSoldePersonne() >= offre.getPrixOffre())
+			return false;
+		else
+			return true;
 	}
 
 	public void rechercherTitre(String nomTitre) {
@@ -594,6 +631,7 @@ public class GestionInvestisseurBean implements Serializable {
 		offre.setStatut("En cours");
 		offre.setTitres(new HashSet<Titre>());
 		offre.setTypeOffre("Achat");
+		
 		for(int i=0;i<quantiteOffre;i++){
 			titresOffre.get(i).getOffres().add(offre);
 			offre.getTitres().add(titresOffre.get(i));
@@ -603,11 +641,12 @@ public class GestionInvestisseurBean implements Serializable {
 		
 		personne.getOffresEmises().add(offre);
 		//personne.setSolde(personne.getSolde()-prixOffre);
-		personneVisite.getOffresRecues().add(offre);
+		//personneVisite.getOffresRecues().add(offre);
 		
 		serviceSauvegarde.sauvegardeCompte(personne);
 		//serviceSauvegarde.sauvegardeCompte(personneVisite);
 		
+	
 		return "home.xhtml";
 		
 	}

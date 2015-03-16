@@ -23,7 +23,7 @@ import fr.dauphine.bank.entities.Titre;
 public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
+	private static EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
 	public void supprimerOffre(Offre offre) {

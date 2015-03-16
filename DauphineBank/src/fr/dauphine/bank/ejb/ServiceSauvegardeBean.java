@@ -15,7 +15,7 @@ import fr.dauphine.bank.entities.Titre;
 public class ServiceSauvegardeBean implements ServiceSauvegarde {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
+	private static EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
 	@Override
@@ -79,6 +79,6 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 
 	}
 	
-	
+
 
 }

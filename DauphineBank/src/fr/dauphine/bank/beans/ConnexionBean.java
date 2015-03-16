@@ -242,8 +242,16 @@ public class ConnexionBean {
 		getPersonne().setTypePersonne(typePersonne);
 	}
 
-	
 
+	public double getSoldePersonne() {
+		return getPersonne().getSoldePersonne();
+	}
+
+	public void setSoldePersonne(double soldePersonne) {
+		getPersonne().setSoldePersonne(soldePersonne);
+	}
+	
+	
 	public ArrayList<Titre> getTitresList() {
 		return new ArrayList<Titre>(getPersonne().getTitres());
 	}

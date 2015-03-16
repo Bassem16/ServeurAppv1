@@ -15,7 +15,7 @@ import fr.dauphine.bank.entities.Personne;
 public class ServiceVerificationDataBean implements ServiceVerificationData {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
+	private static EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
 	@SuppressWarnings("unchecked")

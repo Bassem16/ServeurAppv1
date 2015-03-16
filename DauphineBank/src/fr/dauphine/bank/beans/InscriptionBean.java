@@ -228,5 +228,13 @@ public class InscriptionBean implements Serializable {
 	public void setTypePersonne(TypePersonne typePersonne) {
 		getPersonne().setTypePersonne(typePersonne);
 	}
+	
+	public double getSoldePersonne() {
+		return getPersonne().getSoldePersonne();
+	}
+
+	public void setSoldePersonne(double soldePersonne) {
+		getPersonne().setSoldePersonne(soldePersonne);
+	}
 
 }

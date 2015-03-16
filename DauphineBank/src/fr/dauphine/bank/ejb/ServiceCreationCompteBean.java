@@ -13,7 +13,7 @@ import fr.dauphine.bank.entities.TypePersonne;
 public class ServiceCreationCompteBean implements ServiceCreationCompte {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
+	private static EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
 	public void CreationComptes(Personne personne) {

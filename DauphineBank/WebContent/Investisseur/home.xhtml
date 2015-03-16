@@ -9,7 +9,7 @@
 	<title>Espace membre</title>
 </h:head>
 
-<h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
+<h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne} solde #{connexionBean.soldePersonne}
 <h:form>
 	<h:link value="Rechercher" outcome="/Investisseur/research.xhtml" />
 		<h2>Vos Offres en cours (Emises)</h2>
@@ -186,7 +186,9 @@
 
 			<h:column>
 				<h:commandButton value="Accepter offre"
-					action="#{gestionInvestisseurBean.accepterOffre(oR)}"></h:commandButton>
+					action="#{gestionInvestisseurBean.accepterOffre(oR)}"
+					disabled="#{gestionInvestisseurBean.soldeSuffisant(oR)}"
+					></h:commandButton>
 				<h:commandButton value="Refuser offre"
 					action="#{gestionInvestisseurBean.refuserOffre(oR)}"></h:commandButton>
 			</h:column>

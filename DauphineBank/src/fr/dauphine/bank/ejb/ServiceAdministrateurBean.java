@@ -16,7 +16,7 @@ import fr.dauphine.bank.entities.Demande;
 public class ServiceAdministrateurBean implements ServiceAdministrateur {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
+	private static EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
 	@SuppressWarnings("unchecked")

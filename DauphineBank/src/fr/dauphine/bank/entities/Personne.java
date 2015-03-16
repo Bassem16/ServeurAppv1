@@ -31,6 +31,8 @@ public class Personne implements Serializable {
 	private String prenomPersonne;
 
 	private int valide;
+	
+	private double soldePersonne; 
 
 	// bi-directional many-to-one association to Demande
 	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
@@ -309,6 +311,14 @@ public class Personne implements Serializable {
 	
 	public ArrayList<Titre> getTitresList(){
 		return new ArrayList<Titre>(titres);
+	}
+
+	public double getSoldePersonne() {
+		return soldePersonne;
+	}
+
+	public void setSoldePersonne(double soldePersonne) {
+		this.soldePersonne = soldePersonne;
 	}
 
 }

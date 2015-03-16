@@ -15,7 +15,7 @@ import fr.dauphine.bank.entities.Personne;
 public class ServiceConnexionBean implements ServiceConnexion {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
+	private static EntityManagerFactory emf = Persistence
 			.createEntityManagerFactory("DauphineBank");
 
 	@Override
