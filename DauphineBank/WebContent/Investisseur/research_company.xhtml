@@ -1,0 +1,106 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Espace Administrateur</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<h:outputScript library="default" name="javascript/jquery.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.dropotron.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.scrollgress.min.js" />
+	<h:outputScript library="default" name="javascript/skel.min.js" />
+	<h:outputScript library="default" name="javascript/skel-layers.min.js" />
+	<h:outputScript library="default" name="javascript/init.js" />
+	<noscript>
+		<h:outputStylesheet library="default" name="css/skel.css" />
+		<h:outputStylesheet library="default" name="css/style.css" />
+		<h:outputStylesheet library="default" name="css/style-wide.css" />
+	</noscript>
+</h:head>
+
+<h:body>
+<!-- Header -->
+	<header id="header" class="skel-layers-fixed">
+	<h1>
+		<a href="../index.xhtml">Team Trade</a> par The Team
+	</h1>
+	<nav id="nav">
+	<ul>
+	<li>connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}</li>
+		<li><a href="../index.xhtml">Accueil</a></li>
+		<li><a href="" class="icon fa-angle-down">Investisseur</a>
+			<ul>
+				<li><h:link value="Rechercher Titres" outcome="/Investisseur/research.xhtml" /></li>
+				<li><h:link value="Rechercher Entreprise"
+					outcome="/Investisseur/research_company.xhtml" /></li>
+				<li><h:link value="Accueil Investisseur"
+					outcome="/Investisseur/home.xhtml" /></li>
+			</ul></li>
+		<li>
+			<c:if test="#{connexionBean.connected}">
+	    		<h:form><h:commandButton value="Deconnexion" action="#{connexionBean.doLogout}" class="button"></h:commandButton></h:form>
+	    	</c:if>
+    	</li>
+	</ul>
+	</nav> 
+	</header>
+	
+<!-- Main -->
+	<section id="main" class="container">
+		<header>
+			<h2>Liste des Entreprises</h2>
+		</header>
+	
+
+	
+	<div class="row">
+			<div class="12u">
+				<section class="box">
+	<h3>Entreprises inscrites</h3>
+	<h:dataTable value="#{gestionAdministrateurBean.entreprises}" var="e"
+		styleClass="order-table" headerClass="order-table-header"
+		rowClasses="order-table-odd-row,order-table-eve-row">
+		<h:column>
+			<f:facet name="header">Nom de l'entreprise</f:facet>
+			<h:outputText value="#{e.nomEntreprise}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Secteur de l'entreprise</f:facet>
+			<h:outputText value="#{e.secteurEntreprise}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Nombre de titre total</f:facet>
+			<h:outputText value="#{e.nombreTitreTotal}" />
+		</h:column>
+
+	</h:dataTable>
+				</section>
+			</div>
+		</div>
+	</section>
+	
+	<!-- Footer --> 
+	<footer id="footer">
+	<ul class="icons">
+		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+		<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+		<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+		<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+		<li><a href="#" class="icon fa-google-plus"><span
+				class="label">Google+</span></a></li>
+	</ul>
+	<ul class="copyright">
+		<li>&copy; Team Trade. All rights reserved.</li>
+		<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+	</ul>
+	</footer>
+</h:body>
+
+</html>

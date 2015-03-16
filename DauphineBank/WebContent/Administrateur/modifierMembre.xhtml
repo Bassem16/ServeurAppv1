@@ -95,14 +95,12 @@
 		<h:column>
 			<ul class="actions">
 			<li><f:facet name="header">Valider connexion </f:facet>
-			<h:commandButton value="Accepter"
+			<h:form><h:commandButton value="Accepter"
 				action="#{gestionAdministrateurBean.validerDemandePersonne(d)}" class="button">
 			</h:commandButton>
-			</li>
-			<li>
 			<h:commandButton value="Refuser"
 				action="#{gestionAdministrateurBean.supprimerDemandePersonne(d)}" class="button special">
-			</h:commandButton>
+			</h:commandButton></h:form>
 			</li>
 			</ul>
 		</h:column>
