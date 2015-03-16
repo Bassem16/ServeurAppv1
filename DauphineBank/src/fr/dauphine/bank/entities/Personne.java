@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 /**
@@ -304,6 +305,10 @@ public class Personne implements Serializable {
 		titre.setPersonne(null);
 
 		return titre;
+	}
+	
+	public ArrayList<Titre> getTitresList(){
+		return new ArrayList<Titre>(titres);
 	}
 
 }
