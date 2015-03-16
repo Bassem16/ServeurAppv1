@@ -40,21 +40,21 @@
 		</fieldset>
 
 
-		<h4>Les société</h4>
+		<h4>Les sociétés</h4>
 
-		<h:outputLabel>Nom de l'entreprise  : </h:outputLabel> <br/>
+		<h:outputLabel>Nom de l'entreprise  : </h:outputLabel>
 		<h:outputText value="#{gestionMembreEntrepriseBean.nomEntreprise}" />
 		<br/>
-		<h:outputLabel>   Secteur de l'entreprise :</h:outputLabel>
+		<h:outputLabel>Secteur de l'entreprise : </h:outputLabel>
 		<h:outputText value="#{gestionMembreEntrepriseBean.secteurEntreprise}" />
 		<br/>
-		<h:outputLabel>   Nombre de titre de l'entreprise :</h:outputLabel>
+		<h:outputLabel>Nombre de titre de l'entreprise : </h:outputLabel>
 		<h:outputText value="#{gestionMembreEntrepriseBean.nombreTitreTotal}" />
 		<br/>
 
 	
 	
-	Les infromations :
+	<h4>Les infromations : </h4>
 	
 	<h:dataTable value="#{gestionMembreEntrepriseBean.informations}"
 			var="i" styleClass="order-table" headerClass="order-table-header"

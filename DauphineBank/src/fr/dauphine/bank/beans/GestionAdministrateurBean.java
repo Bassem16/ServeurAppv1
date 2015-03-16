@@ -64,6 +64,8 @@ public class GestionAdministrateurBean implements Serializable {
 		this.personneEntreprise.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
 		this.personneEntreprise.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
 		this.personneEntreprise.setDemandeHistoriques(new HashSet<DemandeHistorique>());
+		this.personneEntreprise.setDemandes(new HashSet<Demande>());
+		
 		
 	}
 
