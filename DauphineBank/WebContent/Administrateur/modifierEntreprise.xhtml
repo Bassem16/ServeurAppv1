@@ -5,7 +5,7 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<title>Team Trader</title>
+	<title>Espace Administrateur</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
 	<h:outputScript library="default" name="javascript/jquery.min.js" />
 	<h:outputScript library="default"
@@ -21,7 +21,8 @@
 		<h:outputStylesheet library="default" name="css/style-wide.css" />
 	</noscript>
 </h:head>
-<body>
+
+<h:body>
 <!-- Header -->
 	<header id="header" class="skel-layers-fixed">
 	<h1>
@@ -49,13 +50,85 @@
     	</li>
 	</ul>
 	</nav> 
-	</header>	
-	<!-- Banner -->
-	<section id="banner">
-	<h2>Bienvenue sur Team Trader</h2>
-	<p>Bienvenue #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}.</p>
-	</section>
+	</header>
+	
+<!-- Main -->
+	<section id="main" class="container">
+		<header>
+			<h2>Modification des données Entreprise</h2>
+			<p>Veuillez remplir le formulaire ci-dessous afin d'enregistrer une nouvelle entreprise.</p>
+		</header>
 
+		<div class="row">
+			<div class="12u">
+				<section class="box">
+	
+
+<h:form >
+			<h3>Inscription Entreprise</h3>
+
+			<h:outputLabel for="nomEntreprise">Nom entreprise <span
+					class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="nomEntreprise"
+				value="#{gestionAdministrateurBean.nomEntreprise}" required="false">
+			</h:inputText>
+			<br />
+
+
+			<h:outputLabel for="secteurEntreprise">Secteur entreprise <span
+					class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="secteurEntreprise"
+				value="#{gestionAdministrateurBean.secteurEntreprise}" required="false" >
+			</h:inputText>
+			<br />
+
+			<h:outputLabel for="nombreTitreEntreprise">Nombre de Titre de l'entreprise <span
+					class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="nombreTitreEntreprise"
+				value="#{gestionAdministrateurBean.nombreTitreTotal}" required="false" >
+			</h:inputText>
+			<br />
+
+
+			<h:commandButton value="Ajouter"
+				action="#{gestionAdministrateurBean.ajouterEntreprise}"></h:commandButton>
+			<br />
+			</h:form>
+					</section>
+			</div>
+		</div>
+	
+	<div class="row">
+			<div class="12u">
+				<section class="box">
+	<h3>Entreprises inscrites</h3>
+	<h:dataTable value="#{gestionAdministrateurBean.entreprises}" var="e"
+		styleClass="order-table" headerClass="order-table-header"
+		rowClasses="order-table-odd-row,order-table-eve-row">
+		<h:column>
+			<f:facet name="header">Nom de l'entreprise</f:facet>
+			<h:outputText value="#{e.nomEntreprise}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Secteur de l'entreprise</f:facet>
+			<h:outputText value="#{e.secteurEntreprise}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Nombre de titre total</f:facet>
+			<h:outputText value="#{e.nombreTitreTotal}" />
+		</h:column>
+
+	</h:dataTable>
+				</section>
+			</div>
+		</div>
+	</section>
+	
 	<!-- Footer --> 
 	<footer id="footer">
 	<ul class="icons">
@@ -72,6 +145,6 @@
 		<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
 	</ul>
 	</footer>
-	
-</body>
+</h:body>
+
 </html>

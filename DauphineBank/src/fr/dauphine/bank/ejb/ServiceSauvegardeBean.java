@@ -7,6 +7,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
+import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
+import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
@@ -57,6 +60,25 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 		}
 
 	}
+	
+	@Override
+	public void sauvgarderEntreprise(Entreprise entreprise) {
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.merge(entreprise);
+			et.commit();
+			System.out.println("Sauvegarde en base de l'entreprise "
+					+ entreprise.getIdEntreprise());
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+
+	}
 
 	@Override
 	public void sauvegardeTitre(Titre titre) {
@@ -80,5 +102,22 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 	}
 	
 	
+	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique){
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.persist(demandeHistorique);
+			et.commit();
+			System.out.println("Sauvegarde en base de l'offre (historique) "
+					+ demandeHistorique.getIdDemandeHistorique());
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		
+	}
 
 }

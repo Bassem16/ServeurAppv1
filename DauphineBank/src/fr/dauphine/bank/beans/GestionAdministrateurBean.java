@@ -2,48 +2,120 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
+import fr.dauphine.bank.ejb.ServiceSauvegarde;
+import fr.dauphine.bank.ejb.ServiceVerificationData;
 import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
 import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
-@RequestScoped
-// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur Investisseur est connecté
+@SessionScoped
+//ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur
+//Administrateur est connecté
 public class GestionAdministrateurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
+	private Personne personneEntreprise = null;
+	private Entreprise entreprise = null;
 
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
+	@EJB
+	ServiceVerificationData serviceVerificationData;
+	@EJB
+	ServiceSauvegarde serviceSauvegarde;
 
 	public GestionAdministrateurBean(){
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne"); 
+		if (entreprise == null)
+			entreprise = new Entreprise();
+		else
+			entreprise = (Entreprise) hs.getAttribute("entreprise");
+		this.personne = new Personne();
+		
+		this.personneEntreprise = new Personne();
+		this.personneEntreprise.setValide(1);
+		this.personneEntreprise.setEntreprise(null);
+		this.personneEntreprise.setTitres(new HashSet<Titre>());
+		this.personneEntreprise.setOffresEmises(new HashSet<Offre>());
+		this.personneEntreprise.setOffresRecues(new HashSet<Offre>());
+		this.personneEntreprise.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
+		this.personneEntreprise.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
+		this.personneEntreprise.setDemandeHistoriques(new HashSet<DemandeHistorique>());
+		
 	}
 
 	public List<Demande> getDemandes() {
 		return serviceAdministrateur.listeDemandes();
 	}
 	
-	public void validerDemandePersonne(Demande demande) {
-		demande.setStatutDemande("traité");
-		demande.getPersonne().setValide(1);
-		serviceAdministrateur.valideDemandePersonne(demande);
+	public List<Entreprise> getEntreprises() {
+		return serviceAdministrateur.listeEntreprise();
 	}
+	
+	public List<Personne> getMembresSociete() {
+		return serviceAdministrateur.listeMembresSociete();
+	}
+	
+	
+	public List<DemandeHistorique> getDemandesHistorique() {
+		return serviceAdministrateur.listeDemandesHistorique();
+	}
+	
+	public void passerOffreADemande(Demande demande) {
+		DemandeHistorique demandeH = new DemandeHistorique();
+		demandeH.setDateDemandeHistorique(demande.getDateDemande());
+		demandeH.setDescriptifDemandeHistorique(demande.getDescriptifDemande());
+		demandeH.setStatutDemandeHistorique(demande.getStatutDemande());
+		demandeH.setPersonne(demande.getPersonne());
+		serviceAdministrateur.supprimerDemande(demande);
+		serviceSauvegarde.sauvgarderDemandeHistorique(demandeH);
+
+
+	}
+	
+	public void validerDemandePersonne(Demande demande) {
+		demande.setStatutDemande("Traitée");
+		demande.getPersonne().setValide(1);
+		passerOffreADemande(demande);
+	}
+	
+	public void supprimerDemandePersonne(Demande demande) {
+		demande.setStatutDemande("Refusée");
+		passerOffreADemande(demande);
+	}
+	
+	public void ajouterEntreprise() {
+		serviceSauvegarde.sauvgarderEntreprise(entreprise);
+	}
+	
+	public void ajouterMembreEntreprise() {
+		Entreprise e= serviceVerificationData.verificationEntreprise(personne.getEntreprise().getNomEntreprise(),personne.getEntreprise().getSecteurEntreprise());
+		personne.setEntreprise(e);
+		serviceSauvegarde.sauvegardeCompte(this.personneEntreprise);
+	}
+	
 	
 	public Personne getPersonne() {
 		return this.personne;
@@ -100,11 +172,7 @@ public class GestionAdministrateurBean implements Serializable {
 		getPersonne().setPrenomPersonne(prenomPersonne);
 		;
 	}
-
-	public Entreprise getEntreprises() {
-		return getPersonne().getEntreprise();
-	}
-
+	
 	public void setEntreprise(Entreprise entreprise) {
 		getPersonne().setEntreprise(entreprise);
 		;
@@ -128,34 +196,33 @@ public class GestionAdministrateurBean implements Serializable {
 		return demande;
 	}
 
-	public Set<Titre> getTitres() {
-		return getPersonne().getTitres();
-	}
-
-	public void setTitres(Set<Titre> titres) {
-		getPersonne().setTitres(titres);
-		;
-	}
 
 	
-
-	public TypePersonne getTypePersonne() {
-		return getPersonne().getTypePersonne();
-	}
-
-	public void setTypePersonne(TypePersonne typePersonne) {
-		getPersonne().setTypePersonne(typePersonne);
-	}
-
-	
-
-	public ArrayList<Titre> getTitresList() {
-		return new ArrayList<Titre>(getPersonne().getTitres());
-	}
-
-	public ArrayList<Demande> getDemandesList() {
-		return new ArrayList<Demande>(getPersonne().getDemandes());
+	public Entreprise getEntreprise() {
+		return this.entreprise;
 	}
 	
-
+	public String getNomEntreprise() {
+		return getEntreprise().getNomEntreprise();
+	}
+	
+	public void setNomEntreprise(String nomEntreprise) {
+		getEntreprise().setNomEntreprise(nomEntreprise);
+	}
+	
+	public String getSecteurEntreprise() {
+		return getEntreprise().getSecteurEntreprise();
+	}
+	
+	public void setSecteurEntreprise(String secteurEntreprise) {
+		getEntreprise().setSecteurEntreprise(secteurEntreprise);
+	}
+	
+	public int getNombreTitreTotal() {
+		return getEntreprise().getNombreTitreTotal();
+	}
+	
+	public void setNombreTitreTotal(int nombreTitreTotal) {
+		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
+	}
 }

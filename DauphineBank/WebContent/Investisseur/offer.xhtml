@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
@@ -7,10 +7,59 @@
 
 <h:head>
 	<title>Espace membre</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<h:outputScript library="default" name="javascript/jquery.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.dropotron.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.scrollgress.min.js" />
+	<h:outputScript library="default" name="javascript/skel.min.js" />
+	<h:outputScript library="default" name="javascript/skel-layers.min.js" />
+	<h:outputScript library="default" name="javascript/init.js" />
+	<noscript>
+		<h:outputStylesheet library="default" name="css/skel.css" />
+		<h:outputStylesheet library="default" name="css/style.css" />
+		<h:outputStylesheet library="default" name="css/style-wide.css" />
+	</noscript>
 </h:head>
 
 <h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
 	
+<!-- Header -->
+	<header id="header" class="skel-layers-fixed">
+	<h1>
+		<a href="../index.xhtml">Team Trade</a> par The Team
+	</h1>
+	<nav id="nav">
+	<ul>
+	<li>connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}</li>
+		<li><a href="../index.xhtml">Accueil</a></li>
+		<li><a href="" class="icon fa-angle-down">Investisseur</a>
+			<ul>
+				<li><h:link value="Rechercher Titres" outcome="/Investisseur/research.xhtml" /></li>
+				<li><h:link value="Rechercher Entreprise"
+					outcome="/Investisseur/research_company.xhtml" /></li>
+				<li><h:link value="Accueil Investisseur"
+					outcome="/Investisseur/home.xhtml" /></li>
+			</ul></li>
+		<li>
+			<c:if test="#{connexionBean.connected}">
+	    		<h:form><h:commandButton value="Deconnexion" action="#{connexionBean.doLogout}" class="button"></h:commandButton></h:form>
+	    	</c:if>
+    	</li>
+	</ul>
+	</nav> 
+	</header>
+	
+<!-- Main -->
+	<section id="main" class="container">
+		<header>
+			<h2>Page des offres</h2>
+			<p>Vous pouvez pouvez émettre une offre pour ce titre.</p>
+		</header>
+		<div class="row">
+			<div class="12u">
+				<section class="box">
 	<h:form>
 	Prenom: <h:outputText
 			value="#{gestionInvestisseurBean.personneVisite.prenomPersonne}" />
@@ -114,15 +163,41 @@
 		
 		<h:inputText id="prix" required="true"
 			requiredMessage="Entrez le prix de votre offre"
-			value="#{gestionInvestisseurBean.prixOffre}"></h:inputText>
+			value="#{gestionInvestisseurBean.prixOffre}">
+			
+			<!--   <f:validateDoubleRange minimum="0" maximum="#{gestionInvestisseurBean.personne.solde}" />
+			-->
+			<f:validateDoubleRange minimum="0" maximum="20" />
+						
+			</h:inputText>
 			
 			<h:commandButton id="toto" action="#{gestionInvestisseurBean.faireOffre()}"
 				value="Valider offre" />
 			
 			
 	</h:form>
+					</section>
+			</div>
+		</div>
+</section>
 
-
+	<!-- Footer --> 
+	<footer id="footer">
+	<ul class="icons">
+		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+		<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+		<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+		<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+		<li><a href="#" class="icon fa-google-plus"><span
+				class="label">Google+</span></a></li>
+	</ul>
+	<ul class="copyright">
+		<li>&copy; Team Trade. All rights reserved.</li>
+		<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+	</ul>
+	</footer>
+	
 </h:body>
 
 </html>

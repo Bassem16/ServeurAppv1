@@ -602,6 +602,7 @@ public class GestionInvestisseurBean implements Serializable {
 		
 		
 		personne.getOffresEmises().add(offre);
+		//personne.setSolde(personne.getSolde()-prixOffre);
 		personneVisite.getOffresRecues().add(offre);
 		
 		serviceSauvegarde.sauvegardeCompte(personne);

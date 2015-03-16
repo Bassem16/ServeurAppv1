@@ -51,6 +51,7 @@ public class AdministrateurFilter implements Filter {
 			/* Affichage de la page restreinte */
 			chain.doFilter(request, response);
 		}
+		
 	}
 
 	@Override
