@@ -56,14 +56,13 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		return Comptes;
 	}
 	
-	public Entreprise verificationEntreprise(String nom, String secteur){
+	public Entreprise verificationEntreprise(String nom){
 		Entreprise en = new Entreprise();
 		try {
 			EntityManager em = emf.createEntityManager();
 			Query query = em
-					.createQuery("SELECT e FROM Entreprise e WHERE e.nomEntreprise LIKE:nomE and e.secteurEntreprise LIKE:secteurE");
+					.createQuery("SELECT e FROM Entreprise e WHERE e.nomEntreprise LIKE:nomE");
 			query.setParameter("nomE", nom);
-			query.setParameter("secteurE", secteur);
 			en = (Entreprise) query.getSingleResult();
 			em.close();
 		} catch (Exception e) {

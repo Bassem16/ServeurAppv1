@@ -43,6 +43,9 @@ public class ConnexionBean {
 					if (personne.getTypePersonne().getIdTypePersonne() == 1){
 						return "/Investisseur/home.xhtml?faces-redirect=true";
 					}
+					else if (personne.getTypePersonne().getIdTypePersonne() == 2){
+						return "/MembreEntreprise/homeMembreEntreprise.xhtml?faces-redirect=true";
+					}
 					else if (personne.getTypePersonne().getIdTypePersonne() == 3) {
 						return "/Administrateur/homeAdministrateur.xhtml?faces-redirect=true";
 					}

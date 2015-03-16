@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:c="http://java.sun.com/jsp/jstl/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets">
+<h:head>
+	<title>Espace Administrateur</title>
+</h:head>
+
+<h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
+
+
+	<h:form id="formulaire">
+		<fieldset>
+			<legend>Inscription</legend>
+			<h:outputLabel for="email">Adresse email <span
+					class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="email" value="#{gestionAdministrateurBean.emailEntreprise}">
+
+				<f:ajax event="blur" render="emailMessage" />
+				<f:validator binding="#{existenceEmailValidator}" />
+			</h:inputText>
+			<h:message id="emailMessage" for="email" />
+			<br />
+
+			<h:outputLabel for="motdepasse">Mot de passe <span
+					class="requis">*</span>
+			</h:outputLabel>
+			<h:inputSecret id="motdepasse" value="#{gestionAdministrateurBean.motDePasseEntreprise}"
+				binding="#{composantMotDePasse}" required="true"
+				requiredMessage="mot de passe requis"
+				validatorMessage="6 caracteres minimum" size="20" maxlength="20">
+				<f:validateLength minimum="6" maximum="50" />
+				<f:ajax event="blur" execute="motdepasse confirmation"
+					render="motDePasseMessage confirmationMessage" />
+			</h:inputSecret>
+			<h:message id="motDePasseMessage" for="motdepasse" />
+			<br />
+
+
+
+			<h:outputLabel for="confirmation">Confirmation du mot de passe <span
+					class="requis">*</span>
+			</h:outputLabel>
+			<h:inputSecret id="confirmation"
+				value="#{gestionAdministrateurBean.motDePasseEntreprise}" required="true"
+				requiredMessage="confirmation requise" size="20" maxlength="20">
+				<f:validator validatorId="confirmationMotDePasseValidator" />
+				<f:attribute name="composantMotDePasse"
+					value="#{composantMotDePasse}" />
+				<f:ajax event="blur" execute="motdepasse confirmation"
+					render="motDePasseMessage confirmationMessage" />
+			</h:inputSecret>
+			<h:message id="confirmationMessage" for="confirmation" />
+			<br />
+
+			<h:outputLabel for="login">Login <span class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="login" value="#{gestionAdministrateurBean.loginEntreprise}"
+				required="true" requiredMessage="login requis"
+				validatorMessage="4 caracteres minimum" size="20" maxlength="20">
+
+				<h:message for="login" />
+				<f:ajax event="blur" render="loginMessage" />
+				<f:validator binding="#{existenceLoginValidator}" />
+			</h:inputText>
+			<h:message id="loginMessage" for="login" />
+			<br />
+
+
+
+			<h:outputLabel for="prenom">Prenom<span
+					class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="prenom" value="#{gestionAdministrateurBean.prenomPersonneEntreprise}"
+				required="true" requiredMessage="prenom requis" size="20"
+				maxlength="20">
+				<f:ajax event="blur" render="prenomMessage" />
+			</h:inputText>
+			<h:message id="prenomMessage" for="prenom" errorClass="erreur" />
+			<br />
+
+			<h:outputLabel for="nom">Nom<span class="requis">*</span>
+			</h:outputLabel>
+			<h:inputText id="nom" value="#{gestionAdministrateurBean.nomPersonneEntreprise}"
+				required="true" requiredMessage="nom requis" size="20"
+				maxlength="20">
+				<f:ajax event="blur" render="nomMessage" />
+			</h:inputText>
+			<h:message id="nomMessage" for="nom" />
+			<br />
+			
+			<h:outputLabel for="nom">Entreprise<span class="requis">*</span>
+			</h:outputLabel>
+			<h:selectOneMenu value="#{gestionAdministrateurBean.entreprise.nomEntreprise}">
+				<f:selectItems value="#{gestionAdministrateurBean.entreprises}"
+					var="e" itemLabel="#{e.nomEntreprise}"
+					itemValue="#{e.nomEntreprise}" />
+			</h:selectOneMenu>
+		
+			<br />
+
+			<h:commandButton id="submit" value="Valider" action="#{gestionAdministrateurBean.ajouterMembreEntreprise()}">
+			</h:commandButton>
+			<br />
+		</fieldset>
+	</h:form>
+	<h:form>
+
+	<h4>Les société</h4>
+	<h:dataTable value="#{gestionAdministrateurBean.membresSociete}" var="ms"
+		styleClass="order-table" headerClass="order-table-header"
+		rowClasses="order-table-odd-row,order-table-eve-row">
+		<h:column>
+			<f:facet name="header">Nom de la personne</f:facet>
+			<h:outputText value="#{ms.nomPersonne}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Prenom de la personne</f:facet>
+			<h:outputText value="#{ms.prenomPersonne}" />
+		</h:column>
+
+		<h:column>
+			<f:facet name="header">Nom de l'entreprise</f:facet>
+			<h:outputText value="#{ms.entreprise.nomEntreprise}" />
+		</h:column>
+
+	</h:dataTable>
+
+	<h:commandButton value="Deconnexion" action="#{connexionBean.doLogout}"></h:commandButton>
+</h:form>
+</h:body>
+
+</html>
