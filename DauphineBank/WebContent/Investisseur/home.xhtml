@@ -68,8 +68,8 @@
 			var="o" styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
 			<h:column>
-				<f:facet name="header">ID Offre</f:facet>
-				<h:outputText value="#{o.idOffre}" />
+				<f:facet name="header">Date Offre</f:facet>
+				<h:outputText value="#{o.dateOffre}" />
 
 			</h:column>
 
@@ -185,8 +185,8 @@
 			var="oR" styleClass="order-table" headerClass="order-table-header"
 			rowClasses="order-table-odd-row,order-table-eve-row">
 			<h:column>
-				<f:facet name="header">ID Offre</f:facet>
-				<h:outputText value="#{oR.idOffre}" />
+				<f:facet name="header">Date Offre</f:facet>
+				<h:outputText value="#{oR.dateOffre}" />
 
 			</h:column>
 
@@ -301,7 +301,11 @@
 				<h:outputText value="#{oh.statut}" />
 			</h:column>
 
+			<h:column>
+				<f:facet name="header">Date Offre</f:facet>
+				<h:outputText value="#{oh.dateOffreHistorique}" />
 
+			</h:column>
 		</h:dataTable>
 		
 		
@@ -353,7 +357,11 @@
 				<h:outputText value="#{oh.statut}" />
 			</h:column>
 
+			<h:column>
+				<f:facet name="header">Date Offre</f:facet>
+				<h:outputText value="#{oh.dateOffreHistorique}" />
 
+			</h:column>
 		</h:dataTable>
 
 	</h:form>
