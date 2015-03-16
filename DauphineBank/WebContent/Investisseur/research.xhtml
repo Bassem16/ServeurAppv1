@@ -84,7 +84,7 @@
 		<br></br>
 		<f:ajax event="click" render="result">
 			<h:selectBooleanCheckbox value="#{gestionInvestisseurBean.typeCheck}"
-				id="typeCheck" /><label for="typeCheck">Par type</label>
+				id="typeCheck" /><label for="j_idt27:typeCheck">Par type</label>
 		
 
 		
@@ -96,7 +96,7 @@
 		<br></br>
 		<f:ajax event="click" render="result">
 			<h:selectBooleanCheckbox value="#{gestionInvestisseurBean.userCheck}"
-				id="userCheck" /><label for="userCheck">Par Utilisateur</label>
+				id="userCheck" /><label for="j_idt27:userCheck">Par Utilisateur</label>
 
 		
 			<h:selectOneMenu value="#{gestionInvestisseurBean.userNom}">
@@ -138,7 +138,6 @@
 			</h:column>
 			<h:column>
 				<f:facet name="header">Possesseur</f:facet>
-				<h:outputText />
 				<h:outputText value="#{t.personne.login}" />
 
 			</h:column>
