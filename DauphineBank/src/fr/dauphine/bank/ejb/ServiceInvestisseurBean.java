@@ -102,9 +102,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Titre> recupererTitre(boolean entrepriseChek,
-			boolean typeChek, String entrepriseNom, String nomType) {
+			boolean typeChek,boolean userCheck, String entrepriseNom, String nomType, String userNom) {
 		ArrayList<Titre> selectedTitre = new ArrayList<Titre>();
-		if (entrepriseChek == true && typeChek == true) {
+		if (entrepriseChek == true && typeChek == true && userCheck == false) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -121,7 +121,7 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 						+ "   + ");
 			} finally {
 			}
-		} else if (entrepriseChek == false && typeChek == true) {
+		} else if (entrepriseChek == false && typeChek == true && userCheck == false) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -139,7 +139,7 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} finally {
 			}
 
-		} else if (entrepriseChek == true && typeChek == false) {
+		} else if (entrepriseChek == true && typeChek == false && userCheck == false) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -156,16 +156,89 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} finally {
 			}
 
-		} else {
+		}else if(entrepriseChek == true && typeChek == true && userCheck == true) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em
+						.createQuery("SELECT t FROM Titre t WHERE t.entreprise.nomEntreprise LIKE:test1 AND t.typeTitre LIKE:test2 AND t.etatTitre=1 AND t.personne.login LIKE:test3 GROUP BY t.idTitre");
+				query.setParameter("test1", entrepriseNom);
+				query.setParameter("test2", nomType);
+				query.setParameter("test3", userNom);
+
+				selectedTitre = (ArrayList<Titre>) query.getResultList();
+				em.close();
+				return selectedTitre;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause()
+						+ "   + ");
+			} finally {
+			}
+		} else if (entrepriseChek == false && typeChek == true && userCheck == true) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em
+						.createQuery("SELECT t FROM Titre t WHERE t.typeTitre LIKE:test AND t.etatTitre=1 AND t.personne.login LIKE:test3");
+
+				query.setParameter("test", nomType);
+				query.setParameter("test3",userNom);
+
+				selectedTitre = (ArrayList<Titre>) query.getResultList();
+				em.close();
+				return selectedTitre;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause()
+						+ "   + ");
+			} finally {
+			}
+
+		} else if (entrepriseChek == true && typeChek == false && userCheck == true) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em
+						.createQuery("SELECT t FROM Titre t, Entreprise e WHERE t.entreprise.nomEntreprise LIKE:test AND t.etatTitre=1 AND t.personne.login LIKE:test3 GROUP BY t.idTitre");
+				query.setParameter("test", entrepriseNom);
+				query.setParameter("test3", userNom);
+
+				selectedTitre = (ArrayList<Titre>) query.getResultList();
+				em.close();
+				return selectedTitre;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause()
+						+ "   + ");
+			} finally {
+			}
+
+		}else if(entrepriseChek == false && typeChek == false && userCheck == true) {
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em
+						.createQuery("SELECT t FROM Titre t WHERE t.etatTitre=1 AND t.personne.login LIKE:test3 GROUP BY t.idTitre");
+				query.setParameter("test3", userNom);
+
+				selectedTitre = (ArrayList<Titre>) query.getResultList();
+				em.close();
+				return selectedTitre;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause()
+						+ "   + ");
+			} finally {
+			}
+		}else {
 			return selectedTitre;
 		}
 		return selectedTitre;
+		
+		
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Entreprise> recupererEntrepriseListAll(String entrepriseNom) {
+	public ArrayList<Entreprise> recupererEntrepriseListAll() {
 		ArrayList<Entreprise> selectedEntreprise = new ArrayList<Entreprise>();
 
 		try {
@@ -181,6 +254,26 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 		} finally {
 		}
 		return selectedEntreprise;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<Personne> recupererPersonneListAll() {
+		ArrayList<Personne> selectedPersonne = new ArrayList<Personne>();
+
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em.createQuery("SELECT p FROM Personne p");
+
+			selectedPersonne = (ArrayList<Personne>) query.getResultList();
+			em.close();
+			return selectedPersonne;
+
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return selectedPersonne;
 	}
 
 }

@@ -4,15 +4,67 @@
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<h:outputStylesheet library="css" name="default.css" />
 	<title>Insertion d'un compte</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<h:outputScript library="default" name="javascript/jquery.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.dropotron.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.scrollgress.min.js" />
+	<h:outputScript library="default" name="javascript/skel.min.js" />
+	<h:outputScript library="default" name="javascript/skel-layers.min.js" />
+	<h:outputScript library="default" name="javascript/init.js" />
+	<noscript>
+		<h:outputStylesheet library="default" name="css/skel.css" />
+		<h:outputStylesheet library="default" name="css/style.css" />
+		<h:outputStylesheet library="default" name="css/style-wide.css" />
+	</noscript>
 </h:head>
 <body>
-	<h:form>
-		<h2>
-			<CENTER>La page à laquelle vous tentez d'accedez n'est pas disponible</CENTER>
-		</h2>
-		<!--h:commandButton id="back" value="Back" action="acceuilBanqueTest.xhtml" -->
-	</h:form>
+	<!-- Header -->
+	<header id="header" class="skel-layers-fixed">
+	<h1>
+		<a href="index.xhtml">Team Trade</a> par The Team
+	</h1>
+	<nav id="nav">
+	<ul>
+		<li><a href="index.xhtml">Home</a></li>
+		<li><a href="" class="icon fa-angle-down">Layouts</a>
+			<ul>
+				<li><a href="generic.html">Generic</a></li>
+				<li><a href="contact.html">Contact</a></li>
+				<li><a href="elements.html">Elements</a></li>
+				<li><a href="">Submenu</a>
+					<ul>
+						<li><a href="#">Option One</a></li>
+						<li><a href="#">Option Two</a></li>
+						<li><a href="#">Option Three</a></li>
+						<li><a href="#">Option Four</a></li>
+					</ul></li>
+			</ul></li>
+		<li><a href="register.xhtml" class="button">Sign Up</a></li>
+	</ul>
+	</nav> </header>
+	<section id="main" class="container"> 
+	<header>
+	<h2>Indisponibilté de la page</h2>
+	<p>La page à laquelle vous tentez d'accedez n'est pas disponible.</p>
+	</header> 
+	</section>
+	<!-- Footer --> <footer id="footer">
+	<ul class="icons">
+		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+		<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+		<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+		<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+		<li><a href="#" class="icon fa-google-plus"><span
+				class="label">Google+</span></a></li>
+	</ul>
+	<ul class="copyright">
+		<li>&copy; Team Trade. All rights reserved.</li>
+		<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+	</ul>
+	</footer>
 </body>
 </html>

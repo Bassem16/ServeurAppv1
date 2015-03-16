@@ -43,6 +43,18 @@
 				<f:selectItem itemValue="Option" itemLabel="Option" />
 			</h:selectOneMenu>
 		</f:ajax>
+		<br></br>
+		<f:ajax event="click" render="result">
+			<h:selectBooleanCheckbox value="#{gestionInvestisseurBean.userCheck}"
+				id="userCheck" />Par Utilisateur
+		
+
+		
+			<h:selectOneMenu value="#{gestionInvestisseurBean.userNom}">
+				<f:selectItems value="#{gestionInvestisseurBean.listPersonne()}"
+					var="p" itemLabel="#{p.login}" itemValue="#{p.login}" />
+			</h:selectOneMenu>
+		</f:ajax>
 
 
 
@@ -72,10 +84,17 @@
 				<h:outputText value="#{t.typeTitre}" />
 			</h:column>
 			<h:column>
-				<f:facet name="header">Mise en vente</f:facet>
-				<h:outputText value="#{t.estVente()}" />
+				<f:facet name="header">Possesseur</f:facet>
+				<h:outputText />
+				<h:outputText value="#{t.personne.login}" />
+
 			</h:column>
-			
+			<h:column>
+				<h:commandButton  id="toto" action="#{gestionInvestisseurBean.visiterPersonne(t.personne)}"
+					value="Acceder au profil" />
+			</h:column>
+
+
 		</h:dataTable>
 	</h:form>
 

@@ -1,105 +1,174 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 <h:head>
-	<meta charset="utf-8" />
 	<title>Inscription</title>
-	<h:outputStylesheet library="default" name="css/form.css" />
-
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<h:outputScript library="default" name="javascript/jquery.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.dropotron.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.scrollgress.min.js" />
+	<h:outputScript library="default" name="javascript/skel.min.js" />
+	<h:outputScript library="default" name="javascript/skel-layers.min.js" />
+	<h:outputScript library="default" name="javascript/init.js" />
+	<noscript>
+		<h:outputStylesheet library="default" name="css/skel.css" />
+		<h:outputStylesheet library="default" name="css/style.css" />
+		<h:outputStylesheet library="default" name="css/style-wide.css" />
+	</noscript>
 </h:head>
 <h:body>
-	<h:form id="formulaire">
-		<fieldset>
-			<legend>Inscription</legend>
-			<h:outputLabel for="email">Adresse email <span
-					class="requis">*</span>
-			</h:outputLabel>
-			<h:inputText id="email" value="#{inscriptionBean.email}"
-				required="true" requiredMessage="email requis" size="20"
-				maxlength="60">
+	<!-- Header -->
+	<header id="header" class="skel-layers-fixed">
+		<h1>
+			<a href="index.xhtml">Team Trade</a> par The Team
+		</h1>
+		<nav id="nav">
+			<ul>
+				<li><a href="index.xhtml">Home</a></li>
+				<li><a href="" class="icon fa-angle-down">Layouts</a>
+					<ul>
+						<li><a href="generic.html">Generic</a></li>
+						<li><a href="contact.html">Contact</a></li>
+						<li><a href="elements.html">Elements</a></li>
+						<li><a href="">Submenu</a>
+							<ul>
+								<li><a href="#">Option One</a></li>
+								<li><a href="#">Option Two</a></li>
+								<li><a href="#">Option Three</a></li>
+								<li><a href="#">Option Four</a></li>
+							</ul></li>
+					</ul></li>
+				<li><a href="register.xhtml" class="button">Sign Up</a></li>
+			</ul>
+		</nav>
+	</header>
 
-				<f:ajax event="blur" render="emailMessage" />
-				<f:validator binding="#{existenceEmailValidator}" />
+	<!-- Main -->
+	<section id="main" class="container">
+		<header>
+			<h2>Enregistrement sur Team Trade</h2>
+			<p>Veuillez remplir le formulaire ci-dessous afin de vous inscrire.</p>
+		</header>
 
-			</h:inputText>
-			<h:message id="emailMessage" for="email" />
-			<br />
+		<div class="row">
+			<div class="12u">
+				<section class="box">
+					<h3>Inscription</h3>
+					<h:form id="formulaire">
+						<h:outputLabel for="email">Adresse email <span
+								class="requis">*</span>
+						</h:outputLabel>
+						<h:inputText id="email" value="#{inscriptionBean.email}"
+							required="true" requiredMessage="email requis" size="20"
+							maxlength="60">
 
-			<h:outputLabel for="motdepasse">Mot de passe <span
-					class="requis">*</span>
-			</h:outputLabel>
-			<h:inputSecret id="motdepasse" value="#{inscriptionBean.motDePasse}"
-				binding="#{composantMotDePasse}" required="true"
-				requiredMessage="mot de passe requis"
-				validatorMessage="6 caracteres minimum" size="20" maxlength="20">
-				<f:validateLength minimum="6" maximum="50" />
-				<f:ajax event="blur" execute="motdepasse confirmation"
-					render="motDePasseMessage confirmationMessage" />
-			</h:inputSecret>
-			<h:message id="motDePasseMessage" for="motdepasse" />
-			<br />
+							<f:ajax event="blur" render="emailMessage" />
+							<f:validator binding="#{existenceEmailValidator}" />
 
+						</h:inputText>
+						<h:message id="emailMessage" for="email" />
+						<br />
 
-
-			<h:outputLabel for="confirmation">Confirmation du mot de passe <span
-					class="requis">*</span>
-			</h:outputLabel>
-			<h:inputSecret id="confirmation"
-				value="#{inscriptionBean.motDePasse}" required="true"
-				requiredMessage="confirmation requise" size="20" maxlength="20">
-				<f:validator validatorId="confirmationMotDePasseValidator" />
-				<f:attribute name="composantMotDePasse"
-					value="#{composantMotDePasse}" />
-				<f:ajax event="blur" execute="motdepasse confirmation"
-					render="motDePasseMessage confirmationMessage" />
-			</h:inputSecret>
-			<h:message id="confirmationMessage" for="confirmation" />
-			<br />
-
-			<h:outputLabel for="login">Login <span class="requis">*</span>
-			</h:outputLabel>
-			<h:inputText id="login" value="#{inscriptionBean.login}"
-				required="true" requiredMessage="login requis"
-				validatorMessage="4 caracteres minimum" size="20" maxlength="20">
-
-				<h:message for="login" />
-				<f:ajax event="blur" render="loginMessage" />
-				<f:validator binding="#{existenceLoginValidator}" />
-			</h:inputText>
-			<h:message id="loginMessage" for="login" />
-			<br />
+						<h:outputLabel for="motdepasse">Mot de passe <span
+								class="requis">*</span>
+						</h:outputLabel>
+						<h:inputSecret id="motdepasse"
+							value="#{inscriptionBean.motDePasse}"
+							binding="#{composantMotDePasse}" required="true"
+							requiredMessage="mot de passe requis"
+							validatorMessage="6 caracteres minimum" size="20" maxlength="20">
+							<f:validateLength minimum="6" maximum="50" />
+							<f:ajax event="blur" execute="motdepasse confirmation"
+								render="motDePasseMessage confirmationMessage" />
+						</h:inputSecret>
+						<h:message id="motDePasseMessage" for="motdepasse" />
+						<br />
 
 
 
-			<h:outputLabel for="prenom">Prenom<span
-					class="requis">*</span>
-			</h:outputLabel>
-			<h:inputText id="prenom" value="#{inscriptionBean.prenomPersonne}"
-				required="true" requiredMessage="prenom requis" size="20"
-				maxlength="20">
-				<f:ajax event="blur" render="prenomMessage" />
-			</h:inputText>
-			<h:message id="prenomMessage" for="prenom" errorClass="erreur" />
-			<br />
+						<h:outputLabel for="confirmation">Confirmation du mot de passe <span
+								class="requis">*</span>
+						</h:outputLabel>
+						<h:inputSecret id="confirmation"
+							value="#{inscriptionBean.motDePasse}" required="true"
+							requiredMessage="confirmation requise" size="20" maxlength="20">
+							<f:validator validatorId="confirmationMotDePasseValidator" />
+							<f:attribute name="composantMotDePasse"
+								value="#{composantMotDePasse}" />
+							<f:ajax event="blur" execute="motdepasse confirmation"
+								render="motDePasseMessage confirmationMessage" />
+						</h:inputSecret>
+						<h:message id="confirmationMessage" for="confirmation" />
+						<br />
 
-			<h:outputLabel for="nom">Nom<span class="requis">*</span>
-			</h:outputLabel>
-			<h:inputText id="nom" value="#{inscriptionBean.nomPersonne}"
-				required="true" requiredMessage="nom requis" size="20"
-				maxlength="20">
-				<f:ajax event="blur" render="nomMessage" />
-			</h:inputText>
-			<h:message id="nomMessage" for="nom" />
-			<br />
+						<h:outputLabel for="login">Login <span
+								class="requis">*</span>
+						</h:outputLabel>
+						<h:inputText id="login" value="#{inscriptionBean.login}"
+							required="true" requiredMessage="login requis"
+							validatorMessage="4 caracteres minimum" size="20" maxlength="20">
 
-			<h:messages globalOnly="true" infoClass="info" />
+							<h:message for="login" />
+							<f:ajax event="blur" render="loginMessage" />
+							<f:validator binding="#{existenceLoginValidator}" />
+						</h:inputText>
+						<h:message id="loginMessage" for="login" />
+						<br />
 
-			<h:commandButton id="submit" value="Submit" action="Reponse">
-				<f:ajax execute="@form" render="@form" />
-			</h:commandButton>
-			<br />
-		</fieldset>
-	</h:form>
+
+
+						<h:outputLabel for="prenom">Prenom<span
+								class="requis">*</span>
+						</h:outputLabel>
+						<h:inputText id="prenom" value="#{inscriptionBean.prenomPersonne}"
+							required="true" requiredMessage="prenom requis" size="20"
+							maxlength="20">
+							<f:ajax event="blur" render="prenomMessage" />
+						</h:inputText>
+						<h:message id="prenomMessage" for="prenom" errorClass="erreur" />
+						<br />
+
+						<h:outputLabel for="nom">Nom<span class="requis">*</span>
+						</h:outputLabel>
+						<h:inputText id="nom" value="#{inscriptionBean.nomPersonne}"
+							required="true" requiredMessage="nom requis" size="20"
+							maxlength="20">
+							<f:ajax event="blur" render="nomMessage" />
+						</h:inputText>
+						<h:message id="nomMessage" for="nom" />
+						<br />
+
+						<h:messages globalOnly="true" infoClass="info" />
+
+						<h:commandButton id="submit" value="Submit" action="Reponse">
+							<f:ajax execute="@form" render="@form" />
+						</h:commandButton>
+						<br />
+					</h:form>
+				</section>
+			</div>
+		</div>
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer">
+		<ul class="icons">
+			<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+			<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+			<li><a href="#" class="icon fa-instagram"><span
+					class="label">Instagram</span></a></li>
+			<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+			<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+			<li><a href="#" class="icon fa-google-plus"><span
+					class="label">Google+</span></a></li>
+		</ul>
+		<ul class="copyright">
+			<li>&copy; Team Trade. All rights reserved.</li>
+			<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+		</ul>
+	</footer>
 </h:body>
 </html>
