@@ -1,35 +1,102 @@
-<!DOCTYPE html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:h="http://java.sun.com/jsf/html">
 
-<h:head>Connexion</h:head>
+<h:head>
+	<title>Connexion</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<h:outputScript library="default" name="javascript/jquery.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.dropotron.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.scrollgress.min.js" />
+	<h:outputScript library="default" name="javascript/skel.min.js" />
+	<h:outputScript library="default" name="javascript/skel-layers.min.js" />
+	<h:outputScript library="default" name="javascript/init.js" />
+	<noscript>
+		<h:outputStylesheet library="default" name="css/skel.css" />
+		<h:outputStylesheet library="default" name="css/style.css" />
+		<h:outputStylesheet library="default" name="css/style-wide.css" />
+	</noscript>
+</h:head>
 <h:body>
-	<h:form>
-		<table>
-			<tr>
-				<td><h:outputText for="login" value="Login"></h:outputText></td>
-				<td><h:outputText for=":" value=":"></h:outputText></td>
-				<td><h:inputText id="login" required="true"
-						requiredMessage="Login requis" value="#{connexionBean.login}"></h:inputText></td>
-			</tr>
-			<tr>
-				<td><h:outputText for="motDePasse" value="Mot de passe"></h:outputText></td>
-				<td><h:outputText for=":" value=":"></h:outputText></td>
-				<td><h:inputSecret id="motDePasse" required="true"
-						requiredMessage="Mot de passe requis"
-						value="#{connexionBean.motDePasse}" style=" width : 280px;">
-					</h:inputSecret></td>
-				<td><h:message for="motDePasse"></h:message></td>
-			</tr>
-			<tr>
-				<td><h:commandButton id="toto"
-						action="#{connexionBean.doLogin}" value="Connexion" /> <h:message
-						for="toto"></h:message></td>
-			</tr>
-		</table>
+	<!-- Header -->
+	<header id="header" class="skel-layers-fixed">
+	<h1>
+		<a href="index.xhtml">Team Trade</a> par The Team
+	</h1>
+	<nav id="nav">
+	<ul>
+		<li><a href="index.xhtml">Home</a></li>
+		<li><a href="" class="icon fa-angle-down">Layouts</a>
+			<ul>
+				<li><a href="generic.html">Generic</a></li>
+				<li><a href="contact.html">Contact</a></li>
+				<li><a href="elements.html">Elements</a></li>
+				<li><a href="">Submenu</a>
+					<ul>
+						<li><a href="#">Option One</a></li>
+						<li><a href="#">Option Two</a></li>
+						<li><a href="#">Option Three</a></li>
+						<li><a href="#">Option Four</a></li>
+					</ul></li>
+			</ul></li>
+		<li><a href="register.xhtml" class="button">Sign Up</a></li>
+	</ul>
+	</nav> </header>
+	<!-- Main -->
+	<section id="main" class="container"> <header>
+	<h2>Connexion à Team Trade</h2>
+	<p>Veuillez renseigner votre login et mot de passe afin d'accéder à
+		Team Trade.</p>
+	</header>
 
+	<div class="row">
+		<div class="12u">
+			<section class="box"> <h:form>
+					<div class="12u">
+						<h:outputText for="login" value="Login"></h:outputText>
+						<h:outputText for=":" value=":"></h:outputText>
+						
+						<h:inputText id="login" required="true"
+								requiredMessage="Login requis" value="#{connexionBean.login}" placeholder="Login"></h:inputText>
+					</div>
+					<div class="12u">
+						<h:outputText for="motDePasse" value="Mot de passe"></h:outputText>
+						<h:outputText for=":" value=":"></h:outputText>
+						<h:inputSecret id="motDePasse" required="true"
+								requiredMessage="Mot de passe requis"
+								value="#{connexionBean.motDePasse}" style=" width : 280px;">
+							</h:inputSecret>
+						<h:message for="motDePasse"></h:message>
+						</div>
+						<br/>
+						<div class="12u">
+						<h:commandButton id="toto"
+								action="#{connexionBean.doLogin}" value="Connexion" /> <h:message
+								for="toto"></h:message>
+						</div>
+			</h:form> </section>
+		</div>
+	</div>
+	</section>
 
-	</h:form>
+	<!-- Footer -->
+	<footer id="footer">
+	<ul class="icons">
+		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+		<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+		<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+		<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+		<li><a href="#" class="icon fa-google-plus"><span
+				class="label">Google+</span></a></li>
+	</ul>
+	<ul class="copyright">
+		<li>&copy; Team Trade. All rights reserved.</li>
+		<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+	</ul>
+	</footer>
 </h:body>
 </html>
