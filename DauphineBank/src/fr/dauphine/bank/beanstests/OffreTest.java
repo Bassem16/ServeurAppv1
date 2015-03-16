@@ -2,10 +2,15 @@ package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.junit.Test;
 
+import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.Personne;
 
 public class OffreTest {
 
@@ -33,24 +38,28 @@ public class OffreTest {
 	public void testGetPrixOffre() {
 		Offre O = new Offre();	
 		O.setPrixOffre(0);
-		assertEquals(0,O.getPrixOffre());
+		assertEquals(0, O.getPrixOffre(), 0);
 	}
 
 	@Test
 	public void testSetPrixOffre() {
 		Offre O = new Offre();	
 		O.setPrixOffre(1);
-		assertEquals(1,O.getPrixOffre());
+		assertEquals(1,O.getPrixOffre(), 0);
 	}
 
 	@Test
 	public void testGetQuantiteOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setQuantiteOffre(0);
+		assertEquals(0, O.getQuantiteOffre(), 0);
 	}
 
 	@Test
 	public void testSetQuantiteOffre() {
-		fail("Not yet implemented");
+		Offre O = new Offre();	
+		O.setQuantiteOffre(0);
+		assertEquals(0, O.getQuantiteOffre(), 0);
 	}
 
 	@Test
@@ -69,22 +78,68 @@ public class OffreTest {
 
 	@Test
 	public void testGetEntreprise() {
-		fail("Not yet implemented");
+		Offre O = new Offre();
+		// Création Entreprise
+		Entreprise E =new Entreprise();
+		// Ajout Entreprise
+		O.setEntreprise(E);
+		
+		assertEquals(E, O.getEntreprise());
 	}
 
 	@Test
 	public void testSetEntreprise() {
-		fail("Not yet implemented");
+		Offre O = new Offre();
+		// Création Entreprise
+		Entreprise E =new Entreprise();
+		// Ajout Entreprise
+		O.setEntreprise(E);
+		
+		assertEquals(E, O.getEntreprise());
 	}
 
 	@Test
-	public void testGetPersonne() {
-		fail("Not yet implemented");
+	public void testGetPersonneEmetteur() {
+		Offre O = new Offre();
+		// Création Personnne
+		Personne P=new Personne();
+
+		// Ajout Personne
+		 O.setPersonneEmetteur(P);
+		 assertEquals(P, O.getPersonneEmetteur());
 	}
 
 	@Test
-	public void testSetPersonne() {
-		fail("Not yet implemented");
+	public void testSetPersonneEmetteur() {
+		Offre O = new Offre();
+		// Création Personnne
+		Personne P=new Personne();
+
+		// Ajout Personne
+		 O.setPersonneEmetteur(P);
+		 assertEquals(P, O.getPersonneEmetteur());
+	}
+		 
+	@Test
+	public void testGetPersonneReceveur() {
+		Offre O = new Offre();
+		// Création Personnne
+		Personne P=new Personne();
+
+		// Ajout Personne
+		 O.setPersonneReceveur(P);
+		 assertEquals(P, O.getPersonneReceveur());
+	}
+
+	@Test
+	public void testSetPersonneReceveur() {
+		Offre O = new Offre();
+		// Création Personnne
+		Personne P=new Personne();
+
+		// Ajout Personne
+		 O.setPersonneReceveur(P);
+		 assertEquals(P, O.getPersonneReceveur());		 
 	}
 
 }

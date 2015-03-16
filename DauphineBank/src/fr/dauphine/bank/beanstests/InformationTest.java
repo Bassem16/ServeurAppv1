@@ -4,7 +4,16 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
+import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Information;
+import fr.dauphine.bank.entities.Personne;
+
+import java.util.Calendar;
+import java.util.Date;
+
+import javax.sql.rowset.spi.SyncFactory;
+
 
 public class InformationTest {
 
@@ -31,15 +40,25 @@ public class InformationTest {
 	@Test
 	public void testGetDateInformation() {
 		Information I = new Information();	
-		I.setDateInformation(0);
-		assertEquals(0,I.getDateInformation());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(1991, 02, 19);
+		Date dateTest = cal.getTime();
+		I.setDateInformation(dateTest);
+		
+		assertEquals(dateTest ,I.getDateInformation());
 	}
 
 	@Test
 	public void testSetDateInformation() {
 		Information I = new Information();	
-		I.setDateInformation(1);
-		assertEquals(1,I.getDateInformation());
+		
+		Calendar cal = Calendar.getInstance();
+		cal.set(1991, 02, 19);
+		Date dateTest = cal.getTime();
+		I.setDateInformation(dateTest);
+		
+		assertEquals(dateTest ,I.getDateInformation());
 	}
 
 	@Test
@@ -58,12 +77,24 @@ public class InformationTest {
 
 	@Test
 	public void testGetEntreprise() {
-		fail("Not yet implemented");
+		Information I =new Information();
+		// Création Entreprise
+		Entreprise E =new Entreprise();
+		// Ajout Entreprise
+		I.setEntreprise(E);
+		
+		assertEquals(E, I.getEntreprise());
 	}
 
 	@Test
 	public void testSetEntreprise() {
-		fail("Not yet implemented");
+		Information I =new Information();
+		// Création Entreprise
+		Entreprise E =new Entreprise();
+		// Ajout Entreprise
+		I.setEntreprise(E);
+		
+		assertEquals(E, I.getEntreprise());
 	}
 
 }

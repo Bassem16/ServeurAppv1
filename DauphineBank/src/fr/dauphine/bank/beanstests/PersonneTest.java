@@ -2,10 +2,17 @@ package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.junit.Test;
 
+import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.entities.Titre;
+import fr.dauphine.bank.entities.TypePersonne;
 
 public class PersonneTest {
 
@@ -54,7 +61,7 @@ public class PersonneTest {
 	public void testSetLogin() {
 		Personne P = new Personne();	
 		P.setLogin("test");
-		assertEquals("tes",P.getLogin());
+		assertEquals("test",P.getLogin());
 	}
 
 	@Test
@@ -100,23 +107,53 @@ public class PersonneTest {
 	}
 
 	@Test
-	public void testGetEntreprises() {
-		fail("Not yet implemented");
+	public void testGetEntreprise() {
+		Personne P = new Personne();	
+		// Création Entreprise
+		Entreprise E =new Entreprise();
+		// Ajout Entreprise
+		P.setEntreprise(E);
+		
+		assertEquals(E, P.getEntreprise());
 	}
 
 	@Test
-	public void testSetEntreprises() {
-		fail("Not yet implemented");
+	public void testSetEntreprise() {
+		Personne P = new Personne();	
+		// Création Entreprise
+		Entreprise E =new Entreprise();
+		// Ajout Entreprise
+		P.setEntreprise(E);
+		
+		assertEquals(E, P.getEntreprise());
 	}
 
 	@Test
 	public void testGetDemandes() {
-		fail("Not yet implemented");
+		Personne P =new Personne();
+		// Création Demande
+		Demande O=new Demande();
+		Set<Demande> SeteO = new TreeSet<Demande>();
+		
+		// Ajout Demande
+		 P.setDemandes(SeteO);
+		 Set <Demande> Sete1 = P.getDemandes();
+		 
+		 assertEquals(SeteO, Sete1);
 	}
 
 	@Test
 	public void testSetDemandes() {
-		fail("Not yet implemented");
+		Personne P =new Personne();
+		// Création Demande
+		Demande O=new Demande();
+		Set<Demande> SeteO = new TreeSet<Demande>();
+		
+		// Ajout Demande
+		 P.setDemandes(SeteO);
+		 Set <Demande> Sete1 = P.getDemandes();
+		 
+		 assertEquals(SeteO, Sete1);
 	}
 
 	@Test
@@ -131,22 +168,86 @@ public class PersonneTest {
 
 	@Test
 	public void testGetTitres() {
-		fail("Not yet implemented");
+		Personne P =new Personne();
+		// Création Titre
+		Titre O=new Titre();
+		Set<Titre> SeteO = new TreeSet<Titre>();
+		
+		// Ajout Titre
+		 P.setTitres(SeteO);
+		 Set <Titre> Sete1 = P.getTitres();
+		 
+		 assertEquals(SeteO, Sete1);
 	}
 
 	@Test
 	public void testSetTitres() {
-		fail("Not yet implemented");
+		Personne P =new Personne();
+		// Création Titre
+		Titre O=new Titre();
+		Set<Titre> SeteO = new TreeSet<Titre>();
+		
+		// Ajout Titre
+		 P.setTitres(SeteO);
+		 Set <Titre> Sete1 = P.getTitres();
+		 
+		 assertEquals(SeteO, Sete1);
 	}
 
 	@Test
-	public void testGetOffres() {
-		fail("Not yet implemented");
+	public void testGetOffresEmises() {
+		Personne P =new Personne();
+		// Création Offre
+		Offre O=new Offre();
+		Set<Offre> SeteO = new TreeSet<Offre>();
+
+		// Ajout Offre
+		 P.setOffresEmises(SeteO);
+		 Set <Offre> Sete1 = P.getOffresEmises();
+		 
+		 assertEquals(SeteO, Sete1);
 	}
 
 	@Test
-	public void testSetOffres() {
-		fail("Not yet implemented");
+	public void testSetOffresEmises() {
+		Personne P =new Personne();
+		// Création Offre
+		Offre O=new Offre();
+		Set<Offre> SeteO = new TreeSet<Offre>();
+
+		// Ajout Offre
+		 P.setOffresEmises(SeteO);
+		 Set <Offre> Sete1 = P.getOffresEmises();
+		 
+		 assertEquals(SeteO, Sete1);
+	}
+
+	@Test
+	public void testGetOffresRecues() {
+		Personne P =new Personne();
+		// Création Offre
+		Offre O=new Offre();
+		Set<Offre> SeteO = new TreeSet<Offre>();
+
+		// Ajout Offre
+		 P.setOffresRecues(SeteO);
+		 Set <Offre> Sete1 = P.getOffresRecues();
+		 
+		 assertEquals(SeteO, Sete1);
+	}
+
+	@Test
+	public void testSetOffresRecues() {
+		Personne P =new Personne();
+		// Création Offre
+		Offre O=new Offre();
+		Set<Offre> SeteO = new TreeSet<Offre>();
+
+		// Ajout Offre
+		 P.setOffresRecues(SeteO);
+		 Set <Offre> Sete1 = P.getOffresRecues();
+		 
+		 assertEquals(SeteO, Sete1);
 	}
 
 	@Test
@@ -161,12 +262,18 @@ public class PersonneTest {
 
 	@Test
 	public void testGetTypePersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		TypePersonne test = new TypePersonne();
+		P.setTypePersonne(test);
+		assertEquals(test,P.getTypePersonne());
 	}
 
 	@Test
 	public void testSetTypePersonne() {
-		fail("Not yet implemented");
+		Personne P = new Personne();	
+		TypePersonne test = new TypePersonne();
+		P.setTypePersonne(test);
+		assertEquals(test,P.getTypePersonne());
 	}
 
 }
