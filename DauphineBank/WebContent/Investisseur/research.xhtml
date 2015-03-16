@@ -23,7 +23,7 @@
 				id="entrepriseCheck" />Par entreprise
 				
 			
-			<h:selectOneMenu value="#{gestionInvestisseurBean.entreprise}">
+			<h:selectOneMenu value="#{gestionInvestisseurBean.entrepriseNom}">
 				<f:selectItems value="#{gestionInvestisseurBean.listEntreprise()}"
 					var="e" itemLabel="#{e.nomEntreprise}"
 					itemValue="#{e.nomEntreprise}" />
