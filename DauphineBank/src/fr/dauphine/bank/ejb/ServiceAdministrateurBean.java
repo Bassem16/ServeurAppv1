@@ -14,6 +14,7 @@ import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.Personne;
 
 @Stateless
 public class ServiceAdministrateurBean implements ServiceAdministrateur {
@@ -104,6 +105,21 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
+	}
+	
+	public ArrayList<Personne> listeMembresSociete(){
+		ArrayList<Personne> personne = null;
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em.
+					createQuery("SELECT p FROM Personne p where p.typePersonne.idTypePersonne = 2");
+			personne = (ArrayList<Personne>) query.getResultList();
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return personne;
 	}
 	
 	

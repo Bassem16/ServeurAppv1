@@ -2,6 +2,8 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
 import fr.dauphine.bank.ejb.ServiceSauvegarde;
+import fr.dauphine.bank.ejb.ServiceVerificationData;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
@@ -32,10 +35,13 @@ public class GestionAdministrateurBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
+	private Personne personneEntreprise = null;
 	private Entreprise entreprise = null;
 
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
+	@EJB
+	ServiceVerificationData serviceVerificationData;
 	@EJB
 	ServiceSauvegarde serviceSauvegarde;
 
@@ -46,6 +52,18 @@ public class GestionAdministrateurBean implements Serializable {
 			entreprise = new Entreprise();
 		else
 			entreprise = (Entreprise) hs.getAttribute("entreprise");
+		this.personne = new Personne();
+		
+		this.personneEntreprise = new Personne();
+		this.personneEntreprise.setValide(1);
+		this.personneEntreprise.setEntreprise(null);
+		this.personneEntreprise.setTitres(new HashSet<Titre>());
+		this.personneEntreprise.setOffresEmises(new HashSet<Offre>());
+		this.personneEntreprise.setOffresRecues(new HashSet<Offre>());
+		this.personneEntreprise.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
+		this.personneEntreprise.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
+		this.personneEntreprise.setDemandeHistoriques(new HashSet<DemandeHistorique>());
+		
 	}
 
 	public List<Demande> getDemandes() {
@@ -55,6 +73,11 @@ public class GestionAdministrateurBean implements Serializable {
 	public List<Entreprise> getEntreprises() {
 		return serviceAdministrateur.listeEntreprise();
 	}
+	
+	public List<Personne> getMembresSociete() {
+		return serviceAdministrateur.listeMembresSociete();
+	}
+	
 	
 	public List<DemandeHistorique> getDemandesHistorique() {
 		return serviceAdministrateur.listeDemandesHistorique();
@@ -86,6 +109,13 @@ public class GestionAdministrateurBean implements Serializable {
 	public void ajouterEntreprise() {
 		serviceSauvegarde.sauvgarderEntreprise(entreprise);
 	}
+	
+	public void ajouterMembreEntreprise() {
+		Entreprise e= serviceVerificationData.verificationEntreprise(personne.getEntreprise().getNomEntreprise(),personne.getEntreprise().getSecteurEntreprise());
+		personne.setEntreprise(e);
+		serviceSauvegarde.sauvegardeCompte(this.personneEntreprise);
+	}
+	
 	
 	public Personne getPersonne() {
 		return this.personne;
