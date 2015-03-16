@@ -25,15 +25,15 @@ public class PersonneTest {
 	@Test
 	public void testGetIdPersonne() {
 		Personne P = new Personne();	
-		P.setIdPersonne(0);
-		assertEquals(0,P.getIdPersonne());
+		P.setIdPersonne(1);
+		assertEquals(1,P.getIdPersonne());
 	}
 
 	@Test
 	public void testSetIdPersonne() {
 		Personne P = new Personne();	
-		P.setIdPersonne(0);
-		assertEquals(0,P.getIdPersonne());
+		P.setIdPersonne(1);
+		assertEquals(1,P.getIdPersonne());
 	}
 
 	@Test
