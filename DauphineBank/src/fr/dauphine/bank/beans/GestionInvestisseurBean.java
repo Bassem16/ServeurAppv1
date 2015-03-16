@@ -532,7 +532,7 @@ public class GestionInvestisseurBean implements Serializable {
 	public ArrayList<String> personneVisiteListTypeTitre() {
 		ArrayList<String> typeTitres = new ArrayList<String>();
 		for (Titre t : personneVisite.getTitresList()) {
-			if (!typeTitres.contains(t.getTypeTitre())) {
+			if (!typeTitres.contains(t.getTypeTitre()) && t.estVente()) {
 				typeTitres.add(t.getTypeTitre());
 			}
 		}
@@ -545,7 +545,7 @@ public class GestionInvestisseurBean implements Serializable {
 		for (Titre t : personneVisite.getTitresList()) {
 
 			if (nomTitres.contains(t.getNomTitre()) == false
-					&& t.getTypeTitre().equals(typeTitreTransaction)) {
+					&& t.getTypeTitre().equals(typeTitreTransaction) && t.estVente()) {
 				nomTitres.add(t.getNomTitre());
 				// System.out.println(t.getNomTitre());
 			}
