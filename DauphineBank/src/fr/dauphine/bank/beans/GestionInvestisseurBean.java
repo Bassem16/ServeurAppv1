@@ -2,6 +2,8 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -393,11 +395,19 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public ArrayList<Offre> getOffresEmisesList() {
-		return new ArrayList<Offre>(getPersonne().getOffresEmises());
+		ArrayList<Offre> listeOffresEmises = new ArrayList<Offre>();
+		listeOffresEmises.addAll(getPersonne().getOffresEmises());
+		Collections.sort( listeOffresEmises);
+		
+		return listeOffresEmises;
 	}
 
 	public ArrayList<Offre> getOffresRecuesList() {
-		return new ArrayList<Offre>(getPersonne().getOffresRecues());
+		ArrayList<Offre> listeOffresRecues = new ArrayList<Offre>();
+		listeOffresRecues.addAll(getPersonne().getOffresRecues());
+		Collections.sort( listeOffresRecues);
+		
+		return listeOffresRecues;
 	}
 
 	public void setOffresEmises(Set<Offre> offres) {
@@ -459,13 +469,21 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public ArrayList<OffreHistorique> getOffreHistoriquesEmisesList() {
-		return new ArrayList<OffreHistorique>(getPersonne()
-				.getOffreHistoriquesEmises());
+
+		ArrayList<OffreHistorique> listeOffresHistoriquesEmises = new ArrayList<OffreHistorique>();
+		listeOffresHistoriquesEmises.addAll(getPersonne().getOffreHistoriquesEmises());
+		Collections.sort( listeOffresHistoriquesEmises);
+		
+		return listeOffresHistoriquesEmises;
 	}
 
 	public ArrayList<OffreHistorique> getOffreHistoriquesRecuesList() {
-		return new ArrayList<OffreHistorique>(getPersonne()
-				.getOffreHistoriquesRecues());
+		
+		ArrayList<OffreHistorique> listeOffresHistoriquesRecues = new ArrayList<OffreHistorique>();
+		listeOffresHistoriquesRecues.addAll(getPersonne().getOffreHistoriquesRecues());
+		Collections.sort( listeOffresHistoriquesRecues);
+		
+		return listeOffresHistoriquesRecues;
 	}
 
 	public boolean isEntrepriseChek() {
@@ -633,7 +651,7 @@ public class GestionInvestisseurBean implements Serializable {
 		offre.setTypeOffre("Achat");
 		
 		for(int i=0;i<quantiteOffre;i++){
-			titresOffre.get(i).getOffres().add(offre);
+			//titresOffre.get(i).getOffres().add(offre);
 			offre.getTitres().add(titresOffre.get(i));
 			
 		}

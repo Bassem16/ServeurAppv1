@@ -14,7 +14,7 @@ import java.util.Set;
  */
 @Entity
 @NamedQuery(name = "Offre.findAll", query = "SELECT o FROM Offre o")
-public class Offre implements Serializable {
+public class Offre implements Serializable, Comparable<Offre> {
 	private static final long serialVersionUID = 1L;
 
 	@Id
@@ -48,7 +48,7 @@ public class Offre implements Serializable {
 	private Personne personneReceveur;
 
 	// bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy = "offres", cascade = { CascadeType.ALL },  fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "offres", cascade = { CascadeType.MERGE },  fetch = FetchType.EAGER)
 	private Set<Titre> titres;
 
 	public Offre() {
@@ -137,6 +137,16 @@ public class Offre implements Serializable {
 	public ArrayList<Titre> getTitresList() {
 
 		return new ArrayList<Titre>(titres);
+	}
+
+	
+	//Comparable code
+	@Override
+	public int compareTo(Offre o) {
+		
+		//Odre décroissant
+		return o.getDateOffre().compareTo(this.getDateOffre());
+
 	}
 
 }
