@@ -14,16 +14,14 @@ import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
-import fr.dauphine.bank.web.ConnexionDataBase;
+import fr.dauphine.bank.entities.Personne;
 
 @Stateless
 public class ServiceAdministrateurBean implements ServiceAdministrateur {
 
-	
-//	private static EntityManagerFactory emf = Persistence
-//			.createEntityManagerFactory("DauphineBank");
 	@PersistenceUnit
-	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
+	private EntityManagerFactory emf = Persistence
+			.createEntityManagerFactory("DauphineBank");
 
 	
 	public ArrayList<Demande> listeDemandes() {
@@ -107,6 +105,12 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
+	}
+
+	@Override
+	public ArrayList<Personne> listeMembresSociete() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	

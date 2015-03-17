@@ -668,8 +668,10 @@ public class GestionInvestisseurBean implements Serializable {
 
 	}
 
+	@SuppressWarnings("unchecked")
 	public String faireOffre() {
 		ArrayList<Titre> titresOffre = personneVisiteTitrePourOffre();
+		Collections.sort(titresOffre, Titre.nbrOffre);
 		Offre offre = new Offre();
 		offre.setDateOffre(new Date(System.currentTimeMillis()));
 		offre.setEntreprise(titresOffre.get(0).getEntreprise());

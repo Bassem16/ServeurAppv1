@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Set;
 
 /**
@@ -32,10 +33,7 @@ public class Titre implements Serializable {
 	private Entreprise entreprise;
 
 	// bi-directional many-to-many association to Offre
-	//@ManyToMany(fetch = FetchType.EAGER, cascade={ CascadeType.ALL})
-	//@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = { @JoinColumn(name = "idOffre") })
-	// , cascade = { CascadeType.ALL })
-	@ManyToMany(mappedBy="titres" ,fetch = FetchType.EAGER)
+	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
 	private Set<Offre> offres;
 
 	// bi-directional many-to-many association to OffreHistorique
@@ -118,9 +116,7 @@ public class Titre implements Serializable {
 
 		return new ArrayList<Offre>(offres);
 	}
-	
 
-	
 	public boolean estVente() {
 		if (etatTitre == 1) {
 			return true;
@@ -129,5 +125,27 @@ public class Titre implements Serializable {
 		}
 
 	}
+	
+
+	@SuppressWarnings("rawtypes")
+	public static final Comparator nbrOffre = new Comparator() {
+
+		public int compare(Object o1, Object o2) {
+
+			if (!(o1 instanceof Titre))
+				throw new ClassCastException();
+
+			Integer i1 = (Integer) ((Titre) o1).getOffres().size();
+			Integer i2 = (Integer) ((Titre) o2).getOffres().size();
+
+			return i1.compareTo(i2);
+
+		}
+
+	};
+
+	
+
+	
 
 }

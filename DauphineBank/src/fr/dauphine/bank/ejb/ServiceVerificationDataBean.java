@@ -9,6 +9,7 @@ import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.web.ConnexionDataBase;
 
@@ -57,5 +58,24 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		}
 		return Comptes;
 	}
-
+	
+	public Entreprise verificationEntreprise(String nom, String secteur){
+		Entreprise en = new Entreprise();
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em
+					.createQuery("SELECT e FROM Entreprise e WHERE e.nomEntreprise LIKE:nomE and e.secteurEntreprise LIKE:secteurE");
+			query.setParameter("nomE", nom);
+			query.setParameter("secteurE", secteur);
+			en = (Entreprise) query.getSingleResult();
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		
+		return en;
+		
+	}
+	
 }
