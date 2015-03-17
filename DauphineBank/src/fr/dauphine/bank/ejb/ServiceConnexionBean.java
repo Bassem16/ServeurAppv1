@@ -10,13 +10,15 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceConnexionBean implements ServiceConnexion {
 
 	@PersistenceUnit
-	private static EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+//	private static EntityManagerFactory emf = Persistence
+//			.createEntityManagerFactory("DauphineBank");
+	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@Override
 	public Personne verificationPersonne(String login, String motDePasse) {

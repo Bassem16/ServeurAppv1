@@ -10,13 +10,16 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceVerificationDataBean implements ServiceVerificationData {
 
+//	@PersistenceUnit
+//	private static EntityManagerFactory emf = Persistence
+//			.createEntityManagerFactory("DauphineBank");
 	@PersistenceUnit
-	private static EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@SuppressWarnings("unchecked")
 	public ArrayList<Personne> trouverCompteEmail(String email) {

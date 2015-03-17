@@ -16,15 +16,18 @@ import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 //import fr.dauphine.bank.entities.Offre;
 
 @Stateless
 public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
+//	@PersistenceUnit
+//	private static EntityManagerFactory emf = Persistence
+//			.createEntityManagerFactory("DauphineBank");
 	@PersistenceUnit
-	private static EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	public void supprimerOffre(Offre offre) {
 

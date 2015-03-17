@@ -48,7 +48,11 @@ public class Offre implements Serializable, Comparable<Offre> {
 	private Personne personneReceveur;
 
 	// bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy = "offres", cascade = { CascadeType.MERGE },  fetch = FetchType.EAGER)
+	// @ManyToMany(mappedBy = "offres", fetch = FetchType.EAGER,cascade={
+	// CascadeType.MERGE})
+	// cascade
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idOffre") }, inverseJoinColumns = { @JoinColumn(name = "idTitre") })
 	private Set<Titre> titres;
 
 	public Offre() {
@@ -139,14 +143,37 @@ public class Offre implements Serializable, Comparable<Offre> {
 		return new ArrayList<Titre>(titres);
 	}
 
-	
-	//Comparable code
+	// Comparable code
 	@Override
 	public int compareTo(Offre o) {
-		
-		//Odre décroissant
+
+		// Odre décroissant
 		return o.getDateOffre().compareTo(this.getDateOffre());
 
 	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Offre o = (Offre) obj;
+		if (this.getDateOffre().equals(o)
+				&& this.getPersonneEmetteur().getLogin()
+						.equals(o.getPersonneEmetteur().getLogin())
+				&& this.getPersonneReceveur().equals(
+						o.getPersonneReceveur().getLogin())) {
+			return true;
+		} else {
+			return false;
+		}
+		
+		
+			
+		}
+
+//	@Override
+//	public int hashCode(){
+//		
+//		return this.dateOffre.hashCode();
+//		
+//	}
 
 }

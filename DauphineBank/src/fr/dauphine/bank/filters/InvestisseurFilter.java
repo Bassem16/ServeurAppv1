@@ -45,6 +45,7 @@ public class InvestisseurFilter implements Filter {
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
 		} else if (p.getValide() == 0) {
+			session.setAttribute(ATT_SESSION_USER, null);
 			response.sendRedirect(request.getContextPath()
 					+ "/acces_denied.xhtml");
 		} else {

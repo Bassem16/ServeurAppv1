@@ -32,8 +32,10 @@ public class Titre implements Serializable {
 	private Entreprise entreprise;
 
 	// bi-directional many-to-many association to Offre
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = {@JoinColumn(name = "idOffre")  })
+	//@ManyToMany(fetch = FetchType.EAGER, cascade={ CascadeType.ALL})
+	//@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = { @JoinColumn(name = "idOffre") })
+	// , cascade = { CascadeType.ALL })
+	@ManyToMany(mappedBy="titres" ,fetch = FetchType.EAGER)
 	private Set<Offre> offres;
 
 	// bi-directional many-to-many association to OffreHistorique
@@ -116,7 +118,9 @@ public class Titre implements Serializable {
 
 		return new ArrayList<Offre>(offres);
 	}
+	
 
+	
 	public boolean estVente() {
 		if (etatTitre == 1) {
 			return true;
