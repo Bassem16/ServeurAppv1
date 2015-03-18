@@ -45,8 +45,10 @@
 			</ul></li>
 		<li><c:choose>
 				<c:when test="#{connexionBean.connected}">
-					<li><h:link value="Mon compte"
-							outcome="/Investisseur/home.xhtml" class="button" /></li>
+					<li><h:form>
+					<h:commandButton value="Deconnexion"
+						action="#{connexionBean.doLogout}" class="button"></h:commandButton>
+				</h:form></li>
 				</c:when>
 				<c:otherwise>
 					<h:link value="Inscrivez-vous" outcome="/Visiteur/register.xhtml"
@@ -58,7 +60,7 @@
 
 	<!-- Banner -->
 	<section id="banner">
-	<h2>Bienvenue sur Team Trader</h2>
+	<h2>Bienvenue sur Team Trader </h2>
 	<p>Un site révolutionnaire pour la gestion d'actifs.</p>
 	<c:if test="#{connexionBean.connected}">
     (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})

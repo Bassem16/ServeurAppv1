@@ -10,16 +10,17 @@ import javax.persistence.PersistenceUnit;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceSauvegardeBean implements ServiceSauvegarde {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@Override
 	public void sauvegardeCompte(Personne personne) {
@@ -49,7 +50,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			et.begin();
 			//em.merge(offreHistorique);
 	
-			em.persist(offreHistorique);
+			em.merge(offreHistorique);
 			et.commit();
 			System.out.println("Sauvegarde en base de l'offre (historique) "
 					+ offreHistorique.getIdOffreHistorique());
@@ -112,6 +113,24 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			et.commit();
 			System.out.println("Sauvegarde en base de l'offre (historique) "
 					+ demandeHistorique.getIdDemandeHistorique());
+			em.close();
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		
+	}
+	
+	public void sauvgarderOffre(Offre offre){
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.merge(offre);
+			et.commit();
+			System.out.println("Sauvegarde en base de l'offre "
+					+ offre.getIdOffre());
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");

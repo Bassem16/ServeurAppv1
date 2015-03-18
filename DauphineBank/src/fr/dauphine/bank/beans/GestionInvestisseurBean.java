@@ -13,8 +13,10 @@ import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceInvestisseur;
@@ -300,6 +302,10 @@ public class GestionInvestisseurBean implements Serializable {
 		else
 			return true;
 	}
+	
+	public double getSoldePersonne(){
+		return getPersonne().getSoldePersonne();
+	}
 
 	public void rechercherTitre(String nomTitre) {
 
@@ -507,6 +513,7 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public void setEntrepriseChek(boolean entrepriseChek) {
+		System.out.println(isEntrepriseChek() + " to " + entrepriseChek);
 		this.entrepriseChek = entrepriseChek;
 	}
 
@@ -655,19 +662,7 @@ public class GestionInvestisseurBean implements Serializable {
 		return nomb;
 	}
 
-	public LierOffreTitre creerLiaisonOffreTitre(Offre offre, Titre titre) {
-		LierOffreTitre liaison = new LierOffreTitre();
-		LierOffreTitrePK clé = new LierOffreTitrePK();
-
-		clé.setIdOffre(offre.getIdOffre());
-		clé.setIdTitre(titre.getIdTitre());
-
-		liaison.setId(clé);
-
-		return liaison;
-
-	}
-
+	
 	@SuppressWarnings("unchecked")
 	public String faireOffre() {
 		ArrayList<Titre> titresOffre = personneVisiteTitrePourOffre();
@@ -709,4 +704,9 @@ public class GestionInvestisseurBean implements Serializable {
 		return "home.xhtml";
 
 	}
+	
+	public void addMessage() {
+        String summary = entrepriseChek ? "Filtre enclenché" : "Filtre retiré";
+        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
+    }
 }

@@ -15,5 +15,6 @@
 	<classpathentry kind="con" path="org.eclipse.jst.j2ee.internal.module.container"/>
 	<classpathentry kind="lib" path="/usr/share/jboss-as-7.1.1.Final/standalone/deployments/mysql-connector-java-5.1.34-bin.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
+	<classpathentry kind="lib" path="/home/webserver/Downloads/primefaces-5.1.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
