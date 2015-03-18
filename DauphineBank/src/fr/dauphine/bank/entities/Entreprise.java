@@ -4,6 +4,8 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.util.Comparator;
+import java.util.Date;
 import java.util.Set;
 
 /**
@@ -24,6 +26,8 @@ public class Entreprise implements Serializable {
 	private String nomEntreprise;
 
 	private String secteurEntreprise;
+	
+	private String logo;
 
 	// bi-directional many-to-one association to Information
 	@OneToMany(mappedBy = "entreprise", fetch = FetchType.EAGER)
@@ -149,5 +153,25 @@ public class Entreprise implements Serializable {
 	public void setTitres(Set<Titre> titres) {
 		this.titres = titres;
 	}
+
+	public String getLogo() {
+		return logo;
+	}
+
+	public void setLogo(String logo) {
+		this.logo = logo;
+	}
+	
+	
+	public static final Comparator<Entreprise> alphabetique = new Comparator<Entreprise>() {
+
+		public int compare(Entreprise o1, Entreprise o2) {
+
+					
+			return o1.getNomEntreprise().toLowerCase().compareTo(o2.getNomEntreprise().toLowerCase());
+
+		}
+
+};
 
 }

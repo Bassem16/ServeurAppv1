@@ -37,7 +37,7 @@ public class GestionAdministrateurBean implements Serializable {
 	private Personne personne = null;
 	private Personne personneEntreprise = null;
 	private Entreprise entreprise = null;
-
+	
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
 	@EJB
@@ -108,6 +108,10 @@ public class GestionAdministrateurBean implements Serializable {
 	
 	public void ajouterEntreprise() {
 		serviceSauvegarde.sauvgarderEntreprise(entreprise);
+		entreprise.setLogo("");
+		entreprise.setNomEntreprise("");
+		entreprise.setSecteurEntreprise("");
+		entreprise.setNombreTitreTotal(0);
 	}
 	
 	public void ajouterMembreEntreprise() {
@@ -224,5 +228,13 @@ public class GestionAdministrateurBean implements Serializable {
 	
 	public void setNombreTitreTotal(int nombreTitreTotal) {
 		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
+	}
+
+	public String getLogoEntreprise() {
+		return getEntreprise().getLogo();
+	}
+
+	public void setLogoEntreprise(String logoEntreprise) {
+		getEntreprise().setLogo(logoEntreprise);
 	}
 }

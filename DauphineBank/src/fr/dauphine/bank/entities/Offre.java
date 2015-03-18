@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Set;
 
@@ -164,16 +165,29 @@ public class Offre implements Serializable, Comparable<Offre> {
 		} else {
 			return false;
 		}
-		
-		
-			
+
+	}
+
+
+	public static final Comparator<Offre> prix = new Comparator<Offre>() {
+
+		public int compare(Offre o1, Offre o2) {
+
+			Double i1 = o1.getPrixOffre();
+			Double i2 = o2.getPrixOffre();
+
+			return i1.compareTo(i2);
+
+		}
+	};
+
+	public static final Comparator<Offre> date = new Comparator<Offre>() {
+
+		public int compare(Offre o1, Offre o2) {
+
+			return o1.getDateOffre().compareTo(o2.getDateOffre());
+
 		}
 
-//	@Override
-//	public int hashCode(){
-//		
-//		return this.dateOffre.hashCode();
-//		
-//	}
-
+	};
 }

@@ -73,34 +73,7 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 	}
 
-	@Override
-	public ArrayList<Offre> recupererOffres(Personne personne) {
-		// ArrayList<Offre> offres = null;
-		// try {
-		// EntityManager em = emf.createEntityManager();
-		// EntityTransaction et = null;
-		// et = em.getTransaction();
-		// et.begin();
-		// Query query = em
-		// .createQuery("SELECT Offre o FROM Personne p WHERE p.titres. LIKE:personneID");
-		// query.setParameter("personneID", personne.getIdPersonne());
-		//
-		// try {
-		// offres = (ArrayList<Offre>) query.getResultList();
-		// } catch (NoResultException nre) {
-		// offres = new ArrayList<Offre>();
-		//
-		// }
-		//
-		// em.close();
-		// } catch (Exception e) {
-		// System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		// } finally {
-		// }
-
-		return null;
-
-	}
+	
 
 	@SuppressWarnings("unchecked")
 	@Override
@@ -234,8 +207,6 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			return selectedTitre;
 		}
 		return selectedTitre;
-		
-		
 
 	}
 

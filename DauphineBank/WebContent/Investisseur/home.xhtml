@@ -30,7 +30,8 @@
 	<header id="header" class="skel-layers-fixed">
 	<h1>
 
-		<a href="../index.xhtml">Team Trade</a> par The Team | Votre Solde #{gestionInvestisseurBean.soldePersonne}€
+		<a href="../index.xhtml">Team Trade</a> par The Team | Votre Solde
+		#{gestionInvestisseurBean.soldePersonne}€
 
 
 	</h1>
@@ -138,60 +139,9 @@
 				</h:dataTable>
 
 
-				<h3>Titres</h3>
-				<h:dataTable value="#{gestionInvestisseurBean.titresList}" var="t"
-					styleClass="order-table" headerClass="order-table-header"
-					rowClasses="order-table-odd-row,order-table-eve-row">
-					<h:column>
-						<f:facet name="header">ID Titre</f:facet>
-						<h:outputText value="#{t.idTitre}" />
-					</h:column>
+				
 
-					<h:column>
-						<f:facet name="header">Nom Titre</f:facet>
-						<h:outputText value="#{t.nomTitre}" />
-					</h:column>
-
-					<h:column>
-						<f:facet name="header">ID Entreprise</f:facet>
-						<h:outputText value="#{t.entreprise.idEntreprise}" />
-					</h:column>
-
-					<h:column>
-						<f:facet name="header">Nom Entreprise</f:facet>
-						<h:outputText value="#{t.entreprise.nomEntreprise}" />
-					</h:column>
-
-
-
-					<h:column>
-						<f:facet name="header">Type de Titre</f:facet>
-						<h:outputText value="#{t.typeTitre}" />
-					</h:column>
-
-
-
-					<h:column>
-
-						<f:facet name="header">Mise en vente</f:facet>
-						<h:outputText value="#{t.estVente()}" />
-					</h:column>
-
-
-					<h:column>
-
-
-						<h:commandButton value="Stopper vente"
-							action="#{gestionInvestisseurBean.retirerDuMarcherTitre(t)}"></h:commandButton>
-						<h:commandButton value="Mettre en vente"
-							action="#{gestionInvestisseurBean.mettreSurMarcherTitre(t)}"></h:commandButton>
-
-
-					</h:column>
-
-
-				</h:dataTable>
-
+				
 				<h3>Offres recues</h3>
 				<h:dataTable value="#{gestionInvestisseurBean.offresRecuesList}"
 					var="oR" styleClass="order-table" headerClass="order-table-header"
@@ -379,6 +329,60 @@
 					<h:column>
 						<f:facet name="header">Statut</f:facet>
 						<h:outputText value="#{oh.statut}" />
+					</h:column>
+
+
+				</h:dataTable>
+				
+				<h3>Titres</h3>
+				<h:dataTable value="#{gestionInvestisseurBean.titresList}" var="t"
+					styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-eve-row">
+					<h:column>
+						<f:facet name="header">ID Titre</f:facet>
+						<h:outputText value="#{t.idTitre}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Nom Titre</f:facet>
+						<h:outputText value="#{t.nomTitre}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">ID Entreprise</f:facet>
+						<h:outputText value="#{t.entreprise.idEntreprise}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Nom Entreprise</f:facet>
+						<h:outputText value="#{t.entreprise.nomEntreprise}" />
+					</h:column>
+
+
+
+					<h:column>
+						<f:facet name="header">Type de Titre</f:facet>
+						<h:outputText value="#{t.typeTitre}" />
+					</h:column>
+
+
+
+					<h:column>
+
+						<f:facet name="header">Mise en vente</f:facet>
+						<h:outputText value="#{t.estVente()}" />
+					</h:column>
+
+
+					<h:column>
+
+
+						<h:commandButton value="Stopper vente"
+							action="#{gestionInvestisseurBean.retirerDuMarcherTitre(t)}"></h:commandButton>
+						<h:commandButton value="Mettre en vente"
+							action="#{gestionInvestisseurBean.mettreSurMarcherTitre(t)}"></h:commandButton>
+
+
 					</h:column>
 
 

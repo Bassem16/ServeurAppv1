@@ -17,10 +17,8 @@ import fr.dauphine.bank.entities.Titre;
 public interface ServiceInvestisseur {
 	public void miseAJourTitre(Titre titre);
 	public void supprimerOffre(Offre offre);
-	public ArrayList<Offre> recupererOffres(Personne personne);
 	public ArrayList<Titre> recupererTitre(boolean entrepriseChek, boolean typeChek,boolean userCheck, String entrepriseNom, String typeNom, String userNom);
 	public ArrayList<Entreprise> recupererEntrepriseListAll();
-	public ArrayList<Personne> recupererPersonneListAll();
-	
+	public ArrayList<Personne> recupererPersonneListAll();	
 
 }

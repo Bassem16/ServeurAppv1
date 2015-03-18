@@ -15,6 +15,7 @@ import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.entities.Titre;
 
 @Stateless
 public class ServiceAdministrateurBean implements ServiceAdministrateur {
@@ -112,6 +113,8 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 		// TODO Auto-generated method stub
 		return null;
 	}
+	
+	
 	
 	
 

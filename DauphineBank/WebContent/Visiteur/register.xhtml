@@ -70,7 +70,7 @@
 							<f:validator binding="#{existenceEmailValidator}" />
 
 						</h:inputText>
-						<h:message id="emailMessage" for="email" />
+						<h:message id="emailMessage" for="email" style="color:red" />
 						<br />
 
 						<h:outputLabel for="motdepasse">Mot de passe <span
@@ -85,7 +85,7 @@
 							<f:ajax event="blur" execute="motdepasse confirmation"
 								render="motDePasseMessage confirmationMessage" />
 						</h:inputSecret>
-						<h:message id="motDePasseMessage" for="motdepasse" />
+						<h:message id="motDePasseMessage" for="motdepasse" style="color:red"/>
 						<br />
 
 
@@ -102,7 +102,7 @@
 							<f:ajax event="blur" execute="motdepasse confirmation"
 								render="motDePasseMessage confirmationMessage" />
 						</h:inputSecret>
-						<h:message id="confirmationMessage" for="confirmation" />
+						<h:message id="confirmationMessage" for="confirmation" style="color:red" />
 						<br />
 
 						<h:outputLabel for="login">Login <span
@@ -116,7 +116,7 @@
 							<f:ajax event="blur" render="loginMessage" />
 							<f:validator binding="#{existenceLoginValidator}" />
 						</h:inputText>
-						<h:message id="loginMessage" for="login" />
+						<h:message id="loginMessage" for="login" style="color:red"/>
 						<br />
 
 
@@ -129,7 +129,7 @@
 							maxlength="20">
 							<f:ajax event="blur" render="prenomMessage" />
 						</h:inputText>
-						<h:message id="prenomMessage" for="prenom" errorClass="erreur" />
+						<h:message id="prenomMessage" for="prenom" errorClass="erreur" style="color:red"/>
 						<br />
 
 						<h:outputLabel for="nom">Nom<span class="requis">*</span>
@@ -142,9 +142,9 @@
 						<h:message id="nomMessage" for="nom" />
 						<br />
 
-						<h:messages globalOnly="true" infoClass="info" />
+						<h:messages globalOnly="true" infoClass="info" style="color:red"/>
 
-						<h:commandButton id="submit" value="Submit" action="Reponse">
+						<h:commandButton id="submit" value="Submit" action="Reponse" type="reset">
 							<f:ajax execute="@form" render="@form" />
 						</h:commandButton>
 						<br />

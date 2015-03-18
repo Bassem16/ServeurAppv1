@@ -2,14 +2,11 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
-import java.util.TreeSet;
 
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
@@ -23,8 +20,6 @@ import fr.dauphine.bank.ejb.ServiceInvestisseur;
 import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
-import fr.dauphine.bank.entities.LierOffreTitre;
-import fr.dauphine.bank.entities.LierOffreTitrePK;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
@@ -56,6 +51,13 @@ public class GestionInvestisseurBean implements Serializable {
 
 	private int quantiteOffre = 0;
 	private double prixOffre = 0;
+
+	private boolean entrepriseCheckRecherche = false;
+	private boolean domaineChek = false;
+
+	private String entrepriseCheckRechercheName = null;
+	private String domaineChekName = null;
+
 	@EJB
 	ServiceInvestisseur serviceInvestisseur;
 	@EJB
@@ -72,6 +74,8 @@ public class GestionInvestisseurBean implements Serializable {
 		setTypeNom("Action");
 		setTypeTitreTransaction("Action");
 
+		setEntrepriseCheckRechercheName("");
+
 	}
 
 	public ArrayList<Titre> rechercherTitre() {
@@ -81,7 +85,10 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public ArrayList<Entreprise> listEntreprise() {
-		return serviceInvestisseur.recupererEntrepriseListAll();
+		ArrayList<Entreprise> listEntreprise = serviceInvestisseur.recupererEntrepriseListAll();
+		Collections.sort(listEntreprise,Entreprise.alphabetique);
+
+		return listEntreprise;
 
 	}
 
@@ -145,17 +152,17 @@ public class GestionInvestisseurBean implements Serializable {
 			Offre offre = AO.get(i);
 			offreH = offreAHistorique(offre, "Refusée");
 
-			//System.out.println("TAILLE  : " + titre.getOffres().size());
+			// System.out.println("TAILLE  : " + titre.getOffres().size());
 
 			ArrayList<Titre> titres = offre.getTitresList();
 			for (int j = 0; j < titres.size(); j++) {
-				Titre t=titres.get(j);
-				
+				Titre t = titres.get(j);
+
 				t.getOffres().remove(offre);
 				offreH.getTitres().add(t);
-				
+
 			}
-			
+
 			serviceSauvegarde.sauvegardeOffreHistorique(offreH);
 
 			T.remove(offre);
@@ -171,7 +178,7 @@ public class GestionInvestisseurBean implements Serializable {
 			personneEmetteur.getOffreHistoriquesEmises().add(offreH);
 			personneReceveur.getOffreHistoriquesRecues().add(offreH);
 
-			//serviceSauvegarde.sauvegardeCompte(personneReceveur);
+			// serviceSauvegarde.sauvegardeCompte(personneReceveur);
 			// serviceSauvegarde.sauvegardeCompte(personneEmetteur); //
 			serviceInvestisseur.supprimerOffre(offre);
 		}
@@ -204,7 +211,7 @@ public class GestionInvestisseurBean implements Serializable {
 
 		}
 
-		//System.out.println("ON SAUVEGARDE L'OFFRE");
+		// System.out.println("ON SAUVEGARDE L'OFFRE");
 		serviceSauvegarde.sauvegardeOffreHistorique(offreH);
 
 		Personne personneReceveur = offre.getPersonneReceveur();
@@ -302,8 +309,8 @@ public class GestionInvestisseurBean implements Serializable {
 		else
 			return true;
 	}
-	
-	public double getSoldePersonne(){
+
+	public double getSoldePersonne() {
 		return getPersonne().getSoldePersonne();
 	}
 
@@ -425,7 +432,7 @@ public class GestionInvestisseurBean implements Serializable {
 	public ArrayList<Offre> getOffresRecuesList() {
 		ArrayList<Offre> listeOffresRecues = new ArrayList<Offre>();
 		listeOffresRecues.addAll(getPersonne().getOffresRecues());
-		Collections.sort(listeOffresRecues);
+		Collections.sort(listeOffresRecues,Offre.prix);
 
 		return listeOffresRecues;
 	}
@@ -662,7 +669,6 @@ public class GestionInvestisseurBean implements Serializable {
 		return nomb;
 	}
 
-	
 	@SuppressWarnings("unchecked")
 	public String faireOffre() {
 		ArrayList<Titre> titresOffre = personneVisiteTitrePourOffre();
@@ -704,9 +710,100 @@ public class GestionInvestisseurBean implements Serializable {
 		return "home.xhtml";
 
 	}
-	
+
+	@SuppressWarnings("unchecked")
+	public ArrayList<Entreprise> listEntrepriseFiltre() {
+		ArrayList<Entreprise> listEntrepriseFiltre = new ArrayList<Entreprise>();
+		ArrayList<Entreprise> listEntreprise = listEntreprise();
+		System.out.println("ON EST LA :" + entrepriseCheckRecherche + " et "
+				+ domaineChek);
+		for (Entreprise e : listEntreprise) {
+			if (entrepriseCheckRecherche == false && domaineChek == false) {
+				listEntrepriseFiltre.add(e);
+				System.out.println("Par rien");
+
+			} else if (entrepriseCheckRecherche == true && domaineChek == false) {
+				if (e.getNomEntreprise().toLowerCase()
+						.indexOf(entrepriseCheckRechercheName.toLowerCase()) > -1
+						|| entrepriseCheckRechercheName.toLowerCase().indexOf(
+								e.getNomEntreprise().toLowerCase()) > -1
+						|| entrepriseCheckRechercheName.toLowerCase().equals(
+								e.getNomEntreprise().toLowerCase())) {
+					listEntrepriseFiltre.add(e);
+					System.out.println("Par Nom");
+
+				}
+
+			} else if (entrepriseCheckRecherche == false && domaineChek == true) {
+				if (e.getSecteurEntreprise().toLowerCase()
+						.indexOf(domaineChekName.toLowerCase()) > -1
+						|| domaineChekName.toLowerCase().indexOf(
+								e.getSecteurEntreprise().toLowerCase()) > -1) {
+					System.out.println("Par domaine");
+					listEntrepriseFiltre.add(e);
+				}
+			} else {
+				if ((e.getSecteurEntreprise().toLowerCase()
+						.indexOf(domaineChekName.toLowerCase()) > -1 || domaineChekName
+						.toLowerCase().indexOf(
+								e.getSecteurEntreprise().toLowerCase()) > -1)
+						&& (e.getNomEntreprise()
+								.toLowerCase()
+								.indexOf(
+										entrepriseCheckRechercheName
+												.toLowerCase()) > -1 || entrepriseCheckRechercheName
+								.toLowerCase().indexOf(
+										e.getNomEntreprise().toLowerCase()) > -1)) {
+					listEntrepriseFiltre.add(e);
+				}
+
+			}
+
+		}
+		
+		Collections.sort(listEntrepriseFiltre, Entreprise.alphabetique);
+		return listEntrepriseFiltre;
+
+	}
+
 	public void addMessage() {
-        String summary = entrepriseChek ? "Filtre enclenché" : "Filtre retiré";
-        FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(summary));
-    }
+		String summary = entrepriseChek ? "Filtre enclenché" : "Filtre retiré";
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(summary));
+	}
+
+	public boolean isEntrepriseCheckRecherche() {
+		return entrepriseCheckRecherche;
+	}
+
+	public void setEntrepriseCheckRecherche(boolean entrepriseCheckRecherche) {
+		this.setEntrepriseCheckRechercheName("");
+		this.entrepriseCheckRecherche = entrepriseCheckRecherche;
+	}
+
+	public boolean isDomaineChek() {
+		return domaineChek;
+	}
+
+	public void setDomaineChek(boolean domaineChek) {
+		this.setDomaineChekName("");
+		this.domaineChek = domaineChek;
+	}
+
+	public String getEntrepriseCheckRechercheName() {
+		return entrepriseCheckRechercheName;
+	}
+
+	public void setEntrepriseCheckRechercheName(
+			String entrepriseCheckRechercheName) {
+		this.entrepriseCheckRechercheName = entrepriseCheckRechercheName;
+	}
+
+	public String getDomaineChekName() {
+		return domaineChekName;
+	}
+
+	public void setDomaineChekName(String domaineChekName) {
+		this.domaineChekName = domaineChekName;
+	}
 }
