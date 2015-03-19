@@ -82,17 +82,13 @@
 					</h:column>
 
 					<h:column>
-						<f:facet name="header">Type de l'offre</f:facet>
+						<f:facet name="header">Type d'offre</f:facet>
 						<h:outputText value="#{o.typeOffre}" />
 					</h:column>
 
-					<h:column>
-						<f:facet name="header">ID Entreprise</f:facet>
-						<h:outputText value="#{o.entreprise.idEntreprise}" />
-					</h:column>
 
 					<h:column>
-						<f:facet name="header">Nom Entreprise</f:facet>
+						<f:facet name="header">Entreprise</f:facet>
 						<h:outputText value="#{o.entreprise.nomEntreprise}" />
 					</h:column>
 
@@ -112,20 +108,9 @@
 						<h:outputText value="#{o.quantiteOffre}" />
 					</h:column>
 
-					<h:column>
-						<f:facet name="header">Titre lié</f:facet>
-						<c:choose>
-							<c:when test="#{o.titresList.isEmpty()}">
-								<h:outputText value="#{o.titresList.get(0).nomTitre}" />
-							</c:when>
+					
 
-
-							<c:otherwise>
-
-							</c:otherwise>
-						</c:choose>
-
-					</h:column>
+					
 
 					<h:column>
 						<f:facet name="header">Statut</f:facet>
@@ -153,17 +138,13 @@
 					</h:column>
 
 					<h:column>
-						<f:facet name="header">Type de l'offre</f:facet>
+						<f:facet name="header">Type d'offre</f:facet>
 						<h:outputText value="#{oR.typeOffre}" />
 					</h:column>
 
-					<h:column>
-						<f:facet name="header">ID Entreprise</f:facet>
-						<h:outputText value="#{oR.entreprise.idEntreprise}" />
-					</h:column>
 
 					<h:column>
-						<f:facet name="header">Nom Entreprise</f:facet>
+						<f:facet name="header">Entreprise</f:facet>
 						<h:outputText value="#{oR.entreprise.nomEntreprise}" />
 					</h:column>
 
@@ -183,19 +164,6 @@
 						<h:outputText value="#{oR.quantiteOffre}" />
 					</h:column>
 
-					<h:column>
-						<f:facet name="header">Titre lié</f:facet>
-						<c:choose>
-							<c:when test="#{oR.titresList.isEmpty()}">
-								<h:outputText value="#{oR.titresList.get(0).nomTitre}" />
-							</c:when>
-
-
-							<c:otherwise>
-
-							</c:otherwise>
-						</c:choose>
-					</h:column>
 
 					<h:column>
 						<f:facet name="header">Statut</f:facet>
@@ -206,10 +174,13 @@
 						<h:commandButton value="Accepter offre"
 							action="#{gestionInvestisseurBean.accepterOffre(oR)}"
 							disabled="#{gestionInvestisseurBean.soldeSuffisant(oR)}"></h:commandButton>
-						<h:commandButton value="Refuser offre"
-							action="#{gestionInvestisseurBean.refuserOffre(oR)}"
-							class="button special"></h:commandButton>
+						
 					</h:column>
+					
+					<h:column>
+					<h:commandButton value="Refuser offre"
+							action="#{gestionInvestisseurBean.refuserOffre(oR)}"
+							class="button special"></h:commandButton></h:column>
 
 				</h:dataTable>
 			</h:form> </section>
@@ -234,7 +205,7 @@
 
 
 					<h:column>
-						<f:facet name="header">Nom Entreprise</f:facet>
+						<f:facet name="header">Entreprise</f:facet>
 						<h:outputText value="#{oh.entreprise.nomEntreprise}" />
 					</h:column>
 
@@ -254,20 +225,7 @@
 						<h:outputText value="#{oh.quantiteOffreHistorique}" />
 					</h:column>
 
-					<h:column>
-						<f:facet name="header">Titre lié</f:facet>
-						<c:choose>
-							<c:when test="#{oh.titresList.isEmpty()}">
-								<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
-							</c:when>
-
-
-							<c:otherwise>
-
-							</c:otherwise>
-						</c:choose>
-
-					</h:column>
+					
 
 					<h:column>
 						<f:facet name="header">Statut</f:facet>
@@ -291,7 +249,7 @@
 
 
 					<h:column>
-						<f:facet name="header">Nom Entreprise</f:facet>
+						<f:facet name="header">Entreprise</f:facet>
 						<h:outputText value="#{oh.entreprise.nomEntreprise}" />
 					</h:column>
 
@@ -311,20 +269,7 @@
 						<h:outputText value="#{oh.quantiteOffreHistorique}" />
 					</h:column>
 
-					<h:column>
-						<f:facet name="header">Titre lié</f:facet>
-						<c:choose>
-							<c:when test="#{oh.titresList.isEmpty()}">
-								<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
-							</c:when>
-
-
-							<c:otherwise>
-
-							</c:otherwise>
-						</c:choose>
-
-					</h:column>
+					
 
 					<h:column>
 						<f:facet name="header">Statut</f:facet>
@@ -344,17 +289,13 @@
 					</h:column>
 
 					<h:column>
-						<f:facet name="header">Nom Titre</f:facet>
+						<f:facet name="header">Nom</f:facet>
 						<h:outputText value="#{t.nomTitre}" />
 					</h:column>
 
-					<h:column>
-						<f:facet name="header">ID Entreprise</f:facet>
-						<h:outputText value="#{t.entreprise.idEntreprise}" />
-					</h:column>
 
 					<h:column>
-						<f:facet name="header">Nom Entreprise</f:facet>
+						<f:facet name="header">Entreprise</f:facet>
 						<h:outputText value="#{t.entreprise.nomEntreprise}" />
 					</h:column>
 
@@ -379,12 +320,14 @@
 
 						<h:commandButton value="Stopper vente"
 							action="#{gestionInvestisseurBean.retirerDuMarcherTitre(t)}"></h:commandButton>
-						<h:commandButton value="Mettre en vente"
-							action="#{gestionInvestisseurBean.mettreSurMarcherTitre(t)}"></h:commandButton>
+						
 
 
 					</h:column>
-
+					<h:column>
+					<h:commandButton value="Mettre en vente"
+							action="#{gestionInvestisseurBean.mettreSurMarcherTitre(t)}" class="pure-button"></h:commandButton>
+					</h:column>
 
 				</h:dataTable>
 

@@ -3,7 +3,8 @@
 	xmlns:h="http://java.sun.com/jsf/html"
 	xmlns:f="http://java.sun.com/jsf/core"
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
-	xmlns:ui="http://java.sun.com/jsf/facelets">
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
 <h:head>
 	<title>Team Trader</title>
 	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
@@ -61,6 +62,7 @@
 	<!-- Banner -->
 	<section id="banner">
 	<h2>Bienvenue sur Team Trader </h2>
+	
 	<p>Un site révolutionnaire pour la gestion d'actifs.</p>
 	<c:if test="#{connexionBean.connected}">
     (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})
@@ -111,13 +113,13 @@
 	<div class="features-row">
 		<section> <span class="icon major fa-cloud accent4"></span>
 		<h3>Equipe à disposition</h3>
-		<p>Ce cite à été crée par une équipe jeune et dynamique, 
+		<p>Ce site a été crée par une équipe jeune et dynamique, 
 		nous sommes là pour satisfaire votre besoin, n'hésitez pas à nous signaler 
 		tout bug ou idée d'amélioration.</p>
 		</section>
 		<section> <span class="icon major fa-lock accent5"></span>
 		<h3>Action / Option</h3>
-		<p>Notre périmètre focntionnel se constitue d'un sous jacent et un produit dérivé.
+		<p>Notre périmètre fonctionnel se constitue d'un sous jacent et un produit dérivé.
 		Nous avons choisis des titres classiques et relativement simples d'utilisation .</p>
 		</section>
 	</div>

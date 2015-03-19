@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+svg {
+	font: 10px sans-serif;
+}
+
+.line {
+	fill: none;
+	stroke: #000;
+	stroke-width: 1.5px;
+}
+
+.axis path, .axis line {
+	fill: none;
+	stroke: #000;
+	shape-rendering: crispEdges;
+}
+</style>
+<body>
+	<script src="http://d3js.org/d3.v3.min.js"></script>
+	<script>
+
+
+	function N(m,sigma){
+		var u = Math.random();
+    	var v = Math.random();
+
+    	var z1 = Math.sqrt(-2 * Math.log(u)) * Math.sin(2 * Math.PI * v);
+    	var z2 = Math.sqrt(-2 * Math.log(u)) * Math.cos(2 * Math.PI * v);
+
+    	var x1 = m + z1 * sigma;
+    	var x2 = m + z2 * sigma;
+
+    		    return x2;
+
+		};
+	
+
+    
+	var S0 = 100;
+	var r = 0.02;
+    var sig = 0.3;
+    var T = 1;
+    var K = 100;
+    var dt = 0.01;
+    var n = 9999;
+    //static double[] t = new double[N+1];
+    //static int Nmc = 1000;
+    var L = 200;
+    var I = 100;
+    var dS = L/I;
+    var data = [];
+
+	
+data.push(S0);
+console.log(N(0,1));
+for (var i = 0; i < n-1; i++) {
+	random = N(0,1) ;
+	
+    data.push(data[i]*Math.exp((r-sig*sig/2.0)*dt+sig*Math.sqrt(dt)*random));
+   
+}
+
+
+
+//random = d3.random.normal(0.8, .2),
+//data = d3.range(n).map(random);
+
+var margin = {top: 20, right: 20, bottom: 20, left: 40},
+width = 770 - margin.left - margin.right,
+height = 250 - margin.top - margin.bottom;
+
+var x = d3.scale.linear()
+		.domain([0, 1000])
+		.range([0, width]);
+		
+var y = d3.scale.linear()
+		.domain([-10, 500])
+		.range([height, 0]);
+		
+var line = d3.svg.line()
+		.x(function(d, i) { return x(i); })
+		.y(function(d, i) { return y(d); });
+		
+var svg = d3.select("body").append("svg")
+			.attr("width", width + margin.left + margin.right)
+			.attr("height", height + margin.top + margin.bottom)
+			.append("g")
+			.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
+			
+svg.append("defs").append("clipPath")
+		.attr("id", "clip")
+		.append("rect")
+		.attr("width", width)
+		.attr("height", height);
+		
+svg.append("g")
+		.attr("clas100s", "x axis")
+		.attr("transform", "translate(0," + y(0) + ")")
+		.call(d3.svg.axis().scale(x).orient("bottom"));
+		
+svg.append("g")
+		.attr("class", "y axis")
+		.call(d3.svg.axis().scale(y).orient("left"));
+		
+var path = svg.append("g")
+		.attr("clip-path", "url(#clip)")
+		.append("path")
+		.datum(data)
+		.attr("class", "line")
+		.attr("d", line);
+tick();
+
+function tick() {
+// push a new data point onto the back
+data.push(data[n-1]*Math.exp((r-sig*sig/2.0)*dt+sig*Math.sqrt(dt)*random));
+// redraw the line, and slide it to the left
+path
+	.attr("d", line)
+	.attr("transform", null)
+	.transition()
+	.duration(250)
+	.ease("linear")
+	.attr("transform", "translate(" + x(-1) + ",0)")
+	.each("end", tick);
+// pop the old data point off the front
+data.shift();
+}
+
+
+</script>
+
+
+
+
+
+	

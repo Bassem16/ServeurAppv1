@@ -6,10 +6,8 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
-import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 
@@ -24,7 +22,6 @@ import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.web.ConnexionDataBase;
 
 import fr.dauphine.bank.entities.TypePersonne;
-
 
 @Stateless
 public class ServiceSauvegardeBean implements ServiceSauvegarde {
@@ -50,7 +47,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 		}
 
 	}
-	
+
 	public void sauvegardeCompteEntreprise(Personne personne) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -69,8 +66,6 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 		}
 
 	}
-	
-	
 
 	@Override
 	public void sauvegardeOffreHistorique(OffreHistorique offreHistorique) {
@@ -79,8 +74,8 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			//em.merge(offreHistorique);
-	
+			// em.merge(offreHistorique);
+
 			em.merge(offreHistorique);
 			et.commit();
 			System.out.println("Sauvegarde en base de l'offre (historique) "
@@ -92,7 +87,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 		}
 
 	}
-	
+
 	@Override
 	public void sauvgarderEntreprise(Entreprise entreprise) {
 		try {
@@ -132,29 +127,29 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 		}
 
 	}
-	
+
 	@Override
-	public void sauvgarderInformation(Information information){
+	public void sauvgarderInformation(Information information) {
 		try {
 
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			information.setDateInformation(new Date(System.currentTimeMillis()));
+			information
+					.setDateInformation(new Date(System.currentTimeMillis()));
 			em.merge(information);
 			et.commit();
-			System.out.println("Mise à jour du titre:" 
-					+ "  / " + information.getIdInformation());
+			System.out.println("Mise à jour du titre:" + "  / "
+					+ information.getIdInformation());
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
 	}
-	
-	
-	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique){
+
+	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique) {
 		try {
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
@@ -169,10 +164,10 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
-		
+
 	}
-	
-	public void sauvgarderOffre(Offre offre){
+
+	public void sauvgarderOffre(Offre offre) {
 		try {
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
@@ -187,7 +182,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
-		
+
 	}
 
 }

@@ -5,7 +5,6 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.Comparator;
-import java.util.Date;
 import java.util.Set;
 
 /**

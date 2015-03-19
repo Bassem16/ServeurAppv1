@@ -60,7 +60,6 @@ public class GestionInvestisseurBean implements Serializable {
 	private String domaineChekName = null;
 
 	private Entreprise ficheEntreprise = null;
-
 	@EJB
 	ServiceInvestisseur serviceInvestisseur;
 	@EJB
@@ -145,11 +144,8 @@ public class GestionInvestisseurBean implements Serializable {
 
 	// Ne plus toucher
 	public void cloturerOffre(Offre offre) {
-		// OffreHistorique offreH = offreAHistorique(offre, "Retirée");
 		passerOffreAHistorique_Offre(offre, "Retirée");
 
-		// serviceSauvegarde.sauvegardeCompte(p);
-		// serviceSauvegarde.sauvegardeCompte(personne);
 		serviceInvestisseur.supprimerOffre(offre);
 
 	}
@@ -172,8 +168,6 @@ public class GestionInvestisseurBean implements Serializable {
 		for (int i = 0; i < AO.size(); i++) {
 			Offre offre = AO.get(i);
 			offreH = offreAHistorique(offre, "Refusée");
-
-			// System.out.println("TAILLE  : " + titre.getOffres().size());
 
 			ArrayList<Titre> titres = offre.getTitresList();
 			for (int j = 0; j < titres.size(); j++) {
@@ -199,12 +193,8 @@ public class GestionInvestisseurBean implements Serializable {
 			personneEmetteur.getOffreHistoriquesEmises().add(offreH);
 			personneReceveur.getOffreHistoriquesRecues().add(offreH);
 
-			// serviceSauvegarde.sauvegardeCompte(personneReceveur);
-			// serviceSauvegarde.sauvegardeCompte(personneEmetteur); //
 			serviceInvestisseur.supprimerOffre(offre);
 		}
-
-		// serviceSauvegarde.sauvegardeTitre(titre); //
 
 	}
 
@@ -232,7 +222,6 @@ public class GestionInvestisseurBean implements Serializable {
 
 		}
 
-		// System.out.println("ON SAUVEGARDE L'OFFRE");
 		serviceSauvegarde.sauvegardeOffreHistorique(offreH);
 
 		Personne personneReceveur = offre.getPersonneReceveur();
@@ -244,7 +233,6 @@ public class GestionInvestisseurBean implements Serializable {
 		personneEmetteur.getOffreHistoriquesEmises().add(offreH);
 		personneReceveur.getOffreHistoriquesRecues().add(offreH);
 
-		// System.out.println("ON SAUVEGZRDEE LE COMPTE DE LA PERSONNE");
 		// serviceSauvegarde.sauvegardeCompte(personneReceveur);
 		// serviceSauvegarde.sauvegardeCompte(personneEmetteur);
 		// System.out.println("ON SUPPRIME L'OFFRE");
@@ -262,8 +250,7 @@ public class GestionInvestisseurBean implements Serializable {
 			for (Offre o : t.getOffresList()) {
 
 				t.getOffres().remove(o);
-				// o.getPersonneEmetteur().getOffreHistoriquesEmises().remove(o);
-				// o.getPersonneReceveur().getOffreHistoriquesRecues().remove(o);
+
 				o.getPersonneEmetteur().getOffresEmises().remove(o);
 				o.getPersonneReceveur().getOffresRecues().remove(o);
 
@@ -282,9 +269,6 @@ public class GestionInvestisseurBean implements Serializable {
 		p.getTitres().addAll(titres); // On lui donne les titres
 		personne.getTitres().removeAll(titres); // On les supprimes de chez le
 		// donneur
-
-		// serviceSauvegarde.sauvegardeCompte(p);
-		// serviceSauvegarde.sauvegardeCompte(personne);
 
 		for (Titre t : titres) {
 			serviceInvestisseur.miseAJourTitre(t);
@@ -306,6 +290,152 @@ public class GestionInvestisseurBean implements Serializable {
 		serviceSauvegarde.sauvegardeCompte(personneReceveur);
 	}
 
+	public ArrayList<String> personneVisiteListNomTitreSelect() {
+		ArrayList<String> nomTitres = new ArrayList<String>();
+		for (Titre t : personneVisite.getTitresList()) {
+
+			if (nomTitres.contains(t.getNomTitre()) == false
+					&& t.getTypeTitre().equals(typeTitreTransaction)
+					&& t.estVente()) {
+				nomTitres.add(t.getNomTitre());
+
+			}
+		}
+
+		return nomTitres;
+	}
+
+	public ArrayList<Titre> personneVisiteTitrePourOffre() {
+		ArrayList<Titre> titres = new ArrayList<Titre>();
+		for (Titre t : personneVisiteListTitre()) {
+			if (t.getNomTitre().equals(nomTitreTransaction)
+					&& t.getTypeTitre().equals(typeTitreTransaction)) {
+				titres.add(t);
+				// System.out.println(t.getNomTitre()+ "/"+ nomTitreTransaction
+				// +"  ----   "+ t.getTypeTitre()+"/"+typeTitreTransaction);
+			}
+		}
+		return titres;
+	}
+
+	public ArrayList<Integer> personneVisiteTitrePourOffreNombre() {
+		ArrayList<Integer> nomb = new ArrayList<Integer>();
+		int i = 0;
+		for (Titre t : personneVisite.getTitresList()) {
+			if (t.getNomTitre().equals(nomTitreTransaction)
+					&& t.getTypeTitre().equals(typeTitreTransaction)
+					&& t.estVente()) {
+				nomb.add(i + 1);
+				i++;
+				// System.out.println(t.getNomTitre()+ "/"+ nomTitreTransaction
+				// +"  ----   "+ t.getTypeTitre()+"/"+typeTitreTransaction);
+			}
+		}
+		return nomb;
+	}
+
+	@SuppressWarnings("unchecked")
+	public String faireOffre() {
+		ArrayList<Titre> titresOffre = personneVisiteTitrePourOffre();
+		Collections.sort(titresOffre, Titre.nbrOffre);
+		Offre offre = new Offre();
+		offre.setDateOffre(new Date(System.currentTimeMillis()));
+		offre.setEntreprise(titresOffre.get(0).getEntreprise());
+		offre.setPersonneEmetteur(personne);
+		offre.setPersonneReceveur(personneVisite);
+		offre.setPrixOffre(prixOffre);
+		offre.setQuantiteOffre(quantiteOffre);
+		offre.setStatut("En cours");
+		offre.setTitres(new HashSet<Titre>());
+		offre.setTypeOffre("Achat");
+
+		for (int i = 0; i < quantiteOffre; i++) {
+			Titre t = titresOffre.get(i);
+			t.getOffres().add(offre);
+			offre.getTitres().add(t);
+
+			System.out.println(offre.getDateOffre());
+
+			System.out.println("Fais");//
+			// LierOffreTitre liaison = creerLiaisonOffreTitre(offre ,
+			// titresOffre.get(i));
+			// serviceSauvegarde.sauvgardeLierOffreTitre(liaison);
+
+		}
+
+		serviceSauvegarde.sauvgarderOffre(offre);
+		// serviceSauvegarde.sauvgarderOffre(offre);
+		personne.getOffresEmises().add(offre);
+		// personne.setSolde(personne.getSolde()-prixOffre);
+		// personneVisite.getOffresRecues().add(offre);
+
+		// serviceSauvegarde.sauvegardeCompte(personne);
+		// serviceSauvegarde.sauvegardeCompte(personneVisite);
+
+		return "home.xhtml";
+
+	}
+
+	public ArrayList<Entreprise> listEntrepriseFiltre() {
+		ArrayList<Entreprise> listEntrepriseFiltre = new ArrayList<Entreprise>();
+		ArrayList<Entreprise> listEntreprise = listEntreprise();
+		// System.out.println("ON EST LA :" + entrepriseCheckRecherche + " et "
+		// + domaineChek);
+		for (Entreprise e : listEntreprise) {
+			if (entrepriseCheckRecherche == false && domaineChek == false) {
+				listEntrepriseFiltre.add(e);
+				// System.out.println("Par rien");
+
+			} else if (entrepriseCheckRecherche == true && domaineChek == false) {
+				if (e.getNomEntreprise().toLowerCase()
+						.indexOf(entrepriseCheckRechercheName.toLowerCase()) > -1
+						|| entrepriseCheckRechercheName.toLowerCase().indexOf(
+								e.getNomEntreprise().toLowerCase()) > -1
+						|| entrepriseCheckRechercheName.toLowerCase().equals(
+								e.getNomEntreprise().toLowerCase())) {
+					listEntrepriseFiltre.add(e);
+					// System.out.println("Par Nom");
+
+				}
+
+			} else if (entrepriseCheckRecherche == false && domaineChek == true) {
+				if (e.getSecteurEntreprise().toLowerCase()
+						.indexOf(domaineChekName.toLowerCase()) > -1
+						|| domaineChekName.toLowerCase().indexOf(
+								e.getSecteurEntreprise().toLowerCase()) > -1) {
+					// System.out.println("Par domaine");
+					listEntrepriseFiltre.add(e);
+				}
+			} else {
+				if ((e.getSecteurEntreprise().toLowerCase()
+						.indexOf(domaineChekName.toLowerCase()) > -1 || domaineChekName
+						.toLowerCase().indexOf(
+								e.getSecteurEntreprise().toLowerCase()) > -1)
+						&& (e.getNomEntreprise()
+								.toLowerCase()
+								.indexOf(
+										entrepriseCheckRechercheName
+												.toLowerCase()) > -1 || entrepriseCheckRechercheName
+								.toLowerCase().indexOf(
+										e.getNomEntreprise().toLowerCase()) > -1)) {
+					listEntrepriseFiltre.add(e);
+				}
+
+			}
+
+		}
+
+		Collections.sort(listEntrepriseFiltre, Entreprise.alphabetique);
+		return listEntrepriseFiltre;
+
+	}
+
+	public void addMessage() {
+		String summary = entrepriseChek ? "Filtre enclenché" : "Filtre retiré";
+		FacesContext.getCurrentInstance().addMessage(null,
+				new FacesMessage(summary));
+	}
+
 	public String visiterPersonne(Personne p) {
 		personneVisite = p;
 
@@ -317,7 +447,6 @@ public class GestionInvestisseurBean implements Serializable {
 		System.out.println("CHARGEMENT DE L'ENTREPRISE....EN COURS");
 		ficheEntreprise = e;
 		System.out.println("CHARGEMENT DE L'ENTREPRISE....OK");
-		System.out.println(e.getLogo());
 
 		return "company.xhtml";
 
@@ -519,7 +648,10 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public ArrayList<Titre> getTitresList() {
-		return new ArrayList<Titre>(getPersonne().getTitres());
+		ArrayList<Titre> listTitre = new ArrayList<Titre>(getPersonne()
+				.getTitres());
+		Collections.sort(listTitre, Titre.alphabetique);
+		return listTitre;
 	}
 
 	public ArrayList<Demande> getDemandesList() {
@@ -551,7 +683,6 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public void setEntrepriseChek(boolean entrepriseChek) {
-		System.out.println(isEntrepriseChek() + " to " + entrepriseChek);
 		this.entrepriseChek = entrepriseChek;
 	}
 
@@ -656,151 +787,21 @@ public class GestionInvestisseurBean implements Serializable {
 		return typeTitres;
 	}
 
-	public ArrayList<String> personneVisiteListNomTitreSelect() {
-		ArrayList<String> nomTitres = new ArrayList<String>();
-		for (Titre t : personneVisite.getTitresList()) {
+	public double getDentention() {
 
-			if (nomTitres.contains(t.getNomTitre()) == false
-					&& t.getTypeTitre().equals(typeTitreTransaction)
-					&& t.estVente()) {
-				nomTitres.add(t.getNomTitre());
-				// System.out.println(t.getNomTitre());
-			}
-		}
+		double detention = 0;
 
-		return nomTitres;
-	}
-
-	public ArrayList<Titre> personneVisiteTitrePourOffre() {
-		ArrayList<Titre> titres = new ArrayList<Titre>();
-		for (Titre t : personneVisiteListTitre()) {
-			if (t.getNomTitre().equals(nomTitreTransaction)
-					&& t.getTypeTitre().equals(typeTitreTransaction)) {
-				titres.add(t);
-				// System.out.println(t.getNomTitre()+ "/"+ nomTitreTransaction
-				// +"  ----   "+ t.getTypeTitre()+"/"+typeTitreTransaction);
-			}
-		}
-		return titres;
-	}
-
-	public ArrayList<Integer> personneVisiteTitrePourOffreNombre() {
-		ArrayList<Integer> nomb = new ArrayList<Integer>();
-		int i = 0;
-		for (Titre t : personneVisite.getTitresList()) {
-			if (t.getNomTitre().equals(nomTitreTransaction)
-					&& t.getTypeTitre().equals(typeTitreTransaction)
-					&& t.estVente()) {
-				nomb.add(i + 1);
-				i++;
-				// System.out.println(t.getNomTitre()+ "/"+ nomTitreTransaction
-				// +"  ----   "+ t.getTypeTitre()+"/"+typeTitreTransaction);
-			}
-		}
-		return nomb;
-	}
-
-	@SuppressWarnings("unchecked")
-	public String faireOffre() {
-		ArrayList<Titre> titresOffre = personneVisiteTitrePourOffre();
-		Collections.sort(titresOffre, Titre.nbrOffre);
-		Offre offre = new Offre();
-		offre.setDateOffre(new Date(System.currentTimeMillis()));
-		offre.setEntreprise(titresOffre.get(0).getEntreprise());
-		offre.setPersonneEmetteur(personne);
-		offre.setPersonneReceveur(personneVisite);
-		offre.setPrixOffre(prixOffre);
-		offre.setQuantiteOffre(quantiteOffre);
-		offre.setStatut("En cours");
-		offre.setTitres(new HashSet<Titre>());
-		offre.setTypeOffre("Achat");
-
-		for (int i = 0; i < quantiteOffre; i++) {
-			Titre t = titresOffre.get(i);
-			t.getOffres().add(offre);
-			offre.getTitres().add(t);
-
-			System.out.println(offre.getDateOffre());
-
-			System.out.println("Fais");//
-			// LierOffreTitre liaison = creerLiaisonOffreTitre(offre ,
-			// titresOffre.get(i));
-			// serviceSauvegarde.sauvgardeLierOffreTitre(liaison);
-
-		}
-
-		serviceSauvegarde.sauvgarderOffre(offre);
-		// serviceSauvegarde.sauvgarderOffre(offre);
-		personne.getOffresEmises().add(offre);
-		// personne.setSolde(personne.getSolde()-prixOffre);
-		// personneVisite.getOffresRecues().add(offre);
-
-		// serviceSauvegarde.sauvegardeCompte(personne);
-		// serviceSauvegarde.sauvegardeCompte(personneVisite);
-
-		return "home.xhtml";
-
-	}
-
-	@SuppressWarnings("unchecked")
-	public ArrayList<Entreprise> listEntrepriseFiltre() {
-		ArrayList<Entreprise> listEntrepriseFiltre = new ArrayList<Entreprise>();
-		ArrayList<Entreprise> listEntreprise = listEntreprise();
-		// System.out.println("ON EST LA :" + entrepriseCheckRecherche + " et "
-		// + domaineChek);
-		for (Entreprise e : listEntreprise) {
-			if (entrepriseCheckRecherche == false && domaineChek == false) {
-				listEntrepriseFiltre.add(e);
-				// System.out.println("Par rien");
-
-			} else if (entrepriseCheckRecherche == true && domaineChek == false) {
-				if (e.getNomEntreprise().toLowerCase()
-						.indexOf(entrepriseCheckRechercheName.toLowerCase()) > -1
-						|| entrepriseCheckRechercheName.toLowerCase().indexOf(
-								e.getNomEntreprise().toLowerCase()) > -1
-						|| entrepriseCheckRechercheName.toLowerCase().equals(
-								e.getNomEntreprise().toLowerCase())) {
-					listEntrepriseFiltre.add(e);
-					// System.out.println("Par Nom");
-
-				}
-
-			} else if (entrepriseCheckRecherche == false && domaineChek == true) {
-				if (e.getSecteurEntreprise().toLowerCase()
-						.indexOf(domaineChekName.toLowerCase()) > -1
-						|| domaineChekName.toLowerCase().indexOf(
-								e.getSecteurEntreprise().toLowerCase()) > -1) {
-					// System.out.println("Par domaine");
-					listEntrepriseFiltre.add(e);
-				}
-			} else {
-				if ((e.getSecteurEntreprise().toLowerCase()
-						.indexOf(domaineChekName.toLowerCase()) > -1 || domaineChekName
-						.toLowerCase().indexOf(
-								e.getSecteurEntreprise().toLowerCase()) > -1)
-						&& (e.getNomEntreprise()
-								.toLowerCase()
-								.indexOf(
-										entrepriseCheckRechercheName
-												.toLowerCase()) > -1 || entrepriseCheckRechercheName
-								.toLowerCase().indexOf(
-										e.getNomEntreprise().toLowerCase()) > -1)) {
-					listEntrepriseFiltre.add(e);
-				}
+		for (Titre t : personne.getTitresList()) {
+			if (t.getEntreprise().getNomEntreprise()
+					.equals(ficheEntreprise.getNomEntreprise())
+					&& t.getTypeTitre().equals("Action")) {
+				detention++;
 
 			}
 
 		}
 
-		Collections.sort(listEntrepriseFiltre, Entreprise.alphabetique);
-		return listEntrepriseFiltre;
-
-	}
-
-	public void addMessage() {
-		String summary = entrepriseChek ? "Filtre enclenché" : "Filtre retiré";
-		FacesContext.getCurrentInstance().addMessage(null,
-				new FacesMessage(summary));
+		return (detention / ficheEntreprise.getNombreTitreTotal()) * 100;
 	}
 
 	public boolean isEntrepriseCheckRecherche() {
@@ -845,4 +846,5 @@ public class GestionInvestisseurBean implements Serializable {
 	public void setFicheEntreprise(Entreprise ficheEntreprise) {
 		this.ficheEntreprise = ficheEntreprise;
 	}
+
 }

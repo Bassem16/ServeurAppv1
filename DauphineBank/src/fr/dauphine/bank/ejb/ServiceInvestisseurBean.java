@@ -6,7 +6,6 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 //import javax.persistence.Query;
 
@@ -19,14 +18,9 @@ import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.web.ConnexionDataBase;
 
-//import fr.dauphine.bank.entities.Offre;
-
 @Stateless
 public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
-//	@PersistenceUnit
-//	private static EntityManagerFactory emf = Persistence
-//			.createEntityManagerFactory("DauphineBank");
 	@PersistenceUnit
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
@@ -37,9 +31,6 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			// Offre o = em.getReference(Offre.class, offre.getIdOffre());
-			// em.remove(em.contains(offre) ? offre : em.merge(offre));
-			// em.remove(em.contains(o) ? o : em.merge(o));
 			Query query = em
 					.createQuery("DELETE FROM LierOffreTitre lot WHERE lot.id.idOffre LIKE:personneID");
 			query.setParameter("personneID", offre.getIdOffre());
@@ -74,12 +65,11 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 	}
 
-	
-
 	@SuppressWarnings("unchecked")
 	@Override
 	public ArrayList<Titre> recupererTitre(boolean entrepriseChek,
-			boolean typeChek,boolean userCheck, String entrepriseNom, String nomType, String userNom) {
+			boolean typeChek, boolean userCheck, String entrepriseNom,
+			String nomType, String userNom) {
 		ArrayList<Titre> selectedTitre = new ArrayList<Titre>();
 		if (entrepriseChek == true && typeChek == true && userCheck == false) {
 			try {
@@ -98,7 +88,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 						+ "   + ");
 			} finally {
 			}
-		} else if (entrepriseChek == false && typeChek == true && userCheck == false) {
+		} else if (entrepriseChek == false && typeChek == true
+				&& userCheck == false) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -116,7 +107,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} finally {
 			}
 
-		} else if (entrepriseChek == true && typeChek == false && userCheck == false) {
+		} else if (entrepriseChek == true && typeChek == false
+				&& userCheck == false) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -133,7 +125,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} finally {
 			}
 
-		}else if(entrepriseChek == true && typeChek == true && userCheck == true) {
+		} else if (entrepriseChek == true && typeChek == true
+				&& userCheck == true) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -151,14 +144,15 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 						+ "   + ");
 			} finally {
 			}
-		} else if (entrepriseChek == false && typeChek == true && userCheck == true) {
+		} else if (entrepriseChek == false && typeChek == true
+				&& userCheck == true) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
 						.createQuery("SELECT t FROM Titre t WHERE t.typeTitre LIKE:test AND t.etatTitre=1 AND t.personne.login LIKE:test3");
 
 				query.setParameter("test", nomType);
-				query.setParameter("test3",userNom);
+				query.setParameter("test3", userNom);
 
 				selectedTitre = (ArrayList<Titre>) query.getResultList();
 				em.close();
@@ -170,7 +164,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} finally {
 			}
 
-		} else if (entrepriseChek == true && typeChek == false && userCheck == true) {
+		} else if (entrepriseChek == true && typeChek == false
+				&& userCheck == true) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -188,7 +183,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} finally {
 			}
 
-		}else if(entrepriseChek == false && typeChek == false && userCheck == true) {
+		} else if (entrepriseChek == false && typeChek == false
+				&& userCheck == true) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -204,7 +200,7 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 						+ "   + ");
 			} finally {
 			}
-		}else {
+		} else {
 			return selectedTitre;
 		}
 		return selectedTitre;
@@ -253,23 +249,26 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Information> recupererInformationEntreprise(Entreprise entreprise) {
-			
-			ArrayList<Information> selectedInformation = new ArrayList<Information>();
+	public ArrayList<Information> recupererInformationEntreprise(
+			Entreprise entreprise) {
 
-			try {
-				EntityManager em = emf.createEntityManager();
-				Query query = em.createQuery("SELECT i FROM Information i WHERE i.entreprise.nomEntreprise LIKE:entrepriseId");
-				query.setParameter("entrepriseId", entreprise.getNomEntreprise());
-				selectedInformation = (ArrayList<Information>) query.getResultList();
-				em.close();
-				return selectedInformation;
+		ArrayList<Information> selectedInformation = new ArrayList<Information>();
 
-			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-			} finally {
-			}
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em
+					.createQuery("SELECT i FROM Information i WHERE i.entreprise.nomEntreprise LIKE:entrepriseId");
+			query.setParameter("entrepriseId", entreprise.getNomEntreprise());
+			selectedInformation = (ArrayList<Information>) query
+					.getResultList();
+			em.close();
 			return selectedInformation;
+
+		} catch (Exception e) {
+			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+		} finally {
+		}
+		return selectedInformation;
 	}
 
 }

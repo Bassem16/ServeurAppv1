@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
@@ -16,9 +15,6 @@ import fr.dauphine.bank.web.ConnexionDataBase;
 @Stateless
 public class ServiceVerificationDataBean implements ServiceVerificationData {
 
-//	@PersistenceUnit
-//	private static EntityManagerFactory emf = Persistence
-//			.createEntityManagerFactory("DauphineBank");
 	@PersistenceUnit
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
@@ -28,7 +24,6 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		try {
 
 			EntityManager em = emf.createEntityManager();
-
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
 			query.setParameter("email", email);
@@ -58,8 +53,8 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 		}
 		return Comptes;
 	}
-	
-	public Entreprise verificationEntreprise(String nom){
+
+	public Entreprise verificationEntreprise(String nom) {
 		Entreprise en = new Entreprise();
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -72,9 +67,9 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
 		} finally {
 		}
-		
+
 		return en;
-		
+
 	}
-	
+
 }

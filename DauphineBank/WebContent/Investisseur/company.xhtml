@@ -60,22 +60,34 @@
 
 	<!-- Main -->
 	<section id="main" class="container"> <header>
-	<h2><h:graphicImage value="#{gestionInvestisseurBean.ficheEntreprise.logo}" type="svg" />
-	
-		</h2>
-		<p>
-			Page #{gestionInvestisseurBean.ficheEntreprise.nomEntreprise}
-		</p>
-		<br></br>
-		<p>
-		#{gestionInvestisseurBean.ficheEntreprise.secteurEntreprise}
-		</p>
+	<h2>
+		<h:graphicImage
+			value="#{gestionInvestisseurBean.ficheEntreprise.logo}" type="svg" />
+
+	</h2>
+	<h3>Bienvenue sur la page
+		#{gestionInvestisseurBean.ficheEntreprise.nomEntreprise}</h3>
+	<br></br>
+	<h3>
+		<p>#{gestionInvestisseurBean.ficheEntreprise.secteurEntreprise}</p>
+	</h3>
+	<br></br>
+	<p>Suivez en direct le cours des actions
+		#{gestionInvestisseurBean.ficheEntreprise.nomEntreprise} pour savoir
+		quand investir</p>
+	<br></br>
+	<iframe src="../NewFile.html" width="800" height="275"></iframe> <br></br>
+	<p>
+		<h:outputText
+			value="Vous detenez #{gestionInvestisseurBean.dentention}% des parts de #{gestionInvestisseurBean.ficheEntreprise.nomEntreprise}"
+			style="font-weight:bold" />
+	</p>
 	</header>
 
 	<div class="row">
 		<div class="12u">
 			<section class="box">
-			<h3>Information Tweetez</h3>
+			<h3>Dernières informations</h3>
 			<h:form>
 
 
@@ -98,17 +110,8 @@
 						<h:outputText value="#{i.texteInformation}" />
 					</h:column>
 
-					
+
 				</h:dataTable>
-
-
-
-
-
-				
-
-
-
 
 			</h:form> </section>
 		</div>

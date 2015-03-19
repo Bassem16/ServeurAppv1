@@ -143,6 +143,21 @@ public class Titre implements Serializable {
 		}
 
 	};
+	
+	
+	public static final Comparator<Titre> alphabetique = new Comparator<Titre>() {
+
+		public int compare(Titre o1, Titre o2) {
+
+			
+
+			
+
+			return o1.getNomTitre().compareTo(o2.getNomTitre());
+
+		}
+
+	};
 
 	
 
