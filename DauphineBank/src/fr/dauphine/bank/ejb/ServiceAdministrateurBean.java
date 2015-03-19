@@ -16,15 +16,16 @@ import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceAdministrateurBean implements ServiceAdministrateur {
 
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Demande> listeDemandes() {
 
 		ArrayList<Demande> Demandes = null;
@@ -40,6 +41,7 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 		return Demandes;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<DemandeHistorique> listeDemandesHistorique() {
 
 		ArrayList<DemandeHistorique> DemandesH = null;
@@ -56,6 +58,7 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 	}
 	
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<Entreprise> listeEntreprise() {
 
 		ArrayList<Entreprise> entreprises = null;

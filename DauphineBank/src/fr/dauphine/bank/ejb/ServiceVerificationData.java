@@ -12,5 +12,5 @@ import fr.dauphine.bank.entities.Personne;
 public interface ServiceVerificationData {
 	public ArrayList<Personne> trouverCompteEmail(String email);
 	public ArrayList<Personne> trouverCompteLogin(String email);
-	public Entreprise verificationEntreprise(String nom, String secteur);
+	public Entreprise verificationEntreprise(String nom);
 }

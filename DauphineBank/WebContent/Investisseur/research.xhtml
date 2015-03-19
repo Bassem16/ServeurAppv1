@@ -27,7 +27,7 @@
 	<!-- Header -->
 	<header id="header" class="skel-layers-fixed">
 	<h1>
-		<a href="../index.xhtml">Team Trade</a> par The Team | Votre Solde #{gestionInvestisseurBean.soldePersonne}€
+		<a href="../index.xhtml">Team Trade</a> par The Team 
 	</h1>
 	<nav id="nav">
 	<ul>
@@ -163,6 +163,11 @@
 						<h:commandButton id="toto"
 							action="#{gestionInvestisseurBean.visiterPersonne(t.personne)}"
 							value="Acceder au profil" />
+					</h:column>
+					<h:column>
+						<h:commandButton id="baba"
+							action="#{gestionInvestisseurBean.visiterEntreprise(t.entreprise)}"
+							value="Portail entreprise" />
 					</h:column>
 
 

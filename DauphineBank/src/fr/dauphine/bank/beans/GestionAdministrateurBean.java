@@ -57,12 +57,15 @@ public class GestionAdministrateurBean implements Serializable {
 		this.personneEntreprise = new Personne();
 		this.personneEntreprise.setValide(1);
 		this.personneEntreprise.setEntreprise(null);
+		this.personneEntreprise.setTypePersonne(null);
 		this.personneEntreprise.setTitres(new HashSet<Titre>());
 		this.personneEntreprise.setOffresEmises(new HashSet<Offre>());
 		this.personneEntreprise.setOffresRecues(new HashSet<Offre>());
 		this.personneEntreprise.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
 		this.personneEntreprise.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
 		this.personneEntreprise.setDemandeHistoriques(new HashSet<DemandeHistorique>());
+		this.personneEntreprise.setDemandes(new HashSet<Demande>());
+		
 		
 	}
 
@@ -115,9 +118,9 @@ public class GestionAdministrateurBean implements Serializable {
 	}
 	
 	public void ajouterMembreEntreprise() {
-		Entreprise e= serviceVerificationData.verificationEntreprise(personne.getEntreprise().getNomEntreprise(),personne.getEntreprise().getSecteurEntreprise());
-		personne.setEntreprise(e);
-		serviceSauvegarde.sauvegardeCompte(this.personneEntreprise);
+		Entreprise e=serviceVerificationData.verificationEntreprise(entreprise.getNomEntreprise());
+		personneEntreprise.setEntreprise(e);
+		serviceSauvegarde.sauvegardeCompteEntreprise(this.personneEntreprise);
 	}
 	
 	
@@ -230,6 +233,7 @@ public class GestionAdministrateurBean implements Serializable {
 		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
 	}
 
+
 	public String getLogoEntreprise() {
 		return getEntreprise().getLogo();
 	}
@@ -237,4 +241,62 @@ public class GestionAdministrateurBean implements Serializable {
 	public void setLogoEntreprise(String logoEntreprise) {
 		getEntreprise().setLogo(logoEntreprise);
 	}
+
+	
+	
+	public Personne getPersonneEntreprise() {
+		return this.personneEntreprise;
+	}
+
+	public int getIdPersonneEntreprise() {
+		return getPersonneEntreprise().getIdPersonne();
+	}
+
+	public void setIdPersonneEntreprise(int idPersonne) {
+		getPersonne().setIdPersonne(idPersonne);
+	}
+
+	public String getEmailEntreprise() {
+		return getPersonneEntreprise().getEmail();
+	}
+
+	public void setEmailEntreprise(String email) {
+		getPersonneEntreprise().setEmail(email);
+		;
+	}
+
+	public String getLoginEntreprise() {
+		return getPersonneEntreprise().getLogin();
+	}
+
+	public void setLoginEntreprise(String login) {
+		getPersonneEntreprise().setLogin(login);
+	}
+
+	public String getMotDePasseEntreprise() {
+		return getPersonneEntreprise().getMotDePasse();
+	}
+
+	public void setMotDePasseEntreprise(String motDePasse) {
+		getPersonneEntreprise().setMotDePasse(motDePasse);
+		;
+	}
+
+	public String getNomPersonneEntreprise() {
+		return getPersonne().getNomPersonne();
+	}
+
+	public void setNomPersonneEntreprise(String nomPersonne) {
+		getPersonneEntreprise().setNomPersonne(nomPersonne);
+	}
+
+	public String getPrenomPersonneEntreprise() {
+		return getPersonneEntreprise().getPrenomPersonne();
+	}
+	
+	public void setPrenomPersonneEntreprise(String nomPersonne) {
+		getPersonneEntreprise().setPrenomPersonne(nomPersonne);
+	}
+	
+
 }

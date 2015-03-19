@@ -13,6 +13,7 @@ import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
 import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
@@ -248,6 +249,27 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 		} finally {
 		}
 		return selectedPersonne;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public ArrayList<Information> recupererInformationEntreprise(Entreprise entreprise) {
+			
+			ArrayList<Information> selectedInformation = new ArrayList<Information>();
+
+			try {
+				EntityManager em = emf.createEntityManager();
+				Query query = em.createQuery("SELECT i FROM Information i WHERE i.entreprise.nomEntreprise LIKE:entrepriseId");
+				query.setParameter("entrepriseId", entreprise.getNomEntreprise());
+				selectedInformation = (ArrayList<Information>) query.getResultList();
+				em.close();
+				return selectedInformation;
+
+			} catch (Exception e) {
+				System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			} finally {
+			}
+			return selectedInformation;
 	}
 
 }

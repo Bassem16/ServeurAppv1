@@ -20,6 +20,7 @@ import fr.dauphine.bank.ejb.ServiceInvestisseur;
 import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
@@ -58,6 +59,8 @@ public class GestionInvestisseurBean implements Serializable {
 	private String entrepriseCheckRechercheName = null;
 	private String domaineChekName = null;
 
+	private Entreprise ficheEntreprise = null;
+
 	@EJB
 	ServiceInvestisseur serviceInvestisseur;
 	@EJB
@@ -79,16 +82,34 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public ArrayList<Titre> rechercherTitre() {
-		return serviceInvestisseur.recupererTitre(entrepriseChek, typeCheck,
-				userCheck, entrepriseNom, typeNom, userNom);
+		ArrayList<Titre> listTitre = serviceInvestisseur.recupererTitre(
+				entrepriseChek, typeCheck, userCheck, entrepriseNom, typeNom,
+				userNom);
+		ArrayList<Titre> listTitreRemoved = new ArrayList<Titre>();
+		for (Titre t : listTitre) {
+			if (!t.getPersonne().getLogin().equals(personne.getLogin())) {
+				listTitreRemoved.add(t);
+			}
+		}
+
+		return listTitreRemoved;
 
 	}
 
 	public ArrayList<Entreprise> listEntreprise() {
-		ArrayList<Entreprise> listEntreprise = serviceInvestisseur.recupererEntrepriseListAll();
-		Collections.sort(listEntreprise,Entreprise.alphabetique);
+		ArrayList<Entreprise> listEntreprise = serviceInvestisseur
+				.recupererEntrepriseListAll();
+		Collections.sort(listEntreprise, Entreprise.alphabetique);
 
 		return listEntreprise;
+
+	}
+
+	public ArrayList<Information> listInformation() {
+		ArrayList<Information> listInformation = serviceInvestisseur
+				.recupererInformationEntreprise(ficheEntreprise);
+
+		return listInformation;
 
 	}
 
@@ -292,6 +313,16 @@ public class GestionInvestisseurBean implements Serializable {
 
 	}
 
+	public String visiterEntreprise(Entreprise e) {
+		System.out.println("CHARGEMENT DE L'ENTREPRISE....EN COURS");
+		ficheEntreprise = e;
+		System.out.println("CHARGEMENT DE L'ENTREPRISE....OK");
+		System.out.println(e.getLogo());
+
+		return "company.xhtml";
+
+	}
+
 	public void refuserOffre(Offre offre) {
 		passerOffreAHistorique_Offre(offre, "Refusé");
 	}
@@ -432,7 +463,7 @@ public class GestionInvestisseurBean implements Serializable {
 	public ArrayList<Offre> getOffresRecuesList() {
 		ArrayList<Offre> listeOffresRecues = new ArrayList<Offre>();
 		listeOffresRecues.addAll(getPersonne().getOffresRecues());
-		Collections.sort(listeOffresRecues,Offre.prix);
+		Collections.sort(listeOffresRecues, Offre.prix);
 
 		return listeOffresRecues;
 	}
@@ -715,12 +746,12 @@ public class GestionInvestisseurBean implements Serializable {
 	public ArrayList<Entreprise> listEntrepriseFiltre() {
 		ArrayList<Entreprise> listEntrepriseFiltre = new ArrayList<Entreprise>();
 		ArrayList<Entreprise> listEntreprise = listEntreprise();
-		System.out.println("ON EST LA :" + entrepriseCheckRecherche + " et "
-				+ domaineChek);
+		// System.out.println("ON EST LA :" + entrepriseCheckRecherche + " et "
+		// + domaineChek);
 		for (Entreprise e : listEntreprise) {
 			if (entrepriseCheckRecherche == false && domaineChek == false) {
 				listEntrepriseFiltre.add(e);
-				System.out.println("Par rien");
+				// System.out.println("Par rien");
 
 			} else if (entrepriseCheckRecherche == true && domaineChek == false) {
 				if (e.getNomEntreprise().toLowerCase()
@@ -730,7 +761,7 @@ public class GestionInvestisseurBean implements Serializable {
 						|| entrepriseCheckRechercheName.toLowerCase().equals(
 								e.getNomEntreprise().toLowerCase())) {
 					listEntrepriseFiltre.add(e);
-					System.out.println("Par Nom");
+					// System.out.println("Par Nom");
 
 				}
 
@@ -739,7 +770,7 @@ public class GestionInvestisseurBean implements Serializable {
 						.indexOf(domaineChekName.toLowerCase()) > -1
 						|| domaineChekName.toLowerCase().indexOf(
 								e.getSecteurEntreprise().toLowerCase()) > -1) {
-					System.out.println("Par domaine");
+					// System.out.println("Par domaine");
 					listEntrepriseFiltre.add(e);
 				}
 			} else {
@@ -760,7 +791,7 @@ public class GestionInvestisseurBean implements Serializable {
 			}
 
 		}
-		
+
 		Collections.sort(listEntrepriseFiltre, Entreprise.alphabetique);
 		return listEntrepriseFiltre;
 
@@ -805,5 +836,13 @@ public class GestionInvestisseurBean implements Serializable {
 
 	public void setDomaineChekName(String domaineChekName) {
 		this.domaineChekName = domaineChekName;
+	}
+
+	public Entreprise getFicheEntreprise() {
+		return ficheEntreprise;
+	}
+
+	public void setFicheEntreprise(Entreprise ficheEntreprise) {
+		this.ficheEntreprise = ficheEntreprise;
 	}
 }

@@ -4,7 +4,11 @@ import javax.ejb.Remote;
 
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
+
 import fr.dauphine.bank.entities.Offre;
+
+import fr.dauphine.bank.entities.Information;
+
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
@@ -12,9 +16,19 @@ import fr.dauphine.bank.entities.Titre;
 @Remote
 public interface ServiceSauvegarde {
 	public void sauvegardeCompte(Personne personne);
+
+	public void sauvegardeCompteEntreprise(Personne personne);
+
 	public void sauvegardeOffreHistorique(OffreHistorique offreHistorique);
+
 	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique);
+
 	public void sauvegardeTitre(Titre titre);
+
 	public void sauvgarderEntreprise(Entreprise entreprise);
+
 	public void sauvgarderOffre(Offre offre);
+
+	public void sauvgarderInformation(Information information);
+
 }

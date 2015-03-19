@@ -86,8 +86,7 @@
 				</h:inputText> <br></br>
 
 				<p:selectBooleanCheckbox
-					value="#{gestionInvestisseurBean.domaineChek}"
-					id="domaineCheck">
+					value="#{gestionInvestisseurBean.domaineChek}" id="domaineCheck">
 					<p:ajax update="result domaine"
 						listener="#{gestionInvestisseurBean.addMessage}" />
 				</p:selectBooleanCheckbox> <h:outputText value="  Par domaine " /> <h:inputText id="domaine"
@@ -130,6 +129,16 @@
 						<h:outputText value="#{e.nombreTitreTotal}" />
 					</h:column>
 
+					<h:column>
+						
+
+
+					
+						<h:commandButton id="Baba" value="#{e.nomEntreprise}"
+							action="#{gestionInvestisseurBean.visiterEntreprise(e)}" />
+
+
+					</h:column>
 
 
 
