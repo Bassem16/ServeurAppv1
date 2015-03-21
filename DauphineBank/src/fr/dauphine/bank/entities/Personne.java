@@ -14,7 +14,8 @@ import java.util.Set;
 @Entity
 @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p")
 public class Personne implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -8326966837134604007L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

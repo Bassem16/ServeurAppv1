@@ -16,7 +16,7 @@ public class ServiceConnexionBeanTest {
 	
 	@Test
 	public void testVerificationPersonne() {
-		
+		//Not yet implemented
 	}
 
 }

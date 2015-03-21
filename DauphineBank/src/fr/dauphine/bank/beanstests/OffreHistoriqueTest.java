@@ -2,7 +2,6 @@ package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -10,218 +9,208 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
-import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 
 public class OffreHistoriqueTest {
 
+	public static final String TEST= "TEST";
 	@Test
 	public void testOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();
-		assertNotNull(O);
+		OffreHistorique o = new OffreHistorique();
+		assertNotNull(o);
 	}
 
 	@Test
 	public void testGetIdOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setIdOffreHistorique(0);
-		assertEquals(0,O.getIdOffreHistorique());
+		OffreHistorique o = new OffreHistorique();	
+		o.setIdOffreHistorique(0);
+		assertEquals(0,o.getIdOffreHistorique());
 	}
 
 	@Test
 	public void testSetIdOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setIdOffreHistorique(1);
-		assertEquals(1,O.getIdOffreHistorique());
+		OffreHistorique offre = new OffreHistorique();	
+		offre.setIdOffreHistorique(1);
+		assertEquals("OK", 1,offre.getIdOffreHistorique());
 	}
 
 	@Test
 	public void testGetDateOffreHistorique() {
-		OffreHistorique D = new OffreHistorique();	
+		OffreHistorique oh = new OffreHistorique();	
+		Date dateTest = new Date(System.currentTimeMillis());
+		oh.setDateOffreHistorique(dateTest);
 		
-		Calendar cal = Calendar.getInstance();
-		cal.set(1991, 02, 19);
-		Date dateTest = cal.getTime();
-		D.setDateOffreHistorique(dateTest);
-		
-		assertEquals(dateTest ,D.getDateOffreHistorique());
+		assertEquals(dateTest ,oh.getDateOffreHistorique());
 	}
 
 	@Test
 	public void testSetDateOffreHistorique() {
-		OffreHistorique D = new OffreHistorique();	
+		OffreHistorique d = new OffreHistorique();	
 		
-		Calendar cal = Calendar.getInstance();
-		cal.set(1991, 02, 19);
-		Date dateTest = cal.getTime();
-		D.setDateOffreHistorique(dateTest);
+		Date dateTest = new Date(System.currentTimeMillis());
+		d.setDateOffreHistorique(dateTest);
 		
-		assertEquals(dateTest ,D.getDateOffreHistorique());
+		assertEquals(dateTest ,d.getDateOffreHistorique());
 	}
 
 	@Test
 	public void testGetPrixOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setPrixOffreHistorique(0);
-		assertEquals(0, O.getPrixOffreHistorique(), 0);
+		OffreHistorique o = new OffreHistorique();	
+		o.setPrixOffreHistorique(0);
+		assertEquals(0, o.getPrixOffreHistorique(), 0);
 	}
 
 	@Test
 	public void testSetPrixOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setPrixOffreHistorique(1);
-		assertEquals(1,O.getPrixOffreHistorique(), 0);
+		OffreHistorique o = new OffreHistorique();	
+		o.setPrixOffreHistorique(1);
+		assertEquals(1,o.getPrixOffreHistorique(), 0);
 	}
 
 	@Test
 	public void testGetQuantiteOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setQuantiteOffreHistorique(0);
-		assertEquals(0, O.getQuantiteOffreHistorique(), 0);
+		OffreHistorique o = new OffreHistorique();	
+		o.setQuantiteOffreHistorique(0);
+		assertEquals(0, o.getQuantiteOffreHistorique(), 0);
 	}
 
 	@Test
 	public void testSetQuantiteOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setQuantiteOffreHistorique(0);
-		assertEquals(0, O.getQuantiteOffreHistorique(), 0);
+		OffreHistorique o = new OffreHistorique();	
+		o.setQuantiteOffreHistorique(0);
+		assertEquals(0, o.getQuantiteOffreHistorique(), 0);
 	}
 
 	@Test
 	public void testGetStatut() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setStatut("TEST");
-		assertEquals("TEST",O.getStatut());
+		OffreHistorique o = new OffreHistorique();	
+		o.setStatut(TEST);
+		assertEquals(TEST,o.getStatut());
 	}
 
 	@Test
 	public void testSetStatut() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setStatut("TEST");
-		assertEquals("TEST",O.getStatut());
+		OffreHistorique o = new OffreHistorique();	
+		o.setStatut(TEST);
+		assertEquals(TEST,o.getStatut());
 	}
 
 	@Test
 	public void testGetTypeOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setTypeOffreHistorique("TEST");
-		assertEquals("TEST",O.getTypeOffreHistorique());
+		OffreHistorique o = new OffreHistorique();	
+		o.setTypeOffreHistorique(TEST);
+		assertEquals(TEST,o.getTypeOffreHistorique());
 	}
 
 	@Test
 	public void testSetTypeOffreHistorique() {
-		OffreHistorique O = new OffreHistorique();	
-		O.setTypeOffreHistorique("TEST");
-		assertEquals("TEST",O.getTypeOffreHistorique());
+		OffreHistorique o = new OffreHistorique();	
+		o.setTypeOffreHistorique(TEST);
+		assertEquals(TEST,o.getTypeOffreHistorique());
 	}
 
 	@Test
 	public void testGetEntreprise() {
-		OffreHistorique O = new OffreHistorique();
+		OffreHistorique o = new OffreHistorique();
 		// Création Entreprise
-		Entreprise E =new Entreprise();
+		Entreprise e =new Entreprise();
 		// Ajout Entreprise
-		O.setEntreprise(E);
+		o.setEntreprise(e);
 		
-		assertEquals(E, O.getEntreprise());
+		assertEquals(e, o.getEntreprise());
 	}
 
 	@Test
 	public void testSetEntreprise() {
-		OffreHistorique O = new OffreHistorique();
+		OffreHistorique o = new OffreHistorique();
 		// Création Entreprise
-		Entreprise E =new Entreprise();
+		Entreprise e =new Entreprise();
 		// Ajout Entreprise
-		O.setEntreprise(E);
+		o.setEntreprise(e);
 		
-		assertEquals(E, O.getEntreprise());
+		assertEquals(e, o.getEntreprise());
 	}
 
 	@Test
 	public void testGetPersonneEmetteur() {
-		OffreHistorique O = new OffreHistorique();
+		OffreHistorique o = new OffreHistorique();
 		// Création Personnne
-		Personne P=new Personne();
+		Personne p=new Personne();
 
 		// Ajout Personne
-		 O.setPersonneEmetteur(P);
-		 assertEquals(P, O.getPersonneEmetteur());
+		 o.setPersonneEmetteur(p);
+		 assertEquals(p, o.getPersonneEmetteur());
 	}
 
 	@Test
 	public void testSetPersonneEmetteur() {
-		OffreHistorique O = new OffreHistorique();
+		OffreHistorique o = new OffreHistorique();
 		// Création Personnne
-		Personne P=new Personne();
+		Personne p=new Personne();
 
 		// Ajout Personne
-		 O.setPersonneEmetteur(P);
-		 assertEquals(P, O.getPersonneEmetteur());
+		 o.setPersonneEmetteur(p);
+		 assertEquals(p, o.getPersonneEmetteur());
 	}
 		 
 	@Test
 	public void testGetPersonneReceveur() {
-		OffreHistorique O = new OffreHistorique();
+		OffreHistorique o = new OffreHistorique();
 		// Création Personnne
-		Personne P=new Personne();
+		Personne p=new Personne();
 
 		// Ajout Personne
-		 O.setPersonneReceveur(P);
-		 assertEquals(P, O.getPersonneReceveur());
+		 o.setPersonneReceveur(p);
+		 assertEquals(p, o.getPersonneReceveur());
 	}
 
 	@Test
 	public void testSetPersonneReceveur() {
-		OffreHistorique O = new OffreHistorique();
+		OffreHistorique o = new OffreHistorique();
 		// Création Personnne
-		Personne P=new Personne();
+		Personne p=new Personne();
 
 		// Ajout Personne
-		 O.setPersonneReceveur(P);
-		 assertEquals(P, O.getPersonneReceveur());		 
+		 o.setPersonneReceveur(p);
+		 assertEquals(p, o.getPersonneReceveur());		 
 	}
 
 	@Test
 	public void testGetTitres() {
-		Personne P =new Personne();
-		// Création Titre
-		Titre O=new Titre();
-		Set<Titre> SeteO = new TreeSet<Titre>();
+		Personne p =new Personne();
+		Set<Titre> seteO = new TreeSet<Titre>();
 		
 		// Ajout Titre
-		 P.setTitres(SeteO);
-		 Set <Titre> Sete1 = P.getTitres();
+		 p.setTitres(seteO);
+		 Set <Titre> sete1 = p.getTitres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetTitres() {
-		Personne P =new Personne();
-		// Création Titre
-		Titre O=new Titre();
-		Set<Titre> SeteO = new TreeSet<Titre>();
+		Personne p =new Personne();
+		Set<Titre> seteO = new TreeSet<Titre>();
 		
 		// Ajout Titre
-		 P.setTitres(SeteO);
-		 Set <Titre> Sete1 = P.getTitres();
+		 p.setTitres(seteO);
+		 Set <Titre> sete1 = p.getTitres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testGetTitresList() {
-		OffreHistorique Oh = new OffreHistorique();
-		Oh.setTitres(new HashSet());
-		Titre T = new Titre();
-		Oh.getTitres().add(T);
-		Titre T1 = Oh.getTitresList().get(0);
+		OffreHistorique oh = new OffreHistorique();
+		oh.setTitres(new HashSet<Titre>());
+		Titre t = new Titre();
+		oh.getTitres().add(t);
+		Titre t1 = oh.getTitresList().get(0);
 		
-		assertEquals(T.hashCode(),T1.hashCode());
+		assertEquals(t.hashCode(),t1.hashCode());
 	}
 
 }

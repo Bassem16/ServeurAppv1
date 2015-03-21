@@ -7,6 +7,7 @@ import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,8 +16,9 @@ import java.util.Set;
  */
 @Entity
 @NamedQuery(name = "Offre.findAll", query = "SELECT o FROM Offre o")
-public class Offre implements Serializable, Comparable<Offre> {
-	private static final long serialVersionUID = 1L;
+public class Offre implements Serializable {
+
+	private static final long serialVersionUID = -845268721835452050L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -49,9 +51,6 @@ public class Offre implements Serializable, Comparable<Offre> {
 	private Personne personneReceveur;
 
 	// bi-directional many-to-many association to Titre
-	// @ManyToMany(mappedBy = "offres", fetch = FetchType.EAGER,cascade={
-	// CascadeType.MERGE})
-	// cascade
 	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idOffre") }, inverseJoinColumns = { @JoinColumn(name = "idTitre") })
 	private Set<Titre> titres;
@@ -139,33 +138,9 @@ public class Offre implements Serializable, Comparable<Offre> {
 		this.titres = titres;
 	}
 
-	public ArrayList<Titre> getTitresList() {
+	public List<Titre> getTitresList() {
 
 		return new ArrayList<Titre>(titres);
-	}
-
-	// Comparable code
-	@Override
-	public int compareTo(Offre o) {
-
-		// Odre décroissant
-		return o.getDateOffre().compareTo(this.getDateOffre());
-
-	}
-
-	@Override
-	public boolean equals(Object obj) {
-		Offre o = (Offre) obj;
-		if (this.getDateOffre().equals(o)
-				&& this.getPersonneEmetteur().getLogin()
-						.equals(o.getPersonneEmetteur().getLogin())
-				&& this.getPersonneReceveur().equals(
-						o.getPersonneReceveur().getLogin())) {
-			return true;
-		} else {
-			return false;
-		}
-
 	}
 
 

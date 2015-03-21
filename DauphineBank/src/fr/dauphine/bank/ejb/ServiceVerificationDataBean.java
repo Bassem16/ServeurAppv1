@@ -1,6 +1,7 @@
 package fr.dauphine.bank.ejb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -19,41 +20,42 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Personne> trouverCompteEmail(String email) {
-		ArrayList<Personne> Comptes = null;
+	@Override
+	public List<Personne> trouverCompteEmail(String email) {
+		List<Personne> comptes = null;
 		try {
 
 			EntityManager em = emf.createEntityManager();
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
 			query.setParameter("email", email);
-			Comptes = (ArrayList<Personne>) query.getResultList();
+			comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-		return Comptes;
+		return comptes;
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Personne> trouverCompteLogin(String login) {
-		ArrayList<Personne> Comptes = null;
+	@Override
+	public List<Personne> trouverCompteLogin(String login) {
+		List<Personne> comptes = null;
 		try {
 
 			EntityManager em = emf.createEntityManager();
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest");
 			query.setParameter("loginTest", login);
-			Comptes = (ArrayList<Personne>) query.getResultList();
+			comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-		return Comptes;
+		return comptes;
 	}
 
+	@Override
 	public Entreprise verificationEntreprise(String nom) {
 		Entreprise en = new Entreprise();
 		try {
@@ -65,9 +67,7 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-
 		return en;
 
 	}

@@ -1,6 +1,7 @@
 package fr.dauphine.bank.ejb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -18,8 +19,9 @@ public class ServiceMembreEntrepriseBean implements ServiceMembreEntreprise {
 	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Information> listeInformations(int idEntreprise) {
-		ArrayList<Information> informations = null;
+	@Override
+	public List<Information> listeInformations(int idEntreprise) {
+		List<Information> informations = null;
 		try {
 			EntityManager em = emf.createEntityManager();
 			Query query = em
@@ -29,7 +31,6 @@ public class ServiceMembreEntrepriseBean implements ServiceMembreEntreprise {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 		return informations;
 	}

@@ -1,13 +1,13 @@
 package fr.dauphine.bank.ejb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
-//import javax.persistence.Query;
 
 import javax.persistence.Query;
 
@@ -24,6 +24,7 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 	@PersistenceUnit
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
+	@Override
 	public void supprimerOffre(Offre offre) {
 
 		try {
@@ -43,11 +44,11 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 
 	}
 
+	@Override
 	public void miseAJourTitre(Titre titre) {
 
 		try {
@@ -60,18 +61,17 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Titre> recupererTitre(boolean entrepriseChek,
-			boolean typeChek, boolean userCheck, String entrepriseNom,
-			String nomType, String userNom) {
-		ArrayList<Titre> selectedTitre = new ArrayList<Titre>();
-		if (entrepriseChek == true && typeChek == true && userCheck == false) {
+	public List<Titre> recupererTitre(boolean entrepriseChek, boolean typeChek,
+			boolean userCheck, String entrepriseNom, String nomType,
+			String userNom) {
+		List<Titre> selectedTitre = new ArrayList<Titre>();
+		if (entrepriseChek && typeChek && !userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -86,10 +86,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} catch (Exception e) {
 				System.out.println(e.getClass() + "  + " + e.getCause()
 						+ "   + ");
-			} finally {
 			}
-		} else if (entrepriseChek == false && typeChek == true
-				&& userCheck == false) {
+		} else if (!entrepriseChek && typeChek && !userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -104,11 +102,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} catch (Exception e) {
 				System.out.println(e.getClass() + "  + " + e.getCause()
 						+ "   + ");
-			} finally {
 			}
 
-		} else if (entrepriseChek == true && typeChek == false
-				&& userCheck == false) {
+		} else if (entrepriseChek && !typeChek && !userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -122,11 +118,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} catch (Exception e) {
 				System.out.println(e.getClass() + "  + " + e.getCause()
 						+ "   + ");
-			} finally {
 			}
 
-		} else if (entrepriseChek == true && typeChek == true
-				&& userCheck == true) {
+		} else if (entrepriseChek && typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -142,10 +136,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} catch (Exception e) {
 				System.out.println(e.getClass() + "  + " + e.getCause()
 						+ "   + ");
-			} finally {
 			}
-		} else if (entrepriseChek == false && typeChek == true
-				&& userCheck == true) {
+		} else if (!entrepriseChek && typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -161,11 +153,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} catch (Exception e) {
 				System.out.println(e.getClass() + "  + " + e.getCause()
 						+ "   + ");
-			} finally {
 			}
 
-		} else if (entrepriseChek == true && typeChek == false
-				&& userCheck == true) {
+		} else if (entrepriseChek && !typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -180,11 +170,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} catch (Exception e) {
 				System.out.println(e.getClass() + "  + " + e.getCause()
 						+ "   + ");
-			} finally {
 			}
 
-		} else if (entrepriseChek == false && typeChek == false
-				&& userCheck == true) {
+		} else if (!entrepriseChek && !typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -198,7 +186,6 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			} catch (Exception e) {
 				System.out.println(e.getClass() + "  + " + e.getCause()
 						+ "   + ");
-			} finally {
 			}
 		} else {
 			return selectedTitre;
@@ -209,8 +196,8 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Entreprise> recupererEntrepriseListAll() {
-		ArrayList<Entreprise> selectedEntreprise = new ArrayList<Entreprise>();
+	public List<Entreprise> recupererEntrepriseListAll() {
+		List<Entreprise> selectedEntreprise = new ArrayList<Entreprise>();
 
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -222,37 +209,35 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 		return selectedEntreprise;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Personne> recupererPersonneListAll() {
-		ArrayList<Personne> selectedPersonne = new ArrayList<Personne>();
+	public List<Personne> recupererPersonneListAll() {
+		List<Personne> selectedPersonne = new ArrayList<Personne>();
 
 		try {
 			EntityManager em = emf.createEntityManager();
-			Query query = em.createQuery("SELECT p FROM Personne p");
-
+			Query query = em
+					.createQuery("SELECT p FROM Personne p WHERE p.typePersonne=1");
 			selectedPersonne = (ArrayList<Personne>) query.getResultList();
 			em.close();
 			return selectedPersonne;
 
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 		return selectedPersonne;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Information> recupererInformationEntreprise(
+	public List<Information> recupererInformationEntreprise(
 			Entreprise entreprise) {
 
-		ArrayList<Information> selectedInformation = new ArrayList<Information>();
+		List<Information> selectedInformation = new ArrayList<Information>();
 
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -266,7 +251,6 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 		return selectedInformation;
 	}

@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
@@ -22,7 +23,6 @@ import fr.dauphine.bank.entities.TypePersonne;
 
 @ManagedBean
 @RequestScoped
-// SessionScoped
 public class InscriptionBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -80,7 +80,6 @@ public class InscriptionBean implements Serializable {
 
 	public void setEmail(String email) {
 		getPersonne().setEmail(email);
-		;
 	}
 
 	public String getLogin() {
@@ -97,7 +96,7 @@ public class InscriptionBean implements Serializable {
 
 	public void setMotDePasse(String motDePasse) {
 		getPersonne().setMotDePasse(motDePasse);
-		;
+
 	}
 
 	public String getNomPersonne() {
@@ -106,7 +105,7 @@ public class InscriptionBean implements Serializable {
 
 	public void setNomPersonne(String nomPersonne) {
 		getPersonne().setNomPersonne(nomPersonne);
-		;
+
 	}
 
 	public String getPrenomPersonne() {
@@ -115,7 +114,7 @@ public class InscriptionBean implements Serializable {
 
 	public void setPrenomPersonne(String prenomPersonne) {
 		getPersonne().setPrenomPersonne(prenomPersonne);
-		;
+
 	}
 
 	public Entreprise getEntreprise() {
@@ -124,7 +123,7 @@ public class InscriptionBean implements Serializable {
 
 	public void setEntreprise(Entreprise entreprise) {
 		getPersonne().setEntreprise(entreprise);
-		;
+
 	}
 
 	public Set<Demande> getDemandes() {
@@ -133,7 +132,7 @@ public class InscriptionBean implements Serializable {
 
 	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
-		;
+
 	}
 
 	public Set<Titre> getTitres() {
@@ -142,7 +141,7 @@ public class InscriptionBean implements Serializable {
 
 	public void setTitres(Set<Titre> titres) {
 		getPersonne().setTitres(titres);
-		;
+
 	}
 
 	public Set<Offre> getOffresEmises() {
@@ -153,30 +152,30 @@ public class InscriptionBean implements Serializable {
 		return getPersonne().getOffresRecues();
 	}
 
-	public ArrayList<Offre> getOffresEmisesList() {
+	public List<Offre> getOffresEmisesList() {
 		return new ArrayList<Offre>(getPersonne().getOffresEmises());
 	}
 
-	public ArrayList<Offre> getOffresRecuesList() {
+	public List<Offre> getOffresRecuesList() {
 		return new ArrayList<Offre>(getPersonne().getOffresRecues());
 	}
 
-	public ArrayList<Titre> getTitresList() {
+	public List<Titre> getTitresList() {
 		return new ArrayList<Titre>(getPersonne().getTitres());
 	}
 
-	public ArrayList<Demande> getDemandesList() {
+	public List<Demande> getDemandesList() {
 		return new ArrayList<Demande>(getPersonne().getDemandes());
 	}
 
 	public void setOffresEmises(Set<Offre> offres) {
 		getPersonne().setOffresEmises(offres);
-		;
+
 	}
 
 	public void setOffresRecues(Set<Offre> offres) {
 		getPersonne().setOffresRecues(offres);
-		;
+
 	}
 
 	public Offre removeOffreEmise(Offre offre) {

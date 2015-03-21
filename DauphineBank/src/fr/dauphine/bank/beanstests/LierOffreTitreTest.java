@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.LierOffreTitre;
 import fr.dauphine.bank.entities.LierOffreTitrePK;
 
@@ -12,26 +11,26 @@ public class LierOffreTitreTest {
 
 	@Test
 	public void testLierOffreTitre() {
-		LierOffreTitre I = new LierOffreTitre();
-		assertNotNull(I);
+		LierOffreTitre i = new LierOffreTitre();
+		assertNotNull(i);
 	}
 
 	@Test
 	public void testGetId() {
-		LierOffreTitre I = new LierOffreTitre();
+		LierOffreTitre i = new LierOffreTitre();
 		LierOffreTitrePK id = new LierOffreTitrePK();
-		I.setId(id);
+		i.setId(id);
 		
-		assertEquals(id, I.getId());
+		assertEquals(id, i.getId());
 	}
 
 	@Test
 	public void testSetId() {
-		LierOffreTitre I = new LierOffreTitre();
+		LierOffreTitre i = new LierOffreTitre();
 		LierOffreTitrePK id = new LierOffreTitrePK();
-		I.setId(id);
+		i.setId(id);
 		
-		assertEquals(id, I.getId());
+		assertEquals(id, i.getId());
 	}
 
 }

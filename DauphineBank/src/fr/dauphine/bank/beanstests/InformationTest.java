@@ -4,97 +4,92 @@ import static org.junit.Assert.*;
 
 import org.junit.Test;
 
-import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Information;
-import fr.dauphine.bank.entities.Personne;
-
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.sql.rowset.spi.SyncFactory;
 
 
 public class InformationTest {
 
 	@Test
 	public void testInformation() {
-		Information I = new Information();
-		assertNotNull(I);
+		Information i = new Information();
+		assertNotNull(i);
 	}
 
 	@Test
 	public void testGetIdInformation() {
-		Information I = new Information();	
-		I.setIdInformation(0);
-		assertEquals(0,I.getIdInformation());
+		Information i = new Information();	
+		i.setIdInformation(0);
+		assertEquals(0,i.getIdInformation());
 	}
 
 	@Test
 	public void testSetIdInformation() {
-		Information I = new Information();	
-		I.setIdInformation(1);
-		assertEquals(1,I.getIdInformation());
+		Information i = new Information();	
+		i.setIdInformation(1);
+		assertEquals(1,i.getIdInformation());
 	}
 
 	@Test
 	public void testGetDateInformation() {
-		Information I = new Information();	
+		Information i = new Information();	
 		
 		Calendar cal = Calendar.getInstance();
 		cal.set(1991, 02, 19);
 		Date dateTest = cal.getTime();
-		I.setDateInformation(dateTest);
+		i.setDateInformation(dateTest);
 		
-		assertEquals(dateTest ,I.getDateInformation());
+		assertEquals(dateTest ,i.getDateInformation());
 	}
 
 	@Test
 	public void testSetDateInformation() {
-		Information I = new Information();	
+		Information i = new Information();	
 		
 		Calendar cal = Calendar.getInstance();
 		cal.set(1991, 02, 19);
 		Date dateTest = cal.getTime();
-		I.setDateInformation(dateTest);
+		i.setDateInformation(dateTest);
 		
-		assertEquals(dateTest ,I.getDateInformation());
+		assertEquals(dateTest ,i.getDateInformation());
 	}
 
 	@Test
 	public void testGetTypeInformation() {
-		Information I = new Information();	
-		I.setTypeInformation("TEST");
-		assertEquals("TEST",I.getTypeInformation());
+		Information i = new Information();	
+		i.setTypeInformation("TEST");
+		assertEquals("TEST",i.getTypeInformation());
 	}
 
 	@Test
 	public void testSetTypeInformation() {
-		Information I = new Information();	
-		I.setTypeInformation("TEST");
-		assertEquals("TEST",I.getTypeInformation());
+		Information i = new Information();	
+		i.setTypeInformation("TEST");
+		assertEquals("TEST",i.getTypeInformation());
 	}
 
 	@Test
 	public void testGetEntreprise() {
-		Information I =new Information();
+		Information i =new Information();
 		// Création Entreprise
 		Entreprise E =new Entreprise();
 		// Ajout Entreprise
-		I.setEntreprise(E);
+		i.setEntreprise(E);
 		
-		assertEquals(E, I.getEntreprise());
+		assertEquals(E, i.getEntreprise());
 	}
 
 	@Test
 	public void testSetEntreprise() {
-		Information I =new Information();
+		Information i =new Information();
 		// Création Entreprise
-		Entreprise E =new Entreprise();
+		Entreprise e =new Entreprise();
 		// Ajout Entreprise
-		I.setEntreprise(E);
+		i.setEntreprise(e);
 		
-		assertEquals(E, I.getEntreprise());
+		assertEquals(e, i.getEntreprise());
 	}
 
 }

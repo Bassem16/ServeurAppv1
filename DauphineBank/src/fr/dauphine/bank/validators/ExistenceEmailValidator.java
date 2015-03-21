@@ -27,7 +27,7 @@ public class ExistenceEmailValidator implements Validator {
 		String email = (String) value;
 		try {
 			if (serviceVerificationData.trouverCompteEmail(email) != null
-					&& serviceVerificationData.trouverCompteEmail(email).size() > 0) {
+					&& !serviceVerificationData.trouverCompteEmail(email).isEmpty()) {
 				/*
 				 * Si une adresse est retournée, alors on envoie une exception
 				 * propre à JSF, qu'on initialise avec un FacesMessage de

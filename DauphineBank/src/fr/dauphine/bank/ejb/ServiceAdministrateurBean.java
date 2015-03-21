@@ -1,6 +1,7 @@
 package fr.dauphine.bank.ejb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -21,44 +22,44 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 	@PersistenceUnit
 	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
-	
-	@SuppressWarnings("unchecked")
-	public ArrayList<Demande> listeDemandes() {
 
-		ArrayList<Demande> Demandes = null;
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Demande> listeDemandes() {
+
+		List<Demande> demandes = null;
 		try {
 			EntityManager em = emf.createEntityManager();
 			Query query = em.createQuery("SELECT d FROM Demande d");
-			Demandes = (ArrayList<Demande>) query.getResultList();
+			demandes = (ArrayList<Demande>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-		return Demandes;
+		return demandes;
 	}
-	
-	@SuppressWarnings("unchecked")
-	public ArrayList<DemandeHistorique> listeDemandesHistorique() {
 
-		ArrayList<DemandeHistorique> DemandesH = null;
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<DemandeHistorique> listeDemandesHistorique() {
+
+		List<DemandeHistorique> demandesH = null;
 		try {
 			EntityManager em = emf.createEntityManager();
 			Query query = em.createQuery("SELECT d FROM DemandeHistorique d");
-			DemandesH = (ArrayList<DemandeHistorique>) query.getResultList();
+			demandesH = (ArrayList<DemandeHistorique>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-		return DemandesH;
+		return demandesH;
 	}
-	
-	
-	@SuppressWarnings("unchecked")
-	public ArrayList<Entreprise> listeEntreprise() {
 
-		ArrayList<Entreprise> entreprises = null;
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Entreprise> listeEntreprise() {
+
+		List<Entreprise> entreprises = null;
 		try {
 			EntityManager em = emf.createEntityManager();
 			Query query = em.createQuery("SELECT en FROM Entreprise en");
@@ -66,11 +67,11 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 		return entreprises;
 	}
 
+	@Override
 	public void valideDemandePersonne(Demande demande) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -85,10 +86,10 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 	}
-	
+
+	@Override
 	public void supprimerDemande(Demande demande) {
 
 		try {
@@ -96,28 +97,21 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			 Query query = em
-						.createQuery("DELETE FROM Demande l WHERE l.idDemande LIKE:idd");
+			Query query = em
+					.createQuery("DELETE FROM Demande l WHERE l.idDemande LIKE:idd");
 			query.setParameter("idd", demande.getIdDemande());
 			query.executeUpdate();
 			et.commit();
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 	}
 
 	@Override
-	public ArrayList<Personne> listeMembresSociete() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-	
-	
-	
-	
+	public List<Personne> listeMembresSociete() {
 
-	
+		return new ArrayList<Personne>();
+	}
 
 }

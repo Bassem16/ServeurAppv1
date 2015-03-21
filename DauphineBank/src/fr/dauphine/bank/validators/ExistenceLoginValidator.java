@@ -27,7 +27,7 @@ public class ExistenceLoginValidator implements Validator {
 		String login = (String) value;
 		try {
 			if (serviceVerificationData.trouverCompteLogin(login) != null
-					&& serviceVerificationData.trouverCompteLogin(login).size() > 0) {
+					&& !serviceVerificationData.trouverCompteLogin(login).isEmpty()) {
 
 				throw new ValidatorException(new FacesMessage(
 						FacesMessage.SEVERITY_ERROR, LOGIN_EXISTE_DEJA, null));

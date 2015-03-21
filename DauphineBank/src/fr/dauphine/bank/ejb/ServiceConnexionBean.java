@@ -15,8 +15,6 @@ import fr.dauphine.bank.web.ConnexionDataBase;
 public class ServiceConnexionBean implements ServiceConnexion {
 
 	@PersistenceUnit
-//	private static EntityManagerFactory emf = Persistence
-//			.createEntityManagerFactory("DauphineBank");
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@Override
@@ -40,9 +38,7 @@ public class ServiceConnexionBean implements ServiceConnexion {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
-		}
-
+		} 
 		return personne;
 	}
 

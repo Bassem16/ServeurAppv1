@@ -10,57 +10,57 @@ public class LierOffreTitrePKTest {
 
 	@Test
 	public void testHashCode() {
-		LierOffreTitrePK L = new LierOffreTitrePK();
-		L.setIdOffre(1);
-		L.setIdTitre(1);
+		LierOffreTitrePK l = new LierOffreTitrePK();
+		l.setIdOffre(1);
+		l.setIdTitre(1);
 		
-		assertEquals(16369, L.hashCode());
+		assertEquals(16369, l.hashCode());
 	}
 
 	@Test
 	public void testLierOffreTitrePK() {
-		LierOffreTitrePK L = new LierOffreTitrePK();
-		assertNotNull(L);
+		LierOffreTitrePK l = new LierOffreTitrePK();
+		assertNotNull(l);
 	}
 
 	@Test
 	public void testGetIdOffre() {
-		LierOffreTitrePK L = new LierOffreTitrePK();
-		L.setIdOffre(1);
+		LierOffreTitrePK l = new LierOffreTitrePK();
+		l.setIdOffre(1);
 		
-		assertEquals(1, L.getIdOffre());
+		assertEquals(1, l.getIdOffre());
 	}
 
 	@Test
 	public void testSetIdOffre() {
-		LierOffreTitrePK L = new LierOffreTitrePK();
-		L.setIdOffre(1);
+		LierOffreTitrePK l = new LierOffreTitrePK();
+		l.setIdOffre(1);
 		
-		assertEquals(1, L.getIdOffre());
+		assertEquals(1, l.getIdOffre());
 	}
 
 	@Test
 	public void testGetIdTitre() {
-		LierOffreTitrePK L = new LierOffreTitrePK();
-		L.setIdTitre(1);
+		LierOffreTitrePK l = new LierOffreTitrePK();
+		l.setIdTitre(1);
 		
-		assertEquals(1, L.getIdTitre());
+		assertEquals(1, l.getIdTitre());
 	}
 
 	@Test
 	public void testSetIdTitre() {
-		LierOffreTitrePK L = new LierOffreTitrePK();
-		L.setIdTitre(1);
+		LierOffreTitrePK l = new LierOffreTitrePK();
+		l.setIdTitre(1);
 		
-		assertEquals(1, L.getIdTitre());
+		assertEquals(1, l.getIdTitre());
 	}
 
 	@Test
 	public void testEqualsObject() {
-		LierOffreTitrePK L = new LierOffreTitrePK();
-		LierOffreTitrePK L2 = new LierOffreTitrePK();
+		LierOffreTitrePK l = new LierOffreTitrePK();
+		LierOffreTitrePK l2 = new LierOffreTitrePK();
 		
-		assertEquals(true, L.equals(L2));
+		assertEquals(true, l.equals(l2));
 	}
 
 }

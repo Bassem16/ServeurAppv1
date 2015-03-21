@@ -21,7 +21,7 @@ public class InvestisseurFilter implements Filter {
 
 	@Override
 	public void destroy() {
-
+		//Non surcharge
 	}
 
 	@Override
@@ -56,7 +56,7 @@ public class InvestisseurFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-
+		//Non revu
 	}
 
 }

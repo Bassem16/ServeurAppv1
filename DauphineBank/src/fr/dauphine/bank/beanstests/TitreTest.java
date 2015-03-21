@@ -2,7 +2,7 @@ package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -18,178 +18,175 @@ public class TitreTest {
 
 	@Test
 	public void testTitre() {
-		Titre T = new Titre();
-		assertNotNull(T);
+		Titre t = new Titre();
+		assertNotNull(t);
 	}
 
 	@Test
 	public void testGetIdTitre() {
-		Titre T = new Titre();	
-		T.setIdTitre(0);
-		assertEquals(0,T.getIdTitre());
+		Titre t = new Titre();
+		t.setIdTitre(0);
+		assertEquals(0, t.getIdTitre());
 	}
 
 	@Test
 	public void testSetIdTitre() {
-		Titre T = new Titre();	
-		T.setIdTitre(0);
-		assertEquals(0,T.getIdTitre());
+		Titre t = new Titre();
+		t.setIdTitre(0);
+		assertEquals(0, t.getIdTitre());
 	}
 
 	@Test
 	public void testGetEtatTitre() {
-		Titre T = new Titre();	
-		T.setEtatTitre(0);
-		assertEquals(0,T.getEtatTitre());
+		Titre t = new Titre();
+		t.setEtatTitre(0);
+		assertEquals(0, t.getEtatTitre());
 	}
-	
+
 	@Test
 	public void testSetEtatTitre() {
-		Titre T = new Titre();	
-		T.setEtatTitre(0);
-		assertEquals(0,T.getEtatTitre());
+		Titre t = new Titre();
+		t.setEtatTitre(0);
+		assertEquals(0, t.getEtatTitre());
 	}
 
 	@Test
 	public void testGetNomTitre() {
-		Titre T = new Titre();	
-		T.setNomTitre("TEST");
-		assertEquals("TEST",T.getNomTitre());
+		Titre t = new Titre();
+		t.setNomTitre("TEST");
+		assertEquals("TEST", t.getNomTitre());
 	}
 
 	@Test
 	public void testSetNomTitre() {
-		Titre T = new Titre();	
-		T.setNomTitre("TEST");
-		assertEquals("TEST",T.getNomTitre());
+		Titre t = new Titre();
+		t.setNomTitre("TEST");
+		assertEquals("TEST", t.getNomTitre());
 	}
 
 	@Test
 	public void testGetTypeTitre() {
-		Titre T = new Titre();	
-		T.setTypeTitre("TEST");
-		assertEquals("TEST",T.getTypeTitre());
+		Titre t = new Titre();
+		t.setTypeTitre("TEST");
+		assertEquals("TEST", t.getTypeTitre());
 	}
 
 	@Test
 	public void testSetTypeTitre() {
-		Titre T = new Titre();	
-		T.setTypeTitre("TEST");
-		assertEquals("TEST",T.getTypeTitre());
+		Titre t = new Titre();
+		t.setTypeTitre("TEST");
+		assertEquals("TEST", t.getTypeTitre());
 	}
 
 	@Test
 	public void testGetEntreprise() {
-		Titre T = new Titre();
+		Titre t = new Titre();
 		// Création Entreprise
-		Entreprise E =new Entreprise();
+		Entreprise e = new Entreprise();
 		// Ajout Entreprise
-		T.setEntreprise(E);
-		
-		assertEquals(E, T.getEntreprise());
+		t.setEntreprise(e);
+
+		assertEquals(e, t.getEntreprise());
 	}
 
 	@Test
 	public void testSetEntreprise() {
-		Titre T = new Titre();
+		Titre t = new Titre();
 		// Création Entreprise
-		Entreprise E =new Entreprise();
+		Entreprise e = new Entreprise();
 		// Ajout Entreprise
-		T.setEntreprise(E);
-		
-		assertEquals(E, T.getEntreprise());
+		t.setEntreprise(e);
+
+		assertEquals(e, t.getEntreprise());
 	}
 
 	@Test
 	public void testGetOffreHistoriques() {
-		Titre T =new Titre();
-		// Création Offre
-		OffreHistorique O=new OffreHistorique();
-		Set<OffreHistorique> SeteO = new TreeSet<OffreHistorique>();
-		
+		Titre t = new Titre();
+		Set<OffreHistorique> seteO = new TreeSet<OffreHistorique>();
+
 		// Ajout Offre
-		 T.setOffreHistoriques(SeteO);
-		 Set <OffreHistorique> Sete1 = T.getOffreHistoriques();
-		 
-		 assertEquals(SeteO, Sete1);
+		t.setOffreHistoriques(seteO);
+		Set<OffreHistorique> sete1 = t.getOffreHistoriques();
+
+		assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetOffreHistoriques() {
-		Titre T =new Titre();
-		// Création Offre
-		OffreHistorique O=new OffreHistorique();
-		Set<OffreHistorique> SeteO = new TreeSet<OffreHistorique>();
-		
+		Titre t = new Titre();
+		Set<OffreHistorique> seteO = new TreeSet<OffreHistorique>();
+
 		// Ajout Offre
-		 T.setOffreHistoriques(SeteO);
-		 Set <OffreHistorique> Sete1 = T.getOffreHistoriques();
-		 
-		 assertEquals(SeteO, Sete1);
+		t.setOffreHistoriques(seteO);
+		Set<OffreHistorique> sete1 = t.getOffreHistoriques();
+
+		assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testGetOffres() {
-		Titre T =new Titre();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
-		
+		Titre t = new Titre();
+		Set<Offre> seteO = new TreeSet<Offre>();
+
 		// Ajout Offre
-		 T.setOffres(SeteO);
-		 Set <Offre> Sete1 = T.getOffres();
-		 
-		 assertEquals(SeteO, Sete1);
+		t.setOffres(seteO);
+		Set<Offre> sete1 = t.getOffres();
+
+		assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetOffres() {
-		Titre T =new Titre();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
+		Titre t = new Titre();
+		Set<Offre> seteO = new TreeSet<Offre>();
 
 		// Ajout Offre
-		 T.setOffres(SeteO);
-		 Set <Offre> Sete1 = T.getOffres();
-		 
-		 assertEquals(SeteO, Sete1);
+		t.setOffres(seteO);
+		Set<Offre> sete1 = t.getOffres();
+
+		assertEquals(seteO, sete1);
 	}
-	
+
 	@Test
 	public void testGetPersonne() {
-		Titre T = new Titre();
+		Titre t = new Titre();
 		// Création Personne
-		Personne P =new Personne();
+		Personne p = new Personne();
 		// Ajout Personne
-		T.setPersonne(P);
-		
-		assertEquals(P, T.getPersonne());
+		t.setPersonne(p);
+
+		assertEquals(p, t.getPersonne());
 	}
 
 	@Test
 	public void testSetPersonne() {
-		Titre T = new Titre();
+		Titre t = new Titre();
 		// Création Personne
-		Personne P =new Personne();
+		Personne p = new Personne();
 		// Ajout Personne
-		T.setPersonne(P);
-		
-		assertEquals(P, T.getPersonne());
+		t.setPersonne(p);
+
+		assertEquals(p, t.getPersonne());
 	}
 
-		@Test
+	@Test
 	public void testGetOffresList() {
-			fail("Not yet implemented");
-			
+		Titre t = new Titre();
+		Offre o = new Offre();
+		Set<Offre> setO = new HashSet<Offre>();
+		t.setOffres(setO);
+		t.getOffres().add(o);
+		assertEquals("Resultat",1,t.getOffresList().size());
+
 	}
-	
-		@Test
+
+	@Test
 	public void testEstVente() {
-		Titre T = new Titre();
-		T.setEtatTitre(1);
-		
-		assertEquals(true, T.estVente());
+		Titre t = new Titre();
+		t.setEtatTitre(1);
+
+		assertEquals(true, t.estVente());
 	}
 
 }

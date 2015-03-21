@@ -16,229 +16,215 @@ import fr.dauphine.bank.entities.TypePersonne;
 
 public class PersonneTest {
 
+	public static final String MAIL = "test@test.com";
+	public static final String TEST = "TEST";
 	@Test
 	public void testPersonne() {
-		Personne P = new Personne();
-		assertNotNull(P);
+		Personne p = new Personne();
+		assertNotNull(p);
 	}
 
 	@Test
 	public void testGetIdPersonne() {
-		Personne P = new Personne();	
-		P.setIdPersonne(1);
-		assertEquals(1,P.getIdPersonne());
+		Personne p = new Personne();	
+		p.setIdPersonne(1);
+		assertEquals(1,p.getIdPersonne());
 	}
 
 	@Test
 	public void testSetIdPersonne() {
-		Personne P = new Personne();	
-		P.setIdPersonne(1);
-		assertEquals(1,P.getIdPersonne());
+		Personne p = new Personne();	
+		p.setIdPersonne(1);
+		assertEquals("Ok", 1,p.getIdPersonne());
 	}
 
 	@Test
 	public void testGetEmail() {
-		Personne P = new Personne();	
-		P.setEmail("test@test.com");
-		assertEquals("test@test.com",P.getEmail());
+		Personne p = new Personne();	
+		p.setEmail(MAIL);
+		assertEquals(MAIL,p.getEmail());
 	}
 
 	@Test
 	public void testSetEmail() {
-		Personne P = new Personne();	
-		P.setEmail("test@test.com");
-		assertEquals("test@test.com",P.getEmail());
+		Personne p = new Personne();	
+		p.setEmail(MAIL);
+		assertEquals(MAIL,p.getEmail());
 	}
 
 	@Test
 	public void testGetLogin() {
-		Personne P = new Personne();	
-		P.setLogin("test");
-		assertEquals("test",P.getLogin());
+		Personne p = new Personne();	
+		p.setLogin(TEST);
+		assertEquals(TEST,p.getLogin());
 	}
 
 	@Test
 	public void testSetLogin() {
-		Personne P = new Personne();	
-		P.setLogin("test");
-		assertEquals("test",P.getLogin());
+		Personne p = new Personne();	
+		p.setLogin(TEST);
+		assertEquals(TEST,p.getLogin());
 	}
 
 	@Test
 	public void testGetMotDePasse() {
-		Personne P = new Personne();	
-		P.setMotDePasse("testtest");
-		assertEquals("testtest",P.getMotDePasse());
+		Personne p = new Personne();	
+		p.setMotDePasse(TEST);
+		assertEquals(TEST,p.getMotDePasse());
 	}
 
 	@Test
 	public void testSetMotDePasse() {
-		Personne P = new Personne();	
-		P.setMotDePasse("testtest");
-		assertEquals("testtest",P.getMotDePasse());
+		Personne p = new Personne();	
+		p.setMotDePasse(TEST);
+		assertEquals(TEST,p.getMotDePasse());
 	}
 
 	@Test
 	public void testGetNomPersonne() {
-		Personne P = new Personne();	
-		P.setNomPersonne("testtest");
-		assertEquals("testtest",P.getNomPersonne());
+		Personne p = new Personne();	
+		p.setNomPersonne(TEST);
+		assertEquals(TEST,p.getNomPersonne());
 	}
 
 	@Test
 	public void testSetNomPersonne() {
-		Personne P = new Personne();	
-		P.setNomPersonne("testtest");
-		assertEquals("testtest",P.getNomPersonne());
+		Personne p = new Personne();	
+		p.setNomPersonne(TEST);
+		assertEquals(TEST,p.getNomPersonne());
 	}
 
 	@Test
 	public void testGetPrenomPersonne() {
-		Personne P = new Personne();	
-		P.setPrenomPersonne("testtest");
-		assertEquals("testtest",P.getPrenomPersonne());
+		Personne p = new Personne();	
+		p.setPrenomPersonne(TEST);
+		assertEquals(TEST,p.getPrenomPersonne());
 	}
 
 	@Test
 	public void testSetPrenomPersonne() {
-		Personne P = new Personne();	
-		P.setPrenomPersonne("testtest");
-		assertEquals("testtest",P.getPrenomPersonne());
+		Personne p = new Personne();	
+		p.setPrenomPersonne(TEST);
+		assertEquals(TEST,p.getPrenomPersonne());
 	}
 
 	@Test
 	public void testGetEntreprise() {
-		Personne P = new Personne();	
+		Personne p = new Personne();	
 		// Création Entreprise
-		Entreprise E =new Entreprise();
+		Entreprise e =new Entreprise();
 		// Ajout Entreprise
-		P.setEntreprise(E);
+		p.setEntreprise(e);
 		
-		assertEquals(E, P.getEntreprise());
+		assertEquals(e, p.getEntreprise());
 	}
 
 	@Test
 	public void testSetEntreprise() {
-		Personne P = new Personne();	
+		Personne p = new Personne();	
 		// Création Entreprise
-		Entreprise E =new Entreprise();
+		Entreprise e =new Entreprise();
 		// Ajout Entreprise
-		P.setEntreprise(E);
+		p.setEntreprise(e);
 		
-		assertEquals(E, P.getEntreprise());
+		assertEquals(e, p.getEntreprise());
 	}
 
 	@Test
 	public void testGetDemandes() {
-		Personne P =new Personne();
-		// Création Demande
-		Demande O=new Demande();
-		Set<Demande> SeteO = new TreeSet<Demande>();
+		Personne p =new Personne();
+		Set<Demande> seteO = new TreeSet<Demande>();
 		
 		// Ajout Demande
-		 P.setDemandes(SeteO);
-		 Set <Demande> Sete1 = P.getDemandes();
+		 p.setDemandes(seteO);
+		 Set <Demande> sete1 = p.getDemandes();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetDemandes() {
-		Personne P =new Personne();
-		// Création Demande
-		Demande O=new Demande();
-		Set<Demande> SeteO = new TreeSet<Demande>();
+		Personne p =new Personne();
+		Set<Demande> seteO = new TreeSet<Demande>();
 		
 		// Ajout Demande
-		 P.setDemandes(SeteO);
-		 Set <Demande> Sete1 = P.getDemandes();
+		 p.setDemandes(seteO);
+		 Set <Demande> sete1 = p.getDemandes();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	
 	@Test
 	public void testGetTitres() {
-		Personne P =new Personne();
-		// Création Titre
-		Titre O=new Titre();
-		Set<Titre> SeteO = new TreeSet<Titre>();
+		Personne p =new Personne();
+		Set<Titre> seteO = new TreeSet<Titre>();
 		
 		// Ajout Titre
-		 P.setTitres(SeteO);
-		 Set <Titre> Sete1 = P.getTitres();
+		 p.setTitres(seteO);
+		 Set <Titre> sete1 = p.getTitres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetTitres() {
-		Personne P =new Personne();
-		// Création Titre
-		Titre O=new Titre();
-		Set<Titre> SeteO = new TreeSet<Titre>();
+		Personne p =new Personne();
+		Set<Titre> seteO = new TreeSet<Titre>();
 		
 		// Ajout Titre
-		 P.setTitres(SeteO);
-		 Set <Titre> Sete1 = P.getTitres();
+		 p.setTitres(seteO);
+		 Set <Titre> sete1 = p.getTitres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testGetOffresEmises() {
-		Personne P =new Personne();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
+		Personne p =new Personne();
+		Set<Offre> seteO = new TreeSet<Offre>();
 
 		// Ajout Offre
-		 P.setOffresEmises(SeteO);
-		 Set <Offre> Sete1 = P.getOffresEmises();
+		 p.setOffresEmises(seteO);
+		 Set <Offre> sete1 = p.getOffresEmises();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetOffresEmises() {
-		Personne P =new Personne();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
+		Personne p =new Personne();
+		Set<Offre> seteO = new TreeSet<Offre>();
 
 		// Ajout Offre
-		 P.setOffresEmises(SeteO);
-		 Set <Offre> Sete1 = P.getOffresEmises();
+		 p.setOffresEmises(seteO);
+		 Set <Offre> sete1 = p.getOffresEmises();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testGetOffresRecues() {
-		Personne P =new Personne();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
+		Personne p =new Personne();
+		Set<Offre> seteO = new TreeSet<Offre>();
 
 		// Ajout Offre
-		 P.setOffresRecues(SeteO);
-		 Set <Offre> Sete1 = P.getOffresRecues();
+		 p.setOffresRecues(seteO);
+		 Set <Offre> sete1 = p.getOffresRecues();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetOffresRecues() {
-		Personne P =new Personne();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
+		Personne p =new Personne();
+		Set<Offre> seteO = new TreeSet<Offre>();
 
 		// Ajout Offre
-		 P.setOffresRecues(SeteO);
-		 Set <Offre> Sete1 = P.getOffresRecues();
+		 p.setOffresRecues(seteO);
+		 Set <Offre> sete1 = p.getOffresRecues();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	
@@ -246,18 +232,18 @@ public class PersonneTest {
 
 	@Test
 	public void testGetTypePersonne() {
-		Personne P = new Personne();	
+		Personne p = new Personne();	
 		TypePersonne test = new TypePersonne();
-		P.setTypePersonne(test);
-		assertEquals(test,P.getTypePersonne());
+		p.setTypePersonne(test);
+		assertEquals(test,p.getTypePersonne());
 	}
 
 	@Test
 	public void testSetTypePersonne() {
-		Personne P = new Personne();	
+		Personne p = new Personne();	
 		TypePersonne test = new TypePersonne();
-		P.setTypePersonne(test);
-		assertEquals(test,P.getTypePersonne());
+		p.setTypePersonne(test);
+		assertEquals(test,p.getTypePersonne());
 	}
 
 }

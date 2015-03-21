@@ -13,12 +13,11 @@ import fr.dauphine.bank.web.ConnexionDataBase;
 @Stateless
 public class ServiceCreationCompteBean implements ServiceCreationCompte {
 
-//	@PersistenceUnit
-//	private static EntityManagerFactory emf = Persistence
-//			.createEntityManagerFactory("DauphineBank");
+
 	@PersistenceUnit
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
+	@Override
 	public void CreationComptes(Personne personne) {
 		try {
 
@@ -35,7 +34,6 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 	}
 }

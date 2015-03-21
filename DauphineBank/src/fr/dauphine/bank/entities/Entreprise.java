@@ -14,7 +14,8 @@ import java.util.Set;
 @Entity
 @NamedQuery(name = "Entreprise.findAll", query = "SELECT e FROM Entreprise e")
 public class Entreprise implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -7298202568294585054L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

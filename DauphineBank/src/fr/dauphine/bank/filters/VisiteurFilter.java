@@ -17,13 +17,10 @@ public class VisiteurFilter implements Filter {
 	public static final String ACCES_PUBLIC = "/index.xhtml";
 	public static final String ATT_SESSION_USER = "personne";
 
-	// public static final String ATT_SESSION_INVESTISSEUR = "Investisseur";
-	// public static final String ATT_SESSION_ADMINISTRATEUR = "Administrateur";
-	// public static final String ATT_SESSION_ENTREPRISE = "Entreprise";
-
+	
 	@Override
 	public void destroy() {
-
+		//Non surcharge
 	}
 
 	@Override
@@ -52,7 +49,7 @@ public class VisiteurFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-
+		//Non surcharge
 	}
 
 }

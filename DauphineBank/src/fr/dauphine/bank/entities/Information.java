@@ -12,7 +12,8 @@ import java.util.Date;
 @Entity
 @NamedQuery(name="Information.findAll", query="SELECT i FROM Information i")
 public class Information implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -7752634877100903654L;
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)

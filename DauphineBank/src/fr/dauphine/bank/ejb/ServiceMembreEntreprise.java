@@ -1,6 +1,6 @@
 package fr.dauphine.bank.ejb;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Remote;
 
@@ -9,5 +9,5 @@ import fr.dauphine.bank.entities.Information;
 
 @Remote
 public interface ServiceMembreEntreprise {
-	public ArrayList<Information> listeInformations(int idEntreprise);
+	public List<Information> listeInformations(int idEntreprise);
 }

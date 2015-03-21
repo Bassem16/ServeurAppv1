@@ -7,10 +7,7 @@ import java.util.TreeSet;
 
 import org.junit.Test;
 
-import fr.dauphine.bank.entities.Demande;
-import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
-import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
 
 public class TypePersonneTest {
@@ -51,40 +48,28 @@ public class TypePersonneTest {
 
 	@Test
 	public void testGetPersonnes() {
-		TypePersonne T =new TypePersonne();
-		// Création Offre
-		Personne O=new Personne();
-		Set<Personne> SeteO = new TreeSet<Personne>();
+		TypePersonne t =new TypePersonne();
+		Set<Personne> seteO = new TreeSet<Personne>();
 		
 		// Ajout Offre
-		 T.setPersonnes(SeteO);
-		 Set <Personne> Sete1 = T.getPersonnes();
+		 t.setPersonnes(seteO);
+		 Set <Personne> sete1 = t.getPersonnes();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetPersonnes() {
-		TypePersonne T =new TypePersonne();
-		// Création Offre
-		Personne O=new Personne();
-		Set<Personne> SeteO = new TreeSet<Personne>();
+		TypePersonne t =new TypePersonne();
+		Set<Personne> seteO = new TreeSet<Personne>();
 		
 		// Ajout Offre
-		 T.setPersonnes(SeteO);
-		 Set <Personne> Sete1 = T.getPersonnes();
+		 t.setPersonnes(seteO);
+		 Set <Personne> sete1 = t.getPersonnes();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
-	@Test
-	public void testAddPersonne() {
-		fail("Not yet implemented");
-	}
 
-	@Test
-	public void testRemovePersonne() {
-		fail("Not yet implemented");
-	}
 
 }

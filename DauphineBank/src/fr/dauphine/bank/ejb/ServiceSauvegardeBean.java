@@ -10,17 +10,12 @@ import javax.persistence.PersistenceUnit;
 
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
-
 import fr.dauphine.bank.entities.Offre;
-
 import fr.dauphine.bank.entities.Information;
-
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
-
 import fr.dauphine.bank.web.ConnexionDataBase;
-
 import fr.dauphine.bank.entities.TypePersonne;
 
 @Stateless
@@ -43,11 +38,11 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 
 	}
 
+	@Override
 	public void sauvegardeCompteEntreprise(Personne personne) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -62,9 +57,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-
 	}
 
 	@Override
@@ -74,8 +67,6 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			// em.merge(offreHistorique);
-
 			em.merge(offreHistorique);
 			et.commit();
 			System.out.println("Sauvegarde en base de l'offre (historique) "
@@ -83,9 +74,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-
 	}
 
 	@Override
@@ -102,9 +91,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-
 	}
 
 	@Override
@@ -123,9 +110,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-
 	}
 
 	@Override
@@ -145,10 +130,10 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
 	}
 
+	@Override
 	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -162,11 +147,10 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-
 	}
 
+	@Override
 	public void sauvgarderOffre(Offre offre) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -180,9 +164,7 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			em.close();
 		} catch (Exception e) {
 			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
 		}
-
 	}
 
 }

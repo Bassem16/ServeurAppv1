@@ -2,14 +2,8 @@ package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
-import java.util.Map;
 import java.util.TreeSet;
 import java.util.Set;
-import java.util.Set;
-import java.util.TreeSet;
-
-import org.hamcrest.core.IsEqual;
-import org.junit.Assert;
 import org.junit.Test;
 
 import fr.dauphine.bank.entities.Entreprise;
@@ -22,142 +16,130 @@ public class EntrepriseTest {
 
 	@Test
 	public void testEntreprise() {
-		Entreprise E=new Entreprise();
-		assertNotNull(E);
+		Entreprise e=new Entreprise();
+		assertNotNull(e);
 	}
 
 	@Test
 	public void testGetIdEntreprise() {
-		Entreprise E=new Entreprise();
-		E.setIdEntreprise(0);
-		assertEquals(0,E.getIdEntreprise());
+		Entreprise e=new Entreprise();
+		e.setIdEntreprise(0);
+		assertEquals(0,e.getIdEntreprise());
 	}
 
 	@Test
 	public void testSetIdEntreprise() {
-		Entreprise E=new Entreprise();
-		E.setIdEntreprise(1);
-		assertEquals(1,E.getIdEntreprise());
+		Entreprise e=new Entreprise();
+		e.setIdEntreprise(1);
+		assertEquals(1,e.getIdEntreprise());
 	}
 
 	@Test
 	public void testGetNombreTitreTotal() {
-		Entreprise E=new Entreprise();
-		E.setNombreTitreTotal(0);
-		assertEquals(0,E.getNombreTitreTotal());
+		Entreprise e=new Entreprise();
+		e.setNombreTitreTotal(0);
+		assertEquals(0,e.getNombreTitreTotal());
 	}
 
 	@Test
 	public void testSetNombreTitreTotal() {
-		Entreprise E=new Entreprise();
-		E.setNombreTitreTotal(1);
-		assertEquals(1,E.getNombreTitreTotal());
+		Entreprise e=new Entreprise();
+		e.setNombreTitreTotal(1);
+		assertEquals(1,e.getNombreTitreTotal());
 	}
 
 	@Test
 	public void testGetNomEntreprise() {
-		Entreprise E=new Entreprise();
-		E.setNomEntreprise("TEST");
-		assertEquals("TEST",E.getNomEntreprise());
+		Entreprise e=new Entreprise();
+		e.setNomEntreprise("TEST");
+		assertEquals("TEST",e.getNomEntreprise());
 	}
 
 	@Test
 	public void testSetNomEntreprise() {
-		Entreprise E=new Entreprise();
-		E.setNomEntreprise("TEST");
-		assertEquals("TEST", E.getNomEntreprise());
+		Entreprise e=new Entreprise();
+		e.setNomEntreprise("TEST");
+		assertEquals("TEST", e.getNomEntreprise());
 	}
 
 	@Test
 	public void testGetSecteurEntreprise() {
-		Entreprise E=new Entreprise();
-		E.setSecteurEntreprise("TEST");
-		assertEquals("TEST",E.getSecteurEntreprise());
+		Entreprise e=new Entreprise();
+		e.setSecteurEntreprise("TEST");
+		assertEquals("TEST",e.getSecteurEntreprise());
 	}
 
 	@Test
 	public void testSetSecteurEntreprise() {
-		Entreprise E=new Entreprise();
-		E.setSecteurEntreprise("TEST");
-		assertEquals("TEST",E.getSecteurEntreprise());
+		Entreprise e=new Entreprise();
+		e.setSecteurEntreprise("TEST");
+		assertEquals("TEST",e.getSecteurEntreprise());
 	}
 
 	@Test
 	public void testGetPersonnes() {
-		Entreprise E=new Entreprise();
-		// Création Personnne
-		Personne P=new Personne();
+		Entreprise e=new Entreprise();
 		Set<Personne> setP = new TreeSet<Personne>();
 
 		// Ajout Personne
-		 E.setPersonnes(setP);
-		 assertEquals(setP, E.getPersonnes());
+		 e.setPersonnes(setP);
+		 assertEquals(setP, e.getPersonnes());
 	}
 
 	@Test
 	public void testSetPersonnes() {
-		Entreprise E=new Entreprise();
-		// Création Personnne
-		Personne P=new Personne();
-		Set<Personne> SeteP = new TreeSet<Personne>();
+		Entreprise e=new Entreprise();
+		Set<Personne> seteP = new TreeSet<Personne>();
 
 		// Ajout Personne
-		 E.setPersonnes(SeteP);
-		 assertEquals(SeteP, E.getPersonnes());
+		 e.setPersonnes(seteP);
+		 assertEquals(seteP, e.getPersonnes());
 	}
 
 	@Test
 	public void testGetInformations() {
-		Entreprise E=new Entreprise();
-		// Création Information
-		Information I =new Information();
-		Set<Information> SeteI = new TreeSet<Information>();
+		Entreprise e=new Entreprise();
+		Set<Information> seteI = new TreeSet<Information>();
 
 		// Ajout Information
-		 E.setInformations(SeteI);
-		 assertEquals(SeteI, E.getInformations());
+		 e.setInformations(seteI);
+		 assertEquals(seteI, e.getInformations());
 	}
 
 	@Test
 	public void testSetInformations() {
-		Entreprise E=new Entreprise();
-		// Création Information
-		Information I=new Information();
+		Entreprise e=new Entreprise();
 		Set<Information> SeteI = new TreeSet<Information>();
 
 		// Ajout Information
-		 E.setInformations(SeteI);
-		 assertEquals(SeteI, E.getInformations());
+		 e.setInformations(SeteI);
+		 assertEquals(SeteI, e.getInformations());
 	}
 
 	
 
 	@Test
 	public void testGetOffres() {
-		Entreprise E=new Entreprise();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
+		Entreprise e=new Entreprise();
+		Set<Offre> seteO = new TreeSet<Offre>();
 		
 		// Ajout Offre
-		 E.setOffres(SeteO);
-		 Set <Offre> Sete1 = E.getOffres();
+		 e.setOffres(seteO);
+		 Set <Offre> sete1 = e.getOffres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetOffres() {
-		Entreprise E=new Entreprise();
-		// Création Offre
-		Offre O=new Offre();
-		Set<Offre> SeteO = new TreeSet<Offre>();
+		Entreprise e=new Entreprise();
+		Set<Offre> seteO = new TreeSet<Offre>();
 
 		// Ajout Offre
-		 E.setOffres(SeteO);
-		 Set <Offre> Sete1 = E.getOffres();
+		 e.setOffres(seteO);
+		 Set <Offre> sete1 = e.getOffres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	
@@ -165,30 +147,26 @@ public class EntrepriseTest {
 
 	@Test
 	public void testGetTitres() {
-		Entreprise E=new Entreprise();
-		// Création Titre
-		Titre O=new Titre();
-		Set<Titre> SeteO = new TreeSet<Titre>();
+		Entreprise e=new Entreprise();
+		Set<Titre> seteO = new TreeSet<Titre>();
 		
 		// Ajout Titre
-		 E.setTitres(SeteO);
-		 Set <Titre> Sete1 = E.getTitres();
+		 e.setTitres(seteO);
+		 Set <Titre> sete1 = e.getTitres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 	@Test
 	public void testSetTitres() {
-		Entreprise E=new Entreprise();
-		// Création Titre
-		Titre O=new Titre();
-		Set<Titre> SeteO = new TreeSet<Titre>();
+		Entreprise e=new Entreprise();
+		Set<Titre> seteO = new TreeSet<Titre>();
 		
 		// Ajout Titre
-		 E.setTitres(SeteO);
-		 Set <Titre> Sete1 = E.getTitres();
+		 e.setTitres(seteO);
+		 Set <Titre> sete1 = e.getTitres();
 		 
-		 assertEquals(SeteO, Sete1);
+		 assertEquals(seteO, sete1);
 	}
 
 }

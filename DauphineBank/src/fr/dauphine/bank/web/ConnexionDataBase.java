@@ -21,7 +21,8 @@ public class ConnexionDataBase {
 	  //Méthode qui va nous retourner notre instance et la créer si elle n'existe pas
 	   public static EntityManagerFactory getConnexion(){
 	    if(emf == null){
-	      new ConnexionDataBase();
+	      @SuppressWarnings("unused")
+	      ConnexionDataBase connexion = new ConnexionDataBase();
 	      System.out.println("Creation de la connexion...OK");
 	    }
 	    return emf;   

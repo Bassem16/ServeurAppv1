@@ -11,7 +11,8 @@ import javax.persistence.*;
 @Entity
 @NamedQuery(name="LierOffreTitre.findAll", query="SELECT l FROM LierOffreTitre l")
 public class LierOffreTitre implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = 4304846730202666620L;
 
 	@EmbeddedId
 	private LierOffreTitrePK id;

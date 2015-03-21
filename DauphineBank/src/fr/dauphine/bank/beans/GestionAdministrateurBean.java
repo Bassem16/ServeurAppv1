@@ -138,7 +138,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setEmail(String email) {
 		getPersonne().setEmail(email);
-		;
 	}
 
 	public String getLogin() {
@@ -155,7 +154,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setMotDePasse(String motDePasse) {
 		getPersonne().setMotDePasse(motDePasse);
-		;
 	}
 
 	public String getNomPersonne() {
@@ -164,7 +162,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setNomPersonne(String nomPersonne) {
 		getPersonne().setNomPersonne(nomPersonne);
-		;
 	}
 
 	public String getPrenomPersonne() {
@@ -173,18 +170,15 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setPrenomPersonne(String prenomPersonne) {
 		getPersonne().setPrenomPersonne(prenomPersonne);
-		;
 	}
 	
 	public void setEntreprise(Entreprise entreprise) {
 		getPersonne().setEntreprise(entreprise);
-		;
 	}
 
 
 	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
-		;
 	}
 
 	public Demande addDemande(Demande demande) {
@@ -258,7 +252,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setEmailEntreprise(String email) {
 		getPersonneEntreprise().setEmail(email);
-		;
 	}
 
 	public String getLoginEntreprise() {
@@ -275,7 +268,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setMotDePasseEntreprise(String motDePasse) {
 		getPersonneEntreprise().setMotDePasse(motDePasse);
-		;
 	}
 
 	public String getNomPersonneEntreprise() {

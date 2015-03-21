@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,9 +16,9 @@ import java.util.Set;
  */
 @Entity
 @NamedQuery(name = "OffreHistorique.findAll", query = "SELECT o FROM OffreHistorique o")
-public class OffreHistorique implements Serializable,
-		Comparable<OffreHistorique> {
-	private static final long serialVersionUID = 1L;
+public class OffreHistorique implements Serializable{
+
+	private static final long serialVersionUID = 6251510055885425962L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -124,8 +126,8 @@ public class OffreHistorique implements Serializable,
 		return this.personneReceveur;
 	}
 
-	public void setPersonneReceveur(Personne PersonneReceveur) {
-		this.personneReceveur = PersonneReceveur;
+	public void setPersonneReceveur(Personne personneReceveur) {
+		this.personneReceveur = personneReceveur;
 	}
 
 	public Set<Titre> getTitres() {
@@ -136,19 +138,23 @@ public class OffreHistorique implements Serializable,
 		this.titres = titres;
 	}
 
-	public ArrayList<Titre> getTitresList() {
+	public List<Titre> getTitresList() {
 
 		return new ArrayList<Titre>(titres);
 	}
 
 	// Comparable code
-	@Override
-	public int compareTo(OffreHistorique o) {
+	
+	public static final Comparator<OffreHistorique> date = new Comparator<OffreHistorique>() {
 
-		// Odre décroissant
-		return o.getDateOffreHistorique().compareTo(
-				this.getDateOffreHistorique());
+		public int compare(OffreHistorique o1, OffreHistorique o2) {
+				
+			return o1.getDateOffreHistorique().compareTo(o2.getDateOffreHistorique());
+			
+		}
 
-	}
+
+	};
+
 
 }

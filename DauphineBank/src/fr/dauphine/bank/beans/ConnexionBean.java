@@ -1,6 +1,7 @@
 package fr.dauphine.bank.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
@@ -79,8 +80,6 @@ public class ConnexionBean {
 	}
 
 	public String doLogout() {
-//		serviceSauvegarde.sauvegardeCompte((Personne) Utile.getSession()
-//				.getAttribute("personne"));
 		HttpSession hs = Utile.getSession();
 		hs.invalidate();
 		return "/index.xhtml";
@@ -190,22 +189,22 @@ public class ConnexionBean {
 		return getPersonne().getOffresRecues();
 	}
 
-	public ArrayList<Offre> getOffresEmisesList() {
+	public List<Offre> getOffresEmisesList() {
 		return new ArrayList<Offre>(getPersonne().getOffresEmises());
 	}
 
-	public ArrayList<Offre> getOffresRecuesList() {
+	public List<Offre> getOffresRecuesList() {
 		return new ArrayList<Offre>(getPersonne().getOffresRecues());
 	}
 
 	public void setOffresEmises(Set<Offre> offres) {
 		getPersonne().setOffresEmises(offres);
-		;
+
 	}
 
 	public void setOffresRecues(Set<Offre> offres) {
 		getPersonne().setOffresRecues(offres);
-		;
+	
 	}
 
 	public Offre addOffreEmises(Offre offre) {
@@ -255,11 +254,11 @@ public class ConnexionBean {
 	}
 	
 	
-	public ArrayList<Titre> getTitresList() {
+	public List<Titre> getTitresList() {
 		return new ArrayList<Titre>(getPersonne().getTitres());
 	}
 
-	public ArrayList<Demande> getDemandesList() {
+	public List<Demande> getDemandesList() {
 		return new ArrayList<Demande>(getPersonne().getDemandes());
 	}
 

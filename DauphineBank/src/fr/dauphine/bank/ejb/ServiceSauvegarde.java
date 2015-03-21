@@ -15,20 +15,14 @@ import fr.dauphine.bank.entities.Titre;
 
 @Remote
 public interface ServiceSauvegarde {
+	
 	public void sauvegardeCompte(Personne personne);
-
 	public void sauvegardeCompteEntreprise(Personne personne);
-
 	public void sauvegardeOffreHistorique(OffreHistorique offreHistorique);
-
 	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique);
-
 	public void sauvegardeTitre(Titre titre);
-
 	public void sauvgarderEntreprise(Entreprise entreprise);
-
 	public void sauvgarderOffre(Offre offre);
-
 	public void sauvgarderInformation(Information information);
 
 }
