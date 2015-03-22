@@ -6,24 +6,29 @@ import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 
-import fr.dauphine.bank.entities.Demande;
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
+import fr.dauphine.bank.web.ConnexionDataBase;
 import fr.dauphine.bank.entities.TypePersonne;
 
 @Stateless
 public class ServiceSauvegardeBean implements ServiceSauvegarde {
 
+	private static final Logger LOG = Logger
+			.getLogger(ServiceSauvegardeBean.class.getName());
+	
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@Override
 	public void sauvegardeCompte(Personne personne) {
@@ -38,12 +43,14 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ personne.getEmail());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvegardeCompte : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 
 	}
-	
+
+	@Override
 	public void sauvegardeCompteEntreprise(Personne personne) {
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -57,13 +64,11 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ personne.getEntreprise().getNomEntreprise());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvegardeCompteEntreprise : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-
 	}
-	
-	
 
 	@Override
 	public void sauvegardeOffreHistorique(OffreHistorique offreHistorique) {
@@ -72,20 +77,18 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			//em.merge(offreHistorique);
-	
-			em.persist(offreHistorique);
+			em.merge(offreHistorique);
 			et.commit();
 			System.out.println("Sauvegarde en base de l'offre (historique) "
 					+ offreHistorique.getIdOffreHistorique());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+				"ServiceSauvegardeBean : Fonction sauvegardeOffreHistorique : "
+						+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-
 	}
-	
+
 	@Override
 	public void sauvgarderEntreprise(Entreprise entreprise) {
 		try {
@@ -99,10 +102,10 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ entreprise.getIdEntreprise());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderEntreprise : "
+							+ e.getClass() + " Cause : " + e.getCause());
 		}
-
 	}
 
 	@Override
@@ -120,34 +123,36 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ "  / " + titre.getIdTitre());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvegardeTitre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-
 	}
-	
+
 	@Override
-	public void sauvgarderInformation(Information information){
+	public void sauvgarderInformation(Information information) {
 		try {
 
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			information.setDateInformation(new Date(System.currentTimeMillis()));
+			information
+					.setDateInformation(new Date(System.currentTimeMillis()));
 			em.merge(information);
 			et.commit();
-			System.out.println("Mise à jour du titre:" 
-					+ "  / " + information.getIdInformation());
+			System.out.println("Mise à jour du titre:" + "  / "
+					+ information.getIdInformation());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderInformation : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
-	
-	
-	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique){
+
+	@Override
+	public void sauvgarderDemandeHistorique(DemandeHistorique demandeHistorique) {
 		try {
 			EntityManager em = emf.createEntityManager();
 			EntityTransaction et = null;
@@ -159,10 +164,29 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ demandeHistorique.getIdDemandeHistorique());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderDemandeHistorique : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-		
+	}
+
+	@Override
+	public void sauvgarderOffre(Offre offre) {
+		try {
+			EntityManager em = emf.createEntityManager();
+			EntityTransaction et = null;
+			et = em.getTransaction();
+			et.begin();
+			em.merge(offre);
+			et.commit();
+			System.out.println("Sauvegarde en base de l'offre "
+					+ offre.getIdOffre());
+			em.close();
+		} catch (Exception e) {
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderOffre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
+		}
 	}
 
 }

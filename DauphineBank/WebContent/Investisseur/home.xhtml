@@ -23,354 +23,320 @@
 	</noscript>
 </h:head>
 
+
 <h:body>
 
-<!-- Header -->
+	<!-- Header -->
 	<header id="header" class="skel-layers-fixed">
 	<h1>
-		<a href="../index.xhtml">Team Trade</a> par The Team
+
+		<a href="../index.xhtml">Team Trade</a> par The Team | Votre Solde
+		#{gestionInvestisseurBean.soldePersonne}€
+
+
 	</h1>
 	<nav id="nav">
 	<ul>
-	<li>connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}</li>
+		<li>connecté en tant que #{connexionBean.prenomPersonne}
+			#{connexionBean.nomPersonne}</li>
 		<li><a href="../index.xhtml">Accueil</a></li>
 		<li><a href="" class="icon fa-angle-down">Investisseur</a>
 			<ul>
-				<li><h:link value="Rechercher Titres" outcome="/Investisseur/research.xhtml" /></li>
+				<li><h:link value="Rechercher Titres"
+						outcome="/Investisseur/research.xhtml" /></li>
 				<li><h:link value="Rechercher Entreprise"
-					outcome="/Investisseur/research_company.xhtml" /></li>
+						outcome="/Investisseur/research_company.xhtml" /></li>
 				<li><h:link value="Accueil Investisseur"
-					outcome="/Investisseur/home.xhtml" /></li>
+						outcome="/Investisseur/home.xhtml" /></li>
 			</ul></li>
-		<li>
-			<c:if test="#{connexionBean.connected}">
-	    		<h:form><h:commandButton value="Deconnexion" action="#{connexionBean.doLogout}" class="button"></h:commandButton></h:form>
-	    	</c:if>
-    	</li>
+		<li><c:if test="#{connexionBean.connected}">
+				<h:form>
+					<h:commandButton value="Deconnexion"
+						action="#{connexionBean.doLogout}" class="button"></h:commandButton>
+				</h:form>
+			</c:if></li>
 	</ul>
-	</nav> 
+	</nav> </header>
+
+	<!-- Main -->
+	<section id="main" class="container"> <header>
+	<h2>Page d'accueil Investisseur</h2>
+	<p>Vous pouvez consulter ici les informations liés aux activités
+		d'investissement et accéder aux fonctions de recherche.</p>
 	</header>
 
-<!-- Main -->
-	<section id="main" class="container">
-		<header>
-			<h2>Page d'accueil Investisseur</h2>
-			<p>Vous pouvez consulter ici les informations liés aux activités d'investissement et accéder aux fonctions de recherche.</p>
-		</header>
-
-		<div class="row">
-			<div class="12u">
-				<section class="box">
-				<h3>Offres en cours (Emises)</h3>
-		<h:form>
-		
-		<h:dataTable value="#{gestionInvestisseurBean.offresEmisesList}"
-			var="o" styleClass="order-table" headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-eve-row">
-			<h:column>
-				<f:facet name="header">Date Offre</f:facet>
-				<h:outputText value="#{o.dateOffre}" />
-
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Type de l'offre</f:facet>
-				<h:outputText value="#{o.typeOffre}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">ID Entreprise</f:facet>
-				<h:outputText value="#{o.entreprise.idEntreprise}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Nom Entreprise</f:facet>
-				<h:outputText value="#{o.entreprise.nomEntreprise}" />
-			</h:column>
+	<div class="row">
+		<div class="12u">
+			<section class="box">
+			<h3>Offres en cours (Emises)</h3>
+			<h:form>
 
 
-			<h:column>
-				<f:facet name="header">Prix de l'offre</f:facet>
-				<h:outputText value="#{o.prixOffre}" />
-			</h:column>
+				<h:dataTable value="#{gestionInvestisseurBean.offresEmisesList}"
+					var="o" styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-eve-row">
+					<h:column>
+						<f:facet name="header">ID Offre</f:facet>
+						<h:outputText value="#{o.idOffre}" />
 
-			<h:column>
-				<f:facet name="header">Quantité</f:facet>
-				<h:outputText value="#{o.quantiteOffre}" />
-			</h:column>
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">Titre lié</f:facet>
-				<c:choose>
-					<c:when test="#{o.titresList.isEmpty()}">
-						<h:outputText value="#{o.titresList.get(0).nomTitre}" />
-					</c:when>
+					<h:column>
+						<f:facet name="header">Type d'offre</f:facet>
+						<h:outputText value="#{o.typeOffre}" />
+					</h:column>
 
 
-					<c:otherwise>
-
-					</c:otherwise>
-				</c:choose>
-
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Statut</f:facet>
-				<h:outputText value="#{o.statut}" />
-			</h:column>
-			<h:column>
-
-				<h:commandButton value="Cloturer offre"
-					action="#{gestionInvestisseurBean.cloturerOffre(o)}"></h:commandButton>
-			</h:column>
-		</h:dataTable>
+					<h:column>
+						<f:facet name="header">Entreprise</f:facet>
+						<h:outputText value="#{o.entreprise.nomEntreprise}" />
+					</h:column>
 
 
-		<h3>Titres</h3>
-		<h:dataTable value="#{gestionInvestisseurBean.titresList}" var="t"
-			styleClass="order-table" headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-eve-row">
-			<h:column>
-				<f:facet name="header">ID Titre</f:facet>
-				<h:outputText value="#{t.idTitre}" />
-			</h:column>
+					<h:column>
+						<f:facet name="header">Prix de l'offre</f:facet>
+						<h:outputText value="#{o.prixOffre}" />
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">Nom Titre</f:facet>
-				<h:outputText value="#{t.nomTitre}" />
-			</h:column>
+					<h:column>
+						<f:facet name="header">Date offre</f:facet>
+						<h:outputText value="#{o.dateOffre}" />
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">ID Entreprise</f:facet>
-				<h:outputText value="#{t.entreprise.idEntreprise}" />
-			</h:column>
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+						<h:outputText value="#{o.quantiteOffre}" />
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">Nom Entreprise</f:facet>
-				<h:outputText value="#{t.entreprise.nomEntreprise}" />
-			</h:column>
+					
 
+					
 
+					<h:column>
+						<f:facet name="header">Statut</f:facet>
+						<h:outputText value="#{o.statut}" />
+					</h:column>
+					<h:column>
 
-			<h:column>
-				<f:facet name="header">Type de Titre</f:facet>
-				<h:outputText value="#{t.typeTitre}" />
-			</h:column>
-
+						<h:commandButton value="Cloturer offre"
+							action="#{gestionInvestisseurBean.cloturerOffre(o)}"></h:commandButton>
+					</h:column>
+				</h:dataTable>
 
 
-			<h:column>
+				
 
-				<f:facet name="header">Mise en vente</f:facet>
-				<h:outputText value="#{t.estVente()}" />
-			</h:column>
+				
+				<h3>Offres recues</h3>
+				<h:dataTable value="#{gestionInvestisseurBean.offresRecuesList}"
+					var="oR" styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-eve-row">
+					<h:column>
+						<f:facet name="header">ID Offre</f:facet>
+						<h:outputText value="#{oR.idOffre}" />
 
+					</h:column>
 
-			<h:column>
-
-
-				<h:commandButton value="Stopper vente"
-					action="#{gestionInvestisseurBean.retirerDuMarcherTitre(t)}"></h:commandButton>
-				<h:commandButton value="Mettre en vente"
-					action="#{gestionInvestisseurBean.mettreSurMarcherTitre(t)}"></h:commandButton>
-
-
-			</h:column>
-
-
-		</h:dataTable>
-
-		<h3>Offres recues</h3>
-		<h:dataTable value="#{gestionInvestisseurBean.offresRecuesList}"
-			var="oR" styleClass="order-table" headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-eve-row">
-			<h:column>
-				<f:facet name="header">Date Offre</f:facet>
-				<h:outputText value="#{oR.dateOffre}" />
-
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Type de l'offre</f:facet>
-				<h:outputText value="#{oR.typeOffre}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">ID Entreprise</f:facet>
-				<h:outputText value="#{oR.entreprise.idEntreprise}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Nom Entreprise</f:facet>
-				<h:outputText value="#{oR.entreprise.nomEntreprise}" />
-			</h:column>
+					<h:column>
+						<f:facet name="header">Type d'offre</f:facet>
+						<h:outputText value="#{oR.typeOffre}" />
+					</h:column>
 
 
-			<h:column>
-				<f:facet name="header">Prix de l'offre</f:facet>
-				<h:outputText value="#{oR.prixOffre}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Quantité</f:facet>
-				<h:outputText value="#{oR.quantiteOffre}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Titre lié</f:facet>
-				<c:choose>
-					<c:when test="#{oR.titresList.isEmpty()}">
-						<h:outputText value="#{oR.titresList.get(0).nomTitre}" />
-					</c:when>
+					<h:column>
+						<f:facet name="header">Entreprise</f:facet>
+						<h:outputText value="#{oR.entreprise.nomEntreprise}" />
+					</h:column>
 
 
-					<c:otherwise>
+					<h:column>
+						<f:facet name="header">Prix de l'offre</f:facet>
+						<h:outputText value="#{oR.prixOffre}" />
+					</h:column>
 
-					</c:otherwise>
-				</c:choose>
-			</h:column>
+					<h:column>
+						<f:facet name="header">Date offre</f:facet>
+						<h:outputText value="#{oR.dateOffre}" />
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">Statut</f:facet>
-				<h:outputText value="#{oR.statut}" />
-			</h:column>
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+						<h:outputText value="#{oR.quantiteOffre}" />
+					</h:column>
 
-			<h:column>
-				<h:commandButton value="Accepter offre"
-					action="#{gestionInvestisseurBean.accepterOffre(oR)}"></h:commandButton>
-				<h:commandButton value="Refuser offre"
-					action="#{gestionInvestisseurBean.refuserOffre(oR)}" class="button special"></h:commandButton>
-			</h:column>
 
-		</h:dataTable>
-		</h:form>
-					</section>
-			</div>
+					<h:column>
+						<f:facet name="header">Statut</f:facet>
+						<h:outputText value="#{oR.statut}" />
+					</h:column>
+
+					<h:column>
+						<h:commandButton value="Accepter offre"
+							action="#{gestionInvestisseurBean.accepterOffre(oR)}"
+							disabled="#{gestionInvestisseurBean.soldeSuffisant(oR)}"></h:commandButton>
+						
+					</h:column>
+					
+					<h:column>
+					<h:commandButton value="Refuser offre"
+							action="#{gestionInvestisseurBean.refuserOffre(oR)}"
+							class="button special"></h:commandButton></h:column>
+
+				</h:dataTable>
+			</h:form> </section>
 		</div>
+	</div>
 
-		<div class="row">
-			<div class="12u">
-				<section class="box">
-		<h3>Historiques de vos Offres (Emises)</h3>
-		<h:form>
-		<h:dataTable
-			value="#{gestionInvestisseurBean.offreHistoriquesEmisesList}"
-			var="oh" styleClass="order-table" headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-eve-row">
-			<h:column>
-				<f:facet name="header">Type d'offre</f:facet>
-				<h:outputText value="#{oh.typeOffreHistorique}" />
+	<div class="row">
+		<div class="12u">
+			<section class="box">
+			<h3>Historiques de vos Offres (Emises)</h3>
+			<h:form>
+				<h:dataTable
+					value="#{gestionInvestisseurBean.offreHistoriquesEmisesList}"
+					var="oh" styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-eve-row">
+					<h:column>
+						<f:facet name="header">Type d'offre</f:facet>
+						<h:outputText value="#{oh.typeOffreHistorique}" />
 
-			</h:column>
-
-
-
-			<h:column>
-				<f:facet name="header">Nom Entreprise</f:facet>
-				<h:outputText value="#{oh.entreprise.nomEntreprise}" />
-			</h:column>
+					</h:column>
 
 
-			<h:column>
-				<f:facet name="header">Prix de l'offre</f:facet>
-				<h:outputText value="#{oh.prixOffreHistorique}" />
-			</h:column>
 
-			<h:column>
-				<f:facet name="header">Quantité</f:facet>
-				<h:outputText value="#{oh.quantiteOffreHistorique}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Titre lié</f:facet>
-				<c:choose>
-					<c:when test="#{oh.titresList.isEmpty()}">
-						<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
-					</c:when>
+					<h:column>
+						<f:facet name="header">Entreprise</f:facet>
+						<h:outputText value="#{oh.entreprise.nomEntreprise}" />
+					</h:column>
 
 
-					<c:otherwise>
+					<h:column>
+						<f:facet name="header">Prix de l'offre</f:facet>
+						<h:outputText value="#{oh.prixOffreHistorique}" />
+					</h:column>
 
-					</c:otherwise>
-				</c:choose>
+					<h:column>
+						<f:facet name="header">Date offre</f:facet>
+						<h:outputText value="#{oh.dateOffreHistorique}" />
+					</h:column>
 
-			</h:column>
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+						<h:outputText value="#{oh.quantiteOffreHistorique}" />
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">Statut</f:facet>
-				<h:outputText value="#{oh.statut}" />
-			</h:column>
+					
 
-			<h:column>
-				<f:facet name="header">Date Offre</f:facet>
-				<h:outputText value="#{oh.dateOffreHistorique}" />
-
-			</h:column>
-		</h:dataTable>
-		
-		
-		<h3>Historiques de vos Offres (Reçues)</h3>
-		<h:dataTable
-			value="#{gestionInvestisseurBean.offreHistoriquesRecuesList}"
-			var="oh" styleClass="order-table" headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-eve-row">
-			<h:column>
-				<f:facet name="header">Type d'offre</f:facet>
-				<h:outputText value="#{oh.typeOffreHistorique}" />
-
-			</h:column>
+					<h:column>
+						<f:facet name="header">Statut</f:facet>
+						<h:outputText value="#{oh.statut}" />
+					</h:column>
 
 
-			<h:column>
-				<f:facet name="header">Nom Entreprise</f:facet>
-				<h:outputText value="#{oh.entreprise.nomEntreprise}" />
-			</h:column>
+				</h:dataTable>
 
 
-			<h:column>
-				<f:facet name="header">Prix de l'offre</f:facet>
-				<h:outputText value="#{oh.prixOffreHistorique}" />
-			</h:column>
+				<h3>Historiques de vos Offres (Reçues)</h3>
+				<h:dataTable
+					value="#{gestionInvestisseurBean.offreHistoriquesRecuesList}"
+					var="oh" styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-eve-row">
+					<h:column>
+						<f:facet name="header">Type d'offre</f:facet>
+						<h:outputText value="#{oh.typeOffreHistorique}" />
 
-			<h:column>
-				<f:facet name="header">Quantité</f:facet>
-				<h:outputText value="#{oh.quantiteOffreHistorique}" />
-			</h:column>
-
-			<h:column>
-				<f:facet name="header">Titre lié</f:facet>
-				<c:choose>
-					<c:when test="#{oh.titresList.isEmpty()}">
-						<h:outputText value="#{oh.titresList.isEmpty()}"></h:outputText>
-					</c:when>
+					</h:column>
 
 
-					<c:otherwise>
+					<h:column>
+						<f:facet name="header">Entreprise</f:facet>
+						<h:outputText value="#{oh.entreprise.nomEntreprise}" />
+					</h:column>
 
-					</c:otherwise>
-				</c:choose>
 
-			</h:column>
+					<h:column>
+						<f:facet name="header">Prix de l'offre</f:facet>
+						<h:outputText value="#{oh.prixOffreHistorique}" />
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">Statut</f:facet>
-				<h:outputText value="#{oh.statut}" />
-			</h:column>
+					<h:column>
+						<f:facet name="header">Date offre</f:facet>
+						<h:outputText value="#{oh.dateOffreHistorique}" />
+					</h:column>
 
-			<h:column>
-				<f:facet name="header">Date Offre</f:facet>
-				<h:outputText value="#{oh.dateOffreHistorique}" />
+					<h:column>
+						<f:facet name="header">Quantité</f:facet>
+						<h:outputText value="#{oh.quantiteOffreHistorique}" />
+					</h:column>
 
-			</h:column>
-		</h:dataTable>
+					
 
-	</h:form>
-						</section>
-			</div>
+					<h:column>
+						<f:facet name="header">Statut</f:facet>
+						<h:outputText value="#{oh.statut}" />
+					</h:column>
+
+
+				</h:dataTable>
+				
+				<h3>Titres</h3>
+				<h:dataTable value="#{gestionInvestisseurBean.titresList}" var="t"
+					styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-eve-row">
+					<h:column>
+						<f:facet name="header">ID Titre</f:facet>
+						<h:outputText value="#{t.idTitre}" />
+					</h:column>
+
+					<h:column>
+						<f:facet name="header">Nom</f:facet>
+						<h:outputText value="#{t.nomTitre}" />
+					</h:column>
+
+
+					<h:column>
+						<f:facet name="header">Entreprise</f:facet>
+						<h:outputText value="#{t.entreprise.nomEntreprise}" />
+					</h:column>
+
+
+
+					<h:column>
+						<f:facet name="header">Type de Titre</f:facet>
+						<h:outputText value="#{t.typeTitre}" />
+					</h:column>
+
+
+
+					<h:column>
+
+						<f:facet name="header">Mise en vente</f:facet>
+						<h:outputText value="#{t.estVente()}" />
+					</h:column>
+
+
+					<h:column>
+
+
+						<h:commandButton value="Stopper vente"
+							action="#{gestionInvestisseurBean.retirerDuMarcherTitre(t)}"></h:commandButton>
+						
+
+
+					</h:column>
+					<h:column>
+					<h:commandButton value="Mettre en vente"
+							action="#{gestionInvestisseurBean.mettreSurMarcherTitre(t)}" class="pure-button"></h:commandButton>
+					</h:column>
+
+				</h:dataTable>
+
+			</h:form> </section>
 		</div>
+	</div>
 	</section>
-	
-	<!-- Footer --> 
+
+	<!-- Footer -->
 	<footer id="footer">
 	<ul class="icons">
 		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>

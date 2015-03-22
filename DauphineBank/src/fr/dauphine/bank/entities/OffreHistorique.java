@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -14,8 +16,9 @@ import java.util.Set;
  */
 @Entity
 @NamedQuery(name = "OffreHistorique.findAll", query = "SELECT o FROM OffreHistorique o")
-public class OffreHistorique implements Serializable {
-	private static final long serialVersionUID = 1L;
+public class OffreHistorique implements Serializable{
+
+	private static final long serialVersionUID = 6251510055885425962L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +51,7 @@ public class OffreHistorique implements Serializable {
 	private Personne personneReceveur;
 
 	// bi-directional many-to-many association to Titre
-	@ManyToMany(cascade= {CascadeType.ALL}, fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
 	@JoinTable(name = "LierOffreTitreHistorique", joinColumns = { @JoinColumn(name = "idOffreHistorique") }, inverseJoinColumns = { @JoinColumn(name = "idTitre") })
 	private Set<Titre> titres;
 
@@ -123,8 +126,8 @@ public class OffreHistorique implements Serializable {
 		return this.personneReceveur;
 	}
 
-	public void setPersonneReceveur(Personne PersonneReceveur) {
-		this.personneReceveur = PersonneReceveur;
+	public void setPersonneReceveur(Personne personneReceveur) {
+		this.personneReceveur = personneReceveur;
 	}
 
 	public Set<Titre> getTitres() {
@@ -135,9 +138,23 @@ public class OffreHistorique implements Serializable {
 		this.titres = titres;
 	}
 
-	public ArrayList<Titre> getTitresList() {
+	public List<Titre> getTitresList() {
 
 		return new ArrayList<Titre>(titres);
 	}
+
+	// Comparable code
+	
+	public static final Comparator<OffreHistorique> date = new Comparator<OffreHistorique>() {
+
+		public int compare(OffreHistorique o1, OffreHistorique o2) {
+				
+			return o1.getDateOffreHistorique().compareTo(o2.getDateOffreHistorique());
+			
+		}
+
+
+	};
+
 
 }

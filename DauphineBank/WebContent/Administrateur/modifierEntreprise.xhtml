@@ -53,6 +53,7 @@
 	</header>
 	
 <!-- Main -->
+<h:form >
 	<section id="main" class="container">
 		<header>
 			<h2>Modification des données Entreprise</h2>
@@ -64,15 +65,17 @@
 				<section class="box">
 	
 
-<h:form >
+
 			<h3>Inscription Entreprise</h3>
 
 			<h:outputLabel for="nomEntreprise">Nom entreprise <span
 					class="requis">*</span>
 			</h:outputLabel>
 			<h:inputText id="nomEntreprise"
-				value="#{gestionAdministrateurBean.nomEntreprise}" required="false">
+				value="#{gestionAdministrateurBean.nomEntreprise}" required="true" requiredMessage="Nom requis">
+				<f:ajax event="blur" render="nomEntreprise" />
 			</h:inputText>
+			<h:message  for="nomEntreprise" style="color:red"/>
 			<br />
 
 
@@ -80,23 +83,35 @@
 					class="requis">*</span>
 			</h:outputLabel>
 			<h:inputText id="secteurEntreprise"
-				value="#{gestionAdministrateurBean.secteurEntreprise}" required="false" >
+				value="#{gestionAdministrateurBean.secteurEntreprise}" required="true" requiredMessage="Secteur requis">
+				<f:ajax event="blur" render="secteurEntreprise" />
 			</h:inputText>
+			<h:message  for="secteurEntreprise" style="color:red"/>
 			<br />
 
 			<h:outputLabel for="nombreTitreEntreprise">Nombre de Titre de l'entreprise <span
 					class="requis">*</span>
 			</h:outputLabel>
 			<h:inputText id="nombreTitreEntreprise"
-				value="#{gestionAdministrateurBean.nombreTitreTotal}" required="false" >
-			</h:inputText>
+				value="#{gestionAdministrateurBean.nombreTitreTotal}" required="true" requiredMessage="Nombre de titre requis" >
+			<f:ajax event="blur" render="nombreTitreEntreprise" /></h:inputText>
+			<h:message  for="nombreTitreEntreprise" style="color:red"/>
+			<br />
+			
+			<h:outputLabel for="logoEntreprise">Logo de l'entreprise 
+			</h:outputLabel>
+			<h:inputText id="logoEntreprise"
+				value="#{gestionAdministrateurBean.logoEntreprise}" >
+			<f:ajax event="blur" render="nombreTitreEntreprise" /></h:inputText>
+			
 			<br />
 
 
 			<h:commandButton value="Ajouter"
-				action="#{gestionAdministrateurBean.ajouterEntreprise}"></h:commandButton>
+				action="#{gestionAdministrateurBean.ajouterEntreprise}">
+				<f:ajax execute="@form" render="@form" /></h:commandButton>
 			<br />
-			</h:form>
+			
 					</section>
 			</div>
 		</div>
@@ -105,7 +120,7 @@
 			<div class="12u">
 				<section class="box">
 	<h3>Entreprises inscrites</h3>
-	<h:dataTable value="#{gestionAdministrateurBean.entreprises}" var="e"
+	<h:dataTable id="table" value="#{gestionAdministrateurBean.entreprises}" var="e"
 		styleClass="order-table" headerClass="order-table-header"
 		rowClasses="order-table-odd-row,order-table-eve-row">
 		<h:column>
@@ -122,13 +137,14 @@
 			<f:facet name="header">Nombre de titre total</f:facet>
 			<h:outputText value="#{e.nombreTitreTotal}" />
 		</h:column>
+		
 
 	</h:dataTable>
 				</section>
 			</div>
 		</div>
 	</section>
-	
+	</h:form>
 	<!-- Footer --> 
 	<footer id="footer">
 	<ul class="icons">

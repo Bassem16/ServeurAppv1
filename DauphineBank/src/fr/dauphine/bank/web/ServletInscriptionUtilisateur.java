@@ -15,14 +15,16 @@ import javax.sql.DataSource;
 /**
  * Servlet implementation class ServletInscriptionUtilisateur
  */
+@SuppressWarnings("serial")
 @WebServlet("/ServletInscriptionUtilisateur")
 public class ServletInscriptionUtilisateur extends HttpServlet {
-	private static final long serialVersionUID = 1L;
+
 	private DataSource dataSource = null;
 
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
+	
 	public ServletInscriptionUtilisateur() {
 		super();
 		try {
@@ -38,6 +40,7 @@ public class ServletInscriptionUtilisateur extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		doGetVersion1(request, response);
@@ -62,7 +65,7 @@ public class ServletInscriptionUtilisateur extends HttpServlet {
 			getServletContext().getRequestDispatcher("/CreationCompte.xhtml")
 					.forward(request, response);
 		} catch (IOException ioException) {
-			ioException.printStackTrace();
+			System.out.println(ioException.getMessage());
 		}
 	}
 
@@ -70,9 +73,10 @@ public class ServletInscriptionUtilisateur extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
+	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+		
 	}
 
 	public DataSource getDataSource() {

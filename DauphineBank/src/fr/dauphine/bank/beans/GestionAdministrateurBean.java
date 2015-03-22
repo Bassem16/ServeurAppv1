@@ -1,15 +1,12 @@
 package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.bean.SessionScoped;
 import javax.servlet.http.HttpSession;
 
@@ -23,7 +20,6 @@ import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
-import fr.dauphine.bank.entities.TypePersonne;
 import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
@@ -37,7 +33,7 @@ public class GestionAdministrateurBean implements Serializable {
 	private Personne personne = null;
 	private Personne personneEntreprise = null;
 	private Entreprise entreprise = null;
-
+	
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
 	@EJB
@@ -111,6 +107,10 @@ public class GestionAdministrateurBean implements Serializable {
 	
 	public void ajouterEntreprise() {
 		serviceSauvegarde.sauvgarderEntreprise(entreprise);
+		entreprise.setLogo("");
+		entreprise.setNomEntreprise("");
+		entreprise.setSecteurEntreprise("");
+		entreprise.setNombreTitreTotal(0);
 	}
 	
 	public void ajouterMembreEntreprise() {
@@ -138,7 +138,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setEmail(String email) {
 		getPersonne().setEmail(email);
-		;
 	}
 
 	public String getLogin() {
@@ -155,7 +154,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setMotDePasse(String motDePasse) {
 		getPersonne().setMotDePasse(motDePasse);
-		;
 	}
 
 	public String getNomPersonne() {
@@ -164,7 +162,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setNomPersonne(String nomPersonne) {
 		getPersonne().setNomPersonne(nomPersonne);
-		;
 	}
 
 	public String getPrenomPersonne() {
@@ -173,18 +170,15 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setPrenomPersonne(String prenomPersonne) {
 		getPersonne().setPrenomPersonne(prenomPersonne);
-		;
 	}
 	
 	public void setEntreprise(Entreprise entreprise) {
 		getPersonne().setEntreprise(entreprise);
-		;
 	}
 
 
 	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
-		;
 	}
 
 	public Demande addDemande(Demande demande) {
@@ -228,6 +222,16 @@ public class GestionAdministrateurBean implements Serializable {
 	public void setNombreTitreTotal(int nombreTitreTotal) {
 		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
 	}
+
+
+	public String getLogoEntreprise() {
+		return getEntreprise().getLogo();
+	}
+
+	public void setLogoEntreprise(String logoEntreprise) {
+		getEntreprise().setLogo(logoEntreprise);
+	}
+
 	
 	
 	public Personne getPersonneEntreprise() {
@@ -248,7 +252,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setEmailEntreprise(String email) {
 		getPersonneEntreprise().setEmail(email);
-		;
 	}
 
 	public String getLoginEntreprise() {
@@ -265,7 +268,6 @@ public class GestionAdministrateurBean implements Serializable {
 
 	public void setMotDePasseEntreprise(String motDePasse) {
 		getPersonneEntreprise().setMotDePasse(motDePasse);
-		;
 	}
 
 	public String getNomPersonneEntreprise() {
@@ -284,4 +286,5 @@ public class GestionAdministrateurBean implements Serializable {
 		getPersonneEntreprise().setPrenomPersonne(nomPersonne);
 	}
 	
+
 }

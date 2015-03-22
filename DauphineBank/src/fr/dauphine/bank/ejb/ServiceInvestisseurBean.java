@@ -1,31 +1,35 @@
 package fr.dauphine.bank.ejb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
-//import javax.persistence.Query;
-
 import javax.persistence.Query;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
-
-//import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceInvestisseurBean implements ServiceInvestisseur {
 
-	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private static final Logger LOG = Logger
+			.getLogger(ServiceInvestisseurBean.class.getName());
 
+	@PersistenceUnit
+	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
+
+	@Override
 	public void supprimerOffre(Offre offre) {
 
 		try {
@@ -33,9 +37,6 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			EntityTransaction et = null;
 			et = em.getTransaction();
 			et.begin();
-			// Offre o = em.getReference(Offre.class, offre.getIdOffre());
-			// em.remove(em.contains(offre) ? offre : em.merge(offre));
-			// em.remove(em.contains(o) ? o : em.merge(o));
 			Query query = em
 					.createQuery("DELETE FROM LierOffreTitre lot WHERE lot.id.idOffre LIKE:personneID");
 			query.setParameter("personneID", offre.getIdOffre());
@@ -47,12 +48,14 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			et.commit();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction SupprimerOffre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 
 	}
 
+	@Override
 	public void miseAJourTitre(Titre titre) {
 
 		try {
@@ -64,47 +67,21 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			et.commit();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction miseAJourTitre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-
-	}
-
-	@Override
-	public ArrayList<Offre> recupererOffres(Personne personne) {
-		// ArrayList<Offre> offres = null;
-		// try {
-		// EntityManager em = emf.createEntityManager();
-		// EntityTransaction et = null;
-		// et = em.getTransaction();
-		// et.begin();
-		// Query query = em
-		// .createQuery("SELECT Offre o FROM Personne p WHERE p.titres. LIKE:personneID");
-		// query.setParameter("personneID", personne.getIdPersonne());
-		//
-		// try {
-		// offres = (ArrayList<Offre>) query.getResultList();
-		// } catch (NoResultException nre) {
-		// offres = new ArrayList<Offre>();
-		//
-		// }
-		//
-		// em.close();
-		// } catch (Exception e) {
-		// System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		// } finally {
-		// }
-
-		return null;
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Titre> recupererTitre(boolean entrepriseChek,
-			boolean typeChek,boolean userCheck, String entrepriseNom, String nomType, String userNom) {
-		ArrayList<Titre> selectedTitre = new ArrayList<Titre>();
-		if (entrepriseChek == true && typeChek == true && userCheck == false) {
+	public List<Titre> recupererTitre(boolean entrepriseChek, boolean typeChek,
+			boolean userCheck, String entrepriseNom, String nomType,
+			String userNom) {
+		List<Titre> selectedTitre = new ArrayList<Titre>();
+		if (entrepriseChek && typeChek && !userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -117,11 +94,11 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
-			} finally {
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Premier IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
-		} else if (entrepriseChek == false && typeChek == true && userCheck == false) {
+		} else if (!entrepriseChek && typeChek && !userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -134,12 +111,12 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
-			} finally {
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Second IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
-		} else if (entrepriseChek == true && typeChek == false && userCheck == false) {
+		} else if (entrepriseChek && !typeChek && !userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -151,12 +128,12 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
-			} finally {
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Troisiene IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
-		}else if(entrepriseChek == true && typeChek == true && userCheck == true) {
+		} else if (entrepriseChek && typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -170,30 +147,30 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
-			} finally {
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Quatrieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
-		} else if (entrepriseChek == false && typeChek == true && userCheck == true) {
+		} else if (!entrepriseChek && typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
 						.createQuery("SELECT t FROM Titre t WHERE t.typeTitre LIKE:test AND t.etatTitre=1 AND t.personne.login LIKE:test3");
 
 				query.setParameter("test", nomType);
-				query.setParameter("test3",userNom);
+				query.setParameter("test3", userNom);
 
 				selectedTitre = (ArrayList<Titre>) query.getResultList();
 				em.close();
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
-			} finally {
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Cinquieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
-		} else if (entrepriseChek == true && typeChek == false && userCheck == true) {
+		} else if (entrepriseChek && !typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -206,12 +183,12 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
-			} finally {
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Sixieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
-		}else if(entrepriseChek == false && typeChek == false && userCheck == true) {
+		} else if (!entrepriseChek && !typeChek && userCheck) {
 			try {
 				EntityManager em = emf.createEntityManager();
 				Query query = em
@@ -223,23 +200,21 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
-			} finally {
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Septieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
-		}else {
+		} else {
 			return selectedTitre;
 		}
 		return selectedTitre;
-		
-		
 
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Entreprise> recupererEntrepriseListAll() {
-		ArrayList<Entreprise> selectedEntreprise = new ArrayList<Entreprise>();
+	public List<Entreprise> recupererEntrepriseListAll() {
+		List<Entreprise> selectedEntreprise = new ArrayList<Entreprise>();
 
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -250,30 +225,57 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			return selectedEntreprise;
 
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction recupererEntrepriseListAll : Type "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return selectedEntreprise;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public ArrayList<Personne> recupererPersonneListAll() {
-		ArrayList<Personne> selectedPersonne = new ArrayList<Personne>();
+	public List<Personne> recupererPersonneListAll() {
+		List<Personne> selectedPersonne = new ArrayList<Personne>();
 
 		try {
 			EntityManager em = emf.createEntityManager();
-			Query query = em.createQuery("SELECT p FROM Personne p");
-
+			Query query = em
+					.createQuery("SELECT p FROM Personne p WHERE p.typePersonne=1");
 			selectedPersonne = (ArrayList<Personne>) query.getResultList();
 			em.close();
 			return selectedPersonne;
 
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction recupererEntrepriseListAll : Type "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return selectedPersonne;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Information> recupererInformationEntreprise(
+			Entreprise entreprise) {
+
+		List<Information> selectedInformation = new ArrayList<Information>();
+
+		try {
+			EntityManager em = emf.createEntityManager();
+			Query query = em
+					.createQuery("SELECT i FROM Information i WHERE i.entreprise.nomEntreprise LIKE:entrepriseId");
+			query.setParameter("entrepriseId", entreprise.getNomEntreprise());
+			selectedInformation = (ArrayList<Information>) query
+					.getResultList();
+			em.close();
+			return selectedInformation;
+
+		} catch (Exception e) {
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction recupererInformationEntreprise : Type "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
+		}
+		return selectedInformation;
 	}
 
 }

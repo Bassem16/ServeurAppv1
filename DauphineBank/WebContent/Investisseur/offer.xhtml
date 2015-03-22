@@ -23,7 +23,8 @@
 	</noscript>
 </h:head>
 
-<h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}
+<h:body>Vous etes connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne} | Votre Solde
+		#{gestionInvestisseurBean.soldePersonne}€
 	
 <!-- Header -->
 	<header id="header" class="skel-layers-fixed">
@@ -163,14 +164,16 @@
 		
 		<h:inputText id="prix" required="true"
 			requiredMessage="Entrez le prix de votre offre"
-			value="#{gestionInvestisseurBean.prixOffre}">
+			value="#{gestionInvestisseurBean.prixOffre}"
+			validatorMessage= "Solde insuffisant">
 			
-			<!--   <f:validateDoubleRange minimum="0" maximum="#{gestionInvestisseurBean.personne.solde}" />
-			-->
-			<f:validateDoubleRange minimum="0" maximum="20" />
+			<f:validateDoubleRange minimum="0" maximum="#{gestionInvestisseurBean.personne.soldePersonne}" />
+			
+			<!-- <f:validateDoubleRange minimum="0" maximum="20" /> -->
 						
 			</h:inputText>
-			
+			<h:message id="msgSoldeSuffisant" for="prix" style="color:red"/>
+			<br></br>
 			<h:commandButton id="toto" action="#{gestionInvestisseurBean.faireOffre()}"
 				value="Valider offre" />
 			

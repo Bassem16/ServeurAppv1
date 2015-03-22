@@ -1,62 +1,72 @@
 package fr.dauphine.bank.ejb;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceVerificationDataBean implements ServiceVerificationData {
 
+	private static final Logger LOG = Logger
+			.getLogger(ServiceVerificationDataBean.class.getName());
+	
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Personne> trouverCompteEmail(String email) {
-		ArrayList<Personne> Comptes = null;
+	@Override
+	public List<Personne> trouverCompteEmail(String email) {
+		List<Personne> comptes = null;
 		try {
 
 			EntityManager em = emf.createEntityManager();
-
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.email LIKE:email");
 			query.setParameter("email", email);
-			Comptes = (ArrayList<Personne>) query.getResultList();
+			comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceVerificationDataBean : Fonction trouverCompteEmail : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-		return Comptes;
+		return comptes;
 	}
 
 	@SuppressWarnings("unchecked")
-	public ArrayList<Personne> trouverCompteLogin(String login) {
-		ArrayList<Personne> Comptes = null;
+	@Override
+	public List<Personne> trouverCompteLogin(String login) {
+		List<Personne> comptes = null;
 		try {
 
 			EntityManager em = emf.createEntityManager();
 			Query query = em
 					.createQuery("SELECT p FROM Personne p WHERE p.login LIKE:loginTest");
 			query.setParameter("loginTest", login);
-			Comptes = (ArrayList<Personne>) query.getResultList();
+			comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceVerificationDataBean : Fonction trouverCompteLogin : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-		return Comptes;
+		return comptes;
 	}
-	
-	public Entreprise verificationEntreprise(String nom){
+
+	@Override
+	public Entreprise verificationEntreprise(String nom) {
 		Entreprise en = new Entreprise();
 		try {
 			EntityManager em = emf.createEntityManager();
@@ -66,12 +76,12 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 			en = (Entreprise) query.getSingleResult();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
+			LOG.logf(Level.ERROR,
+					"ServiceVerificationDataBean : Fonction verificationEntreprise : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
-		
 		return en;
-		
+
 	}
-	
+
 }

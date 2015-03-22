@@ -21,7 +21,7 @@ public class AdministrateurFilter implements Filter {
 
 	@Override
 	public void destroy() {
-
+		//Non surcharge
 	}
 
 	@Override
@@ -41,12 +41,10 @@ public class AdministrateurFilter implements Filter {
 		 * N'AS PAS ACCES A "INVESTISSEUR"
 		 */
 		Personne personne = (Personne) session.getAttribute(ATT_SESSION_USER);
-		if (personne == null) {
+		if (personne == null || personne.getTypePersonne().getIdTypePersonne()!=3) {
 			/* Redirection vers la page publique */
 			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
-		} else if (personne.getTypePersonne().getIdTypePersonne()!=3) {
-			/* Redirection vers la page publique */
-			response.sendRedirect(request.getContextPath() + ACCES_PUBLIC);
+	
 		} else {
 			/* Affichage de la page restreinte */
 			chain.doFilter(request, response);
@@ -56,7 +54,7 @@ public class AdministrateurFilter implements Filter {
 
 	@Override
 	public void init(FilterConfig arg0) throws ServletException {
-
+		//Non surcharge
 	}
 
 }

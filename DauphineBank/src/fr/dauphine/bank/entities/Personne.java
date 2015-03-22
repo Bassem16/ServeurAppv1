@@ -14,7 +14,8 @@ import java.util.Set;
 @Entity
 @NamedQuery(name = "Personne.findAll", query = "SELECT p FROM Personne p")
 public class Personne implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -8326966837134604007L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,29 +32,31 @@ public class Personne implements Serializable {
 	private String prenomPersonne;
 
 	private int valide;
+	
+	private double soldePersonne; 
 
 	// bi-directional many-to-one association to Demande
-	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER,cascade = { CascadeType.PERSIST})//, cascade = { CascadeType.ALL })
 	private Set<Demande> demandes;
 
 	// bi-directional many-to-one association to DemandeHistorique
-	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "personne", fetch = FetchType.EAGER)//, cascade = { CascadeType.ALL })
 	private Set<DemandeHistorique> demandeHistoriques;
 
 	// bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy = "personneEmeteur", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "personneEmeteur", orphanRemoval = true, fetch = FetchType.EAGER)//, cascade = { CascadeType.ALL })
 	private Set<Offre> offresEmises;
 
 	// bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy = "personneReceveur", orphanRemoval = true, fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "personneReceveur", orphanRemoval = true, fetch = FetchType.EAGER)//, cascade = { CascadeType.ALL })
 	private Set<Offre> offresRecues;
 
 	// bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy = "personneEmetteur", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "personneEmetteur", fetch = FetchType.EAGER)//, cascade = { CascadeType.ALL })
 	private Set<OffreHistorique> offreHistoriquesEmises;
 
 	// bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy = "personneReceveur", fetch = FetchType.EAGER, cascade = { CascadeType.ALL })
+	@OneToMany(mappedBy = "personneReceveur", fetch = FetchType.EAGER)//, cascade = { CascadeType.ALL })
 	private Set<OffreHistorique> offreHistoriquesRecues;
 
 	// bi-directional many-to-one association to Entreprise
@@ -137,19 +140,7 @@ public class Personne implements Serializable {
 		this.demandes = demandes;
 	}
 
-	public Demande addDemande(Demande demande) {
-		getDemandes().add(demande);
-		demande.setPersonne(this);
-
-		return demande;
-	}
-
-	public Demande removeDemande(Demande demande) {
-		getDemandes().remove(demande);
-		demande.setPersonne(null);
-
-		return demande;
-	}
+	
 
 	public Set<DemandeHistorique> getDemandeHistoriques() {
 		return this.demandeHistoriques;
@@ -159,22 +150,9 @@ public class Personne implements Serializable {
 		this.demandeHistoriques = demandeHistoriques;
 	}
 
-	public DemandeHistorique addDemandeHistorique(
-			DemandeHistorique demandeHistorique) {
-		getDemandeHistoriques().add(demandeHistorique);
-		demandeHistorique.setPersonne(this);
+	
 
-		return demandeHistorique;
-	}
-
-	public DemandeHistorique removeDemandeHistorique(
-			DemandeHistorique demandeHistorique) {
-		getDemandeHistoriques().remove(demandeHistorique);
-		demandeHistorique.setPersonne(null);
-
-		return demandeHistorique;
-	}
-
+	
 	public Set<Offre> getOffresEmises() {
 		return this.offresEmises;
 	}
@@ -183,19 +161,7 @@ public class Personne implements Serializable {
 		this.offresEmises = OffresEmises;
 	}
 
-	public Offre addOffresEmises(Offre OffresEmises) {
-		getOffresEmises().add(OffresEmises);
-		OffresEmises.setPersonneEmetteur(this);
-
-		return OffresEmises;
-	}
-
-	public Offre removeOffresEmises(Offre OffresEmises) {
-		getOffresEmises().remove(OffresEmises);
-		OffresEmises.setPersonneEmetteur(null);
-
-		return OffresEmises;
-	}
+	
 
 	public Set<Offre> getOffresRecues() {
 		return this.offresRecues;
@@ -205,19 +171,7 @@ public class Personne implements Serializable {
 		this.offresRecues = OffresRecues;
 	}
 
-	public Offre addOffresRecues(Offre OffresRecues) {
-		getOffresRecues().add(OffresRecues);
-		OffresRecues.setPersonneReceveur(this);
-
-		return OffresRecues;
-	}
-
-	public Offre removeOffresRecues(Offre OffresRecues) {
-		getOffresRecues().remove(OffresRecues);
-		OffresRecues.setPersonneReceveur(null);
-
-		return OffresRecues;
-	}
+	
 
 	public Set<OffreHistorique> getOffreHistoriquesEmises() {
 		return this.offreHistoriquesEmises;
@@ -228,21 +182,7 @@ public class Personne implements Serializable {
 		this.offreHistoriquesEmises = offreHistoriquesEmises;
 	}
 
-	public OffreHistorique addOffreHistoriquesEmises(
-			OffreHistorique offreHistoriquesEmises) {
-		getOffreHistoriquesEmises().add(offreHistoriquesEmises);
-		offreHistoriquesEmises.setPersonneEmetteur(this);
-
-		return offreHistoriquesEmises;
-	}
-
-	public OffreHistorique removeOffreHistoriquesEmises(
-			OffreHistorique offreHistoriquesEmises) {
-		getOffreHistoriquesEmises().remove(offreHistoriquesEmises);
-		offreHistoriquesEmises.setPersonneEmetteur(null);
-
-		return offreHistoriquesEmises;
-	}
+	
 
 	public Set<OffreHistorique> getOffreHistoriquesRecues() {
 		return this.offreHistoriquesRecues;
@@ -253,21 +193,7 @@ public class Personne implements Serializable {
 		this.offreHistoriquesRecues = offreHistoriquesRecues;
 	}
 
-	public OffreHistorique addOffreHistoriquesRecues(
-			OffreHistorique offreHistoriquesRecues) {
-		getOffreHistoriquesRecues().add(offreHistoriquesRecues);
-		offreHistoriquesRecues.setPersonneReceveur(this);
-
-		return offreHistoriquesRecues;
-	}
-
-	public OffreHistorique removeOffreHistoriquesRecues(
-			OffreHistorique offreHistoriquesRecues) {
-		getOffreHistoriquesRecues().remove(offreHistoriquesRecues);
-		offreHistoriquesRecues.setPersonneReceveur(null);
-
-		return offreHistoriquesRecues;
-	}
+	
 
 	public Entreprise getEntreprise() {
 		return this.entreprise;
@@ -309,6 +235,14 @@ public class Personne implements Serializable {
 	
 	public ArrayList<Titre> getTitresList(){
 		return new ArrayList<Titre>(titres);
+	}
+
+	public double getSoldePersonne() {
+		return soldePersonne;
+	}
+
+	public void setSoldePersonne(double soldePersonne) {
+		this.soldePersonne = soldePersonne;
 	}
 
 }

@@ -5,7 +5,9 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -15,7 +17,8 @@ import java.util.Set;
 @Entity
 @NamedQuery(name = "Offre.findAll", query = "SELECT o FROM Offre o")
 public class Offre implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -845268721835452050L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -48,7 +51,8 @@ public class Offre implements Serializable {
 	private Personne personneReceveur;
 
 	// bi-directional many-to-many association to Titre
-	@ManyToMany(mappedBy = "offres", cascade = { CascadeType.ALL },  fetch = FetchType.EAGER)
+	@ManyToMany(cascade = { CascadeType.ALL }, fetch = FetchType.EAGER)
+	@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idOffre") }, inverseJoinColumns = { @JoinColumn(name = "idTitre") })
 	private Set<Titre> titres;
 
 	public Offre() {
@@ -134,9 +138,31 @@ public class Offre implements Serializable {
 		this.titres = titres;
 	}
 
-	public ArrayList<Titre> getTitresList() {
+	public List<Titre> getTitresList() {
 
 		return new ArrayList<Titre>(titres);
 	}
 
+
+	public static final Comparator<Offre> prix = new Comparator<Offre>() {
+
+		public int compare(Offre o1, Offre o2) {
+
+			Double i1 = o1.getPrixOffre();
+			Double i2 = o2.getPrixOffre();
+
+			return i1.compareTo(i2);
+
+		}
+	};
+
+	public static final Comparator<Offre> date = new Comparator<Offre>() {
+
+		public int compare(Offre o1, Offre o2) {
+
+			return o1.getDateOffre().compareTo(o2.getDateOffre());
+
+		}
+
+	};
 }

@@ -5,18 +5,24 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.NoResultException;
-import javax.persistence.Persistence;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceConnexionBean implements ServiceConnexion {
 
+	private static final Logger LOG = Logger
+			.getLogger(ServiceConnexionBean.class.getName());
+	
+	
 	@PersistenceUnit
-	private EntityManagerFactory emf = Persistence
-			.createEntityManagerFactory("DauphineBank");
+	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
 	@Override
 	public Personne verificationPersonne(String login, String motDePasse) {
@@ -38,10 +44,10 @@ public class ServiceConnexionBean implements ServiceConnexion {
 
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
-		} finally {
-		}
-
+			LOG.logf(Level.ERROR,
+					"ServiceConnexionBean : Fonction verificationPersonne : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
+		} 
 		return personne;
 	}
 

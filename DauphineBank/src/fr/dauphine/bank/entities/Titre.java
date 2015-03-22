@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.*;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Set;
 
 /**
@@ -14,7 +15,8 @@ import java.util.Set;
 @Entity
 @NamedQuery(name = "Titre.findAll", query = "SELECT t FROM Titre t")
 public class Titre implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -8287886408043685333L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,8 +34,7 @@ public class Titre implements Serializable {
 	private Entreprise entreprise;
 
 	// bi-directional many-to-many association to Offre
-	@ManyToMany(fetch = FetchType.EAGER)
-	@JoinTable(name = "LierOffreTitre", joinColumns = { @JoinColumn(name = "idTitre") }, inverseJoinColumns = {@JoinColumn(name = "idOffre")  })
+	@ManyToMany(mappedBy = "titres", fetch = FetchType.EAGER)
 	private Set<Offre> offres;
 
 	// bi-directional many-to-many association to OffreHistorique
@@ -125,5 +126,42 @@ public class Titre implements Serializable {
 		}
 
 	}
+	
+
+	@SuppressWarnings("rawtypes")
+	public static final Comparator nbrOffre = new Comparator() {
+
+		public int compare(Object o1, Object o2) {
+
+			if (!(o1 instanceof Titre))
+				throw new ClassCastException();
+
+			Integer i1 = (Integer) ((Titre) o1).getOffres().size();
+			Integer i2 = (Integer) ((Titre) o2).getOffres().size();
+
+			return i1.compareTo(i2);
+
+		}
+
+	};
+	
+	
+	public static final Comparator<Titre> alphabetique = new Comparator<Titre>() {
+
+		public int compare(Titre o1, Titre o2) {
+
+			
+
+			
+
+			return o1.getNomTitre().compareTo(o2.getNomTitre());
+
+		}
+
+	};
+
+	
+
+	
 
 }

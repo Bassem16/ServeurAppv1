@@ -1,13 +1,8 @@
-package fr.dauphine.bank.beanstests;
+package fr.dauphine.bank.entitiesTest;
 
-// Rajout pour Test optimale 
-import java.util.Calendar;
 import java.util.Date;
 
-import org.hamcrest.core.AllOf;
 import org.hamcrest.core.IsEqual;
-import org.hamcrest.core.IsInstanceOf;
-import org.hamcrest.core.IsNot;
 import org.junit.Assert;
 // Fin Rajout
 
@@ -19,7 +14,6 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 import fr.dauphine.bank.entities.Demande;
-import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.Personne;
 
 public class DemandeTest {
@@ -46,26 +40,21 @@ public class DemandeTest {
 	
 	@Test
 	public void testGetDatedDemande() {
-	Demande D = new Demande();	
+	Demande d = new Demande();	
+
+	Date dateTest = new Date(System.currentTimeMillis());
+	d.setDateDemande(dateTest);
 	
-	Calendar cal = Calendar.getInstance();
-	cal.set(1991, 02, 19);
-	Date dateTest = cal.getTime();
-	D.setDateDemande(dateTest);
-	
-	assertEquals(dateTest ,D.getDateDemande());
+	assertEquals(dateTest ,d.getDateDemande());
 	}
 	
 	@Test
 	public void testSetDatedDemande() {
-	Demande D = new Demande();	
+	Demande d = new Demande();	
+	Date dateTest = new Date(System.currentTimeMillis());
+	d.setDateDemande(dateTest);
 	
-	Calendar cal = Calendar.getInstance();
-	cal.set(1991, 02, 19);
-	Date dateTest = cal.getTime();
-	D.setDateDemande(dateTest);
-	
-	assertEquals(dateTest ,D.getDateDemande());
+	assertEquals(dateTest ,d.getDateDemande());
 	}	
 	
 	@Test
@@ -100,22 +89,22 @@ public class DemandeTest {
 	public void testGetPersonne() {
 		Demande d=new Demande();
 		// Création Personnne
-		Personne P=new Personne();
+		Personne p=new Personne();
 		// Ajout Personne
-		d.setPersonne(P);
+		d.setPersonne(p);
 		
-		assertEquals(P, d.getPersonne());
+		assertEquals(p, d.getPersonne());
 	}
 
 	@Test
 	public void testSetPersonne() {
 		Demande d=new Demande();
 		// Création Personnne
-		Personne P=new Personne();
+		Personne p=new Personne();
 		// Ajout Personne
-		d.setPersonne(P);
+		d.setPersonne(p);
 		
-		assertEquals(P, d.getPersonne());
+		assertEquals(p, d.getPersonne());
 	}
 	
 	@Test

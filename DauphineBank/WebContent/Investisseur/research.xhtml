@@ -24,137 +24,160 @@
 </h:head>
 
 <h:body>
-<!-- Header -->
+	<!-- Header -->
 	<header id="header" class="skel-layers-fixed">
 	<h1>
-		<a href="../index.xhtml">Team Trade</a> par The Team
+		<a href="../index.xhtml">Team Trade</a> par The Team 
 	</h1>
 	<nav id="nav">
 	<ul>
-	<li>connecté en tant que #{connexionBean.prenomPersonne} #{connexionBean.nomPersonne}</li>
+		<li>connecté en tant que #{connexionBean.prenomPersonne}
+			#{connexionBean.nomPersonne}</li>
 		<li><a href="../index.xhtml">Accueil</a></li>
 		<li><a href="" class="icon fa-angle-down">Investisseur</a>
 			<ul>
-				<li><h:link value="Rechercher Titres" outcome="/Investisseur/research.xhtml" /></li>
+				<li><h:link value="Rechercher Titres"
+						outcome="/Investisseur/research.xhtml" /></li>
 				<li><h:link value="Rechercher Entreprise"
-					outcome="/Investisseur/research_company.xhtml" /></li>
+						outcome="/Investisseur/research_company.xhtml" /></li>
 				<li><h:link value="Accueil Investisseur"
-					outcome="/Investisseur/home.xhtml" /></li>
+						outcome="/Investisseur/home.xhtml" /></li>
 			</ul></li>
-		<li>
-			<c:if test="#{connexionBean.connected}">
-	    		<h:form><h:commandButton value="Deconnexion" action="#{connexionBean.doLogout}" class="button"></h:commandButton></h:form>
-	    	</c:if>
-    	</li>
+		<li><c:if test="#{connexionBean.connected}">
+				<h:form>
+					<h:commandButton value="Deconnexion"
+						action="#{connexionBean.doLogout}" class="button"></h:commandButton>
+				</h:form>
+			</c:if></li>
 	</ul>
-	</nav> 
-	</header>
-	
-	<input id="copy" type="checkbox" name="copy"></input>
-<label for="copy">Email me a copy of this message</label>
-	
-<!-- Main -->
-	<section id="main" class="container">
-		<header>
-			<h2>Page de recherche des titres</h2>
-			<p>Vous pouvez rechercher les titres disponibles par entreprise émettrice, par propriétaire du titre et par type de titre.</p>
-		</header>
-<h:form>
+	</nav> </header>
+
+
+
+	<!-- Main -->
+
+	<section id="main" class="container"> <header>
+	<h2>Page de recherche des titres</h2>
+	<p>Vous pouvez rechercher les titres disponibles par entreprise
+		émettrice, par propriétaire du titre et par type de titre.</p>
+	</header> <h:form>
 		<div class="row">
 			<div class="12u">
+
 				<section class="box">
 
-		<h3>Rechercher un titre</h3>
-
-		<f:ajax event="click" render="result">
-			<h:selectBooleanCheckbox
-				value="#{gestionInvestisseurBean.entrepriseChek}"
-				id="entrepriseCheck" />
-			<label for="j_idt27:entrepriseCheck">Par entreprise</label> 
-				
-			
-			<h:selectOneMenu value="#{gestionInvestisseurBean.entrepriseNom}">
-				<f:selectItems value="#{gestionInvestisseurBean.listEntreprise()}"
-					var="e" itemLabel="#{e.nomEntreprise}"
-					itemValue="#{e.nomEntreprise}" />
-			</h:selectOneMenu>
-		</f:ajax>
+				<h3>Rechercher un titre</h3>
 
 
-		<br></br>
-		<f:ajax event="click" render="result">
-			<h:selectBooleanCheckbox value="#{gestionInvestisseurBean.typeCheck}"
-				id="typeCheck" /><label for="j_idt27:typeCheck">Par type</label>
-		
 
-		
-			<h:selectOneMenu value="#{gestionInvestisseurBean.typeNom}">
-				<f:selectItem itemValue="Action" itemLabel="Action" />
-				<f:selectItem itemValue="Option" itemLabel="Option" />
-			</h:selectOneMenu>
-		</f:ajax>
-		<br></br>
-		<f:ajax event="click" render="result">
-			<h:selectBooleanCheckbox value="#{gestionInvestisseurBean.userCheck}"
-				id="userCheck" /><label for="j_idt27:userCheck">Par Utilisateur</label>
 
-		
-			<h:selectOneMenu value="#{gestionInvestisseurBean.userNom}">
-				<f:selectItems value="#{gestionInvestisseurBean.listPersonne()}"
-					var="p" itemLabel="#{p.login}" itemValue="#{p.login}" />
-			</h:selectOneMenu>
-		</f:ajax>
-					</section>
+
+				<p:selectBooleanCheckbox
+					value="#{gestionInvestisseurBean.entrepriseChek}"
+					id="EntrepriseCheck">
+					<p:ajax update="result entrepriseChecked"
+						listener="#{gestionInvestisseurBean.addMessage}" />
+				</p:selectBooleanCheckbox>
+				<h:outputText value="  Par entreprise " /> <h:selectOneMenu
+					id="entrepriseChecked"
+					value="#{gestionInvestisseurBean.entrepriseNom}"
+					disable="#{gestionInvestisseurBean.isEntrepriseChek()}">
+					<f:selectItems value="#{gestionInvestisseurBean.listEntreprise()}"
+						var="e" itemLabel="#{e.nomEntreprise}"
+						itemValue="#{e.nomEntreprise}" />
+					<p:ajax update="result"
+						listener="#{gestionInvestisseurBean.addMessage}" />
+				</h:selectOneMenu> <br></br>
+
+				<p:selectBooleanCheckbox
+					value="#{gestionInvestisseurBean.typeCheck}">
+					<p:ajax update="result typeChecked"
+						listener="#{gestionInvestisseurBean.addMessage}" />
+				</p:selectBooleanCheckbox>
+				<h:outputText value="  Par type" /> <h:selectOneMenu
+					id="typeChecked" value="#{gestionInvestisseurBean.typeNom}"
+					disable="#{gestionInvestisseurBean.userCheck}">
+					<f:selectItem itemValue="Action" itemLabel="Action" />
+					<f:selectItem itemValue="Option" itemLabel="Option" />
+					<p:ajax update="result"
+						listener="#{gestionInvestisseurBean.addMessage}" />
+				</h:selectOneMenu> <br></br>
+
+				<p:selectBooleanCheckbox
+					value="#{gestionInvestisseurBean.userCheck}">
+					<p:ajax update="result userChecked"
+						listener="#{gestionInvestisseurBean.addMessage}" />
+				</p:selectBooleanCheckbox>
+				<h:outputText value="  Par utilisateur" /> <h:selectOneMenu
+					id="userChecked" value="#{gestionInvestisseurBean.userNom}"
+					disable="#{gestionInvestisseurBean.userCheck}">
+					<f:selectItems value="#{gestionInvestisseurBean.listPersonne()}"
+						var="p" itemLabel="#{p.login}"
+						itemValue="#{p.login}" />
+
+					<p:ajax update="result"
+						listener="#{gestionInvestisseurBean.addMessage}" />
+				</h:selectOneMenu> </section>
 			</div>
 		</div>
 
 		<div class="row">
 			<div class="12u">
 				<section class="box">
-		<h3>Résultats</h3>
-		<h:dataTable id="result"
-			value="#{gestionInvestisseurBean.rechercherTitre()}" var="t"
-			styleClass="order-table" headerClass="order-table-header"
-			rowClasses="order-table-odd-row,order-table-eve-row">
-			<h:column>
-				<f:facet name="header">ID Titre</f:facet>
-				<h:outputText value="#{t.idTitre}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Nom Titre</f:facet>
-				<h:outputText value="#{t.nomTitre}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">ID Entreprise</f:facet>
-				<h:outputText value="#{t.entreprise.idEntreprise}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Nom Entreprise</f:facet>
-				<h:outputText value="#{t.entreprise.nomEntreprise}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Type de Titre</f:facet>
-				<h:outputText value="#{t.typeTitre}" />
-			</h:column>
-			<h:column>
-				<f:facet name="header">Possesseur</f:facet>
-				<h:outputText value="#{t.personne.login}" />
-
-			</h:column>
-			<h:column>
-				<h:commandButton  id="toto" action="#{gestionInvestisseurBean.visiterPersonne(t.personne)}"
-					value="Acceder au profil" />
-			</h:column>
+				<h3>Résultats</h3>
 
 
-		</h:dataTable>
-					</section>
+
+
+				<h:dataTable id="result"
+					value="#{gestionInvestisseurBean.rechercherTitre()}" var="t"
+					styleClass="order-table" headerClass="order-table-header"
+					rowClasses="order-table-odd-row,order-table-eve-row">
+					<h:column>
+						<f:facet name="header">ID Titre</f:facet>
+						<h:outputText value="#{t.idTitre}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Nom Titre</f:facet>
+						<h:outputText value="#{t.nomTitre}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">ID Entreprise</f:facet>
+						<h:outputText value="#{t.entreprise.idEntreprise}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Nom Entreprise</f:facet>
+						<h:outputText value="#{t.entreprise.nomEntreprise}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Type de Titre</f:facet>
+						<h:outputText value="#{t.typeTitre}" />
+					</h:column>
+					<h:column>
+						<f:facet name="header">Possesseur</f:facet>
+						<h:outputText />
+						<h:outputText value="#{t.personne.login}" />
+
+					</h:column>
+					<h:column>
+						<h:commandButton id="toto"
+							action="#{gestionInvestisseurBean.visiterPersonne(t.personne)}"
+							value="Acceder au profil" />
+					</h:column>
+					<h:column>
+						<h:commandButton id="baba"
+							action="#{gestionInvestisseurBean.visiterEntreprise(t.entreprise)}"
+							value="Portail entreprise" />
+					</h:column>
+
+
+				</h:dataTable> </section>
+
 			</div>
-		</div>
-		</h:form>
-</section>
 
-	<!-- Footer --> 
+		</div>
+	</h:form> </section>
+	<!-- Footer -->
 	<footer id="footer">
 	<ul class="icons">
 		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>

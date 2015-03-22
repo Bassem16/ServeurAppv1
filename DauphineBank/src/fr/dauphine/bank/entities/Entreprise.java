@@ -4,20 +4,21 @@ import java.io.Serializable;
 
 import javax.persistence.*;
 
+import java.util.Comparator;
 import java.util.Set;
-
 
 /**
  * The persistent class for the Entreprise database table.
  * 
  */
 @Entity
-@NamedQuery(name="Entreprise.findAll", query="SELECT e FROM Entreprise e")
+@NamedQuery(name = "Entreprise.findAll", query = "SELECT e FROM Entreprise e")
 public class Entreprise implements Serializable {
-	private static final long serialVersionUID = 1L;
+
+	private static final long serialVersionUID = -7298202568294585054L;
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int idEntreprise;
 
 	private int nombreTitreTotal;
@@ -25,25 +26,27 @@ public class Entreprise implements Serializable {
 	private String nomEntreprise;
 
 	private String secteurEntreprise;
+	
+	private String logo;
 
-	//bi-directional many-to-one association to Information
-	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Information
+	@OneToMany(mappedBy = "entreprise", fetch = FetchType.EAGER)
 	private Set<Information> informations;
 
-	//bi-directional many-to-one association to Offre
-	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Offre
+	@OneToMany(mappedBy = "entreprise", fetch = FetchType.EAGER)
 	private Set<Offre> offres;
 
-	//bi-directional many-to-one association to OffreHistorique
-	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to OffreHistorique
+	@OneToMany(mappedBy = "entreprise", fetch = FetchType.EAGER)
 	private Set<OffreHistorique> offreHistoriques;
 
-	//bi-directional many-to-one association to Personne
-	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Personne
+	@OneToMany(mappedBy = "entreprise", fetch = FetchType.EAGER)
 	private Set<Personne> personnes;
 
-	//bi-directional many-to-one association to Titre
-	@OneToMany(mappedBy="entreprise", fetch=FetchType.EAGER)
+	// bi-directional many-to-one association to Titre
+	@OneToMany(mappedBy = "entreprise", fetch = FetchType.EAGER)
 	private Set<Titre> titres;
 
 	public Entreprise() {
@@ -89,19 +92,7 @@ public class Entreprise implements Serializable {
 		this.informations = informations;
 	}
 
-	public Information addInformation(Information information) {
-		getInformations().add(information);
-		information.setEntreprise(this);
-
-		return information;
-	}
-
-	public Information removeInformation(Information information) {
-		getInformations().remove(information);
-		information.setEntreprise(null);
-
-		return information;
-	}
+	
 
 	public Set<Offre> getOffres() {
 		return this.offres;
@@ -109,20 +100,6 @@ public class Entreprise implements Serializable {
 
 	public void setOffres(Set<Offre> offres) {
 		this.offres = offres;
-	}
-
-	public Offre addOffre(Offre offre) {
-		getOffres().add(offre);
-		offre.setEntreprise(this);
-
-		return offre;
-	}
-
-	public Offre removeOffre(Offre offre) {
-		getOffres().remove(offre);
-		offre.setEntreprise(null);
-
-		return offre;
 	}
 
 	public Set<OffreHistorique> getOffreHistoriques() {
@@ -177,18 +154,24 @@ public class Entreprise implements Serializable {
 		this.titres = titres;
 	}
 
-	public Titre addTitre(Titre titre) {
-		getTitres().add(titre);
-		titre.setEntreprise(this);
-
-		return titre;
+	public String getLogo() {
+		return logo;
 	}
 
-	public Titre removeTitre(Titre titre) {
-		getTitres().remove(titre);
-		titre.setEntreprise(null);
-
-		return titre;
+	public void setLogo(String logo) {
+		this.logo = logo;
 	}
+	
+	
+	public static final Comparator<Entreprise> alphabetique = new Comparator<Entreprise>() {
+
+		public int compare(Entreprise o1, Entreprise o2) {
+
+					
+			return o1.getNomEntreprise().toLowerCase().compareTo(o2.getNomEntreprise().toLowerCase());
+
+		}
+
+};
 
 }

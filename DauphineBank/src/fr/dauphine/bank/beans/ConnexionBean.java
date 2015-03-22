@@ -1,6 +1,7 @@
 package fr.dauphine.bank.beans;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import javax.ejb.EJB;
@@ -28,48 +29,42 @@ public class ConnexionBean {
 
 	@EJB
 	ServiceConnexion serviceConnexion;
-	
+
 	@EJB
 	ServiceSauvegarde serviceSauvegarde;
-	
 
-
-	public String doLogin(){
-		Personne p=serviceConnexion.verificationPersonne(personne.getLogin(),personne.getMotDePasse());
-		if(p!=null){
-			HttpSession hs= Utile.getSession();
-					personne=p;
-					hs.setAttribute("personne", p);
-					if (personne.getTypePersonne().getIdTypePersonne() == 1){
-						return "/Investisseur/home.xhtml?faces-redirect=true";
-					}
-					else if (personne.getTypePersonne().getIdTypePersonne() == 2){
-						return "/MembreEntreprise/homeMembreEntreprise.xhtml?faces-redirect=true";
-					}
-					else if (personne.getTypePersonne().getIdTypePersonne() == 3) {
-						return "/Administrateur/homeAdministrateur.xhtml?faces-redirect=true";
-					}
-					else{
-						return "Visiteur/login.xhtml";
-					}
-		} else{
-			FacesMessage fm= new FacesMessage("Erreur d'identification", "!!!! ERROR MSG !!!!");
+	public String doLogin() {
+		Personne p = serviceConnexion.verificationPersonne(personne.getLogin(),
+				personne.getMotDePasse());
+		if (p != null) {
+			HttpSession hs = getSession();
+			personne = p;
+			hs.setAttribute("personne", p);
+			if (personne.getTypePersonne().getIdTypePersonne() == 1) {
+				return "/Investisseur/home.xhtml?faces-redirect=true";
+			} else if (personne.getTypePersonne().getIdTypePersonne() == 2) {
+				return "/MembreEntreprise/homeMembreEntreprise.xhtml?faces-redirect=true";
+			} else if (personne.getTypePersonne().getIdTypePersonne() == 3) {
+				return "/Administrateur/homeAdministrateur.xhtml?faces-redirect=true";
+			} else {
+				return "Visiteur/login.xhtml";
+			}
+		} else {
+			FacesMessage fm = new FacesMessage("Erreur d'identification",
+					"!!!! ERROR MSG !!!!");
 
 			fm.setSeverity(FacesMessage.SEVERITY_ERROR);
-			FacesContext.getCurrentInstance().addMessage(null, fm);
+			getFacesContext().addMessage(null, fm);
 			return "Visiteur/login.xhtml";
 		}
 	}
-	
-	
+
 	public ConnexionBean() {
 		personne = new Personne();
 	}
 
-	
-
 	public boolean isConnected() {
-		HttpSession hs = Utile.getSession();
+		HttpSession hs = getSession();
 		if (hs.getAttribute("personne") == null) {
 			return false;
 		} else {
@@ -79,9 +74,7 @@ public class ConnexionBean {
 	}
 
 	public String doLogout() {
-//		serviceSauvegarde.sauvegardeCompte((Personne) Utile.getSession()
-//				.getAttribute("personne"));
-		HttpSession hs = Utile.getSession();
+		HttpSession hs = getSession();
 		hs.invalidate();
 		return "/index.xhtml";
 
@@ -105,7 +98,7 @@ public class ConnexionBean {
 
 	public void setEmail(String email) {
 		getPersonne().setEmail(email);
-		;
+
 	}
 
 	public String getLogin() {
@@ -122,7 +115,7 @@ public class ConnexionBean {
 
 	public void setMotDePasse(String motDePasse) {
 		getPersonne().setMotDePasse(motDePasse);
-		;
+
 	}
 
 	public String getNomPersonne() {
@@ -131,7 +124,7 @@ public class ConnexionBean {
 
 	public void setNomPersonne(String nomPersonne) {
 		getPersonne().setNomPersonne(nomPersonne);
-		;
+
 	}
 
 	public String getPrenomPersonne() {
@@ -140,7 +133,7 @@ public class ConnexionBean {
 
 	public void setPrenomPersonne(String prenomPersonne) {
 		getPersonne().setPrenomPersonne(prenomPersonne);
-		;
+
 	}
 
 	public Entreprise getEntreprises() {
@@ -149,7 +142,7 @@ public class ConnexionBean {
 
 	public void setEntreprise(Entreprise entreprise) {
 		getPersonne().setEntreprise(entreprise);
-		;
+
 	}
 
 	public Set<Demande> getDemandes() {
@@ -158,19 +151,7 @@ public class ConnexionBean {
 
 	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
-		;
-	}
 
-	public Demande addDemande(Demande demande) {
-		getDemandes().add(demande);
-		demande.setPersonne(getPersonne());
-		return demande;
-	}
-
-	public Demande removeDemande(Demande demande) {
-		getDemandes().remove(demande);
-		demande.setPersonne(null);
-		return demande;
 	}
 
 	public Set<Titre> getTitres() {
@@ -179,7 +160,7 @@ public class ConnexionBean {
 
 	public void setTitres(Set<Titre> titres) {
 		getPersonne().setTitres(titres);
-		;
+
 	}
 
 	public Set<Offre> getOffresEmises() {
@@ -190,52 +171,23 @@ public class ConnexionBean {
 		return getPersonne().getOffresRecues();
 	}
 
-	public ArrayList<Offre> getOffresEmisesList() {
+	public List<Offre> getOffresEmisesList() {
 		return new ArrayList<Offre>(getPersonne().getOffresEmises());
 	}
 
-	public ArrayList<Offre> getOffresRecuesList() {
+	public List<Offre> getOffresRecuesList() {
 		return new ArrayList<Offre>(getPersonne().getOffresRecues());
 	}
 
 	public void setOffresEmises(Set<Offre> offres) {
 		getPersonne().setOffresEmises(offres);
-		;
+
 	}
 
 	public void setOffresRecues(Set<Offre> offres) {
 		getPersonne().setOffresRecues(offres);
-		;
+
 	}
-
-	public Offre addOffreEmises(Offre offre) {
-		getPersonne().getOffresEmises().add(offre);
-		offre.setPersonneEmetteur(getPersonne());
-
-		return offre;
-	}
-
-	public Offre addOffreRecues(Offre offre) {
-		getPersonne().getOffresRecues().add(offre);
-		offre.setPersonneReceveur(getPersonne());
-
-		return offre;
-	}
-
-	public Offre removeOffreEmise(Offre offre) {
-		getPersonne().getOffresEmises().remove(offre);
-		offre.setPersonneEmetteur(null);
-
-		return offre;
-	}
-
-	public Offre removeOffreRecue(Offre offre) {
-		getPersonne().getOffresRecues().remove(offre);
-		offre.setPersonneReceveur(null);
-
-		return offre;
-	}
-
 
 	public TypePersonne getTypePersonne() {
 		return getPersonne().getTypePersonne();
@@ -245,14 +197,36 @@ public class ConnexionBean {
 		getPersonne().setTypePersonne(typePersonne);
 	}
 
-	
+	public double getSoldePersonne() {
+		return getPersonne().getSoldePersonne();
+	}
 
-	public ArrayList<Titre> getTitresList() {
+	public void setSoldePersonne(double soldePersonne) {
+		getPersonne().setSoldePersonne(soldePersonne);
+	}
+
+	public List<Titre> getTitresList() {
 		return new ArrayList<Titre>(getPersonne().getTitres());
 	}
 
-	public ArrayList<Demande> getDemandesList() {
+	public List<Demande> getDemandesList() {
 		return new ArrayList<Demande>(getPersonne().getDemandes());
 	}
 
+	public void setServiceConnexion(ServiceConnexion s) {
+		serviceConnexion = s;
+	}
+
+	public HttpSession getSession() {
+		return Utile.getSession();
+
+	}
+
+	public void setPersonne(Personne p) {
+		personne = p;
+	}
+
+	public FacesContext getFacesContext() {
+		return FacesContext.getCurrentInstance();
+	}
 }
