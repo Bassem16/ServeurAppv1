@@ -2,7 +2,12 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Set;
+import java.util.TreeSet;
+
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
 import javax.faces.bean.ManagedBean;
@@ -29,13 +34,21 @@ public class GestionInvestisseurBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
+	private Personne personneVisite = null;
+
 	private boolean entrepriseChek = false;
 	private boolean typeCheck = false;
+	private boolean userCheck = false;
+
 	private String entrepriseNom = null;
 	private String typeNom = null;
-	// private ArrayList<Offre> offresRecues = null;
-	// private ArrayList<Offre> offresAcceptees= null;
+	private String userNom = null;
 
+	private String typeTitreTransaction = null;
+	private String nomTitreTransaction = null;
+
+	private int quantiteOffre = 0;
+	private double prixOffre = 0;
 	@EJB
 	ServiceInvestisseur serviceInvestisseur;
 	@EJB
@@ -50,21 +63,24 @@ public class GestionInvestisseurBean implements Serializable {
 		personne = (Personne) hs.getAttribute("personne");
 		setEntrepriseNom("Accenture");
 		setTypeNom("Action");
-		// offresRecues = serviceInvestisseur.recupererOffres(personne);
+		setTypeTitreTransaction("Action");
 
 	}
-	
-	
-	public ArrayList<Titre> rechercherTitre(){
-		return serviceInvestisseur.recupererTitre(entrepriseChek, typeCheck, entrepriseNom, typeNom);
-		
-		
+
+	public ArrayList<Titre> rechercherTitre() {
+		return serviceInvestisseur.recupererTitre(entrepriseChek, typeCheck,
+				userCheck, entrepriseNom, typeNom, userNom);
+
 	}
-	
-	public ArrayList<Entreprise> listEntreprise(){
-		return serviceInvestisseur.recupererEntrepriseListAll(entrepriseNom);
-		
-		
+
+	public ArrayList<Entreprise> listEntreprise() {
+		return serviceInvestisseur.recupererEntrepriseListAll();
+
+	}
+
+	public ArrayList<Personne> listPersonne() {
+		return serviceInvestisseur.recupererPersonneListAll();
+
 	}
 
 	public OffreHistorique offreAHistorique(Offre offre, String statut) {
@@ -96,12 +112,10 @@ public class GestionInvestisseurBean implements Serializable {
 		return offreH;
 	}
 
-	
-	//Ne plus toucher
+	// Ne plus toucher
 	public void cloturerOffre(Offre offre) {
-		//OffreHistorique offreH = offreAHistorique(offre, "Retirée");
+		// OffreHistorique offreH = offreAHistorique(offre, "Retirée");
 		passerOffreAHistorique_Offre(offre, "Retirée");
-		
 
 		// serviceSauvegarde.sauvegardeCompte(p);
 		// serviceSauvegarde.sauvegardeCompte(personne);
@@ -119,8 +133,7 @@ public class GestionInvestisseurBean implements Serializable {
 		passerOffreAHistorique_Titre(titre);
 	}
 
-	
-	//Ne plus toucher
+	// Ne plus toucher
 	public void passerOffreAHistorique_Titre(Titre titre) {
 		OffreHistorique offreH = new OffreHistorique();
 		ArrayList<Offre> AO = titre.getOffresList();
@@ -142,15 +155,15 @@ public class GestionInvestisseurBean implements Serializable {
 
 			Personne personneReceveur = offre.getPersonneReceveur();
 			Personne personneEmetteur = offre.getPersonneEmetteur();
-			
+
 			personneReceveur.getOffresRecues().remove(offre);
 			personneEmetteur.getOffresEmises().remove(offre);
-			
+
 			personneEmetteur.getOffreHistoriquesEmises().add(offreH);
 			personneReceveur.getOffreHistoriquesRecues().add(offreH);
-			
+
 			serviceSauvegarde.sauvegardeCompte(personneReceveur);
-			//serviceSauvegarde.sauvegardeCompte(personneEmetteur);
+			// serviceSauvegarde.sauvegardeCompte(personneEmetteur);
 			serviceInvestisseur.supprimerOffre(offre);
 		}
 
@@ -158,8 +171,7 @@ public class GestionInvestisseurBean implements Serializable {
 
 	}
 
-	
-	//Ne plus toucher
+	// Ne plus toucher
 	public void passerOffreAHistorique_Offre(Offre offre, String statut) {
 		OffreHistorique offreH = new OffreHistorique();
 
@@ -184,19 +196,18 @@ public class GestionInvestisseurBean implements Serializable {
 		// serviceSauvegarde.sauvegardeOffreHistorique(offreH);
 		Personne personneReceveur = offre.getPersonneReceveur();
 		Personne personneEmetteur = offre.getPersonneEmetteur();
-		
+
 		personneReceveur.getOffresRecues().remove(offre);
 		personneEmetteur.getOffresEmises().remove(offre);
-		
+
 		personneEmetteur.getOffreHistoriquesEmises().add(offreH);
 		personneReceveur.getOffreHistoriquesRecues().add(offreH);
-		
+
 		serviceSauvegarde.sauvegardeCompte(personneReceveur);
-		//serviceSauvegarde.sauvegardeCompte(personneEmetteur);
+		// serviceSauvegarde.sauvegardeCompte(personneEmetteur);
 		serviceInvestisseur.supprimerOffre(offre);
 	}
 
-	
 	public void accepterOffre(Offre offre) {
 		passerOffreAHistorique_Offre(offre, "Acceptée");
 		ArrayList<Titre> titres = offre.getTitresList(); // On recupere les
@@ -206,7 +217,7 @@ public class GestionInvestisseurBean implements Serializable {
 													// recevant les titres
 
 		p.getTitres().addAll(titres); // On lui donne les titres
-		personne.getTitres().removeAll(titres); //On les supprimes de chez le
+		personne.getTitres().removeAll(titres); // On les supprimes de chez le
 		// donneur
 
 		// serviceSauvegarde.sauvegardeCompte(p);
@@ -218,8 +229,13 @@ public class GestionInvestisseurBean implements Serializable {
 			t.setEtatTitre(0);
 			serviceSauvegarde.sauvegardeTitre(t);
 		}
-		
-		
+
+	}
+
+	public String visiterPersonne(Personne p) {
+		personneVisite = p;
+
+		return "offer.xhtml";
 
 	}
 
@@ -447,4 +463,153 @@ public class GestionInvestisseurBean implements Serializable {
 		this.typeNom = typeNom;
 	}
 
+	public String getUserNom() {
+		return userNom;
+	}
+
+	public void setUserNom(String personneNom) {
+		this.userNom = personneNom;
+	}
+
+	public boolean isUserCheck() {
+		return userCheck;
+	}
+
+	public void setUserCheck(boolean userChek) {
+		this.userCheck = userChek;
+	}
+
+	public Personne getPersonneVisite() {
+		return personneVisite;
+	}
+
+	public void setPersonneVisite(Personne personneVisite) {
+		this.personneVisite = personneVisite;
+	}
+
+	public String getTypeTitreTransaction() {
+		return typeTitreTransaction;
+	}
+
+	public void setTypeTitreTransaction(String typeTitreTransaction) {
+		this.typeTitreTransaction = typeTitreTransaction;
+	}
+
+	public String getNomTitreTransaction() {
+		return nomTitreTransaction;
+	}
+
+	public void setNomTitreTransaction(String titreNomTransaction) {
+		this.nomTitreTransaction = titreNomTransaction;
+	}
+
+	public int getQuantiteOffre() {
+		return quantiteOffre;
+	}
+
+	public void setQuantiteOffre(int quantiteOffre) {
+		this.quantiteOffre = quantiteOffre;
+	}
+
+	public double getPrixOffre() {
+		return prixOffre;
+	}
+
+	public void setPrixOffre(double prixOffre) {
+		this.prixOffre = prixOffre;
+	}
+
+	public ArrayList<Titre> personneVisiteListTitre() {
+		ArrayList<Titre> titres = new ArrayList<Titre>();
+		for (Titre t : personneVisite.getTitresList()) {
+			if (t.estVente() == true) {
+				titres.add(t);
+			}
+		}
+		return titres;
+	}
+
+	public ArrayList<String> personneVisiteListTypeTitre() {
+		ArrayList<String> typeTitres = new ArrayList<String>();
+		for (Titre t : personneVisite.getTitresList()) {
+			if (!typeTitres.contains(t.getTypeTitre()) && t.estVente()) {
+				typeTitres.add(t.getTypeTitre());
+			}
+		}
+
+		return typeTitres;
+	}
+
+	public ArrayList<String> personneVisiteListNomTitreSelect() {
+		ArrayList<String> nomTitres = new ArrayList<String>();
+		for (Titre t : personneVisite.getTitresList()) {
+
+			if (nomTitres.contains(t.getNomTitre()) == false
+					&& t.getTypeTitre().equals(typeTitreTransaction) && t.estVente()) {
+				nomTitres.add(t.getNomTitre());
+				// System.out.println(t.getNomTitre());
+			}
+		}
+
+		return nomTitres;
+	}
+
+	public ArrayList<Titre> personneVisiteTitrePourOffre() {
+		ArrayList<Titre> titres = new ArrayList<Titre>();
+		for (Titre t : personneVisiteListTitre()) {
+			if (t.getNomTitre().equals(nomTitreTransaction)
+					&& t.getTypeTitre().equals(typeTitreTransaction)) {
+				titres.add(t);
+				// System.out.println(t.getNomTitre()+ "/"+ nomTitreTransaction
+				// +"  ----   "+ t.getTypeTitre()+"/"+typeTitreTransaction);
+			}
+		}
+		return titres;
+	}
+
+	public ArrayList<Integer> personneVisiteTitrePourOffreNombre() {
+		ArrayList<Integer> nomb = new ArrayList<Integer>();
+		int i = 0;
+		for (Titre t : personneVisite.getTitresList()) {
+			if (t.getNomTitre().equals(nomTitreTransaction)
+					&& t.getTypeTitre().equals(typeTitreTransaction) && t.estVente()) {
+				nomb.add(i + 1);
+				i++;
+				// System.out.println(t.getNomTitre()+ "/"+ nomTitreTransaction
+				// +"  ----   "+ t.getTypeTitre()+"/"+typeTitreTransaction);
+			}
+		}
+		return nomb;
+	}
+
+	public String faireOffre(){
+		ArrayList<Titre> titresOffre = personneVisiteTitrePourOffre();
+		Offre offre = new Offre();
+		offre.setDateOffre(new Date(System.currentTimeMillis()));
+		offre.setEntreprise(titresOffre.get(0).getEntreprise());
+		offre.setPersonneEmetteur(personne);
+		offre.setPersonneReceveur(personneVisite);
+		offre.setPrixOffre(prixOffre);
+		offre.setQuantiteOffre(quantiteOffre);
+		offre.setStatut("En cours");
+		offre.setTitres(new HashSet<Titre>());
+		offre.setTypeOffre("Achat");
+		for(int i=0;i<quantiteOffre;i++){
+			titresOffre.get(i).getOffres().add(offre);
+			offre.getTitres().add(titresOffre.get(i));
+			
+		}
+		
+		
+		personne.getOffresEmises().add(offre);
+		//personne.setSolde(personne.getSolde()-prixOffre);
+		personneVisite.getOffresRecues().add(offre);
+		
+		serviceSauvegarde.sauvegardeCompte(personne);
+		//serviceSauvegarde.sauvegardeCompte(personneVisite);
+		
+		return "home.xhtml";
+		
+	}
 }
+

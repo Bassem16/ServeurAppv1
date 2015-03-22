@@ -2,6 +2,8 @@ package fr.dauphine.bank.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -13,6 +15,7 @@ import javax.servlet.http.HttpSession;
 
 import fr.dauphine.bank.ejb.ServiceAdministrateur;
 import fr.dauphine.bank.ejb.ServiceSauvegarde;
+import fr.dauphine.bank.ejb.ServiceVerificationData;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
@@ -32,10 +35,13 @@ public class GestionAdministrateurBean implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private Personne personne = null;
+	private Personne personneEntreprise = null;
 	private Entreprise entreprise = null;
 
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
+	@EJB
+	ServiceVerificationData serviceVerificationData;
 	@EJB
 	ServiceSauvegarde serviceSauvegarde;
 
@@ -46,6 +52,21 @@ public class GestionAdministrateurBean implements Serializable {
 			entreprise = new Entreprise();
 		else
 			entreprise = (Entreprise) hs.getAttribute("entreprise");
+		this.personne = new Personne();
+		
+		this.personneEntreprise = new Personne();
+		this.personneEntreprise.setValide(1);
+		this.personneEntreprise.setEntreprise(null);
+		this.personneEntreprise.setTypePersonne(null);
+		this.personneEntreprise.setTitres(new HashSet<Titre>());
+		this.personneEntreprise.setOffresEmises(new HashSet<Offre>());
+		this.personneEntreprise.setOffresRecues(new HashSet<Offre>());
+		this.personneEntreprise.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
+		this.personneEntreprise.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
+		this.personneEntreprise.setDemandeHistoriques(new HashSet<DemandeHistorique>());
+		this.personneEntreprise.setDemandes(new HashSet<Demande>());
+		
+		
 	}
 
 	public List<Demande> getDemandes() {
@@ -55,6 +76,11 @@ public class GestionAdministrateurBean implements Serializable {
 	public List<Entreprise> getEntreprises() {
 		return serviceAdministrateur.listeEntreprise();
 	}
+	
+	public List<Personne> getMembresSociete() {
+		return serviceAdministrateur.listeMembresSociete();
+	}
+	
 	
 	public List<DemandeHistorique> getDemandesHistorique() {
 		return serviceAdministrateur.listeDemandesHistorique();
@@ -86,6 +112,13 @@ public class GestionAdministrateurBean implements Serializable {
 	public void ajouterEntreprise() {
 		serviceSauvegarde.sauvgarderEntreprise(entreprise);
 	}
+	
+	public void ajouterMembreEntreprise() {
+		Entreprise e=serviceVerificationData.verificationEntreprise(entreprise.getNomEntreprise());
+		personneEntreprise.setEntreprise(e);
+		serviceSauvegarde.sauvegardeCompteEntreprise(this.personneEntreprise);
+	}
+	
 	
 	public Personne getPersonne() {
 		return this.personne;
@@ -195,4 +228,60 @@ public class GestionAdministrateurBean implements Serializable {
 	public void setNombreTitreTotal(int nombreTitreTotal) {
 		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
 	}
+	
+	
+	public Personne getPersonneEntreprise() {
+		return this.personneEntreprise;
+	}
+
+	public int getIdPersonneEntreprise() {
+		return getPersonneEntreprise().getIdPersonne();
+	}
+
+	public void setIdPersonneEntreprise(int idPersonne) {
+		getPersonne().setIdPersonne(idPersonne);
+	}
+
+	public String getEmailEntreprise() {
+		return getPersonneEntreprise().getEmail();
+	}
+
+	public void setEmailEntreprise(String email) {
+		getPersonneEntreprise().setEmail(email);
+		;
+	}
+
+	public String getLoginEntreprise() {
+		return getPersonneEntreprise().getLogin();
+	}
+
+	public void setLoginEntreprise(String login) {
+		getPersonneEntreprise().setLogin(login);
+	}
+
+	public String getMotDePasseEntreprise() {
+		return getPersonneEntreprise().getMotDePasse();
+	}
+
+	public void setMotDePasseEntreprise(String motDePasse) {
+		getPersonneEntreprise().setMotDePasse(motDePasse);
+		;
+	}
+
+	public String getNomPersonneEntreprise() {
+		return getPersonne().getNomPersonne();
+	}
+
+	public void setNomPersonneEntreprise(String nomPersonne) {
+		getPersonneEntreprise().setNomPersonne(nomPersonne);
+	}
+
+	public String getPrenomPersonneEntreprise() {
+		return getPersonneEntreprise().getPrenomPersonne();
+	}
+	
+	public void setPrenomPersonneEntreprise(String nomPersonne) {
+		getPersonneEntreprise().setPrenomPersonne(nomPersonne);
+	}
+	
 }

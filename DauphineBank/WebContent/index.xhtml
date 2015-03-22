@@ -5,34 +5,151 @@
 	xmlns:c="http://java.sun.com/jsp/jstl/core"
 	xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:head>
-	<h:outputStylesheet library="css" name="default.css" />
 	<title>Team Trader</title>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<h:outputScript library="default" name="javascript/jquery.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.dropotron.min.js" />
+	<h:outputScript library="default"
+		name="javascript/jquery.scrollgress.min.js" />
+	<h:outputScript library="default" name="javascript/skel.min.js" />
+	<h:outputScript library="default" name="javascript/skel-layers.min.js" />
+	<h:outputScript library="default" name="javascript/init.js" />
+	<noscript>
+		<h:outputStylesheet library="default" name="css/skel.css" />
+		<h:outputStylesheet library="default" name="css/style.css" />
+		<h:outputStylesheet library="default" name="css/style-wide.css" />
+	</noscript>
 </h:head>
-<body>
-	<CENTER>
-		Bienvenue sur Team Trader
-		<c:if test="#{connexionBean.connected}">
-    (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})</c:if>
-	</CENTER>
-	<h:form>
-		<h5>
+<h:body class="landing">
+	<!-- Header -->
+	<header id="header" class="alt">
+	<h1>
+		<a href="../index.xhtml">Team Trader</a> par The Team
+	</h1>
+	<nav id="nav">
+	<ul>
+		<li><a href="../index.xhtml">Accueil</a></li>
+		<li><a href="" class="icon fa-angle-down">Layouts</a>
+			<ul>
+				<li><a href="generic.html">Generic</a></li>
+				<li><a href="contact.html">Contact</a></li>
+				<li><a href="elements.html">Elements</a></li>
+				<li><a href="">Submenu</a>
+					<ul>
+						<li><a href="#">Option One</a></li>
+						<li><a href="#">Option Two</a></li>
+						<li><a href="#">Option Three</a></li>
+						<li><a href="#">Option Four</a></li>
+					</ul></li>
+			</ul></li>
+		<li><h:link value="Inscrivez-vous"
+							outcome="/Visiteur/register.xhtml" class="button" /></li>
+	</ul>
+	</nav> </header>
 
+	<!-- Banner -->
+	<section id="banner">
+	<h2>Bienvenue sur Team Trader</h2>
+	<p>Un site révolutionnaire pour la gestion d'actifs.</p>
+	<c:if test="#{connexionBean.connected}">
+    (#{connexionBean.prenomPersonne} #{connexionBean.nomPersonne})
+    </c:if> <h:form>
+		<ul class="actions">
 			<c:choose>
 				<c:when test="#{connexionBean.connected}">
-					<h:link value="Mon compte" outcome="/Investisseur/home.xhtml" />
+					<li><h:link value="Mon compte"
+							outcome="/Investisseur/home.xhtml" class="button" /></li>
 				</c:when>
-
-
 				<c:otherwise>
-					<h:link value="Connectez-vous" outcome="/Visiteur/login.xhtml" />
-					<br></br>
-					<h:link value="Inscrivez vous" outcome="/Visiteur/register.xhtml" />
-					<br></br>
+					<li><h:link value="Connectez-vous"
+							outcome="/Visiteur/login.xhtml" class="button" /></li>
+					<li><h:link value="Inscrivez-vous"
+							outcome="/Visiteur/register.xhtml" class="button special" /></li>
 				</c:otherwise>
 			</c:choose>
-
-		</h5>
+		</ul>
 		<!--h:commandButton id="back" value="Back" action="acceuilBanqueTest.xhtml" -->
-	</h:form>
-</body>
+	</h:form> </section>
+
+	<!-- Main -->
+	<section id="main" class="container"> <section
+		class="box special"> <header class="major">
+	<h2>
+		En savoir plus sur Team Trader<br /> 
+	</h2>
+	<p>
+		 Team trader a été développé par l'équipe surnommé "The team" qui débute dans le domaine de la finance mais
+		 qui fait preuve des grandes ambitions et de determination.
+	</p>
+	</header> <span class="image featured"><img
+		src="resources/default/images/pic01.jpg" alt="" /></span> </section> <section
+		class="box special features">
+	<div class="features-row">
+		<section> <span class="icon major fa-bolt accent2"></span>
+		<h3>Marché gré à gré</h3>
+		<p>Notre application propose un service d'échange sur le marché de gré à gré,  
+		c'est à dire un marché sur lequel la transaction est conclue directement entre 
+		le vendeur et l´acheteur.</p>
+		</section>
+		<section> <span class="icon major fa-area-chart accent3"></span>
+		<h3>Suivis de votre activité</h3>
+		<p>Grace à notre travail vous pouvez facilement effectuer 
+		une trasaction et suivre vos différentes activités et historique.</p>
+		</section>
+	</div>
+	<div class="features-row">
+		<section> <span class="icon major fa-cloud accent4"></span>
+		<h3>Equipe à disposition</h3>
+		<p>Ce cite à été crée par une équipe jeune et dynamique, 
+		nous sommes là pour satisfaire votre besoin, n'hésitez pas à nous signaler 
+		tout bug ou idée d'amélioration.</p>
+		</section>
+		<section> <span class="icon major fa-lock accent5"></span>
+		<h3>Action / Option</h3>
+		<p>Notre périmètre focntionnel se constitue d'un sous jacent et un produit dérivé.
+		Nous avons choisis des titres classiques et relativement simples d'utilisation .</p>
+		</section>
+	</div>
+	</section>
+
+	
+
+	</section>
+
+	<!-- CTA -->
+	<section id="cta">
+
+
+	<form>
+		<div class="row uniform 50%">
+			<div class="8u 12u(mobilep)">
+				<input type="email" name="email" id="email"
+					placeholder="Email Address" />
+			</div>
+			<div class="4u 12u(mobilep)">
+				<input type="submit" value="Sign Up" class="fit" />
+			</div>
+		</div>
+	</form>
+
+	</section>
+
+	<!-- Footer -->
+	<footer id="footer">
+	<ul class="icons">
+		<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+		<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+		<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+		<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+		<li><a href="#" class="icon fa-dribbble"><span class="label">Dribbble</span></a></li>
+		<li><a href="#" class="icon fa-google-plus"><span
+				class="label">Google+</span></a></li>
+	</ul>
+	<ul class="copyright">
+		<li>&copy; The Team. All rights reserved.</li>
+		<li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+	</ul>
+	</footer>
+</h:body>
 </html>
