@@ -3,34 +3,50 @@ package fr.dauphine.bank.beanstests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import fr.dauphine.bank.beans.InscriptionBean;
 import fr.dauphine.bank.ejb.ServiceCreationCompte;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
 
+
 public class InscriptionBeanTest {
 
-	private InscriptionBean inscriptionBean = Mockito
-			.mock(InscriptionBean.class);
-	private ServiceCreationCompte serviceCreationCompte = Mockito
-			.mock(ServiceCreationCompte.class);
+	private InscriptionBean inscriptionBean;
+	private ServiceCreationCompte serviceCreationComte;
+	private Personne personne;
+
+
+	
 
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
+		inscriptionBean = Mockito.spy(new InscriptionBean());
+		serviceCreationComte = Mockito.mock(ServiceCreationCompte.class);
+		
+		personne = new Personne();
+		
+		inscriptionBean.setServiceCreationCompte(serviceCreationComte);
+		inscriptionBean.setPersonne(personne);
 	}
+
+	
 
 	@Test
 	public void testInscriptionBean() {
@@ -40,11 +56,7 @@ public class InscriptionBeanTest {
 
 	@Test
 	public void testGetResponse() {
-		InscriptionBean i = Mockito.mock(InscriptionBean.class);
-		Mockito.when(i.getResponse()).thenReturn(
-				"Une demande d'inscription a été envoyé");
-		String retour = i.getResponse();
-		assertEquals("Une demande d'inscription a été envoyé", retour);
+		assertEquals(inscriptionBean.getResponse(),"Une demande d'inscription a été envoyé");
 	}
 
 	@Test
@@ -60,8 +72,10 @@ public class InscriptionBeanTest {
 		InscriptionBean i = new InscriptionBean();
 		i.setIdPersonne(1);
 
-		assertEquals(1, i.getPersonne().getIdPersonne());
+		assertEquals(1, i.getIdPersonne());
 	}
+	
+	
 
 	@Test
 	public void testSetIdPersonne() {
@@ -256,37 +270,40 @@ public class InscriptionBeanTest {
 	@Test
 	public void testGetOffresRecuesList() {
 		InscriptionBean i = new InscriptionBean();
-		Set<Offre> seteO = new TreeSet<Offre>();
-
-		// Ajout Offre
+		Set<Offre> seteO = new HashSet<Offre>();
+		Offre o = new Offre();
+		
+		// Ajout Offres
+		seteO.add(o);
 		i.setOffresRecues(seteO);
-		List<Offre> sete1 = new ArrayList<Offre>(seteO);
 
-		assertEquals(sete1, i.getOffresRecuesList());
+		assertSame(o, i.getOffresRecuesList().get(0));
 	}
 
 	@Test
 	public void testGetTitresList() {
 		InscriptionBean i = new InscriptionBean();
-		Set<Titre> seteO = new TreeSet<Titre>();
-
+		Set<Titre> seteT = new HashSet<Titre>();
+		Titre t = new Titre();
 		// Ajout Titre
-		i.setTitres(seteO);
-		List<Titre> sete1 = new ArrayList<Titre>(seteO);
+		seteT.add(t);
+		i.setTitres(seteT);
+		
 
-		assertEquals(sete1, i.getOffresRecuesList());
+		assertSame(t, i.getTitresList().get(0));
 	}
 
 	@Test
 	public void testGetDemandesList() {
 		InscriptionBean i = new InscriptionBean();
-		Set<Demande> seteO = new TreeSet<Demande>();
-
+		Set<Demande> seteD = new HashSet<Demande>();
+		Demande d = new Demande();
 		// Ajout Demande
-		i.setDemandes(seteO);
-		List<Demande> sete1 = new ArrayList<Demande>(seteO);
+		seteD.add(d);
+		i.setDemandes(seteD);
+		
 
-		assertEquals(sete1, i.getOffresRecuesList());
+		assertSame(d, i.getDemandesList().get(0));
 	}
 
 	@Test
@@ -330,5 +347,18 @@ public class InscriptionBeanTest {
 
 		assertEquals(t, i.getTypePersonne());
 	}
+	
+	@Test
+	public void testgetSoldePersonne() {
+		inscriptionBean.setSoldePersonne(0.1);
+		assertEquals(inscriptionBean.getSoldePersonne(), 0.1,0.00001);
+	}
+	
+	public void testgetServiceCreationCompte() {
+		inscriptionBean.setServiceCreationCompte(serviceCreationComte);
+		assertSame(inscriptionBean.getServiceCreationCompte(), serviceCreationComte);
+	}
+	
+	
 
 }
