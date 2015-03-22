@@ -24,8 +24,8 @@ import fr.dauphine.bank.web.Utile;
 
 @ManagedBean
 @SessionScoped
-//ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur
-//Administrateur est connecté
+// ATTENTION Cette classe ne doit etre appelé que lorsqu'un utilisateur
+// Administrateur est connecté
 public class GestionAdministrateurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +33,7 @@ public class GestionAdministrateurBean implements Serializable {
 	private Personne personne = null;
 	private Personne personneEntreprise = null;
 	private Entreprise entreprise = null;
-	
+
 	@EJB
 	ServiceAdministrateur serviceAdministrateur;
 	@EJB
@@ -41,15 +41,15 @@ public class GestionAdministrateurBean implements Serializable {
 	@EJB
 	ServiceSauvegarde serviceSauvegarde;
 
-	public GestionAdministrateurBean(){
+	public GestionAdministrateurBean() {
 		HttpSession hs = Utile.getSession();
-		personne = (Personne) hs.getAttribute("personne"); 
+		personne = (Personne) hs.getAttribute("personne");
 		if (entreprise == null)
 			entreprise = new Entreprise();
 		else
 			entreprise = (Entreprise) hs.getAttribute("entreprise");
 		this.personne = new Personne();
-		
+
 		this.personneEntreprise = new Personne();
 		this.personneEntreprise.setValide(1);
 		this.personneEntreprise.setEntreprise(null);
@@ -57,31 +57,32 @@ public class GestionAdministrateurBean implements Serializable {
 		this.personneEntreprise.setTitres(new HashSet<Titre>());
 		this.personneEntreprise.setOffresEmises(new HashSet<Offre>());
 		this.personneEntreprise.setOffresRecues(new HashSet<Offre>());
-		this.personneEntreprise.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
-		this.personneEntreprise.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
-		this.personneEntreprise.setDemandeHistoriques(new HashSet<DemandeHistorique>());
+		this.personneEntreprise
+				.setOffreHistoriquesEmises(new HashSet<OffreHistorique>());
+		this.personneEntreprise
+				.setOffreHistoriquesRecues(new HashSet<OffreHistorique>());
+		this.personneEntreprise
+				.setDemandeHistoriques(new HashSet<DemandeHistorique>());
 		this.personneEntreprise.setDemandes(new HashSet<Demande>());
-		
-		
+
 	}
 
 	public List<Demande> getDemandes() {
 		return serviceAdministrateur.listeDemandes();
 	}
-	
+
 	public List<Entreprise> getEntreprises() {
 		return serviceAdministrateur.listeEntreprise();
 	}
-	
+
 	public List<Personne> getMembresSociete() {
 		return serviceAdministrateur.listeMembresSociete();
 	}
-	
-	
+
 	public List<DemandeHistorique> getDemandesHistorique() {
 		return serviceAdministrateur.listeDemandesHistorique();
 	}
-	
+
 	public void passerOffreADemande(Demande demande) {
 		DemandeHistorique demandeH = new DemandeHistorique();
 		demandeH.setDateDemandeHistorique(demande.getDateDemande());
@@ -91,20 +92,19 @@ public class GestionAdministrateurBean implements Serializable {
 		serviceAdministrateur.supprimerDemande(demande);
 		serviceSauvegarde.sauvgarderDemandeHistorique(demandeH);
 
-
 	}
-	
+
 	public void validerDemandePersonne(Demande demande) {
 		demande.setStatutDemande("Traitée");
 		demande.getPersonne().setValide(1);
 		passerOffreADemande(demande);
 	}
-	
+
 	public void supprimerDemandePersonne(Demande demande) {
 		demande.setStatutDemande("Refusée");
 		passerOffreADemande(demande);
 	}
-	
+
 	public void ajouterEntreprise() {
 		serviceSauvegarde.sauvgarderEntreprise(entreprise);
 		entreprise.setLogo("");
@@ -112,14 +112,14 @@ public class GestionAdministrateurBean implements Serializable {
 		entreprise.setSecteurEntreprise("");
 		entreprise.setNombreTitreTotal(0);
 	}
-	
+
 	public void ajouterMembreEntreprise() {
-		Entreprise e=serviceVerificationData.verificationEntreprise(entreprise.getNomEntreprise());
+		Entreprise e = serviceVerificationData
+				.verificationEntreprise(entreprise.getNomEntreprise());
 		personneEntreprise.setEntreprise(e);
 		serviceSauvegarde.sauvegardeCompteEntreprise(this.personneEntreprise);
 	}
-	
-	
+
 	public Personne getPersonne() {
 		return this.personne;
 	}
@@ -171,58 +171,46 @@ public class GestionAdministrateurBean implements Serializable {
 	public void setPrenomPersonne(String prenomPersonne) {
 		getPersonne().setPrenomPersonne(prenomPersonne);
 	}
-	
+
 	public void setEntreprise(Entreprise entreprise) {
 		getPersonne().setEntreprise(entreprise);
 	}
-
 
 	public void setDemandes(Set<Demande> demandes) {
 		getPersonne().setDemandes(demandes);
 	}
 
-	public Demande addDemande(Demande demande) {
-		getDemandes().add(demande);
-		demande.setPersonne(getPersonne());
-		return demande;
-	}
-
-	public Demande removeDemande(Demande demande) {
-		getDemandes().remove(demande);
-		demande.setPersonne(null);
-		return demande;
-	}
-
-
-	
 	public Entreprise getEntreprise() {
 		return this.entreprise;
 	}
 	
+	public void setEntrepriseTHIS(Entreprise e) {
+		this.entreprise=e;
+	}
+
 	public String getNomEntreprise() {
 		return getEntreprise().getNomEntreprise();
 	}
-	
+
 	public void setNomEntreprise(String nomEntreprise) {
 		getEntreprise().setNomEntreprise(nomEntreprise);
 	}
-	
+
 	public String getSecteurEntreprise() {
 		return getEntreprise().getSecteurEntreprise();
 	}
-	
+
 	public void setSecteurEntreprise(String secteurEntreprise) {
 		getEntreprise().setSecteurEntreprise(secteurEntreprise);
 	}
-	
+
 	public int getNombreTitreTotal() {
 		return getEntreprise().getNombreTitreTotal();
 	}
-	
+
 	public void setNombreTitreTotal(int nombreTitreTotal) {
 		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
 	}
-
 
 	public String getLogoEntreprise() {
 		return getEntreprise().getLogo();
@@ -232,8 +220,6 @@ public class GestionAdministrateurBean implements Serializable {
 		getEntreprise().setLogo(logoEntreprise);
 	}
 
-	
-	
 	public Personne getPersonneEntreprise() {
 		return this.personneEntreprise;
 	}
@@ -281,10 +267,26 @@ public class GestionAdministrateurBean implements Serializable {
 	public String getPrenomPersonneEntreprise() {
 		return getPersonneEntreprise().getPrenomPersonne();
 	}
-	
+
 	public void setPrenomPersonneEntreprise(String nomPersonne) {
 		getPersonneEntreprise().setPrenomPersonne(nomPersonne);
 	}
-	
+
+	public void setServiceAdministrateur(
+			ServiceAdministrateur serviceAdministrateur) {
+		this.serviceAdministrateur = serviceAdministrateur;
+
+	}
+
+	public void setServiceSauvegarde(ServiceSauvegarde serviceSauvegarde) {
+		this.serviceSauvegarde = serviceSauvegarde;
+
+	}
+
+	public void setServiceVerificationData(
+			ServiceVerificationData serviceVerificationData) {
+		this.serviceVerificationData = serviceVerificationData;
+
+	}
 
 }

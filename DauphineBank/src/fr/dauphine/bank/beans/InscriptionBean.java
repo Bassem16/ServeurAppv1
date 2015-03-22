@@ -65,6 +65,10 @@ public class InscriptionBean implements Serializable {
 	public Personne getPersonne() {
 		return this.personne;
 	}
+	
+	public void setPersonne(Personne p){
+		personne = p;
+	}
 
 	public int getIdPersonne() {
 		return getPersonne().getIdPersonne();
@@ -178,19 +182,7 @@ public class InscriptionBean implements Serializable {
 
 	}
 
-	public Offre removeOffreEmise(Offre offre) {
-		getPersonne().getOffresEmises().remove(offre);
-		offre.setPersonneEmetteur(null);
-
-		return offre;
-	}
-
-	public Offre removeOffreRecue(Offre offre) {
-		getPersonne().getOffresRecues().remove(offre);
-		offre.setPersonneReceveur(null);
-
-		return offre;
-	}
+	
 
 	public TypePersonne getTypePersonne() {
 		return getPersonne().getTypePersonne();

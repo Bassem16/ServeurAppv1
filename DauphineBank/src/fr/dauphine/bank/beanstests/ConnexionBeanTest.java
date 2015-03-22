@@ -5,19 +5,18 @@ import static org.junit.Assert.*;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.powermock.modules.junit4.PowerMockRunner;
 
 import fr.dauphine.bank.beans.ConnexionBean;
-import fr.dauphine.bank.beans.InscriptionBean;
 import fr.dauphine.bank.ejb.ServiceConnexion;
-import fr.dauphine.bank.ejb.ServiceCreationCompte;
 import fr.dauphine.bank.ejb.ServiceSauvegarde;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
@@ -25,13 +24,12 @@ import fr.dauphine.bank.entities.Offre;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
-import fr.dauphine.bank.web.Utile;
+
 
 public class ConnexionBeanTest {
 
 	private ConnexionBean connexionBean;
 	private ServiceConnexion serviceConnexion;
-	private ServiceSauvegarde serviceSauvegarde;
 	private HttpSession hs;
 	private Personne personne;
 	private FacesContext fc;
@@ -50,7 +48,7 @@ public class ConnexionBeanTest {
 		fc = Mockito.mock(FacesContext.class);
 		connexionBean = Mockito.spy(new ConnexionBean());
 		serviceConnexion = Mockito.mock(ServiceConnexion.class);
-		serviceSauvegarde = Mockito.mock(ServiceSauvegarde.class);
+		Mockito.mock(ServiceSauvegarde.class);
 
 		personne = new Personne();
 
@@ -388,6 +386,14 @@ public class ConnexionBeanTest {
 		assertSame(connexionBean.getDemandesList().get(0), d);
 	}
 	
+	@Test
+	public void testgetSession() {
+		assertSame(connexionBean.getSession(),hs);
+	}
 	
+	@Test
+	public void testgetFacesContext() {
+		assertSame(connexionBean.getFacesContext(),fc);
+	}
 
 }
