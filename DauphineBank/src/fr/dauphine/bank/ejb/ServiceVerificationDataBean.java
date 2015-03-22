@@ -9,6 +9,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.web.ConnexionDataBase;
@@ -16,6 +19,9 @@ import fr.dauphine.bank.web.ConnexionDataBase;
 @Stateless
 public class ServiceVerificationDataBean implements ServiceVerificationData {
 
+	private static final Logger LOG = Logger
+			.getLogger(ServiceVerificationDataBean.class.getName());
+	
 	@PersistenceUnit
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
@@ -32,7 +38,9 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 			comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceVerificationDataBean : Fonction trouverCompteEmail : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return comptes;
 	}
@@ -50,7 +58,9 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 			comptes = (ArrayList<Personne>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceVerificationDataBean : Fonction trouverCompteLogin : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return comptes;
 	}
@@ -66,7 +76,9 @@ public class ServiceVerificationDataBean implements ServiceVerificationData {
 			en = (Entreprise) query.getSingleResult();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceVerificationDataBean : Fonction verificationEntreprise : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return en;
 

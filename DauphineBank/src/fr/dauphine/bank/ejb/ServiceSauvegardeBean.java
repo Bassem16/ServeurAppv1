@@ -8,6 +8,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
@@ -21,6 +24,9 @@ import fr.dauphine.bank.entities.TypePersonne;
 @Stateless
 public class ServiceSauvegardeBean implements ServiceSauvegarde {
 
+	private static final Logger LOG = Logger
+			.getLogger(ServiceSauvegardeBean.class.getName());
+	
 	@PersistenceUnit
 	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
@@ -37,7 +43,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ personne.getEmail());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvegardeCompte : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 
 	}
@@ -56,7 +64,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ personne.getEntreprise().getNomEntreprise());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvegardeCompteEntreprise : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 
@@ -73,7 +83,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ offreHistorique.getIdOffreHistorique());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+				"ServiceSauvegardeBean : Fonction sauvegardeOffreHistorique : "
+						+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 
@@ -90,7 +102,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ entreprise.getIdEntreprise());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderEntreprise : "
+							+ e.getClass() + " Cause : " + e.getCause());
 		}
 	}
 
@@ -109,7 +123,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ "  / " + titre.getIdTitre());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvegardeTitre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 
@@ -129,7 +145,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ information.getIdInformation());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderInformation : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 
@@ -146,7 +164,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ demandeHistorique.getIdDemandeHistorique());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderDemandeHistorique : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 
@@ -163,7 +183,9 @@ public class ServiceSauvegardeBean implements ServiceSauvegarde {
 					+ offre.getIdOffre());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceSauvegardeBean : Fonction sauvgarderOffre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 

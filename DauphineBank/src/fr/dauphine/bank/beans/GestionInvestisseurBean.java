@@ -35,7 +35,10 @@ import fr.dauphine.bank.web.Utile;
 public class GestionInvestisseurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
+	private static final String ACTION="Action";
+	private static final String REFUSEE="Refusée";
+	private static final String ACCEPTEE="Acceptée";
+	
 	private Personne personne = null;
 	private Personne personneVisite = null;
 
@@ -73,8 +76,8 @@ public class GestionInvestisseurBean implements Serializable {
 		HttpSession hs = Utile.getSession();
 		personne = (Personne) hs.getAttribute("personne");
 		setEntrepriseNom("Accenture");
-		setTypeNom("Action");
-		setTypeTitreTransaction("Action");
+		setTypeNom(ACTION);
+		setTypeTitreTransaction(ACTION);
 
 		setEntrepriseCheckRechercheName("");
 
@@ -99,7 +102,7 @@ public class GestionInvestisseurBean implements Serializable {
 		List<Entreprise> listEntreprise = serviceInvestisseur
 				.recupererEntrepriseListAll();
 		Collections.sort(listEntreprise, Entreprise.alphabetique);
-
+		
 		return listEntreprise;
 
 	}
@@ -163,24 +166,24 @@ public class GestionInvestisseurBean implements Serializable {
 	// Ne plus toucher
 	public void passerOffreAHistoriqueTitre(Titre titre) {
 		OffreHistorique offreH = new OffreHistorique();
-		List<Offre> AO = titre.getOffresList();
-		Set<Offre> T = titre.getOffres();
-		for (int i = 0; i < AO.size(); i++) {
-			Offre offre = AO.get(i);
-			offreH = offreAHistorique(offre, "Refusée");
+		List<Offre> ao = titre.getOffresList();
+		Set<Offre> t1 = titre.getOffres();
+		for (int i = 0; i < ao	.size(); i++) {
+			Offre offre = ao.get(i);
+			offreH = offreAHistorique(offre, REFUSEE);
 
 			List<Titre> titres = offre.getTitresList();
 			for (int j = 0; j < titres.size(); j++) {
-				Titre t = titres.get(j);
+				Titre t2 = titres.get(j);
 
-				t.getOffres().remove(offre);
-				offreH.getTitres().add(t);
+				t2.getOffres().remove(offre);
+				offreH.getTitres().add(t2);
 
 			}
 
 			serviceSauvegarde.sauvegardeOffreHistorique(offreH);
 
-			T.remove(offre);
+			t1.remove(offre);
 
 			titre.getOffreHistoriques().add(offreH);
 
@@ -237,7 +240,7 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public void accepterOffre(Offre offre) {
-		passerOffreAHistoriqueOffre(offre, "Acceptée");
+		passerOffreAHistoriqueOffre(offre, ACCEPTEE);
 		List<Titre> titres = offre.getTitresList(); // On recupere les
 													// titres
 
@@ -252,7 +255,7 @@ public class GestionInvestisseurBean implements Serializable {
 				o.getPersonneReceveur().getOffresRecues().remove(o);
 
 				if (!listOffresSupprimeesTemp.contains(o)) {
-					passerOffreAHistoriqueOffre(o, "Refusé");
+					passerOffreAHistoriqueOffre(o, REFUSEE);
 					listOffresSupprimeesTemp.add(o);
 				}
 
@@ -348,10 +351,6 @@ public class GestionInvestisseurBean implements Serializable {
 			t.getOffres().add(offre);
 			offre.getTitres().add(t);
 
-			System.out.println(offre.getDateOffre());
-
-			System.out.println("Fais");//
-
 		}
 
 		serviceSauvegarde.sauvgarderOffre(offre);
@@ -425,16 +424,13 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public String visiterEntreprise(Entreprise e) {
-		System.out.println("CHARGEMENT DE L'ENTREPRISE....EN COURS");
 		ficheEntreprise = e;
-		System.out.println("CHARGEMENT DE L'ENTREPRISE....OK");
-
 		return "company.xhtml";
 
 	}
 
 	public void refuserOffre(Offre offre) {
-		passerOffreAHistoriqueOffre(offre, "Refusé");
+		passerOffreAHistoriqueOffre(offre, REFUSEE);
 	}
 
 	public boolean estVente(Titre titre) {
@@ -443,12 +439,14 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public boolean soldeSuffisant(Offre offre) {
-
-		if (offre.getPersonneEmetteur().getSoldePersonne() >= offre
+		boolean verif = true;
+		if (offre.getPersonneEmetteur().getSoldePersonne() >= offre 
 				.getPrixOffre())
-			return false;
-		else
-			return true;
+			verif = false;
+
+		return verif;
+		
+		
 	}
 
 	public double getSoldePersonne() {
@@ -565,7 +563,7 @@ public class GestionInvestisseurBean implements Serializable {
 		List<Offre> listeOffresEmises = new ArrayList<Offre>();
 		listeOffresEmises.addAll(getPersonne().getOffresEmises());
 		Collections.sort(listeOffresEmises, Offre.date);
-
+		Collections.reverse(listeOffresEmises);
 		return listeOffresEmises;
 	}
 
@@ -573,7 +571,7 @@ public class GestionInvestisseurBean implements Serializable {
 		List<Offre> listeOffresRecues = new ArrayList<Offre>();
 		listeOffresRecues.addAll(getPersonne().getOffresRecues());
 		Collections.sort(listeOffresRecues, Offre.prix);
-
+		Collections.reverse(listeOffresRecues);
 		return listeOffresRecues;
 	}
 
@@ -643,7 +641,7 @@ public class GestionInvestisseurBean implements Serializable {
 		listeOffresHistoriquesEmises.addAll(getPersonne()
 				.getOffreHistoriquesEmises());
 		Collections.sort(listeOffresHistoriquesEmises, OffreHistorique.date);
-
+		Collections.reverse(listeOffresHistoriquesEmises);
 		return listeOffresHistoriquesEmises;
 	}
 
@@ -653,7 +651,7 @@ public class GestionInvestisseurBean implements Serializable {
 		listeOffresHistoriquesRecues.addAll(getPersonne()
 				.getOffreHistoriquesRecues());
 		Collections.sort(listeOffresHistoriquesRecues, OffreHistorique.date);
-
+		Collections.reverse(listeOffresHistoriquesRecues);
 		return listeOffresHistoriquesRecues;
 	}
 
@@ -773,7 +771,7 @@ public class GestionInvestisseurBean implements Serializable {
 		for (Titre t : personne.getTitresList()) {
 			if (t.getEntreprise().getNomEntreprise()
 					.equals(ficheEntreprise.getNomEntreprise())
-					&& t.getTypeTitre().equals("Action")) {
+					&& t.getTypeTitre().equals(ACTION)) {
 				detention++;
 
 			}

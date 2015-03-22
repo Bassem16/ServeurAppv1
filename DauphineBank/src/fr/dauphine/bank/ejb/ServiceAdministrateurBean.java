@@ -10,6 +10,9 @@ import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.DemandeHistorique;
 import fr.dauphine.bank.entities.Entreprise;
@@ -19,6 +22,9 @@ import fr.dauphine.bank.web.ConnexionDataBase;
 @Stateless
 public class ServiceAdministrateurBean implements ServiceAdministrateur {
 
+	private static final Logger LOG = Logger
+			.getLogger(ServiceAdministrateurBean.class.getName());
+	
 	@PersistenceUnit
 	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
@@ -34,7 +40,9 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			demandes = (ArrayList<Demande>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceAdministrateurBean : Fonction createEntityManager : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return demandes;
 	}
@@ -50,7 +58,9 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			demandesH = (ArrayList<DemandeHistorique>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceAdministrateurBean : Fonction listeDemandesHistorique : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return demandesH;
 	}
@@ -66,7 +76,9 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			entreprises = (ArrayList<Entreprise>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceAdministrateurBean : Fonction listeEntreprise : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return entreprises;
 	}
@@ -85,7 +97,9 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 					+ demande.getIdDemande());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceAdministrateurBean : Fonction valideDemandePersonne : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 
@@ -104,7 +118,9 @@ public class ServiceAdministrateurBean implements ServiceAdministrateur {
 			et.commit();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceAdministrateurBean : Fonction supprimerDemande : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 

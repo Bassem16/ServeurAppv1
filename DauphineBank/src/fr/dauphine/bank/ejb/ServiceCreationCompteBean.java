@@ -6,6 +6,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.TypePersonne;
 import fr.dauphine.bank.web.ConnexionDataBase;
@@ -13,7 +16,9 @@ import fr.dauphine.bank.web.ConnexionDataBase;
 @Stateless
 public class ServiceCreationCompteBean implements ServiceCreationCompte {
 
-
+	private static final Logger LOG = Logger
+			.getLogger(ServiceCreationCompteBean.class.getName());
+	
 	@PersistenceUnit
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
@@ -33,7 +38,9 @@ public class ServiceCreationCompteBean implements ServiceCreationCompte {
 					+ personne.getEmail());
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceCreationCompteBean : Fonction CreationComptes : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 	}
 }

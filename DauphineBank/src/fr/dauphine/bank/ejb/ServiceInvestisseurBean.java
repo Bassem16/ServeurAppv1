@@ -8,8 +8,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.PersistenceUnit;
-
 import javax.persistence.Query;
+
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
 
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Information;
@@ -20,6 +22,9 @@ import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceInvestisseurBean implements ServiceInvestisseur {
+
+	private static final Logger LOG = Logger
+			.getLogger(ServiceInvestisseurBean.class.getName());
 
 	@PersistenceUnit
 	private static EntityManagerFactory emf = ConnexionDataBase.getConnexion();
@@ -43,7 +48,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			et.commit();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction SupprimerOffre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 
 	}
@@ -60,7 +67,10 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			et.commit();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction miseAJourTitre : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 
 	}
@@ -84,8 +94,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Premier IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 		} else if (!entrepriseChek && typeChek && !userCheck) {
 			try {
@@ -100,8 +111,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Second IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
 		} else if (entrepriseChek && !typeChek && !userCheck) {
@@ -116,8 +128,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Troisiene IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
 		} else if (entrepriseChek && typeChek && userCheck) {
@@ -134,8 +147,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Quatrieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 		} else if (!entrepriseChek && typeChek && userCheck) {
 			try {
@@ -151,8 +165,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Cinquieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
 		} else if (entrepriseChek && !typeChek && userCheck) {
@@ -168,8 +183,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Sixieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 
 		} else if (!entrepriseChek && !typeChek && userCheck) {
@@ -184,8 +200,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 				return selectedTitre;
 
 			} catch (Exception e) {
-				System.out.println(e.getClass() + "  + " + e.getCause()
-						+ "   + ");
+				LOG.logf(Level.ERROR,
+						"ServiceInvestisseurBean : Fonction recupererTitre : Septieme IF "
+								+ e.getClass() + " Cause : " + e.getCause(),e);
 			}
 		} else {
 			return selectedTitre;
@@ -208,7 +225,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			return selectedEntreprise;
 
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction recupererEntrepriseListAll : Type "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return selectedEntreprise;
 	}
@@ -227,7 +246,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			return selectedPersonne;
 
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction recupererEntrepriseListAll : Type "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return selectedPersonne;
 	}
@@ -250,7 +271,9 @@ public class ServiceInvestisseurBean implements ServiceInvestisseur {
 			return selectedInformation;
 
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceInvestisseurBean : Fonction recupererInformationEntreprise : Type "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return selectedInformation;
 	}

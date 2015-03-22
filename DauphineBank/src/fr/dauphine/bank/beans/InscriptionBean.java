@@ -207,5 +207,13 @@ public class InscriptionBean implements Serializable {
 	public void setSoldePersonne(double soldePersonne) {
 		getPersonne().setSoldePersonne(soldePersonne);
 	}
+	
+	public ServiceCreationCompte getServiceCreationCompte(){
+		return serviceCreationCompte;
+	}
+	
+	public void setServiceCreationCompte(ServiceCreationCompte s){
+		serviceCreationCompte=s;
+	}
 
 }

@@ -9,12 +9,18 @@ import javax.persistence.EntityManagerFactory;
 import javax.persistence.PersistenceUnit;
 import javax.persistence.Query;
 
+import org.jboss.logging.Logger;
+import org.jboss.logging.Logger.Level;
+
 import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.web.ConnexionDataBase;
 
 @Stateless
 public class ServiceMembreEntrepriseBean implements ServiceMembreEntreprise {
 
+	private static final Logger LOG = Logger
+			.getLogger(ServiceMembreEntrepriseBean.class.getName());
+	
 	@PersistenceUnit
 	private EntityManagerFactory emf = ConnexionDataBase.getConnexion();
 
@@ -30,7 +36,9 @@ public class ServiceMembreEntrepriseBean implements ServiceMembreEntreprise {
 			informations = (ArrayList<Information>) query.getResultList();
 			em.close();
 		} catch (Exception e) {
-			System.out.println(e.getClass() + "  + " + e.getCause() + "   + ");
+			LOG.logf(Level.ERROR,
+					"ServiceMembreEntrepriseBean : Fonction listeInformations : "
+							+ e.getClass() + " Cause : " + e.getCause(),e);
 		}
 		return informations;
 	}

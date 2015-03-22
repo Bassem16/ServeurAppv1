@@ -7,9 +7,13 @@ import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 
 import fr.dauphine.bank.beans.InscriptionBean;
+import fr.dauphine.bank.ejb.ServiceCreationCompte;
 import fr.dauphine.bank.entities.Demande;
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Offre;
@@ -17,6 +21,16 @@ import fr.dauphine.bank.entities.Titre;
 import fr.dauphine.bank.entities.TypePersonne;
 
 public class InscriptionBeanTest {
+
+	private InscriptionBean inscriptionBean = Mockito
+			.mock(InscriptionBean.class);
+	private ServiceCreationCompte serviceCreationCompte = Mockito
+			.mock(ServiceCreationCompte.class);
+
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+	}
 
 	@Test
 	public void testInscriptionBean() {
@@ -26,9 +40,10 @@ public class InscriptionBeanTest {
 
 	@Test
 	public void testGetResponse() {
-		InscriptionBean i = new InscriptionBean();
+		InscriptionBean i = Mockito.mock(InscriptionBean.class);
+		Mockito.when(i.getResponse()).thenReturn(
+				"Une demande d'inscription a été envoyé");
 		String retour = i.getResponse();
-
 		assertEquals("Une demande d'inscription a été envoyé", retour);
 	}
 

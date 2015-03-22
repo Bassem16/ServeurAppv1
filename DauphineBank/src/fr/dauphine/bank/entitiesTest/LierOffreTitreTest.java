@@ -1,4 +1,4 @@
-package fr.dauphine.bank.beanstests;
+package fr.dauphine.bank.entitiesTest;
 
 import static org.junit.Assert.*;
 
