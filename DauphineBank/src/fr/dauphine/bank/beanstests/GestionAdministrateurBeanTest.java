@@ -42,12 +42,6 @@ public class GestionAdministrateurBeanTest {
 
 	GestionAdministrateurBean gestionAdministrateurBean;
 
-	private Personne personne;
-	private Personne personneEntreprise;
-	private Entreprise entreprise;
-
-	// private FacesContext fc;
-
 	@Before
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
@@ -69,9 +63,7 @@ public class GestionAdministrateurBeanTest {
 		serviceVerificationData = Mockito.mock(ServiceVerificationData.class);
 		serviceSauvegarde = Mockito.mock(ServiceSauvegarde.class);
 
-		personne = new Personne();
-		personneEntreprise = new Personne();
-		entreprise = new Entreprise();
+		
 		gestionAdministrateurBean = new GestionAdministrateurBean();
 
 		gestionAdministrateurBean
@@ -220,7 +212,7 @@ public class GestionAdministrateurBeanTest {
 		gestionAdministrateurBean.setEntreprise(e);
 		assertSame(gestionAdministrateurBean.getPersonne().getEntreprise(), e);
 	}
-	
+
 	@Test
 	public void testGetEntreprise() {
 		Entreprise e = new Entreprise();
@@ -232,7 +224,8 @@ public class GestionAdministrateurBeanTest {
 	public void testSetDemandes() {
 		Set<Demande> demandes = new HashSet<Demande>();
 		gestionAdministrateurBean.setDemandes(demandes);
-		assertEquals(gestionAdministrateurBean.getPersonne().getDemandes(), demandes);
+		assertEquals(gestionAdministrateurBean.getPersonne().getDemandes(),
+				demandes);
 	}
 
 	@Test
@@ -263,7 +256,8 @@ public class GestionAdministrateurBeanTest {
 	@Test
 	public void testSetIdPersonneEntreprise() {
 		gestionAdministrateurBean.setIdPersonneEntreprise(9523);
-		assertEquals(9523,gestionAdministrateurBean.getPersonne().getIdPersonne() );
+		assertEquals(9523, gestionAdministrateurBean.getPersonne()
+				.getIdPersonne());
 	}
 
 	@Test
@@ -289,15 +283,15 @@ public class GestionAdministrateurBeanTest {
 	@Test
 	public void testGetNomPersonneEntreprise() {
 		gestionAdministrateurBean.setNomPersonneEntreprise("PAPA");
-		assertEquals(gestionAdministrateurBean.getPersonneEntreprise().getNomPersonne(),
-				"PAPA");
+		assertEquals(gestionAdministrateurBean.getPersonneEntreprise()
+				.getNomPersonne(), "PAPA");
 	}
-	
+
 	@Test
 	public void testSetNomPersonneEntreprise() {
 		gestionAdministrateurBean.setNomPersonneEntreprise("BNP PARIBAS");
-		assertEquals(gestionAdministrateurBean.getPersonneEntreprise().getNomPersonne(),
-				"BNP PARIBAS");
+		assertEquals(gestionAdministrateurBean.getPersonneEntreprise()
+				.getNomPersonne(), "BNP PARIBAS");
 	}
 
 	@Test

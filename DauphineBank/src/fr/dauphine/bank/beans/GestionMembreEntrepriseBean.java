@@ -117,6 +117,24 @@ public class GestionMembreEntrepriseBean implements Serializable {
 		getEntreprise().setNombreTitreTotal(nombreTitreTotal);
 	}
 	
+	public void setServiceSauvegarde(ServiceSauvegarde s){
+		serviceSauvegarde = s;
+	}
+	
+	public void setServiceMembreEntreprise(ServiceMembreEntreprise s){
+		serviceMembreEntreprise = s;
+	}
+	
+	public void setServiceVerificationData(ServiceVerificationData s){
+		serviceVerificationData = s;
+	}
 
+	public void setInformation(Information i){
+		information = i;
+	}
+	
+	public void setEntreprise(Entreprise e){
+		entreprise = e;
+	}
 	
 }

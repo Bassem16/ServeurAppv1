@@ -10,11 +10,8 @@ import javax.servlet.http.HttpSession;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.modules.junit4.PowerMockRunner;
-
 import fr.dauphine.bank.beans.ConnexionBean;
 import fr.dauphine.bank.ejb.ServiceConnexion;
 import fr.dauphine.bank.ejb.ServiceSauvegarde;

@@ -10,11 +10,8 @@ import java.util.TreeSet;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.junit.runner.RunWith;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.powermock.modules.junit4.PowerMockRunner;
-
 import fr.dauphine.bank.beans.InscriptionBean;
 import fr.dauphine.bank.ejb.ServiceCreationCompte;
 import fr.dauphine.bank.entities.Demande;
@@ -354,10 +351,12 @@ public class InscriptionBeanTest {
 		assertEquals(inscriptionBean.getSoldePersonne(), 0.1,0.00001);
 	}
 	
-	public void testgetServiceCreationCompte() {
+	public void testSetServiceCreationCompte() {
 		inscriptionBean.setServiceCreationCompte(serviceCreationComte);
 		assertSame(inscriptionBean.getServiceCreationCompte(), serviceCreationComte);
 	}
+	
+	
 	
 	
 

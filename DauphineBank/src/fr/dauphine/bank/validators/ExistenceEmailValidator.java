@@ -35,8 +35,9 @@ public class ExistenceEmailValidator implements Validator {
 				 * framework va alors gérer lui-même cette exception et s'en
 				 * servir pour afficher le message d'erreur à l'utilisateur.
 				 */
-				throw new ValidatorException(new FacesMessage(
-						FacesMessage.SEVERITY_ERROR, EMAIL_EXISTE_DEJA, null));
+				FacesMessage fm = new FacesMessage(
+						FacesMessage.SEVERITY_ERROR, EMAIL_EXISTE_DEJA, null);
+				throw new ValidatorException(fm);
 			}
 		} catch (Exception e) {
 			/*
@@ -50,5 +51,9 @@ public class ExistenceEmailValidator implements Validator {
 			facesContext.addMessage(component.getClientId(facesContext),
 					message);
 		}
+	}
+	
+	public void setServiceVerificationData(ServiceVerificationData s){
+		serviceVerificationData = s;
 	}
 }
