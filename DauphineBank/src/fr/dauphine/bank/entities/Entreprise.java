@@ -77,7 +77,7 @@ public class Entreprise implements Serializable {
 	}
 
 	public String getSecteurEntreprise() {
-		return this.secteurEntreprise;
+		return secteurEntreprise;
 	}
 
 	public void setSecteurEntreprise(String secteurEntreprise) {
@@ -103,26 +103,14 @@ public class Entreprise implements Serializable {
 	}
 
 	public Set<OffreHistorique> getOffreHistoriques() {
-		return this.offreHistoriques;
+		return offreHistoriques;
 	}
 
 	public void setOffreHistoriques(Set<OffreHistorique> offreHistoriques) {
 		this.offreHistoriques = offreHistoriques;
 	}
 
-	public OffreHistorique addOffreHistorique(OffreHistorique offreHistorique) {
-		getOffreHistoriques().add(offreHistorique);
-		offreHistorique.setEntreprise(this);
-
-		return offreHistorique;
-	}
-
-	public OffreHistorique removeOffreHistorique(OffreHistorique offreHistorique) {
-		getOffreHistoriques().remove(offreHistorique);
-		offreHistorique.setEntreprise(null);
-
-		return offreHistorique;
-	}
+	
 
 	public Set<Personne> getPersonnes() {
 		return this.personnes;
@@ -132,19 +120,7 @@ public class Entreprise implements Serializable {
 		this.personnes = personnes;
 	}
 
-	public Personne addPersonne(Personne personne) {
-		getPersonnes().add(personne);
-		personne.setEntreprise(this);
-
-		return personne;
-	}
-
-	public Personne removePersonne(Personne personne) {
-		getPersonnes().remove(personne);
-		personne.setEntreprise(null);
-
-		return personne;
-	}
+	
 
 	public Set<Titre> getTitres() {
 		return this.titres;

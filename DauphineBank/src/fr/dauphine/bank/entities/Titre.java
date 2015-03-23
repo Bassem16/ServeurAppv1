@@ -126,42 +126,28 @@ public class Titre implements Serializable {
 		}
 
 	}
-	
 
-	@SuppressWarnings("rawtypes")
-	public static final Comparator nbrOffre = new Comparator() {
+	public static final Comparator<Titre> nbrOffre = new Comparator<Titre>() {
 
-		public int compare(Object o1, Object o2) {
+		public int compare(Titre o1, Titre o2) {
 
-			if (!(o1 instanceof Titre))
-				throw new ClassCastException();
-
-			Integer i1 = (Integer) ((Titre) o1).getOffres().size();
-			Integer i2 = (Integer) ((Titre) o2).getOffres().size();
+			Integer i1 = (Integer) o1.getOffres().size();
+			Integer i2 = (Integer) o2.getOffres().size();
 
 			return i1.compareTo(i2);
 
 		}
 
 	};
-	
-	
+
 	public static final Comparator<Titre> alphabetique = new Comparator<Titre>() {
 
 		public int compare(Titre o1, Titre o2) {
-
-			
-
-			
 
 			return o1.getNomTitre().compareTo(o2.getNomTitre());
 
 		}
 
 	};
-
-	
-
-	
 
 }

@@ -80,8 +80,8 @@ public class Personne implements Serializable {
 		return this.idPersonne;
 	}
 
-	public void setIdPersonne(int idPersonne) {
-		this.idPersonne = idPersonne;
+	public void setIdPersonne(int id) {
+		idPersonne = id;
 	}
 
 	public String getEmail() {
@@ -128,8 +128,8 @@ public class Personne implements Serializable {
 		return this.valide;
 	}
 
-	public void setValide(int valide) {
-		this.valide = valide;
+	public void setValide(int v) {
+		valide = v;
 	}
 
 	public Set<Demande> getDemandes() {
@@ -219,19 +219,7 @@ public class Personne implements Serializable {
 		this.titres = titres;
 	}
 
-	public Titre addTitre(Titre titre) {
-		getTitres().add(titre);
-		titre.setPersonne(this);
-
-		return titre;
-	}
-
-	public Titre removeTitre(Titre titre) {
-		getTitres().remove(titre);
-		titre.setPersonne(null);
-
-		return titre;
-	}
+	
 	
 	public ArrayList<Titre> getTitresList(){
 		return new ArrayList<Titre>(titres);
@@ -244,5 +232,7 @@ public class Personne implements Serializable {
 	public void setSoldePersonne(double soldePersonne) {
 		this.soldePersonne = soldePersonne;
 	}
+	
+	
 
 }

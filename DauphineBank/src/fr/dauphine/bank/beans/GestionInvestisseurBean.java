@@ -35,10 +35,10 @@ import fr.dauphine.bank.web.Utile;
 public class GestionInvestisseurBean implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final String ACTION="Action";
-	private static final String REFUSEE="Refusée";
-	private static final String ACCEPTEE="Acceptée";
-	
+	private static final String ACTION = "Action";
+	private static final String REFUSEE = "Refusée";
+	private static final String ACCEPTEE = "Acceptée";
+
 	private Personne personne = null;
 	private Personne personneVisite = null;
 
@@ -102,7 +102,7 @@ public class GestionInvestisseurBean implements Serializable {
 		List<Entreprise> listEntreprise = serviceInvestisseur
 				.recupererEntrepriseListAll();
 		Collections.sort(listEntreprise, Entreprise.alphabetique);
-		
+
 		return listEntreprise;
 
 	}
@@ -168,7 +168,7 @@ public class GestionInvestisseurBean implements Serializable {
 		OffreHistorique offreH = new OffreHistorique();
 		List<Offre> ao = titre.getOffresList();
 		Set<Offre> t1 = titre.getOffres();
-		for (int i = 0; i < ao	.size(); i++) {
+		for (int i = 0; i < ao.size(); i++) {
 			Offre offre = ao.get(i);
 			offreH = offreAHistorique(offre, REFUSEE);
 
@@ -440,13 +440,12 @@ public class GestionInvestisseurBean implements Serializable {
 
 	public boolean soldeSuffisant(Offre offre) {
 		boolean verif = true;
-		if (offre.getPersonneEmetteur().getSoldePersonne() >= offre 
+		if (offre.getPersonneEmetteur().getSoldePersonne() >= offre
 				.getPrixOffre())
 			verif = false;
 
 		return verif;
-		
-		
+
 	}
 
 	public double getSoldePersonne() {
@@ -548,6 +547,7 @@ public class GestionInvestisseurBean implements Serializable {
 	}
 
 	public void setTitres(Set<Titre> titres) {
+		getPersonne().setTitres(titres);
 
 	}
 
@@ -824,4 +824,7 @@ public class GestionInvestisseurBean implements Serializable {
 		this.ficheEntreprise = ficheEntreprise;
 	}
 
+	public void setPersonne(Personne p) {
+		personne = p;
+	}
 }

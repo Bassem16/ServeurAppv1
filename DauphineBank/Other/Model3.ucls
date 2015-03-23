@@ -109,16 +109,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <interface id="13" language="java" name="fr.dauphine.bank.ejb.ServiceVerificationData" project="DauphineBank" 
-    file="/DauphineBank/src/fr/dauphine/bank/ejb/ServiceVerificationData.java" binary="false" corner="BOTTOM_RIGHT">    
-    <position height="56" width="159" x="2036" y="205"/>    
-    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
-      visibility="true">      
-      <attributes public="true" package="true" protected="true" private="true" static="true"/>      
-      <operations public="false" package="false" protected="false" private="false" static="false"/>    
-    </display>  
-  </interface>  
-  <class id="14" language="java" name="fr.dauphine.bank.ejb.ServiceInvestisseurBean" project="DauphineBank" 
+  <class id="13" language="java" name="fr.dauphine.bank.ejb.ServiceInvestisseurBean" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/ejb/ServiceInvestisseurBean.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="74" width="169" x="905" y="205"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -127,7 +118,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <interface id="15" language="java" name="fr.dauphine.bank.ejb.ServiceAdministrateur" project="DauphineBank" 
+  <interface id="14" language="java" name="fr.dauphine.bank.ejb.ServiceAdministrateur" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/ejb/ServiceAdministrateur.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="56" width="154" x="256" y="391"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -136,7 +127,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </interface>  
-  <class id="16" language="java" name="fr.dauphine.bank.ejb.ServiceVerificationDataBean" project="DauphineBank" 
+  <class id="15" language="java" name="fr.dauphine.bank.ejb.ServiceVerificationDataBean" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/ejb/ServiceVerificationDataBean.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="74" width="189" x="1807" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -145,7 +136,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="17" language="java" name="fr.dauphine.bank.entities.Titre" project="DauphineBank" 
+  <class id="16" language="java" name="fr.dauphine.bank.entities.Titre" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/entities/Titre.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="146" width="131" x="1679" y="631"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -154,7 +145,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="18" language="java" name="fr.dauphine.bank.entities.Information" project="DauphineBank" 
+  <class id="17" language="java" name="fr.dauphine.bank.entities.Information" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/entities/Information.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="128" width="134" x="1633" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -163,7 +154,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="19" language="java" name="fr.dauphine.bank.entities.Offre" project="DauphineBank" 
+  <class id="18" language="java" name="fr.dauphine.bank.entities.Offre" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/entities/Offre.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="164" width="131" x="1679" y="817"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -172,7 +163,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="20" language="java" name="fr.dauphine.bank.entities.Entreprise" project="DauphineBank" 
+  <class id="19" language="java" name="fr.dauphine.bank.entities.Entreprise" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/entities/Entreprise.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="146" width="144" x="1852" y="205"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -181,7 +172,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="21" language="java" name="fr.dauphine.bank.entities.TypePersonne" project="DauphineBank" 
+  <class id="20" language="java" name="fr.dauphine.bank.entities.TypePersonne" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/entities/TypePersonne.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="110" width="131" x="1526" y="205"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -190,7 +181,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="22" language="java" name="fr.dauphine.bank.entities.Personne" project="DauphineBank" 
+  <class id="21" language="java" name="fr.dauphine.bank.entities.Personne" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/entities/Personne.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="200" width="143" x="1618" y="391"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -199,7 +190,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="23" language="java" name="fr.dauphine.bank.entities.Demande" project="DauphineBank" 
+  <class id="22" language="java" name="fr.dauphine.bank.entities.Demande" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/entities/Demande.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="128" width="149" x="1316" y="205"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -208,7 +199,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="24" language="java" name="fr.dauphine.bank.filters.AdministrateurFilter" project="DauphineBank" 
+  <class id="23" language="java" name="fr.dauphine.bank.filters.AdministrateurFilter" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/filters/AdministrateurFilter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="92" width="169" x="905" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -217,7 +208,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="25" language="java" name="fr.dauphine.bank.filters.VisiteurFilter" project="DauphineBank" 
+  <class id="24" language="java" name="fr.dauphine.bank.filters.VisiteurFilter" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/filters/VisiteurFilter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="92" width="169" x="487" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -226,7 +217,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="26" language="java" name="fr.dauphine.bank.filters.InvestisseurFilter" project="DauphineBank" 
+  <class id="25" language="java" name="fr.dauphine.bank.filters.InvestisseurFilter" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/filters/InvestisseurFilter.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="92" width="169" x="696" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -235,7 +226,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="27" language="java" name="fr.dauphine.bank.listeners.SessionListener" project="DauphineBank" 
+  <class id="26" language="java" name="fr.dauphine.bank.listeners.SessionListener" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/listeners/SessionListener.java" binary="false" corner="BOTTOM_RIGHT">    
     <position height="74" width="133" x="313" y="37"/>    
     <display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" accessors="true" 
@@ -244,7 +235,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="28" language="java" name="fr.dauphine.bank.validators.ExistenceLoginValidator" project="DauphineBank" 
+  <class id="27" language="java" name="fr.dauphine.bank.validators.ExistenceLoginValidator" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/validators/ExistenceLoginValidator.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="74" width="170" x="2245" y="37"/>    
@@ -254,7 +245,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="29" language="java" name="fr.dauphine.bank.validators.ConfirmationMotDePasseValidator" 
+  <class id="28" language="java" name="fr.dauphine.bank.validators.ConfirmationMotDePasseValidator" 
     project="DauphineBank" file="/DauphineBank/src/fr/dauphine/bank/validators/ConfirmationMotDePasseValidator.java" 
     binary="false" corner="BOTTOM_RIGHT">    
     <position height="92" width="227" x="44" y="37"/>    
@@ -264,7 +255,7 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <class id="30" language="java" name="fr.dauphine.bank.validators.ExistenceEmailValidator" project="DauphineBank" 
+  <class id="29" language="java" name="fr.dauphine.bank.validators.ExistenceEmailValidator" project="DauphineBank" 
     file="/DauphineBank/src/fr/dauphine/bank/validators/ExistenceEmailValidator.java" binary="false" 
     corner="BOTTOM_RIGHT">    
     <position height="74" width="169" x="2036" y="37"/>    
@@ -274,166 +265,170 @@
       <operations public="false" package="false" protected="false" private="false" static="false"/>    
     </display>  
   </class>  
-  <association id="31">    
+  <association id="30">    
     <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="32" name="personnes"/>      
-      <multiplicity id="33" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="34">    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="35" name="informations"/>      
-      <multiplicity id="36" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="18" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="37">    
-    <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="38" name="personne"/>      
-      <multiplicity id="39" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="40">    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="41" name="serviceCreationCompte"/>      
-      <multiplicity id="42" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="9" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="43">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="44" name="typePersonne"/>      
-      <multiplicity id="45" minimum="0" maximum="1"/>    
+      <attribute id="31" name="personnes"/>      
+      <multiplicity id="32" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="46">    
+  <association id="33">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="34" name="typePersonne"/>      
+      <multiplicity id="35" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="20" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="36">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="37" name="serviceAdministrateur"/>      
+      <multiplicity id="38" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="14" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="39">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="47" name="serviceSauvegarde"/>      
-      <multiplicity id="48" minimum="0" maximum="1"/>    
+      <attribute id="40" name="personne"/>      
+      <multiplicity id="41" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="42">    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="43" name="informations"/>      
+      <multiplicity id="44" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="17" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="45">    
+    <bendpoint x="1861" y="631"/>    
+    <bendpoint x="1861" y="391"/>    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="46" name="entreprise"/>      
+      <multiplicity id="47" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="48">    
+    <end type="SOURCE" refId="2" navigable="false">      
+      <attribute id="49" name="serviceSauvegarde"/>      
+      <multiplicity id="50" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="49">    
+  <association id="51">    
+    <end type="SOURCE" refId="18" navigable="false">      
+      <attribute id="52" name="titres"/>      
+      <multiplicity id="53" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="54">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="55" name="offres"/>      
+      <multiplicity id="56" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="57">    
+    <bendpoint x="1791" y="391"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="58" name="titres"/>      
+      <multiplicity id="59" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="16" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="60">    
     <end type="SOURCE" refId="2" navigable="false">      
-      <attribute id="50" name="serviceInvestisseur"/>      
-      <multiplicity id="51" minimum="0" maximum="1"/>    
+      <attribute id="61" name="serviceInvestisseur"/>      
+      <multiplicity id="62" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="6" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="52">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="53" name="offres"/>      
-      <multiplicity id="54" minimum="0" maximum="2147483647"/>    
+  <association id="63">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="64" name="titres"/>      
+      <multiplicity id="65" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
+    <end type="TARGET" refId="16" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="55">    
-    <end type="SOURCE" refId="8"/>    
-    <end type="TARGET" refId="10"/>  
-  </realization>  
-  <association id="56">    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="57" name="personne"/>      
-      <multiplicity id="58" minimum="0" maximum="1"/>    
+  <association id="66">    
+    <bendpoint x="1840" y="391"/>    
+    <bendpoint x="1840" y="631"/>    
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="67" name="offres"/>      
+      <multiplicity id="68" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="18" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="69">    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="70" name="personne"/>      
+      <multiplicity id="71" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="72">    
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="73" name="demande"/>      
+      <multiplicity id="74" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="22" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="59">    
-    <end type="SOURCE" refId="23" navigable="false">      
-      <attribute id="60" name="personne"/>      
-      <multiplicity id="61" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="62">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="63" name="serviceConnexion"/>      
-      <multiplicity id="64" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="10" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="65">    
-    <end type="SOURCE" refId="28" navigable="false">      
-      <attribute id="66" name="serviceVerificationData"/>      
-      <multiplicity id="67" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="68">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="69" name="entreprise"/>      
-      <multiplicity id="70" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="71">    
-    <bendpoint x="1627" y="631"/>    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="72" name="offres"/>      
-      <multiplicity id="73" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="19" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="74">    
-    <end type="SOURCE" refId="16"/>    
-    <end type="TARGET" refId="13"/>  
-  </realization>  
   <association id="75">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="76" name="serviceSauvegarde"/>      
+    <end type="SOURCE" refId="22" navigable="false">      
+      <attribute id="76" name="personne"/>      
       <multiplicity id="77" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="78">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="79" name="serviceSauvegarde"/>      
+      <multiplicity id="80" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="5" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <realization id="78">    
-    <end type="SOURCE" refId="14"/>    
-    <end type="TARGET" refId="6"/>  
+  <realization id="81">    
+    <end type="SOURCE" refId="11"/>    
+    <end type="TARGET" refId="14"/>  
   </realization>  
-  <association id="79">    
-    <bendpoint x="1812" y="391"/>    
-    <end type="SOURCE" refId="17" navigable="false">      
-      <attribute id="80" name="entreprise"/>      
-      <multiplicity id="81" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <association id="82">    
-    <end type="SOURCE" refId="21" navigable="false">      
-      <attribute id="83" name="personnes"/>      
-      <multiplicity id="84" minimum="0" maximum="2147483647"/>    
+    <bendpoint x="1812" y="391"/>    
+    <end type="SOURCE" refId="16" navigable="false">      
+      <attribute id="83" name="entreprise"/>      
+      <multiplicity id="84" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
+    <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="85">    
-    <end type="SOURCE" refId="12"/>    
-    <end type="TARGET" refId="5"/>  
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="10"/>  
   </realization>  
   <association id="86">    
-    <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="87" name="serviceAdministrateur"/>      
+    <end type="SOURCE" refId="4" navigable="false">      
+      <attribute id="87" name="serviceCreationCompte"/>      
       <multiplicity id="88" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="15" navigable="true"/>    
+    <end type="TARGET" refId="9" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
   <realization id="89">    
@@ -441,120 +436,78 @@
     <end type="TARGET" refId="9"/>  
   </realization>  
   <association id="90">    
-    <bendpoint x="1791" y="391"/>    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="91" name="titres"/>      
+    <end type="SOURCE" refId="19" navigable="false">      
+      <attribute id="91" name="personnes"/>      
       <multiplicity id="92" minimum="0" maximum="2147483647"/>    
     </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
+    <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="93">    
-    <end type="SOURCE" refId="18" navigable="false">      
-      <attribute id="94" name="entreprise"/>      
-      <multiplicity id="95" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="96">    
-    <end type="SOURCE" refId="1" navigable="false">      
-      <attribute id="97" name="personne"/>      
-      <multiplicity id="98" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="99">    
+  <realization id="93">    
+    <end type="SOURCE" refId="12"/>    
+    <end type="TARGET" refId="5"/>  
+  </realization>  
+  <association id="94">    
+    <bendpoint x="1495" y="205"/>    
     <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="100" name="demande"/>      
-      <multiplicity id="101" minimum="0" maximum="1"/>    
+      <attribute id="95" name="personne"/>      
+      <multiplicity id="96" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
+    <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="102">    
-    <bendpoint x="1840" y="391"/>    
-    <bendpoint x="1840" y="631"/>    
-    <end type="SOURCE" refId="20" navigable="false">      
-      <attribute id="103" name="offres"/>      
-      <multiplicity id="104" minimum="0" maximum="2147483647"/>    
+  <association id="97">    
+    <end type="SOURCE" refId="17" navigable="false">      
+      <attribute id="98" name="entreprise"/>      
+      <multiplicity id="99" minimum="0" maximum="1"/>    
     </end>    
     <end type="TARGET" refId="19" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="105">    
-    <bendpoint x="1648" y="631"/>    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="106" name="personne"/>      
-      <multiplicity id="107" minimum="0" maximum="1"/>    
+  <association id="100">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="101" name="demandes"/>      
+      <multiplicity id="102" minimum="0" maximum="2147483647"/>    
     </end>    
     <end type="TARGET" refId="22" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="108">    
+  <association id="103">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="104" name="serviceConnexion"/>      
+      <multiplicity id="105" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="10" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="106">    
+    <end type="SOURCE" refId="1" navigable="false">      
+      <attribute id="107" name="personne"/>      
+      <multiplicity id="108" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="21" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="109">    
+    <end type="SOURCE" refId="21" navigable="false">      
+      <attribute id="110" name="entreprise"/>      
+      <multiplicity id="111" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="19" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <association id="112">    
     <end type="SOURCE" refId="3" navigable="false">      
-      <attribute id="109" name="personne"/>      
-      <multiplicity id="110" minimum="0" maximum="1"/>    
+      <attribute id="113" name="personne"/>      
+      <multiplicity id="114" minimum="0" maximum="1"/>    
     </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
+    <end type="TARGET" refId="21" navigable="true"/>    
     <display labels="true" multiplicity="true"/>  
   </association>  
-  <association id="111">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="112" name="titres"/>      
-      <multiplicity id="113" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="114">    
-    <bendpoint x="1495" y="205"/>    
-    <end type="SOURCE" refId="4" navigable="false">      
-      <attribute id="115" name="personne"/>      
-      <multiplicity id="116" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="22" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="117">    
-    <end type="SOURCE" refId="22" navigable="false">      
-      <attribute id="118" name="demandes"/>      
-      <multiplicity id="119" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="23" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="120">    
-    <end type="SOURCE" refId="30" navigable="false">      
-      <attribute id="121" name="serviceVerificationData"/>      
-      <multiplicity id="122" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="13" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <association id="123">    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="124" name="titres"/>      
-      <multiplicity id="125" minimum="0" maximum="2147483647"/>    
-    </end>    
-    <end type="TARGET" refId="17" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
-  <realization id="126">    
-    <end type="SOURCE" refId="11"/>    
-    <end type="TARGET" refId="15"/>  
+  <realization id="115">    
+    <end type="SOURCE" refId="13"/>    
+    <end type="TARGET" refId="6"/>  
   </realization>  
-  <association id="127">    
-    <bendpoint x="1861" y="631"/>    
-    <bendpoint x="1861" y="391"/>    
-    <end type="SOURCE" refId="19" navigable="false">      
-      <attribute id="128" name="entreprise"/>      
-      <multiplicity id="129" minimum="0" maximum="1"/>    
-    </end>    
-    <end type="TARGET" refId="20" navigable="true"/>    
-    <display labels="true" multiplicity="true"/>  
-  </association>  
   <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="true" 
     accessors="true" visibility="true">    
     <attributes public="true" package="true" protected="true" private="true" static="true"/>    

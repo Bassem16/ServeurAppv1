@@ -2,13 +2,19 @@ package fr.dauphine.bank.entitiesTest;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
 import java.util.TreeSet;
 import java.util.Set;
+
 import org.junit.Test;
 
 import fr.dauphine.bank.entities.Entreprise;
 import fr.dauphine.bank.entities.Information;
 import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
 import fr.dauphine.bank.entities.Titre;
 
@@ -37,8 +43,8 @@ public class EntrepriseTest {
 	@Test
 	public void testGetNombreTitreTotal() {
 		Entreprise e=new Entreprise();
-		e.setNombreTitreTotal(0);
-		assertEquals(0,e.getNombreTitreTotal());
+		e.setNombreTitreTotal(120);
+		assertEquals(120,e.getNombreTitreTotal());
 	}
 
 	@Test
@@ -84,6 +90,16 @@ public class EntrepriseTest {
 		// Ajout Personne
 		 e.setPersonnes(setP);
 		 assertEquals(setP, e.getPersonnes());
+	}
+	
+	@Test
+	public void testGetLogo() {
+		Entreprise e=new Entreprise();
+	
+
+		
+		 e.setLogo("logo");
+		 assertEquals("logo", e.getLogo());
 	}
 
 	@Test
@@ -141,6 +157,18 @@ public class EntrepriseTest {
 		 
 		 assertEquals(seteO, sete1);
 	}
+	
+	@Test
+	public void testGetSetOffreHistorique() {
+		Entreprise e=new Entreprise();
+		Set<OffreHistorique> seteO = new HashSet<OffreHistorique>();
+
+		// Ajout Offre
+		 e.setOffreHistoriques(seteO);
+		 Set <OffreHistorique> sete1 = e.getOffreHistoriques();
+		 
+		 assertEquals(seteO, sete1);
+	}
 
 	
 	
@@ -168,5 +196,25 @@ public class EntrepriseTest {
 		 
 		 assertEquals(seteO, sete1);
 	}
+	
+	@Test
+	public void testComparator() {
+		List<Entreprise> entreprises = new ArrayList<Entreprise>();
+		Entreprise e1=new Entreprise();
+		Entreprise e2=new Entreprise();
+		
+		e1.setNomEntreprise("a");
+		e2.setNomEntreprise("b");
+		
+		entreprises.add(e2);
+		entreprises.add(e1);
+		
+		
+		Collections.sort(entreprises, Entreprise.alphabetique);
+		 
+		 assertTrue(entreprises.get(0).getNomEntreprise()=="a");
+	}
+	
+	
 
 }

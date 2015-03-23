@@ -22,12 +22,21 @@ public class OffreHistoriqueTest {
 		OffreHistorique o = new OffreHistorique();
 		assertNotNull(o);
 	}
+	
+	@Test
+	public void testGetDateOffre() {
+		OffreHistorique o = new OffreHistorique();
+		o.setIdOffreHistorique(10);
+		
+		int Id = o.getIdOffreHistorique();
+		assertEquals(10,Id);
+	}
 
 	@Test
 	public void testGetIdOffreHistorique() {
 		OffreHistorique o = new OffreHistorique();	
-		o.setIdOffreHistorique(0);
-		assertEquals(0,o.getIdOffreHistorique());
+		o.setIdOffreHistorique(150);
+		assertEquals(150,o.getIdOffreHistorique());
 	}
 
 	@Test
@@ -212,5 +221,9 @@ public class OffreHistoriqueTest {
 		
 		assertEquals(t.hashCode(),t1.hashCode());
 	}
-
+	
+	
+	
+	
+	
 }

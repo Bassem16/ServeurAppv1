@@ -59,7 +59,7 @@ public class OffreHistorique implements Serializable{
 	}
 
 	public int getIdOffreHistorique() {
-		return this.idOffreHistorique;
+		return idOffreHistorique;
 	}
 
 	public void setIdOffreHistorique(int idOffreHistorique) {

@@ -2,7 +2,10 @@ package fr.dauphine.bank.entitiesTest;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
 
@@ -177,7 +180,7 @@ public class TitreTest {
 		Set<Offre> setO = new HashSet<Offre>();
 		t.setOffres(setO);
 		t.getOffres().add(o);
-		assertEquals("Resultat",1,t.getOffresList().size());
+		assertEquals("Resultat", 1, t.getOffresList().size());
 
 	}
 
@@ -186,7 +189,54 @@ public class TitreTest {
 		Titre t = new Titre();
 		t.setEtatTitre(1);
 
-		assertEquals(true, t.estVente());
+		assertTrue(t.estVente());
+
+		t.setEtatTitre(0);
+
+		assertTrue(!t.estVente());
+	}
+
+	@Test
+	public void testComparatorNbrOffre() {
+		List<Titre> titres = new ArrayList<Titre>();
+		Titre t1 = new Titre();
+		Titre t2 = new Titre();
+
+		Offre o1 = new Offre();
+		Offre o2 = new Offre();
+		Offre o3 = new Offre();
+
+		t1.setOffres(new HashSet<Offre>());
+		t2.setOffres(new HashSet<Offre>());
+
+		t1.getOffres().add(o1);
+		t2.getOffres().add(o2);
+		t2.getOffres().add(o3);
+
+		titres.add(t1);
+		titres.add(t2);
+		Collections.sort(titres, Titre.nbrOffre);
+
+		assertEquals(true, titres.get(0).getOffres().size() <= titres.get(0)
+				.getOffres().size());
+	}
+	
+	@Test
+	public void testComparatorAlphabetique() {
+		List<Titre> titres = new ArrayList<Titre>();
+		Titre t1 = new Titre();
+		Titre t2 = new Titre();
+		
+		t2.setNomTitre("b");
+		t1.setNomTitre("a");
+		
+		titres.add(t2);
+		titres.add(t1);
+
+		
+		Collections.sort(titres, Titre.alphabetique);
+
+		assertEquals("a", titres.get(0).getNomTitre());
 	}
 
 }

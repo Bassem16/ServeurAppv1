@@ -17,7 +17,7 @@ public class DemandeHistoriqueTest {
 	public static final String A_TRAITER = "A traiter";
 	@Test
 	public void testDemandeHistorique() {
-		DemandeHistorique d=new DemandeHistorique();
+		DemandeHistorique d =new DemandeHistorique();
 		assertNotNull("L'istance est créé", d);
 	}
 

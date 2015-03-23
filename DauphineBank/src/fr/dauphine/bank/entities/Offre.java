@@ -59,7 +59,7 @@ public class Offre implements Serializable {
 	}
 
 	public int getIdOffre() {
-		return this.idOffre;
+		return idOffre;
 	}
 
 	public void setIdOffre(int idOffre) {
@@ -67,11 +67,11 @@ public class Offre implements Serializable {
 	}
 
 	public Date getDateOffre() {
-		return this.dateOffre;
+		return dateOffre;
 	}
 
-	public void setDateOffre(Date dateOffre) {
-		this.dateOffre = dateOffre;
+	public void setDateOffre(Date d) {
+		dateOffre = d;
 	}
 
 	public double getPrixOffre() {
@@ -91,7 +91,7 @@ public class Offre implements Serializable {
 	}
 
 	public String getStatut() {
-		return this.statut;
+		return statut;
 	}
 
 	public void setStatut(String statut) {

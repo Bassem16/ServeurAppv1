@@ -91,5 +91,17 @@ public class InformationTest {
 		
 		assertEquals(e, i.getEntreprise());
 	}
+	
+	@Test
+	public void testGetSetTexteInformation() {
+		Information i =new Information();
+		// Création Entreprise
+		i.setTexteInformation("Information en continue ! ");
+		// Ajout Entreprise
+		
+		
+		assertEquals("Information en continue ! ", i.getTexteInformation());
+	}
+	
 
 }
