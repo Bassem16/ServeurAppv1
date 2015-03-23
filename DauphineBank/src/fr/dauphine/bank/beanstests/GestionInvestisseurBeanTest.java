@@ -3,6 +3,7 @@ package fr.dauphine.bank.beanstests;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -508,8 +509,12 @@ public class GestionInvestisseurBeanTest {
 		Titre t = new Titre();
 		titres.add(t);
 		gestionInvestisseurBean.setTitres(titres);
+		List<Titre> listTitre = new ArrayList<Titre>(titres);
+		Collections.sort(listTitre, Titre.alphabetique);
 
-		assertSame(gestionInvestisseurBean.getTitresList().get(0), t);
+		gestionInvestisseurBean.setTitres(titres);
+
+		assertSame(gestionInvestisseurBean.getTitresList(), listTitre);
 	}
 
 	@Test
