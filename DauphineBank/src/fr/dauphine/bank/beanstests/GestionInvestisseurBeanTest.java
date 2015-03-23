@@ -251,7 +251,13 @@ public class GestionInvestisseurBeanTest {
 
 	@Test
 	public void testEstVente() {
-		fail("Not yet implemented");
+		Set<Titre> titres = new HashSet<Titre>();
+		Titre t = new Titre();
+		t.setIdTitre(1);
+		titres.add(t);
+		gestionInvestisseurBean.setTitres(titres);
+
+		assertEquals(gestionInvestisseurBean.estVente(t), true);
 	}
 
 	@Test
@@ -532,13 +538,10 @@ public class GestionInvestisseurBeanTest {
 	}
 
 	@Test
-	public void testIsEntrepriseChek() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetEntrepriseChek() {
-		fail("Not yet implemented");
+	public void testSetIsEntrepriseChek() {
+		gestionInvestisseurBean.setEntrepriseChek(false);
+		
+		assertSame(gestionInvestisseurBean.isEntrepriseChek(), false);
 	}
 
 	@Test
