@@ -2,14 +2,189 @@ package fr.dauphine.bank.beanstests;
 
 import static org.junit.Assert.*;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import org.junit.runner.RunWith;
+import org.powermock.core.classloader.annotations.PrepareForTest;
+import org.powermock.modules.junit4.PowerMockRunner;
+
+import javax.faces.context.FacesContext;
+import javax.servlet.http.HttpSession;
+
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.powermock.api.mockito.PowerMockito;
 
+import fr.dauphine.bank.beans.ConnexionBean;
+import fr.dauphine.bank.beans.GestionAdministrateurBean;
 import fr.dauphine.bank.beans.GestionInvestisseurBean;
-import fr.dauphine.bank.beans.InscriptionBean;
+import fr.dauphine.bank.ejb.ServiceAdministrateur;
+import fr.dauphine.bank.ejb.ServiceSauvegarde;
+import fr.dauphine.bank.ejb.ServiceVerificationData;
+import fr.dauphine.bank.entities.Demande;
+import fr.dauphine.bank.entities.DemandeHistorique;
+import fr.dauphine.bank.entities.Entreprise;
+import fr.dauphine.bank.entities.Offre;
+import fr.dauphine.bank.entities.OffreHistorique;
 import fr.dauphine.bank.entities.Personne;
+import fr.dauphine.bank.entities.Titre;
+import fr.dauphine.bank.entities.TypePersonne;
+import fr.dauphine.bank.web.Utile;
 
+@RunWith(PowerMockRunner.class)
+@PrepareForTest(Utile.class)
 public class GestionInvestisseurBeanTest {
 
+	private ConnexionBean connexionBean;
+//	private ServiceConnexion serviceConnexion;
+	
+	private ServiceSauvegarde serviceSauvegarde;
+	private HttpSession hs;
+	private Personne personne ;
+	private FacesContext fc;
+
+	public static final String INV = "inv";
+	public static final String ENT = "ent";
+	public static final String ADMIN = "admin";
+
+	public static final String BASSEM = "Bassem";
+	public static final String NICOLAS = "Nicolas";
+	
+	//***************
+	private GestionInvestisseurBean gestionInvestisseurBean;
+	
+	private static final long serialVersionUID = 1L;
+	private static final String ACTION="Action";
+	private static final String REFUSEE="Refusée";
+	private static final String ACCEPTEE="Acceptée";
+	
+	// private Personne personne = null;
+	private Personne personneVisite = null;
+
+	private boolean entrepriseChek = false;
+	private boolean typeCheck = false;
+	private boolean userCheck = false;
+
+	private String entrepriseNom = null;
+	private String typeNom = null;
+	private String userNom = null;
+
+	private String typeTitreTransaction = null;
+	private String nomTitreTransaction = null;
+
+	private int quantiteOffre = 0;
+	private double prixOffre = 0;
+
+	private boolean entrepriseCheckRecherche = false;
+	private boolean domaineChek = false;
+
+	private String entrepriseCheckRechercheName = null;
+	private String domaineChekName = null;
+
+	private Entreprise ficheEntreprise = null;
+	//************
+	
+	
+	private ServiceAdministrateur serviceAdministrateur;
+	private ServiceVerificationData serviceVerificationData;
+
+
+	GestionAdministrateurBean gestionAdministrateurBean;
+
+	private Personne personneEntreprise;
+	private Entreprise entreprise;
+	
+	
+	//************
+	
+/*	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		PowerMockito.mockStatic(Utile.class);
+		hs = Mockito.mock(HttpSession.class);
+		fc = Mockito.mock(FacesContext.class);
+		connexionBean = Mockito.spy(new ConnexionBean());
+		serviceConnexion = Mockito.mock(ServiceConnexion.class);//*
+//		serviceSauvegarde = Mockito.mock(ServiceSauvegarde.class);//*
+
+//		personne = new Personne();
+
+		connexionBean.setServiceConnexion(serviceConnexion);
+		connexionBean.setPersonne(personne);
+//		Mockito.doReturn(hs).when(connexionBean).getSession();
+		Mockito.doReturn(fc).when(connexionBean).getFacesContext();
+		
+		
+		//**********
+//		gestionInvestisseurBean = Mockito.spy(new GestionInvestisseurBean());
+//		personne = (Personne) hs.getAttribute("personne");
+		
+		//***********
+		
+		Personne p1 = new Personne();
+		TypePersonne tp1 = new TypePersonne();
+		tp1.setIdTypePersonne(3);
+		p1.setTypePersonne(tp1);
+
+		Entreprise e1 = new Entreprise();
+
+		Mockito.when(Utile.getSession()).thenReturn(hs);
+		Mockito.when(hs.getAttribute("personne")).thenReturn(p1);
+		Mockito.when(hs.getAttribute("entreprise")).thenReturn(e1);
+
+		personne = new Personne();
+		personneEntreprise = new Personne();
+		entreprise = new Entreprise();
+		gestionInvestisseurBean = new GestionInvestisseurBean();		
+		
+	}
+	
+	/*@Before
+	public void init() {
+		HttpSession hs = Utile.getSession();
+		personne = (Personne) hs.getAttribute("personne");
+		setEntrepriseNom("Accenture");
+		setTypeNom(ACTION);
+		setTypeTitreTransaction(ACTION);
+
+		setEntrepriseCheckRechercheName("");
+
+	}*/
+	
+	@Before
+	public void setUp() {
+		MockitoAnnotations.initMocks(this);
+		PowerMockito.mockStatic(Utile.class);
+		hs = Mockito.mock(HttpSession.class);
+		connexionBean = Mockito.spy(new ConnexionBean());
+
+		Personne p1 = new Personne();
+		TypePersonne tp1 = new TypePersonne();
+		tp1.setIdTypePersonne(3);
+		p1.setTypePersonne(tp1);
+
+		Entreprise e1 = new Entreprise();
+
+		Mockito.when(Utile.getSession()).thenReturn(hs);
+		Mockito.when(hs.getAttribute("personne")).thenReturn(p1);
+		Mockito.when(hs.getAttribute("entreprise")).thenReturn(e1);
+
+
+		personne = new Personne();
+		personneEntreprise = new Personne();
+		entreprise = new Entreprise();
+		gestionInvestisseurBean = Mockito.spy(new GestionInvestisseurBean());
+		gestionInvestisseurBean.init();
+	}
+	
+	
+	
 	@Test
 	public void testGestionInvestisseurBean() {
 		GestionInvestisseurBean G = new GestionInvestisseurBean();
@@ -18,7 +193,10 @@ public class GestionInvestisseurBeanTest {
 
 	@Test
 	public void testInit() {
-		fail("Not yet implemented");
+		gestionInvestisseurBean.init();
+		
+		ficheEntreprise = gestionInvestisseurBean.getEntreprises();
+		assertEquals("ACCENTURE", ficheEntreprise.getNomEntreprise());
 	}
 
 	@Test
@@ -83,178 +261,234 @@ public class GestionInvestisseurBeanTest {
 
 	@Test
 	public void testGetPersonne() {
-		GestionInvestisseurBean G = new GestionInvestisseurBean();
-		Personne p = new Personne();
-		G.getPersonne() ; 
-		G.setIdPersonne(1); 
-		
-		assertEquals(1, G.getPersonne().getIdPersonne());
+
+		assertNotNull(gestionInvestisseurBean.getPersonne());
 	}
 
 	@Test
-	public void testGetIdPersonne() {
-		GestionInvestisseurBean G = new GestionInvestisseurBean();
-		G.setIdPersonne(1); 
-		
-		assertEquals(1, G.getPersonne().getIdPersonne());
+	public void testGetSetIdPersonne() {
+		gestionInvestisseurBean.setIdPersonne(11);
+		assertEquals(gestionInvestisseurBean.getIdPersonne(), 11);
 	}
 
 	@Test
-	public void testSetIdPersonne() {
-		GestionInvestisseurBean G = new GestionInvestisseurBean();
-		G.setIdPersonne(1); 
-		
-		assertEquals(1, G.getPersonne().getIdPersonne());
+	public void testGetSetEmail() {
+		gestionInvestisseurBean.setEmail("a@ab");
+		assertEquals(gestionInvestisseurBean.getEmail(), "a@ab");
 	}
 
 	@Test
-	public void testGetEmail() {
-		fail("Not yet implemented");
+	public void testGetSetLogin() {
+		gestionInvestisseurBean.setLogin(NICOLAS);
+		assertEquals(gestionInvestisseurBean.getLogin(), NICOLAS);
 	}
 
 	@Test
-	public void testSetEmail() {
-		fail("Not yet implemented");
+	public void testGetSetMotDePasse() {
+		gestionInvestisseurBean.setMotDePasse(BASSEM);
+		assertEquals(gestionInvestisseurBean.getMotDePasse(), BASSEM);
 	}
 
 	@Test
-	public void testGetLogin() {
-		fail("Not yet implemented");
+	public void testGetSetNomPersonne() {
+		gestionInvestisseurBean.setNomPersonne("Nicolas");
+		assertEquals(gestionInvestisseurBean.getNomPersonne(), "Nicolas");
 	}
 
 	@Test
-	public void testSetLogin() {
-		fail("Not yet implemented");
+	public void testGetSetPrenomPersonne() {
+		gestionInvestisseurBean.setPrenomPersonne(BASSEM);
+		assertEquals(gestionInvestisseurBean.getPrenomPersonne(), BASSEM);
 	}
 
 	@Test
-	public void testGetMotDePasse() {
-		fail("Not yet implemented");
+	public void testGetSetEntreprises() {
+		Entreprise e = new Entreprise();
+		gestionInvestisseurBean.setEntreprise(e);
+		assertSame(gestionInvestisseurBean.getEntreprises(), e);
 	}
 
 	@Test
-	public void testSetMotDePasse() {
-		fail("Not yet implemented");
-	}
+	public void testGetSetDemandes() {
+		Set<Demande> demandes = new HashSet<Demande>();
+		Demande d = new Demande();
+		demandes.add(d);
+		gestionInvestisseurBean.setDemandes(demandes);
 
-	@Test
-	public void testGetNomPersonne() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetNomPersonne() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetPrenomPersonne() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetPrenomPersonne() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetEntreprises() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetEntreprise() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetDemandes() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetDemandes() {
-		fail("Not yet implemented");
+		assertSame(gestionInvestisseurBean.getDemandes(), demandes);
 	}
 
 	@Test
 	public void testAddDemande() {
-		fail("Not yet implemented");
+		Set<Demande> demandes = new HashSet<Demande>();
+		Demande d = new Demande();
+		demandes.add(d);
+		gestionInvestisseurBean.setDemandes(demandes);
+		Demande d2 = new Demande();
+		demandes.add(d2);
+		gestionInvestisseurBean.addDemande(d2);
+
+		assertSame(gestionInvestisseurBean.getDemandes(), demandes);
 	}
 
 	@Test
 	public void testRemoveDemande() {
-		fail("Not yet implemented");
+		Set<Demande> demandes = new HashSet<Demande>();
+		Demande d = new Demande();
+		demandes.add(d);
+		gestionInvestisseurBean.setDemandes(demandes);
+		Demande d2 = new Demande();
+		demandes.add(d2);
+		gestionInvestisseurBean.addDemande(d2);
+		demandes.remove(d2);
+		gestionInvestisseurBean.removeDemande(d2);
+		
+		assertSame(gestionInvestisseurBean.getDemandes(), demandes);
 	}
 
 	@Test
 	public void testGetTitres() {
-		fail("Not yet implemented");
+		Set<Titre> titres = new HashSet<Titre>();
+		Titre t = new Titre();
+		titres.add(t);
+		gestionInvestisseurBean.setTitres(titres);
+
+		assertSame(gestionInvestisseurBean.getTitres(), titres);
 	}
 
 	@Test
 	public void testSetTitres() {
-		fail("Not yet implemented");
+		Set<Titre> titres = new HashSet<Titre>();
+		Titre t = new Titre();
+		titres.add(t);
+		personne.setTitres(titres);
+
+		assertSame(gestionInvestisseurBean.getTitres(), titres);
 	}
 
 	@Test
 	public void testGetOffresEmises() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresEmises(offres);
+
+		assertSame(gestionInvestisseurBean.getOffresEmises(), offres);
 	}
 
 	@Test
 	public void testGetOffresRecues() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresRecues(offres);
+
+		assertSame(gestionInvestisseurBean.getOffresRecues(), offres);
 	}
 
 	@Test
 	public void testGetOffresEmisesList() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresEmises(offres);
+
+		assertEquals(gestionInvestisseurBean.getOffresEmisesList().get(0)
+				, o);
 	}
 
 	@Test
 	public void testGetOffresRecuesList() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresRecues(offres);
+
+		assertEquals(gestionInvestisseurBean.getOffresRecuesList().get(0), o);
 	}
 
 	@Test
 	public void testSetOffresEmises() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresEmises(offres);
+
+		assertSame(gestionInvestisseurBean.getOffresEmises(), offres);
 	}
 
 	@Test
 	public void testSetOffresRecues() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresRecues(offres);
+
+		assertSame(gestionInvestisseurBean.getOffresRecues(), offres);
 	}
 
 	@Test
 	public void testAddOffreEmises() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresEmises(offres);
+		Offre o2 = new Offre();
+		offres.add(o2);
+		gestionInvestisseurBean.addOffreEmises(o2);
+		
+		assertSame(gestionInvestisseurBean.getOffresEmises(), offres);
 	}
 
 	@Test
 	public void testAddOffreRecues() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresRecues(offres);
+		Offre o2 = new Offre();
+		offres.add(o2);
+		gestionInvestisseurBean.addOffreRecues(o2);
+
+		assertSame(gestionInvestisseurBean.getOffresRecues(), offres);
 	}
 
 	@Test
 	public void testRemoveOffreEmise() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresEmises(offres);
+		Offre o2 = new Offre();
+		offres.add(o2);
+		gestionInvestisseurBean.addOffreEmises(o2);
+		offres.remove(o);
+		gestionInvestisseurBean.removeOffreEmise(o);
+		
+		assertSame(gestionInvestisseurBean.getOffresEmises(), offres);
 	}
 
 	@Test
 	public void testRemoveOffreRecue() {
-		fail("Not yet implemented");
+		Set<Offre> offres = new HashSet<Offre>();
+		Offre o = new Offre();
+		offres.add(o);
+		gestionInvestisseurBean.setOffresRecues(offres);
+		Offre o2 = new Offre();
+		offres.add(o2);
+		gestionInvestisseurBean.addOffreRecues(o2);
+		offres.remove(o);
+		gestionInvestisseurBean.removeOffreRecue(o);
+
+		assertSame(gestionInvestisseurBean.getOffresRecues(), offres);
 	}
 
 	@Test
-	public void testGetTypePersonne() {
-		fail("Not yet implemented");
-	}
+	public void testGetSetTypePersonne() {
+		TypePersonne typ = new TypePersonne();
+		gestionInvestisseurBean.setTypePersonne(typ);
 
-	@Test
-	public void testSetTypePersonne() {
-		fail("Not yet implemented");
+		assertEquals(gestionInvestisseurBean.getTypePersonne(), typ);
 	}
 
 	@Test
@@ -264,17 +498,32 @@ public class GestionInvestisseurBeanTest {
 
 	@Test
 	public void testGetTitresList() {
-		fail("Not yet implemented");
+		Set<Titre> titres = new HashSet<Titre>();
+		Titre t = new Titre();
+		titres.add(t);
+		gestionInvestisseurBean.setTitres(titres);
+
+		assertSame(gestionInvestisseurBean.getTitresList().get(0), t);
 	}
 
 	@Test
 	public void testGetDemandesList() {
-		fail("Not yet implemented");
+		Set<Demande> demandes = new HashSet<Demande>();
+		Demande d = new Demande();
+		demandes.add(d);
+		gestionInvestisseurBean.setDemandes(demandes);
+
+		assertSame(gestionInvestisseurBean.getDemandesList().get(0), d);
 	}
 
 	@Test
 	public void testGetOffreHistoriquesEmisesList() {
-		fail("Not yet implemented");
+		Set<OffreHistorique> OffreHistoriques = new HashSet<OffreHistorique>();
+		OffreHistorique O = new OffreHistorique();
+		OffreHistoriques.add(O);
+	//	gestionInvestisseurBean.setOffreHistoriques(OffreHistoriques);
+
+		assertSame(gestionInvestisseurBean.getDemandesList().get(0), O);
 	}
 
 	@Test
@@ -293,33 +542,23 @@ public class GestionInvestisseurBeanTest {
 	}
 
 	@Test
-	public void testIsTypeCheck() {
-		fail("Not yet implemented");
+	public void testSetIsTypeCheck() {
+		gestionInvestisseurBean.setTypeCheck(false);
+		
+		assertSame(gestionInvestisseurBean.isTypeCheck(), false);	
 	}
 
 	@Test
-	public void testSetTypeCheck() {
-		fail("Not yet implemented");
+	public void testGetSetEntrepriseNom() {
+		gestionInvestisseurBean.setEntrepriseNom(BASSEM);
+		
+		assertSame(gestionInvestisseurBean.getEntrepriseNom(), BASSEM);
 	}
 
 	@Test
-	public void testGetEntrepriseNom() {
-		fail("Not yet implemented");
+	public void testGetSetTypeNom() {
+		gestionInvestisseurBean.setTypeNom(BASSEM);
+		
+		assertSame(gestionInvestisseurBean.getTypeNom(), BASSEM);
 	}
-
-	@Test
-	public void testSetEntrepriseNom() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testGetTypeNom() {
-		fail("Not yet implemented");
-	}
-
-	@Test
-	public void testSetTypeNom() {
-		fail("Not yet implemented");
-	}
-
 }
